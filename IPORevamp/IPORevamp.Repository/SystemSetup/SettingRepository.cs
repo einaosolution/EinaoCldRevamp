@@ -19,6 +19,7 @@ using IPORevamp.Repository.Event;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using System.Data.SqlClient;
+using IPORevamp.Data.TempModel;
 
 namespace IPORevamp.Repository.SystemSetup
 {
@@ -35,16 +36,20 @@ namespace IPORevamp.Repository.SystemSetup
         private IRepository<PTApplicationStatus> _ptApplicationStatusrepository;
         private IRepository<DSApplicationStatus> _dsApplicationStatus;
         private IRepository<Setting> _settingrepository;
-     
+        private IRepository<UserVerificationTemp> _userVerirepository;
+
+
 
         public SettingRepository(IRepository<Country> countryrepository,
             IRepository<State> staterepository,
             IRepository<lga> lgarepository, 
             IRepository<TMApplicationStatus> tmApplicationStatusrepository, 
             IAuditTrailManager<AuditTrail> auditTrailManager,
+            IRepository<UserVerificationTemp> userVerirepository,
             IRepository<DSApplicationStatus> dsApplicationStatus, IRepository<Setting> settingrepository)
         {
             _countryrepository = countryrepository;
+            _userVerirepository = userVerirepository;
             _staterepository = staterepository;
             _tmApplicationStatusrepository = tmApplicationStatusrepository;
             _lgarepository = lgarepository;
@@ -63,9 +68,19 @@ namespace IPORevamp.Repository.SystemSetup
             return saveContent.Entity;
         }
 
-       
-      
-    
+
+        public async Task<UserVerificationTemp> SaveUserVerification(UserVerificationTemp userverificationTemp)
+        {
+
+            var saveContent = await _userVerirepository.InsertOrUpdateAsync(userverificationTemp);
+            _userVerirepository.SaveChanges();
+            return saveContent.Entity;
+        }
+
+
+
+
+
         public async Task<Country> GetCountryById(int CountryId)
         {
             var country = await _countryrepository.GetAll().FirstOrDefaultAsync(x => x.Id == CountryId);
@@ -108,9 +123,12 @@ namespace IPORevamp.Repository.SystemSetup
             return settings;
         }
 
-        public async Task<List<Setting>> GetSettings(string SetSettingCode)
+        public async Task<Setting> GetSettings(string SetSettingCode)
         {
-            throw new NotImplementedException();
+            var setting  = await _settingrepository.GetAll().FirstOrDefaultAsync(a => a.SettingCode.ToLower()
+                                                       == SetSettingCode.ToLower());
+            return setting;
+            //  throw new NotImplementedException();
         }
 
         public Task<State> SaveState(State state)

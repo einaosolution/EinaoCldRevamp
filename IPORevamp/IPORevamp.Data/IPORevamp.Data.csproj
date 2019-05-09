@@ -14,6 +14,7 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190508121526_05082019xxrrpp.cs" />
     <Compile Remove="Migrations\20190508121526_05082019xxrrpp.Designer.cs" />
+    <Compile Remove="Migrations\20190509144145_updatetemptable2.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

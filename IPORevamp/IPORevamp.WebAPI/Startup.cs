@@ -28,7 +28,7 @@ using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IPORevamp.Data.Entities.AuditTrail;
-using IPORevamp.Data.Entity.Interface;
+
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Logging;
@@ -42,6 +42,10 @@ using System.Net;
 using IPORevamp.Data.Entities.Payment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using IPORevamp.Repository.Base;
+using IPORevamp.Repository.SystemSetup;
+using IPORevamp.Data.Entity.Interface;
+using NACC.Data.UserManagement.Model;
 
 namespace IPORevamp.WebAPI
 {
@@ -156,6 +160,10 @@ namespace IPORevamp.WebAPI
             services.AddTransient<IBilling<BillLog, PaymentLog, ApplicationUser, int>, Billing<BillLog, PaymentLog, ApplicationUser, int>>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();
+            services.AddTransient<Repository.Event.ISettingRepository, SettingRepository>();
+            services.AddTransient<IEmailSender, EmailService>();
+
+
 
             services.AddSwaggerGen(c =>
             {

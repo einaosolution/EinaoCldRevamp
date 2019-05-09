@@ -17,6 +17,7 @@ using IPORevamp.Data.Entities.Event;
 using IPORevamp.Data.Entities.Payment;
 using IPORevamp.Data.Entities.Modules;
 using IPORevamp.Data.Entities.Setting;
+using IPORevamp.Data.TempModel;
 
 namespace IPORevamp.Data
 {
@@ -39,6 +40,8 @@ namespace IPORevamp.Data
        
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Country> Country { get; set; }
+        public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
+        
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
         public DbSet<lga> LGAs { get; set; }
         

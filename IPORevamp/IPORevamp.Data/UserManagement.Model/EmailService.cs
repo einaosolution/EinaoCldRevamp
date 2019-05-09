@@ -19,7 +19,8 @@ namespace NACC.Data.UserManagement.Model
 
         public static bool _mailSent;
         private readonly string _emailFrom;// = "info@nacc.org";
-     
+        
+
 
         // private ILog _logger;
         public EmailService(IConfiguration configuration )
@@ -30,7 +31,9 @@ namespace NACC.Data.UserManagement.Model
             _smtpHost = configuration.GetSection("EmailSettings:SMTPHost").Value;
             _emailFrom = configuration.GetSection("EmailSettings:EmailFrom").Value;
         }
-        public async Task SendEmailAsync(string email, string subject, string message)
+
+       
+            public async Task SendEmailAsync(string email, string subject, string message)
         {
 
             try

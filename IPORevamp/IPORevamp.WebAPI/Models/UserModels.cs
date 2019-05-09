@@ -87,6 +87,20 @@ namespace IPORevamp.WebAPI.Models
         public string Code { get; set; }
     }
 
+
+    public class EmailVerificationView
+    {
+        [Required(ErrorMessage = "Please provide Email")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = "Please supply First Name")]
+        public string First_Name { get; set; }
+        [Required(ErrorMessage = "Please supply Last Name")]
+        public string Last_Name { get; set; }
+
+        [Required(ErrorMessage = "Please supply Category")]
+        public string Category { get; set; }
+    }
+
     public class PasswordResetModel
     {
         

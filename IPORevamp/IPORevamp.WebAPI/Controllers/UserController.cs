@@ -17,6 +17,11 @@ using EmailEngine.Base.Entities;
 using EmailEngine.Repository.EmailRepository;
 using IPORevamp.Data.Entities.AuditTrail;
 using IPORevamp.Repository.Event;
+using IPORevamp.Data;
+using IPORevamp.Data.TempModel;
+using IPORevamp.Repository.Interface;
+using IPORevamp.Repository.SystemSetup;
+using IPORevamp.Data.Entity.Interface;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -26,6 +31,14 @@ namespace IPORevamp.WebAPI.Controllers
     {
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
+
+        private readonly ISettingRepository  settings;
+        private readonly IEmailSender _emailsender;
+
+
+
+
+
         public UserController(
             UserManager<ApplicationUser> userManager, 
             RoleManager<ApplicationRole> roleManager,
@@ -33,8 +46,12 @@ namespace IPORevamp.WebAPI.Controllers
             IConfiguration configuration, 
             IMapper mapper, ILogger<UserController> logger,
             IEmailManager<EmailLog, EmailTemplate> emailManager,
+            ISettingRepository  settingrepository,
+            IEmailSender emailsender,
+
             IAuditTrailManager<AuditTrail> auditTrailManager,
             IEventRepository eventRepository
+           
             ) : base(
                 userManager,
                 signInManager,
@@ -47,7 +64,10 @@ namespace IPORevamp.WebAPI.Controllers
                 )
         {
             _emailManager = emailManager;
-            
+            settings = settingrepository;
+            _emailsender = emailsender;
+
+
         }
 
         // <summary>
@@ -55,6 +75,50 @@ namespace IPORevamp.WebAPI.Controllers
         /// </summary>
         /// <param name="id">The ID of the desired Employee</param>
         /// <returns>A string status</returns>
+        /// 
+
+      
+        [HttpPost("EmailVerification")]
+        public async Task<IActionResult> EmailVerification(EmailVerificationView model)
+        {
+            var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation
+               ).FirstOrDefault(x => x.IsActive);
+            EmailLog emaillog = new EmailLog();
+            emaillog.MailBody = emailtemplate.EmailBody;
+            emaillog.Status = IPOEmailStatus.Fresh;
+            emaillog.Subject = emailtemplate.EmailSubject;
+            emaillog.DateCreated = DateTime.Now;
+            emaillog.Receiver = model.Email;
+            emaillog.Sender = emailtemplate.EmailSender;
+            emaillog.SendImmediately = true;
+            
+
+
+
+
+
+          //  _emailManager.LogEmail(emaillog);
+
+            UserVerificationTemp UserVerification = new UserVerificationTemp();
+            UserVerification.First_Name = model.First_Name;
+            UserVerification.Last_Name = model.Last_Name;
+            UserVerification.Email = model.Email;
+            UserVerification.Category = model.Category;
+            UserVerification.expired = false;
+            UserVerification.DateCreated = DateTime.Now;
+            UserVerification.IsActive = true;
+
+
+            settings.SaveUserVerification(UserVerification);
+
+            _emailsender.SendEmailAsync(model.Email, emailtemplate.EmailSubject, emailtemplate.EmailBody);
+
+
+
+
+            return PrepareResponse(HttpStatusCode.OK, "EmailVerification Created", false);
+
+        }
         [HttpPost("signup")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {

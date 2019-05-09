@@ -8,6 +8,7 @@ using IPORevamp.Data.Entities.Event;
 using IPORevamp.Data.Entities.Modules;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
+using IPORevamp.Data.TempModel;
 
 namespace IPORevamp.Repository.Event
 {
@@ -21,11 +22,12 @@ namespace IPORevamp.Repository.Event
         Task<List<Country>> GetCountries();
         #endregion
 
+        Task<UserVerificationTemp> SaveUserVerification(UserVerificationTemp userverificationTemp);
 
 
 
         #region AccountType Respository
-       
+
         Task<AccountType> AccountType(string AccountTypeCode);
 
         #endregion
@@ -33,7 +35,8 @@ namespace IPORevamp.Repository.Event
         #region Lookup Respository
         Task<Setting> SaveSetting(Setting setting);   
         Task<List<Setting>> GetSettings();
-        Task<List<Setting>> GetSettings(string SetSettingCode);
+        Task<Setting> GetSettings(string SetSettingCode);
+
         #endregion
 
         #region State Respository
