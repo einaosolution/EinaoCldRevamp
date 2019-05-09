@@ -1,0 +1,44 @@
+
+    <div [ngBusy]="busy"></div>
+  <table class="table table-bordered table-striped table-hover table-dark">
+    <thead>
+    <tr>
+
+          <th>FirstName</th>
+          <th>LastName</th>
+
+          <th>MiddleName</th>
+          <th>PhoneNumber</th>
+          <th>Program</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Date Of Birth</th>
+          <th>Email</th>
+          <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    <tr *ngFor="let emp of rows | paginate: { itemsPerPage: p2, currentPage: p }; let i = index"> -->
+        <tr *ngFor="let emp of row ; let i = index">
+    <td>{{emp.firstName}}</td>
+
+      <td>{{emp.lastName}}</td>
+      <td>{{emp.middleName}}</td>
+      <td>{{emp.phoneNumber}}</td>
+      <td>{{emp.program}}</td>
+      <td>{{emp.address}}</td>
+      <td>{{emp.city}}</td>
+      <td>{{emp.state}}</td>
+      <td>{{emp.dob  | date : 'mediumDate'}}</td>
+      <td>{{emp.email}}</td>
+      <td>{{emp.role}}</td>
+
+
+
+
+    </tr>
+    </tbody>
+
+
+    </table>

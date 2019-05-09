@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Users\oayegbayo\Documents\API</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="Controllers/AccountController.cs">
+      <publishTime>02/15/2019 12:27:35</publishTime>
+    </File>
+    <File Include="Controllers/AuditController.cs">
+      <publishTime>02/19/2019 16:34:50</publishTime>
+    </File>
+    <File Include="Controllers/BaseController.cs">
+      <publishTime>02/26/2019 13:00:17</publishTime>
+    </File>
+    <File Include="Controllers/EventController.cs">
+      <publishTime>02/28/2019 08:25:41</publishTime>
+    </File>
+    <File Include="Controllers/FilesController.cs">
+      <publishTime>02/27/2019 19:19:29</publishTime>
+    </File>
+    <File Include="Controllers/HomeController.cs">
+      <publishTime>02/08/2019 15:41:32</publishTime>
+    </File>
+    <File Include="Controllers/ProfileController.cs">
+      <publishTime>02/25/2019 15:32:26</publishTime>
+    </File>
+    <File Include="Controllers/QuotesController.cs">
+      <publishTime>02/25/2019 13:31:03</publishTime>
+    </File>
+    <File Include="Controllers/UserController.cs">
+      <publishTime>02/28/2019 09:35:31</publishTime>
+    </File>
+    <File Include="Controllers/ValuesController.cs">
+      <publishTime>02/18/2019 13:33:50</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,16 @@
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Repository.deps.json
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Repository.dll
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Repository.pdb
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\EmailEngine.dll
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Core.dll
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Data.dll
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Data.pdb
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\EmailEngine.pdb
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\bin\Debug\netcoreapp2.1\VATEEP.Core.pdb
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.csprojAssemblyReference.cache
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.csproj.CoreCompileInputs.cache
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.AssemblyInfoInputs.cache
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.AssemblyInfo.cs
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.csproj.CopyComplete
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.dll
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Repository\obj\Debug\netcoreapp2.1\VATEEP.Repository.pdb

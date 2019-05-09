@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vateep.WebAPI</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "M:Vateep.WebAPI.Controllers.UserController.Register(Vateep.WebAPI.Models.RegisterViewModel)" -->
+    </members>
+</doc>

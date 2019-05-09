@@ -1,0 +1,2 @@
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Data\obj\Debug\VATEEP.Data.csproj.CoreCompileInputs.cache
+C:\Users\oayegbayo\source\repos\VATEEP\VATEEP.Data\obj\Debug\VATEEP.Data.csprojAssemblyReference.cache

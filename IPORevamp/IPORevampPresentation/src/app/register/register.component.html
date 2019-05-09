@@ -1,0 +1,95 @@
+ <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box on-sidebar">
+                <div>
+                    <div class="logo">
+                        <span class="db"><img src="assets/images/FMITILogo-NEW.png" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">Sign Up to Register</h5>
+                    </div>
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <form class="form-horizontal m-t-20" [formGroup]="userform" >
+                                <div class="form-group row ">
+                                    <div class="col-12 ">
+                                        <input  formControlName="firstName"   class="form-control   form-control-lg"  [ngClass]="{ 'is-invalid': submitted && firstName.errors }" type="text" required=" " placeholder="First Name">
+                                        <div *ngIf="submitted && firstName.errors" class="invalid-feedback">
+                                          <div *ngIf="submitted && firstName.errors.required">First Name is required</div>
+                                      </div>
+
+                                      </div>
+                                </div>
+                                <div class="form-group row ">
+                                    <div class="col-12 ">
+                                        <input class="form-control form-control-lg"  formControlName="lastName"  [ngClass]="{ 'is-invalid': submitted && lastName.errors }" type="text" required=" " placeholder="Last Name">
+                                        <div *ngIf="submitted && lastName.errors" class="invalid-feedback">
+                                          <div *ngIf="submitted && lastName.errors.required">Last Name is required</div>
+                                      </div>
+
+                                      </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12 ">
+                                        <input class="form-control form-control-lg" formControlName="Email" type="text" required=" "  [ngClass]="{ 'is-invalid': submitted && Email.errors }" placeholder="Email">
+                                        <div *ngIf="submitted && Email.errors" class="invalid-feedback">
+                                          <div *ngIf="submitted && Email.errors.required">Email is required</div>
+                                          <div *ngIf="submitted && Email.errors.email">Email must be a valid email address</div>
+                                        </div>
+
+                                      </div>
+                                </div>  <div class="form-group row">
+                                    <div class="col-12">
+                                        <select   name="Month"  formControlName="program"     class="custom-select form-control-lg"  [ngClass]="{ 'is-invalid': submitted && program.errors }" id="Month">
+                                            <option  value= "">
+                                                Choose Category
+                                              </option>
+                                            <option *ngFor="let country2 of varray4" value= {{country2.YearCode}}>
+                                              {{country2.YearName}}
+                                            </option>
+                                          </select>
+
+                                          <div *ngIf="submitted && program.errors" class="invalid-feedback">
+                                              <div *ngIf="submitted && program.errors.required">Category is required</div>
+                                          </div>
+
+                                 </div>
+                                </div>
+
+
+
+                                <div class="form-group row">
+                                    <div class="col-md-12 ">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">I agree to all <a href="javascript:void(0)">Terms</a></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group text-center ">
+                                    <div class="col-xs-12 p-b-20 ">
+                                        <button class="btn btn-block btn-lg btn-success"  (click) ="onSubmit()"  type="button">SIGN UP</button>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-0 m-t-10 ">
+                                    <div class="col-sm-12 text-center ">
+                                        Already have an account? <a href="#/home" class="text-info m-l-5 "><b>Sign In</b></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>

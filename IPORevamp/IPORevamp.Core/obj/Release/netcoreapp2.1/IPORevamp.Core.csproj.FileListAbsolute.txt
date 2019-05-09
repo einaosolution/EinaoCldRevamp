@@ -1,0 +1,12 @@
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\IPORevamp.Core.deps.json
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\IPORevamp.Core.dll
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\IPORevamp.Core.pdb
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.dll
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.xml
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.csprojAssemblyReference.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.csproj.CoreCompileInputs.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.AssemblyInfoInputs.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.AssemblyInfo.cs
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.csproj.CopyComplete
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.dll
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.pdb

@@ -1,0 +1,6 @@
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Payment\bin\Debug\netcoreapp2.0\IPORevamp.Payment.deps.json
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Payment\bin\Debug\netcoreapp2.0\IPORevamp.Payment.dll
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Payment\obj\Debug\netcoreapp2.0\IPORevamp.Payment.csprojResolveAssemblyReference.cache
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Payment\obj\Debug\netcoreapp2.0\IPORevamp.Payment.csproj.CoreCompileInputs.cache
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Payment\obj\Debug\netcoreapp2.0\IPORevamp.Payment.AssemblyInfoInputs.cache
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Payment\obj\Debug\netcoreapp2.0\IPORevamp.Payment.AssemblyInfo.cs
