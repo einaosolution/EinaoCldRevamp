@@ -73,7 +73,7 @@ namespace NACC.Data.UserManagement.Model
            
             mMessage.To.Add(email);
             mMessage.Subject = subject;
-            mMessage.From = new MailAddress($"NACC <{_emailFrom}>");
+            mMessage.From = new MailAddress($"IPO Nigeria <{_emailFrom}>");
             mMessage.Body = message;
             mMessage.Priority = MailPriority.High;
             mMessage.IsBodyHtml = true;

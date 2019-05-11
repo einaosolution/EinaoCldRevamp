@@ -19,5 +19,12 @@ namespace EmailEngine.Base.Entities
         Sent,
         Failed
     }
+
+    public class IPOCONSTANT
+    {
+        public const string ACTIVATIONCODE = "ACTIVATIONEMAIL";
+    }
+
+  
 }
 

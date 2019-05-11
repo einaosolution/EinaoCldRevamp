@@ -54,7 +54,7 @@ namespace IPORevamp.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            
-            optionsBuilder.UseSqlServer("Server=5.77.54.44;Initial Catalog=IPORevampDB;MultipleActiveResultSets=true;User ID=TestUser;Password=Password12345", b => b.MigrationsAssembly("IPORevamp.Data"));
+            optionsBuilder.UseSqlServer("Server=5.77.54.44; Database=IPORevampDB;User ID=TestUser;Password=Password12345;MultipleActiveResultSets=true;", b => b.MigrationsAssembly("IPORevamp.Data"));
         }
         public IPOContext(DbContextOptions<IPOContext> options) :base(options)
         {

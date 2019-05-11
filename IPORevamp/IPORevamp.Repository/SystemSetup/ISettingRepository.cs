@@ -35,8 +35,7 @@ namespace IPORevamp.Repository.Event
         #region Lookup Respository
         Task<Setting> SaveSetting(Setting setting);   
         Task<List<Setting>> GetSettings();
-        Task<Setting> GetSettings(string SetSettingCode);
-
+        Task<List<Setting>> GetSettingsByCode(string SetSettingCode);
         #endregion
 
         #region State Respository
@@ -68,8 +67,10 @@ namespace IPORevamp.Repository.Event
         Task<DSApplicationStatus> GetDesignApplicationStatusById(int Id);
         #endregion
 
+        #region MyRegion
 
-  
+        #endregion
+
         //Task<List<EventInfo>> FetchOrganizedEvents(int organizerId);
         //Task<string> SaveAttendeeAsync(Attendee attendee);
         //Task SaveSession(int eventId, EventSessions session);

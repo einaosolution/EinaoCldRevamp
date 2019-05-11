@@ -11,5 +11,7 @@ namespace IPORevamp.Data.Entities.Setting
 
         // the code 
         public string SettingCode { get; set; }
+
+      
     }
 }

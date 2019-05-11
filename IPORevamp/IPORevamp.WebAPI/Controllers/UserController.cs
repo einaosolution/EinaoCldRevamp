@@ -22,6 +22,7 @@ using IPORevamp.Data.TempModel;
 using IPORevamp.Repository.Interface;
 using IPORevamp.Repository.SystemSetup;
 using IPORevamp.Data.Entity.Interface;
+using IPORevamp.Data.Entities.Setting;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -81,42 +82,74 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpPost("EmailVerification")]
         public async Task<IActionResult> EmailVerification(EmailVerificationView model)
         {
-            var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation
-               ).FirstOrDefault(x => x.IsActive);
-            EmailLog emaillog = new EmailLog();
-            emaillog.MailBody = emailtemplate.EmailBody;
-            emaillog.Status = IPOEmailStatus.Fresh;
-            emaillog.Subject = emailtemplate.EmailSubject;
-            emaillog.DateCreated = DateTime.Now;
-            emaillog.Receiver = model.Email;
-            emaillog.Sender = emailtemplate.EmailSender;
-            emaillog.SendImmediately = true;
-            
+            try
+            {
+
+                var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
+
+                EmailLog emaillog = new EmailLog();
+                emaillog.MailBody = emailtemplate.EmailBody;
+                emaillog.Status = IPOEmailStatus.Fresh;
+                emaillog.Subject = emailtemplate.EmailSubject;
+                emaillog.DateCreated = DateTime.Now;
+                emaillog.Receiver = model.Email;
+                emaillog.Sender = emailtemplate.EmailSender;
+                emaillog.SendImmediately = true;
+
+
+                // Get the number of hours in min for the link to expire 
+                var getSettingList = await settings.GetSettingsByCode(EmailEngine.Base.Entities.IPOCONSTANT.ACTIVATIONCODE);
+
+
+                // add the mins to the current datetime, which is study in hours
+                DateTime expiringDate = DateTime.Now.AddMinutes(Convert.ToInt32(getSettingList.FirstOrDefault().ItemValue));
+
+                // log the user registration detials before verification 
+                UserVerificationTemp UserVerification = new UserVerificationTemp();
+                UserVerification.First_Name = model.First_Name;
+                UserVerification.Last_Name = model.Last_Name;
+                UserVerification.Email = model.Email;
+                UserVerification.Category = model.Category;
+                UserVerification.expired = false;
+                UserVerification.ExpiringDate = expiringDate;
+                UserVerification.DateCreated = DateTime.Now;
+                UserVerification.IsActive = true;
+
+                await settings.SaveUserVerification(UserVerification);
+
+                string mailContent = emailtemplate.EmailBody;
+                mailContent = mailContent.Replace("#name", model.First_Name + ' ' + model.Last_Name);
+                mailContent = mailContent.Replace("#Duration", expiringDate.ToString());
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                // Encryt the email address or id based on what you need for verification 
+                // usi
+                mailContent = mailContent.Replace("#Link", _configuration["ACTIVIATIONURL"] + "?code=" +
+                                                            IPORevamp.Core.Utilities.Utilities.Encrypt(model.Email));
 
 
 
+                //Email the verification to the registered email address 
+                await _emailsender.SendEmailAsync(model.Email, emailtemplate.EmailSubject, mailContent);
 
+                // Log the activities 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"Activiation Code  for  {model.First_Name + ' ' + model.Last_Name} was sent to {model.Email} ",
+                    Entity = "User",
+                    UserId = 0,
+                    UserName = model.Email,
+                });
 
-          //  _emailManager.LogEmail(emaillog);
-
-            UserVerificationTemp UserVerification = new UserVerificationTemp();
-            UserVerification.First_Name = model.First_Name;
-            UserVerification.Last_Name = model.Last_Name;
-            UserVerification.Email = model.Email;
-            UserVerification.Category = model.Category;
-            UserVerification.expired = false;
-            UserVerification.DateCreated = DateTime.Now;
-            UserVerification.IsActive = true;
-
-
-            settings.SaveUserVerification(UserVerification);
-
-            _emailsender.SendEmailAsync(model.Email, emailtemplate.EmailSubject, emailtemplate.EmailBody);
-
-
-
-
-            return PrepareResponse(HttpStatusCode.OK, "EmailVerification Created", false);
+                return PrepareResponse(HttpStatusCode.OK, "Email Verification Created", false);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred", null);
+                return PrepareResponse(HttpStatusCode.PreconditionFailed, "Email Verification Failure", false);
+            }
 
         }
         [HttpPost("signup")]
@@ -207,8 +240,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                     await _emailManager.LogEmail(new EmailLog
                     {
-                        //BCC = "timileyinayegbayo@gmail.com",
-                        //CC= "timileyinayegbayo@gmail.com",
+                        
                         CreatedBy = user.UserName,
                         MailBody = emailBody,
                         Receiver = user.Email,

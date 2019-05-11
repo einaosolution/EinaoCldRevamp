@@ -71,7 +71,6 @@ namespace IPORevamp.Repository.SystemSetup
 
         public async Task<UserVerificationTemp> SaveUserVerification(UserVerificationTemp userverificationTemp)
         {
-
             var saveContent = await _userVerirepository.InsertOrUpdateAsync(userverificationTemp);
             _userVerirepository.SaveChanges();
             return saveContent.Entity;
@@ -128,17 +127,20 @@ namespace IPORevamp.Repository.SystemSetup
             var setting  = await _settingrepository.GetAll().FirstOrDefaultAsync(a => a.SettingCode.ToLower()
                                                        == SetSettingCode.ToLower());
             return setting;
-            //  throw new NotImplementedException();
+           
         }
 
-        public Task<State> SaveState(State state)
+        public async Task<State> SaveState(State state)
         {
-            throw new NotImplementedException();
+            var saveContent = await _staterepository.InsertOrUpdateAsync(state);
+            _countryrepository.SaveChanges();
+            return saveContent.Entity;
         }
 
-        public Task<List<State>> GetStates()
+        public async Task<List<State>> GetStates()
         {
-            throw new NotImplementedException();
+            var contents = await _staterepository.GetAllListAsync();
+            return contents;
         }
 
         public Task<State> GetStatesById(int Id)
@@ -146,9 +148,11 @@ namespace IPORevamp.Repository.SystemSetup
             throw new NotImplementedException();
         }
 
-        public Task<lga> SaveLocalGovtArea(lga state)
+        public async Task<lga> SaveLocalGovtArea(lga lga)
         {
-            throw new NotImplementedException();
+            var saveContent = await _lgarepository.InsertOrUpdateAsync(lga);
+            _countryrepository.SaveChanges();
+            return saveContent.Entity;
         }
 
         public Task<State> GetLgaById(int Id)
@@ -156,19 +160,23 @@ namespace IPORevamp.Repository.SystemSetup
             throw new NotImplementedException();
         }
 
-        public Task<PTApplicationStatus> SavePatentApplicationStatus(PTApplicationStatus pTApplicationStatus)
+        public async Task<PTApplicationStatus> SavePatentApplicationStatus(PTApplicationStatus pTApplicationStatus)
+        {
+            var saveContent = await _ptApplicationStatusrepository.InsertOrUpdateAsync(pTApplicationStatus);
+            _ptApplicationStatusrepository.SaveChanges();
+            return saveContent.Entity;
+        }
+
+        public async Task<PTApplicationStatus> GetPatentApplicationStatusById(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PTApplicationStatus> GetPatentApplicationStatusById(int Id)
+        public async Task<TMApplicationStatus> SaveTradeMarkApplicationStatus(TMApplicationStatus tMApplicationStatus)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<TMApplicationStatus> SaveTradeMarkApplicationStatus(TMApplicationStatus tMApplicationStatus)
-        {
-            throw new NotImplementedException();
+            var saveContent = await _tmApplicationStatusrepository.InsertOrUpdateAsync(tMApplicationStatus);
+            _tmApplicationStatusrepository.SaveChanges();
+            return saveContent.Entity;
         }
 
         public Task<TMApplicationStatus> GetTradeMarkApplicationStatusById(int Id)
@@ -176,9 +184,11 @@ namespace IPORevamp.Repository.SystemSetup
             throw new NotImplementedException();
         }
 
-        public Task<DSApplicationStatus> SaveDesignApplicationStatus(DSApplicationStatus dSApplicationStatus)
+        public async Task<DSApplicationStatus> SaveDesignApplicationStatus(DSApplicationStatus dSApplicationStatus)
         {
-            throw new NotImplementedException();
+            var saveContent = await _dsApplicationStatusrepository.InsertOrUpdateAsync(dSApplicationStatus);
+            _tmApplicationStatusrepository.SaveChanges();
+            return saveContent.Entity;
         }
 
         public Task<DSApplicationStatus> GetDesignApplicationStatusById(int Id)
@@ -193,5 +203,14 @@ namespace IPORevamp.Repository.SystemSetup
             //return View(model);
             return null;
         }
+
+      
+
+        public async Task<List<Setting>> GetSettingsByCode(string SetSettingCode)
+        {
+            var settings = await _settingrepository.GetAll().Where(x => x.SettingCode == SetSettingCode).ToListAsync();
+            return settings;
+        }
+
     }
 }
