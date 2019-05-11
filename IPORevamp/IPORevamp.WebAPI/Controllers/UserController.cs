@@ -85,7 +85,8 @@ namespace IPORevamp.WebAPI.Controllers
             try
             {
 
-                var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
+                var emailtemplate = _emailManager.GetEmailTemplate(model.Category == "Corporate/Agent" ? IPOEmailTemplateType.PasswordReset : IPOEmailTemplateType.AccountCreation
+).FirstOrDefault(x => x.IsActive);
 
                 EmailLog emaillog = new EmailLog();
                 emaillog.MailBody = emailtemplate.EmailBody;

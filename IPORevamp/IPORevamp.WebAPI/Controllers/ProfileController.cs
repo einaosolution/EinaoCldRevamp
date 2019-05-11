@@ -149,19 +149,19 @@ namespace IPORevamp.WebAPI.Controllers
                     user.CountryCode = model.CountryCode;
                     user.DoB = model.DoB;
                     user.EmployerName = model.EmployerName;
-                    user.FaceBook = model.FaceBook;
+                   // user.FaceBook = model.FaceBook;
                     user.FirstName = model.FirstName;
                     user.Gender = model.Gender;
-                    user.GooglePlus = model.GooglePlus;
-                    user.Instagram = model.Instagram;
-                    user.Interests = model.Interests;
+                   // user.GooglePlus = model.GooglePlus;
+                   // user.Instagram = model.Instagram;
+                   // user.Interests = model.Interests;
                     user.LastName = model.LastName;
                     user.MiddleName = model.MiddleName;
                     user.MobileNumber = model.PhoneNumber;
                     user.PhoneNumber = model.PhoneNumber;
                     user.ResidentialAddress = model.ResidentialAddress;
                     user.Title = model.Title;
-                    user.Twitter = model.Twitter;
+                 //   user.Twitter = model.Twitter;
                     user.Nationality = model.Nationality;
 
                     var updated = await _userManager.UpdateAsync(user);

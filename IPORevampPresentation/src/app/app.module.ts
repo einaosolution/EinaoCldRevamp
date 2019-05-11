@@ -26,6 +26,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Home2Component } from './home2/home2.component';
+import { CorporateComponent } from './corporate/corporate.component';
+import { IndividualComponent } from './individual/individual.component';
 
 
 
@@ -44,7 +46,9 @@ import { Home2Component } from './home2/home2.component';
     SidebarComponent,
     EmailverificationComponent,
     DashboardComponent,
-    Home2Component
+    Home2Component,
+    CorporateComponent,
+    IndividualComponent
   ],
   imports: [
     BrowserModule,

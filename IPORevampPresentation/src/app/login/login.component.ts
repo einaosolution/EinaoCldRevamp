@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ApiClientService} from '../api-client.service';
 import {Router} from '@angular/router';
+import {ActivatedRoute} from "@angular/router";
+import Swal from 'sweetalert2' ;
 declare var jquery:any;
 declare var $ :any;
 @Component({
@@ -25,7 +27,33 @@ export class LoginComponent implements OnInit {
   messages = ""
   public formSubmitAttempt: boolean;
   busy: Promise<any>;
-  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router) {
+  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute) {
+    this.route.params.subscribe( params =>
+      {
+        if (params.id) {
+          console.log(params.id)
+          Swal.fire({
+            title: 'Account Confirmed ',
+            text: "Do You want  to proceed",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, proceed'
+          }).then((result) => {
+            if (result.value) {
+
+
+            }
+          })
+        }
+
+      }
+
+
+      );
+
+
 
 
    }

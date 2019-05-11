@@ -8,7 +8,8 @@ import {EventEmitter} from '@angular/core';
 })
 export class ApiClientService {
   public vpage :string =""
-  serviceBase = 'http://localhost:5000';
+  serviceBase = 'http://localhost:5000/';
+ // serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
   navchange: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
@@ -45,7 +46,7 @@ export class ApiClientService {
   Register(formData) {
 
 
-    return this.http.post( this.serviceBase + 'api/User/signup', formData)
+    return this.http.post( this.serviceBase + 'api/users/EmailVerification', formData)
                 .toPromise()
 
                 .then(data => {  return data; });

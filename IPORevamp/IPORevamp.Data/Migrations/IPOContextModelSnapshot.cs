@@ -659,6 +659,10 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("Bio");
 
+                    b.Property<bool>("ChangePassword");
+
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -679,17 +683,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("EmployerName");
 
-                    b.Property<string>("FaceBook");
-
                     b.Property<string>("FirstName");
 
                     b.Property<int>("Gender");
-
-                    b.Property<string>("GooglePlus");
-
-                    b.Property<string>("Instagram");
-
-                    b.Property<string>("Interests");
 
                     b.Property<bool>("IsActive");
 
@@ -723,7 +719,11 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("PostalCode");
+
                     b.Property<string>("ProfilePicLoc");
+
+                    b.Property<string>("Rcno");
 
                     b.Property<string>("ResidentialAddress");
 
@@ -733,9 +733,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int>("Title");
+                    b.Property<string>("State");
 
-                    b.Property<string>("Twitter");
+                    b.Property<int>("Title");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -743,6 +743,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("Website");
 
                     b.HasKey("Id");
 

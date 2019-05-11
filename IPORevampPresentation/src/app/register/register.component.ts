@@ -3,6 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ApiClientService} from '../api-client.service';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2' ;
+//const Swal = require('sweetalert2')
+
 
 
 @Component({
@@ -30,6 +33,7 @@ export class RegisterComponent implements OnInit {
   busy: Promise<any>;
   pp4:boolean=false;
   public formSubmitAttempt: boolean;
+
   varray4 = [{ YearName: 'Applicant/Individual', YearCode: 'Applicant/Individual' }, { YearName: 'Corporate/Agent', YearCode: 'Corporate/Agent' } ]
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router) { }
 
@@ -67,7 +71,7 @@ this.submitted= true;
 if (this.userform.valid) {
 
   var kk = {
-    Username:this.userform.value.Email  ,
+    Email:this.userform.value.Email  ,
     First_Name:this.userform.value.firstName ,
     Last_Name:this.userform.value.lastName ,
     Category:this.userform.value.program
@@ -77,20 +81,29 @@ if (this.userform.valid) {
 
 
 
-  this.router.navigate(['/Emailverification']);
+ // this.router.navigate(['/Emailverification']);
 
 
-  //this.registerapi
-  //  .Register(kk)
-    //.then((response: any) => {
-    //  alert("User Registered Successfully")
-    //  this.router.navigate(['/Emailverification']);
+ this.busy =   this.registerapi
+    .Register(kk)
+    .then((response: any) => {
 
-   // })
-         //    .catch((response: any) => {
-          //    alert("Error Occured")
-    // }
-    // );
+      this.submitted=false;
+      Swal.fire(
+        'Saved Succesfully , Activation email has been sent',
+        '',
+        'success'
+      )
+   //  this.router.navigate(['/Emailverification']);
+
+   this.userform.reset();
+
+    })
+             .catch((response: any) => {
+               console.log(response)
+              alert("Error Occured")
+     }
+     );
 
 
 }
@@ -113,6 +126,8 @@ if (this.userform.valid) {
 
 
   ngOnInit() {
+
+
 
     if (this.islogged()) {
       this.router.navigateByUrl('/logout');
