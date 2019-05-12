@@ -34,14 +34,19 @@ namespace IPORevamp.Data.UserManagement.Model
         public string Occupation { get; set; }
         public string ResidentialAddress { get; set; }
         public string PhoneNumber { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
         public string CountryCode { get; set; }
         public string ProfilePicLoc { get; set; }
-      //  public string Interests { get; set; }
+        public string Website { get; set; }
+        public string PostalCode { get; set; }
+        public string Rcno { get; set; }
+        public Boolean ChangePassword { get; set; }
 
-        //public string FaceBook { get; set; }
-        //public string Twitter { get; set; }
-        //public string GooglePlus { get; set; }
-        //public string Instagram { get; set; }
+        public string FaceBook { get; set; }
+        public string Twitter { get; set; }
+        public string GooglePlus { get; set; }
+        public string Instagram { get; set; }
         
         public string FirstName { get; set; }
         public string MiddleName { get; set; }        

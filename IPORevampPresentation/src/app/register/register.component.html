@@ -15,6 +15,7 @@
                     <div class="logo">
                         <span class="db"><img src="assets/images/FMITILogo-NEW.png" alt="logo" /></span>
                         <h5 class="font-medium m-b-20">Sign Up to Register</h5>
+                        <div [ngBusy]="busy"></div>
                     </div>
                     <!-- Form -->
                     <div class="row">
@@ -40,7 +41,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-12 ">
-                                        <input class="form-control form-control-lg" formControlName="Email" type="text" required=" "  [ngClass]="{ 'is-invalid': submitted && Email.errors }" placeholder="Email">
+                                        <input  class="form-control form-control-lg" formControlName="Email" type="text" required=" "  [ngClass]="{ 'is-invalid': submitted && Email.errors }" placeholder="Email">
                                         <div *ngIf="submitted && Email.errors" class="invalid-feedback">
                                           <div *ngIf="submitted && Email.errors.required">Email is required</div>
                                           <div *ngIf="submitted && Email.errors.email">Email must be a valid email address</div>
@@ -49,7 +50,7 @@
                                       </div>
                                 </div>  <div class="form-group row">
                                     <div class="col-12">
-                                        <select   name="Month"  formControlName="program"     class="custom-select form-control-lg"  [ngClass]="{ 'is-invalid': submitted && program.errors }" id="Month">
+                                        <select   name="Month"  formControlName="program"     class="custom-select form-control-lg"   [ngClass]="{ 'is-invalid': submitted && program.errors }" aria-placeholder="Category" id="Month">
                                             <option  value= "">
                                                 Choose Category
                                               </option>

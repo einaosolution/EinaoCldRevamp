@@ -626,6 +626,10 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<bool>("ChangePasswordFirstLogin");
 
+                    b.Property<bool>("ChangePassword");
+
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -682,7 +686,11 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<string>("PostalCode");
+
                     b.Property<string>("ProfilePicLoc");
+
+                    b.Property<string>("Rcno");
 
                     b.Property<string>("ResidentialAddress");
 
@@ -692,7 +700,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int>("Title");
+                    b.Property<string>("State");
+
+                    b.Property<string>("Twitter");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -700,6 +710,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("Website");
 
                     b.HasKey("Id");
 
