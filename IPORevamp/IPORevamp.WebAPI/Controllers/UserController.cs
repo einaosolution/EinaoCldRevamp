@@ -61,8 +61,8 @@ namespace IPORevamp.WebAPI.Controllers
                 configuration,
                 mapper,
                 logger,
-                auditTrailManager,
-                eventRepository
+                auditTrailManager
+                
                 )
         {
             _emailManager = emailManager;
@@ -229,7 +229,8 @@ namespace IPORevamp.WebAPI.Controllers
                         IsActive =true,
                         NormalizedEmail = model.Email,
                         NormalizedUserName = model.Email,
-                        ChangePasswordFirstLogin = false
+                        ChangePasswordFirstLogin = false,
+                        ChangePassword = false
                     };
 
                     // generate random password 
@@ -510,10 +511,111 @@ namespace IPORevamp.WebAPI.Controllers
         /// <param name="loginModel"></param>
         /// <returns></returns>
         [HttpPost("ChangePasswordFirstLogin")]
-        public async Task<IActionResult> ChangePasswordFirstLogin(LoginViewModel loginModel)
+        public async Task<IActionResult> ChangePasswordFirstLogin(ChangePasswordModel changePasswordModel)
         {
-            return null;
-        
+            if (ModelState.IsValid)
+            {
+
+                // check tha
+               
+                var user = _userManager.Users.FirstOrDefault(x => x.UserName == changePasswordModel.EmailAddress.ToLower() 
+                || x.Email == changePasswordModel.EmailAddress.ToLower());
+
+                if (user != null)
+                {
+                    
+                    // confirm the old password with the current password
+                    bool changePass =  await _userManager.CheckPasswordAsync(user, changePasswordModel.CurrentPassword);
+
+                    if (changePass ==false)
+                    {
+                        return PrepareResponse(HttpStatusCode.BadRequest, "Your existing password didn't match the current password, please try again", true);
+                    }
+
+                    else if (changePasswordModel.ConfirmPassword != changePasswordModel.NewPassword)
+                    {
+                        return PrepareResponse(HttpStatusCode.BadRequest, "New password and confirm password didn't match.", true);
+                    }
+
+                    else if (user.EmailConfirmed == false)
+                    {
+                        return PrepareResponse(HttpStatusCode.Unauthorized, "Your account is not validated yet.", true);
+                    }
+                    else if (user.ChangePassword == true && user.ChangePasswordFirstLogin == true)
+                    {
+
+                        return PrepareResponse(HttpStatusCode.BadRequest, "Invalid Operation.", true);
+
+                    }
+
+                    // update the columns
+                    
+                    var  result = await _userManager.ChangePasswordAsync(user, changePasswordModel.CurrentPassword, 
+                                                                      changePasswordModel.NewPassword);
+                        if (result.Succeeded)
+                        {
+                        // update the status 
+                        user.ChangePassword = true;
+                        user.ChangePasswordFirstLogin = true;
+
+                         await _userManager.UpdateAsync(user);
+
+                        // send an email
+                        var  emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION);
+
+                        EmailLog emaillog = new EmailLog();
+                        emaillog.MailBody = emailTemplate.EmailBody;
+                        emaillog.Status = IPOEmailStatus.Fresh;
+                        emaillog.Subject = emailTemplate.EmailSubject;
+                        emaillog.DateCreated = DateTime.Now;
+                        emaillog.Receiver = user.Email;
+                        emaillog.Sender = emailTemplate.EmailSender;
+                        emaillog.SendImmediately = true;
+
+
+                        string mailContent = emailTemplate.EmailBody;
+                        mailContent = mailContent.Replace("#Username", user.Email);
+                        mailContent = mailContent.Replace("#Password", changePasswordModel.NewPassword);
+                        mailContent = mailContent.Replace("#Name", user.FirstName + ' ' + user.LastName);
+                        mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                        // Encryt the email address or id based on what you need for verification 
+                        // usi
+                    
+
+                        //Email the verification to the registered email address 
+                        await _emailsender.SendEmailAsync(user.Email, emailTemplate.EmailSubject, mailContent);
+
+
+
+                        // Log the activities 
+                        await _auditTrailManager.AddAuditTrail(new AuditTrail
+                        {
+                            ActionTaken = AuditAction.Update,
+                            DateCreated = DateTime.Now,
+                            Description = $"Change First Login Password for   {user.FirstName + ' ' + user.LastName} was successful",
+                            Entity = "User",
+                            UserId = user.Id,
+                            UserName = user.Email,
+                        });
+
+
+                        return PrepareResponse(HttpStatusCode.OK, "User first logon password was changed successfully", false, user);
+                       }
+
+                }
+                else
+                    {
+                    return PrepareResponse(HttpStatusCode.NotAcceptable, "Incomplete Parameters", true);
+                }
+                }
+            else
+            {
+                
+                return PrepareResponse(HttpStatusCode.NotAcceptable, "Incomplete Parameters", true);
+            }
+
+                  return PrepareResponse(HttpStatusCode.NotFound, "User not found");
         }
 
 

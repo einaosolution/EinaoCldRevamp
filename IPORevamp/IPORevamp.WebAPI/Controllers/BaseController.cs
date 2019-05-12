@@ -39,7 +39,7 @@ namespace IPORevamp.WebAPI.Controllers
         protected readonly ILogger _logger;
         protected readonly IAuditTrailManager<AuditTrail> _auditTrailManager;
         protected readonly ApplicationUser _userInfo;
-        protected readonly IEventRepository _eventRepository;
+      //  protected readonly IEventRepository _eventRepository;
 
 
         public BaseController(
@@ -49,8 +49,8 @@ namespace IPORevamp.WebAPI.Controllers
             IConfiguration configuration,
             IMapper mapper,
             ILogger<BaseController> logger,
-            IAuditTrailManager<AuditTrail> auditTrailManager,
-            IEventRepository eventRepository
+            IAuditTrailManager<AuditTrail> auditTrailManager
+           
 
             )
         {
@@ -62,8 +62,7 @@ namespace IPORevamp.WebAPI.Controllers
             _roleManager = roleManager;
             _auditTrailManager = auditTrailManager;
             _userInfo = User != null && User.Identity.IsAuthenticated ? _userManager.FindByNameAsync(User?.Identity?.Name).Result : null;
-            _eventRepository = eventRepository;
-
+          
 
         }
 
@@ -101,7 +100,7 @@ namespace IPORevamp.WebAPI.Controllers
             var userClaims = await _userManager.GetClaimsAsync(user);
             string roles = string.Empty;
             IList<string> role = await _userManager.GetRolesAsync(user);
-            var organizedEvents = await _eventRepository.FetchOrganizedEvents(user.Id);
+          //  var organizedEvents = await _eventRepository.FetchOrganizedEvents(user.Id);
             
             if (role.Any())
             {
@@ -116,7 +115,7 @@ namespace IPORevamp.WebAPI.Controllers
                 new Claim(ClaimTypes.Name, user.UserName),
                 //new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
                 new Claim(ClaimTypes.Role,roles),
-                new Claim("OrganizedEvents", string.Join(',',organizedEvents?.Select(x=>x.Id.ToString())))
+              //  new Claim("OrganizedEvents", string.Join(',',organizedEvents?.Select(x=>x.Id.ToString())))
             }.Union(userClaims);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));

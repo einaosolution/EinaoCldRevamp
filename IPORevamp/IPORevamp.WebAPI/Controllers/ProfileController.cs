@@ -42,8 +42,7 @@ namespace IPORevamp.WebAPI.Controllers
          
            IEmailManager<EmailLog, EmailTemplate> emailManager,
            IAuditTrailManager<AuditTrail> auditTrailManager,
-           IFileHandler fileHandler,
-           IEventRepository eventRepository
+           IFileHandler fileHandler
            ) : base(
                userManager,
                signInManager,
@@ -51,8 +50,8 @@ namespace IPORevamp.WebAPI.Controllers
                configuration,
                mapper,
                logger,
-               auditTrailManager,
-               eventRepository
+               auditTrailManager
+              
                )
         {
             _emailManager = emailManager;

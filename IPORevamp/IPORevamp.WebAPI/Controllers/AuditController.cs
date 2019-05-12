@@ -42,8 +42,8 @@ namespace NACC.Web.Controllers
                 configuration,
                 mapper,
                 logger,
-                auditTrailManager,
-                eventRepository
+                auditTrailManager
+                
                 )
         {
             

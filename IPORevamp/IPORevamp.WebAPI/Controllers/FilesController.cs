@@ -44,7 +44,7 @@ namespace IPORevamp.WebAPI.Controllers
                configuration,
                mapper,
                logger,
-               auditTrailManager, eventRepository)
+               auditTrailManager)
         {
             _fileHandler = fileHandler;
         }
