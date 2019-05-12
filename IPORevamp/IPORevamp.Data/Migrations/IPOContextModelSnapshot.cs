@@ -15,7 +15,7 @@ namespace IPORevamp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -111,6 +111,45 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("EmailLogID");
 
                     b.ToTable("EmailLog");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.Email.EmailTemplate", b =>
+                {
+                    b.Property<int>("EmailTemplateID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("EmailBody");
+
+                    b.Property<string>("EmailName");
+
+                    b.Property<string>("EmailSender");
+
+                    b.Property<string>("EmailSubject");
+
+                    b.Property<int?>("EmailTemplateType");
+
+                    b.Property<int>("Id");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("EmailTemplateID");
+
+                    b.ToTable("EmailTemplates");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Menus.Menu", b =>
@@ -624,9 +663,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<bool>("ChangePasswordFirstLogin");
-
                     b.Property<bool>("ChangePassword");
+
+                    b.Property<bool>("ChangePasswordFirstLogin");
 
                     b.Property<string>("City");
 
@@ -702,7 +741,7 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("State");
 
-                    b.Property<string>("Twitter");
+                    b.Property<int>("Title");
 
                     b.Property<bool>("TwoFactorEnabled");
 

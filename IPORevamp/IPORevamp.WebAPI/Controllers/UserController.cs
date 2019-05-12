@@ -175,11 +175,13 @@ namespace IPORevamp.WebAPI.Controllers
 
 
         //This method will verificate the email account 
-        [HttpPost("Confirmation")]
+        [HttpGet("Confirmation")]
         public async Task<IActionResult> Confirmation(string code)
         {
+            var corporatelink = _configuration["CORPORATEREDIRECTURL"] + code;
+            var individuallink = _configuration["INDIVIDUALREDIRECTURL"] + code;
 
-            if(code == null)
+            if (code == null)
             {
                 var error = "";
                  return PrepareResponse(HttpStatusCode.BadRequest, "not found", true, error);
@@ -278,7 +280,17 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                       //  await _userManager.AddToRoleAsync(user, "USERS");
-                        return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully", false);
+                      //  return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully", false);
+
+                        if (model.CategoryId ==1)
+                        {
+                            return Redirect(individuallink);
+                        }
+
+                        else
+                        {
+                            return Redirect(corporatelink);
+                        }
                     }
 
                     else

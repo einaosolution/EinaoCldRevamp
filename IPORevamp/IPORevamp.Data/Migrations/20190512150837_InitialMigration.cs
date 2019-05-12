@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IPORevamp.Data.Migrations
 {
-    public partial class InitalMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,8 +76,14 @@ namespace IPORevamp.Data.Migrations
                     Occupation = table.Column<string>(nullable: true),
                     ResidentialAddress = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
                     CountryCode = table.Column<string>(nullable: true),
                     ProfilePicLoc = table.Column<string>(nullable: true),
+                    Website = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true),
+                    Rcno = table.Column<string>(nullable: true),
+                    ChangePassword = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     MiddleName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
@@ -203,6 +209,32 @@ namespace IPORevamp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmailLog", x => x.EmailLogID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailTemplates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    EmailName = table.Column<string>(nullable: true),
+                    EmailBody = table.Column<string>(nullable: true),
+                    EmailSubject = table.Column<string>(nullable: true),
+                    EmailTemplateType = table.Column<int>(nullable: true),
+                    EmailSender = table.Column<string>(nullable: true),
+                    EmailTemplateID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DeletedBy = table.Column<string>(nullable: true),
+                    UpdatedBy = table.Column<string>(nullable: true),
+                    LastUpdateDate = table.Column<DateTime>(nullable: true),
+                    RowVersion = table.Column<byte[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailTemplates", x => x.EmailTemplateID);
                 });
 
             migrationBuilder.CreateTable(
@@ -702,6 +734,9 @@ namespace IPORevamp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EmailLog");
+
+            migrationBuilder.DropTable(
+                name: "EmailTemplates");
 
             migrationBuilder.DropTable(
                 name: "LGAs");
