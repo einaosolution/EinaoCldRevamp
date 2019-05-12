@@ -15,7 +15,7 @@ namespace IPORevamp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -111,45 +111,6 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("EmailLogID");
 
                     b.ToTable("EmailLog");
-                });
-
-            modelBuilder.Entity("IPORevamp.Data.Entities.Email.EmailTemplate", b =>
-                {
-                    b.Property<int>("EmailTemplateID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<string>("DeletedBy");
-
-                    b.Property<string>("EmailBody");
-
-                    b.Property<string>("EmailName");
-
-                    b.Property<string>("EmailSender");
-
-                    b.Property<string>("EmailSubject");
-
-                    b.Property<int?>("EmailTemplateType");
-
-                    b.Property<int>("Id");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastUpdateDate");
-
-                    b.Property<byte[]>("RowVersion");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("EmailTemplateID");
-
-                    b.ToTable("EmailTemplates");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Menus.Menu", b =>
@@ -581,7 +542,9 @@ namespace IPORevamp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category");
+                    b.Property<int>("CategoryId");
+
+                    b.Property<DateTime?>("ConfirmationDate");
 
                     b.Property<string>("CreatedBy");
 
@@ -659,6 +622,10 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("Bio");
 
+                    b.Property<int>("CategoryId");
+
+                    b.Property<bool>("ChangePasswordFirstLogin");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -668,9 +635,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<string>("DeletedBy");
+                    b.Property<DateTime?>("DateOfBirth");
 
-                    b.Property<DateTime>("DoB");
+                    b.Property<string>("DeletedBy");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -679,17 +646,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("EmployerName");
 
-                    b.Property<string>("FaceBook");
-
                     b.Property<string>("FirstName");
 
                     b.Property<int>("Gender");
-
-                    b.Property<string>("GooglePlus");
-
-                    b.Property<string>("Instagram");
-
-                    b.Property<string>("Interests");
 
                     b.Property<bool>("IsActive");
 
@@ -734,8 +693,6 @@ namespace IPORevamp.Data.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<int>("Title");
-
-                    b.Property<string>("Twitter");
 
                     b.Property<bool>("TwoFactorEnabled");
 

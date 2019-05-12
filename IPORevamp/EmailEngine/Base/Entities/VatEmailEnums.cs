@@ -6,9 +6,9 @@ namespace EmailEngine.Base.Entities
 {
     public enum IPOEmailTemplateType
     {
-        AccountCreation = 1,
+        AccountCreation_ = 1,
         PasswordReset,
-        QuoteRequestAutoResponse,
+        AccountCreation,
         AttendeeRegistration,
         ResendCOnfirmationLink
     }
@@ -23,8 +23,12 @@ namespace EmailEngine.Base.Entities
     public class IPOCONSTANT
     {
         public const string ACTIVATIONCODE = "ACTIVATIONEMAIL";
+        public const string Individual_Account_Verification = "IV001";
+        public const string Corporate_Account_Verification = "AV002";
+        public const string Account_Creation = "AC003";
+
     }
 
-  
+
 }
 

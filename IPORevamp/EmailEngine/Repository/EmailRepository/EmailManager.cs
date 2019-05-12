@@ -122,5 +122,12 @@ namespace EmailEngine.Repository.EmailRepository
             await _emailLogRepo.InsertRangeAsync(eMailLogs);
             await _emailLogRepo.SaveChangesAsync();
         }
+
+       
+
+        public IQueryable<TEmailTemplate> GetEmailTemplateByCode(IPOEmailTemplateType type)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

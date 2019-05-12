@@ -9,6 +9,7 @@ using IPORevamp.Data.Entities.Modules;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using IPORevamp.Data.TempModel;
+using IPORevamp.Data.Entities.Email;
 
 namespace IPORevamp.Repository.Event
 {
@@ -23,8 +24,8 @@ namespace IPORevamp.Repository.Event
         #endregion
 
         Task<UserVerificationTemp> SaveUserVerification(UserVerificationTemp userverificationTemp);
-
-
+        Task<UserVerificationTemp> EmailConfirmation(string Code);
+        Task<UserVerificationTemp> ValidateVerificationEmail(string email);
 
         #region AccountType Respository
 
@@ -36,6 +37,7 @@ namespace IPORevamp.Repository.Event
         Task<Setting> SaveSetting(Setting setting);   
         Task<List<Setting>> GetSettings();
         Task<List<Setting>> GetSettingsByCode(string SetSettingCode);
+        Task<EmailTemplate> GetEmailTemplateByCode(string EmailCode);
         #endregion
 
         #region State Respository

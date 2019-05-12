@@ -9,7 +9,8 @@ namespace IPORevamp.Repository.Users
     public interface IUserRepository: IAutoDependencyRegister
     {
         ApplicationUser AuthenticateUser(string userName, string password);
+        
 
-       
+
     }
 }

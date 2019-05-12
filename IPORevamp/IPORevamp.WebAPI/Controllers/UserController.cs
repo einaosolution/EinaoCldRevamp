@@ -23,6 +23,7 @@ using IPORevamp.Repository.Interface;
 using IPORevamp.Repository.SystemSetup;
 using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Data.Entities.Setting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -33,7 +34,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
 
-        private readonly ISettingRepository  settings;
+        private readonly ISettingRepository  _settings;
         private readonly IEmailSender _emailsender;
 
 
@@ -65,9 +66,9 @@ namespace IPORevamp.WebAPI.Controllers
                 )
         {
             _emailManager = emailManager;
-            settings = settingrepository;
+            _settings = settingrepository;
             _emailsender = emailsender;
-
+           
 
         }
 
@@ -77,47 +78,66 @@ namespace IPORevamp.WebAPI.Controllers
         /// <param name="id">The ID of the desired Employee</param>
         /// <returns>A string status</returns>
         /// 
-
-      
+     
+        // This method is used for verification of account 
         [HttpPost("EmailVerification")]
         public async Task<IActionResult> EmailVerification(EmailVerificationView model)
         {
             try
             {
 
-                var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
+                var ExistingAccount = await _settings.ValidateVerificationEmail(model.Email);
+
+                if (ExistingAccount != null)
+                {
+                    return PrepareResponse(HttpStatusCode.Found, "Existing Email Record Found", false);
+
+                }
+                
+                EmailTemplate emailTemplate;
+
+                if (model.Category == 1)
+                {
+                    emailTemplate =  await _settings.GetEmailTemplateByCode(IPOCONSTANT.Individual_Account_Verification);
+
+                }
+                else
+                {
+                    emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.Corporate_Account_Verification);
+                }
 
                 EmailLog emaillog = new EmailLog();
-                emaillog.MailBody = emailtemplate.EmailBody;
+                emaillog.MailBody = emailTemplate.EmailBody;
                 emaillog.Status = IPOEmailStatus.Fresh;
-                emaillog.Subject = emailtemplate.EmailSubject;
+                emaillog.Subject = emailTemplate.EmailSubject;
                 emaillog.DateCreated = DateTime.Now;
                 emaillog.Receiver = model.Email;
-                emaillog.Sender = emailtemplate.EmailSender;
+                emaillog.Sender = emailTemplate.EmailSender;
                 emaillog.SendImmediately = true;
 
 
                 // Get the number of hours in min for the link to expire 
-                var getSettingList = await settings.GetSettingsByCode(EmailEngine.Base.Entities.IPOCONSTANT.ACTIVATIONCODE);
+                var getSettingList = await _settings.GetSettingsByCode(IPOCONSTANT.ACTIVATIONCODE);
 
 
                 // add the mins to the current datetime, which is study in hours
                 DateTime expiringDate = DateTime.Now.AddMinutes(Convert.ToInt32(getSettingList.FirstOrDefault().ItemValue));
 
                 // log the user registration detials before verification 
-                UserVerificationTemp UserVerification = new UserVerificationTemp();
-                UserVerification.First_Name = model.First_Name;
-                UserVerification.Last_Name = model.Last_Name;
-                UserVerification.Email = model.Email;
-                UserVerification.Category = model.Category;
-                UserVerification.expired = false;
-                UserVerification.ExpiringDate = expiringDate;
-                UserVerification.DateCreated = DateTime.Now;
-                UserVerification.IsActive = true;
+                UserVerificationTemp userVerification = new UserVerificationTemp();
+                userVerification.First_Name = model.First_Name;
+                userVerification.Last_Name = model.Last_Name;
+                userVerification.Email = model.Email;
+                userVerification.CategoryId = model.Category;
+                userVerification.expired = false;
+                userVerification.ExpiringDate = expiringDate;
+                userVerification.DateCreated = DateTime.Now;
+                userVerification.IsActive = true;
+                
 
-                await settings.SaveUserVerification(UserVerification);
+                 await _settings.SaveUserVerification(userVerification);
 
-                string mailContent = emailtemplate.EmailBody;
+                string mailContent = emailTemplate.EmailBody;
                 mailContent = mailContent.Replace("#name", model.First_Name + ' ' + model.Last_Name);
                 mailContent = mailContent.Replace("#Duration", expiringDate.ToString());
                 mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
@@ -130,7 +150,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 //Email the verification to the registered email address 
-                await _emailsender.SendEmailAsync(model.Email, emailtemplate.EmailSubject, mailContent);
+                await _emailsender.SendEmailAsync(model.Email, emailTemplate.EmailSubject, mailContent);
 
                 // Log the activities 
                 await _auditTrailManager.AddAuditTrail(new AuditTrail
@@ -152,6 +172,139 @@ namespace IPORevamp.WebAPI.Controllers
             }
 
         }
+
+
+        //This method will verificate the email account 
+        [HttpPost("Confirmation")]
+        public async Task<IActionResult> Confirmation(string code)
+        {
+
+            if(code == null)
+            {
+                var error = "";
+                 return PrepareResponse(HttpStatusCode.BadRequest, "not found", true, error);
+            }
+            else
+            {
+                // try to decrypt the code 
+
+            string convertString = IPORevamp.Core.Utilities.Utilities.Decrypt(code);
+
+                // confirm if the email address exist and the date as not expired
+
+                UserVerificationTemp model = await _settings.EmailConfirmation(convertString);
+
+
+                if (model == null)
+                {
+
+                    return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing", true, null);
+
+                }
+                else
+                {
+
+                    var userExisting = _userManager.FindByNameAsync(model.Email);
+
+                    if (userExisting.IsCompletedSuccessfully)
+                    {
+                        return PrepareResponse(HttpStatusCode.Found, "Account Currently Exist", false);
+                    }
+
+                }
+                // check if any user exist to avoid duplicate 
+
+
+                if (model != null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        FirstName = model.First_Name,
+                        CategoryId = model.CategoryId,
+                        CreatedBy = model.First_Name + " " + model.Last_Name,
+                        DateCreated = DateTime.Now,
+                        EmailConfirmed = true,
+                        IsActive =true,
+                        NormalizedEmail = model.Email,
+                        NormalizedUserName = model.Email,
+                        ChangePasswordFirstLogin = false
+                    };
+
+                    // generate random password 
+                   string password = IPORevamp.Core.Utilities.Utilities.GenerateRandomPassword();
+                    
+                    var userCreated = await _userManager.CreateAsync(user, password);
+
+                    if (userCreated.Succeeded)
+                    {
+                        var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
+                        string  emailBody = emailtemplate.EmailBody.Replace("#Username", model.Email);
+                         emailBody = emailBody.Replace("#Password", password);
+                         emailBody = emailBody.Replace("#Name", model.First_Name + ' '  + model.Last_Name);
+                         emailBody = emailBody.Replace("#path", _configuration["LOGOURL"]);
+                        
+                        await _emailManager.LogEmail(new EmailLog
+                        {
+                            CreatedBy = user.UserName,
+                            MailBody = emailBody,
+                            Receiver = user.Email,
+                            Sender = emailtemplate.EmailSender,
+                            Subject = emailtemplate.EmailSubject,
+                            DateCreated = DateTime.Now,
+                            DateToSend = DateTime.Now,
+                            Status = IPOEmailStatus.Fresh,
+                            SendImmediately = true
+                        });
+                        await _emailsender.SendEmailAsync(model.Email, emailtemplate.EmailSubject, emailBody);
+
+
+                        // Update the user temp table
+
+                        model.IsActive = true;
+                        model.ConfirmationDate = DateTime.Now;
+                        await _settings.SaveUserVerification(model);
+                        
+                        await _auditTrailManager.AddAuditTrail(new AuditTrail
+                        {
+                            ActionTaken = AuditAction.Create,
+                            DateCreated = DateTime.Now,
+                            Description = $" Email verfication for  {model.Email}  was successful",
+                            Entity = "User",
+                            UserId = user.Id,
+                            UserName = user.UserName,
+                        });
+
+
+                      //  await _userManager.AddToRoleAsync(user, "USERS");
+                        return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully", false);
+                    }
+
+                    else
+                    {
+                        return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing", true, null);
+
+                    }
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing 1", true, null);
+
+                }
+
+
+
+
+
+            }
+
+
+
+        }
+
+
+
         [HttpPost("signup")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -348,7 +501,21 @@ namespace IPORevamp.WebAPI.Controllers
                 return PrepareResponse(HttpStatusCode.NotFound, "Username does not exist", true, null);
             }
             return PrepareResponse(HttpStatusCode.PreconditionFailed, "Email Templates have not been setup", true, null);
-        }                 
+        }
+
+
+        /// <summary>
+        ///  This method is used for change password 
+        /// </summary>
+        /// <param name="loginModel"></param>
+        /// <returns></returns>
+        [HttpPost("ChangePasswordFirstLogin")]
+        public async Task<IActionResult> ChangePasswordFirstLogin(LoginViewModel loginModel)
+        {
+            return null;
+        
+        }
+
 
         [HttpPost("authenticate")]
         //[ValidateAntiForgeryToken]
@@ -359,6 +526,19 @@ namespace IPORevamp.WebAPI.Controllers
                 var user = _userManager.Users.FirstOrDefault(x=>x.UserName == loginModel.Username || x.Email == loginModel.Username);
                 if(user != null)
                 {
+
+                    if (user.EmailConfirmed == false)
+                    {
+                        return PrepareResponse(HttpStatusCode.Unauthorized, "Your account is not validated yet.", true);
+                    }
+                    else if (user.EmailConfirmed == true && user.ChangePasswordFirstLogin == false)
+                    {
+                        
+                       
+
+                    }
+                    
+
                     if (user.EmailConfirmed)
                     {
                         var signIn = await _signInManager.PasswordSignInAsync(user.UserName, loginModel.Password, loginModel.RememberMe, false);

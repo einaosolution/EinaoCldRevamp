@@ -26,7 +26,9 @@ C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\IPOReva
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\IPORevamp.Core.dll
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\IPORevamp.Core.pdb
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.dll
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Core.dll
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.xml
+C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csprojResolveAssemblyReference.cache
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csproj.CoreCompileInputs.cache
 C:\JamesonHub\IPORevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.AssemblyInfoInputs.cache

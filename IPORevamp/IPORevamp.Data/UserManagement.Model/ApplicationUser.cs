@@ -36,24 +36,27 @@ namespace IPORevamp.Data.UserManagement.Model
         public string PhoneNumber { get; set; }
         public string CountryCode { get; set; }
         public string ProfilePicLoc { get; set; }
-        public string Interests { get; set; }
+      //  public string Interests { get; set; }
 
-        public string FaceBook { get; set; }
-        public string Twitter { get; set; }
-        public string GooglePlus { get; set; }
-        public string Instagram { get; set; }
+        //public string FaceBook { get; set; }
+        //public string Twitter { get; set; }
+        //public string GooglePlus { get; set; }
+        //public string Instagram { get; set; }
         
         public string FirstName { get; set; }
         public string MiddleName { get; set; }        
         public string LastName { get; set; }                
         public Gender Gender { get; set; }
-        public DateTime DoB { get; set; }                                    
+        public DateTime ? DateOfBirth { get; set; }                                    
         public string MobileNumber { get; set; }
         public bool IsDeleted { get; set; } = false;
         public bool IsActive { get; set; }= true;
         public string CreatedBy { get; set; }
         public string DeletedBy { get; set; }
         public string UpdatedBy { get; set; }
+
+        public int CategoryId { get; set; }
+        public bool ChangePasswordFirstLogin { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.Now;
 

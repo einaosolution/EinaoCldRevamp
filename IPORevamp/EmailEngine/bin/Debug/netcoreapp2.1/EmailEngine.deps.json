@@ -411,6 +411,9 @@
         }
       },
       "IPORevamp.Core/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Identity.Core": "2.1.1.0"
+        },
         "runtime": {
           "IPORevamp.Core.dll": {}
         }
@@ -426,6 +429,14 @@
       "Microsoft.Extensions.Identity.Stores/2.1.1.0": {
         "runtime": {
           "Microsoft.Extensions.Identity.Stores.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.Extensions.Identity.Core.Reference/2.1.1.0": {
+        "runtime": {
+          "Microsoft.Extensions.Identity.Core.dll": {
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.18157"
           }
@@ -765,6 +776,11 @@
       "sha512": ""
     },
     "Microsoft.Extensions.Identity.Stores/2.1.1.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Identity.Core.Reference/2.1.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

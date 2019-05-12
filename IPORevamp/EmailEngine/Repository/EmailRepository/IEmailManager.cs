@@ -20,7 +20,8 @@ namespace EmailEngine.Base.Repository.EmailRepository
         Task SendBatchMailAsync();
         IQueryable<TEmailTemplate> GetEmailTemplates();
         IQueryable<TEmailTemplate> GetEmailTemplates(Expression<Func<TEmailTemplate, bool>> predicate);
-        
+        IQueryable<TEmailTemplate> GetEmailTemplateByCode(IPOEmailTemplateType type);
+
 
 
     }

@@ -20,13 +20,14 @@ using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using System.Data.SqlClient;
 using IPORevamp.Data.TempModel;
+using IPORevamp.Data.Entities.Email;
 
 namespace IPORevamp.Repository.SystemSetup
 {
     public class SettingRepository : ISettingRepository
     {
         private IRepository<Country> _countryrepository;
-
+        private IRepository<EmailTemplate> _emailtemplaterepository;
         private IRepository<State> _staterepository;
         private IRepository<lga> _lgarepository;
         private IAuditTrailManager<AuditTrail> _auditTrailManager;
@@ -46,7 +47,8 @@ namespace IPORevamp.Repository.SystemSetup
             IRepository<TMApplicationStatus> tmApplicationStatusrepository, 
             IAuditTrailManager<AuditTrail> auditTrailManager,
             IRepository<UserVerificationTemp> userVerirepository,
-            IRepository<DSApplicationStatus> dsApplicationStatus, IRepository<Setting> settingrepository)
+            IRepository<DSApplicationStatus> dsApplicationStatus, IRepository<Setting> settingrepository,
+            IRepository<EmailTemplate> emailTemplaterepository, IRepository<PTApplicationStatus> ptApplicationStatusrepository)
         {
             _countryrepository = countryrepository;
             _userVerirepository = userVerirepository;
@@ -56,6 +58,8 @@ namespace IPORevamp.Repository.SystemSetup
             _auditTrailManager = auditTrailManager;
             _dsApplicationStatus = dsApplicationStatus;
             _settingrepository = settingrepository;
+            _emailtemplaterepository = emailTemplaterepository;
+            _ptApplicationStatusrepository = ptApplicationStatusrepository;
 
 
         }
@@ -212,5 +216,36 @@ namespace IPORevamp.Repository.SystemSetup
             return settings;
         }
 
+        public Task<UserVerificationTemp> EmailConfirmation(string Code)
+        {
+            var model = _userVerirepository.
+                FirstOrDefaultAsync(a => a.Email.ToLower() 
+                  == Code.ToLower() && a.ExpiringDate > DateTime.Now  &&  a.ConfirmationDate == null);
+
+            return model;
+        }
+
+        public  Task<UserVerificationTemp> ValidateVerificationEmail(string Email)
+        {
+            var model =  _userVerirepository.
+                FirstOrDefaultAsync(a => a.Email.ToLower()
+                  == Email.ToLower() && a.expired != true);
+
+            return model;
+        }
+
+        //public async Task<List<EmailTemplate>> GetEmailTemplateByCode(string EmailCode)
+        //{
+           
+        //    var emailTemplates = await _emailtemplaterepository.GetAll().Where(x => x.EmailName == EmailCode).ToListAsync();
+        //    return emailTemplates;
+        //}
+
+        public async Task<EmailTemplate> GetEmailTemplateByCode(string EmailCode)
+        {           
+            var emailTemplates = await _emailtemplaterepository.
+                                                               FirstOrDefaultAsync(x => x.EmailName == EmailCode && x.IsActive==true);
+            return emailTemplates;
+        }
     }
 }

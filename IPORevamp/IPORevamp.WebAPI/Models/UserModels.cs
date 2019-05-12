@@ -98,7 +98,7 @@ namespace IPORevamp.WebAPI.Models
         public string Last_Name { get; set; }
 
         [Required(ErrorMessage = "Please supply Category")]
-        public string Category { get; set; }
+        public int Category { get; set; }
     }
 
     public class PasswordResetModel
