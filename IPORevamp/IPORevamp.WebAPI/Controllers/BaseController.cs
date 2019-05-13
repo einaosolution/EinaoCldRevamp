@@ -113,7 +113,7 @@ namespace IPORevamp.WebAPI.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("Category", Convert.ToString(user.CategoryId)),
+              //  new Claim("Category", Convert.ToString(user.CategoryId)),
                 new Claim(ClaimTypes.Name, user.UserName),
                 //new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
              //   new Claim(ClaimTypes.Role,roles),
@@ -138,8 +138,10 @@ namespace IPORevamp.WebAPI.Controllers
                 Username = user.UserName,
                 Role = roles,
                 Email = user.Email,
-                UserId = user.Id ,
-                category = Convert.ToString( user.CategoryId)
+                UserId = user.Id,
+                category = Convert.ToString(user.CategoryId),
+                registrationcomplete = user.CompleteRegistration,
+                changepassword = user.ChangePassword
                 
             };
             return auth;

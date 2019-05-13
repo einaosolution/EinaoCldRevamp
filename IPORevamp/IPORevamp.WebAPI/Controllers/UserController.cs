@@ -24,6 +24,9 @@ using IPORevamp.Repository.SystemSetup;
 using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Data.Entities.Setting;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -36,7 +39,8 @@ namespace IPORevamp.WebAPI.Controllers
 
         private readonly ISettingRepository  _settings;
         private readonly IEmailSender _emailsender;
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private IHostingEnvironment _hostingEnvironment;
 
 
 
@@ -50,6 +54,8 @@ namespace IPORevamp.WebAPI.Controllers
             IEmailManager<EmailLog, EmailTemplate> emailManager,
             ISettingRepository  settingrepository,
             IEmailSender emailsender,
+            IHttpContextAccessor httpContextAccessor,
+            IHostingEnvironment hostingEnvironment ,
 
             IAuditTrailManager<AuditTrail> auditTrailManager,
             IEventRepository eventRepository
@@ -68,7 +74,9 @@ namespace IPORevamp.WebAPI.Controllers
             _emailManager = emailManager;
             _settings = settingrepository;
             _emailsender = emailsender;
-           
+            _httpContextAccessor = httpContextAccessor;
+            _hostingEnvironment = hostingEnvironment;
+
 
         }
 
@@ -78,13 +86,135 @@ namespace IPORevamp.WebAPI.Controllers
         /// <param name="id">The ID of the desired Employee</param>
         /// <returns>A string status</returns>
         /// 
-     
+
+        [HttpGet("GetUserFromEncryptEmail")]
+        public async Task<IActionResult> GetUserFromEncryptEmail( String property1)
+        {
+            string convertString = IPORevamp.Core.Utilities.Utilities.Decrypt(property1);
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == convertString);
+
+            return Ok(user);
+
+
+        }
+
+        [HttpGet("GetUserFromEmail")]
+        public async Task<IActionResult> GetUserFromEmail(String property1)
+        {
+          
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == property1);
+
+            return Ok(user);
+
+
+        }
+
+        // This method is used for verification of account updating aspnetuser table
+        [HttpPost("UpdateUserInfo")]
+        public async Task<IActionResult> UpdateUserInfo([FromForm] string FirstName , [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber, [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode, [FromForm] string Country)
+        {
+            var context = _httpContextAccessor.HttpContext;
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == Email );
+
+            var file = Request.Form.Files[0];
+            string folderName = "Upload";
+            string filename = "";
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string newPath = Path.Combine(webRootPath, folderName);
+
+            if (file.Length > 0)
+            {
+                string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                filename = "Upload/" + fileName;
+                string fullPath = Path.Combine(newPath, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+
+
+
+
+
+
+            if (user != null)
+            {
+                user.FirstName = FirstName;
+                user.LastName = LastName;
+                user.Gender = Gender == "Male" ?  Data.UserManagement.Model.Gender.Male: Data.UserManagement.Model.Gender.Female;
+                user.DateOfBirth = Convert.ToDateTime(DateofBirth);
+                user.Bio = Identification;
+                user.MobileNumber = MobileNumber;
+                user.City = City;
+                user.State = State;
+                user.PostalCode = PostCode;
+                user.CountryCode = Country;
+                user.ProfilePicLoc = filename;
+                user.CompleteRegistration = true;
+
+               await _userManager.UpdateAsync(user);
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Update,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.UserName} has been Updated  successfully",
+                    Entity = "User",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                });
+               
+            }
+
+
+
+            //  var kk =    context.Items["firstname"].ToString();
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+        }
+
         // This method is used for verification of account 
+
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel   model)
+        {
+            //   _userManager.ChangePasswordAsync()
+
+            if (ModelState.IsValid)
+            {
+                var user = _userManager.Users.FirstOrDefault(x => x.Email == model.Email);
+                user.ChangePassword = true;
+                _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                _userManager.UpdateAsync(user);
+
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Update,
+                    DateCreated = DateTime.Now,
+                    Description = $"Pasword Change For  {user.FirstName + ' ' + user.LastName}  ",
+                    Entity = "User",
+                    UserId = 0,
+                    UserName = model.Email,
+                });
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Password Changed", false);
+            }
+
+            return PrepareResponse(HttpStatusCode.NotAcceptable, "Incomplete Parameters", true);
+
+        }
         [HttpPost("EmailVerification")]
         public async Task<IActionResult> EmailVerification(EmailVerificationView model)
         {
             try
             {
+               
+                
+
 
                 var ExistingAccount = await _settings.ValidateVerificationEmail(model.Email);
 
@@ -178,6 +308,7 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("Confirmation")]
         public async Task<IActionResult> Confirmation(string code)
         {
+          
             var corporatelink = _configuration["CORPORATEREDIRECTURL"] + code;
             var individuallink = _configuration["INDIVIDUALREDIRECTURL"] + code;
 
@@ -199,7 +330,7 @@ namespace IPORevamp.WebAPI.Controllers
                 var expiredate = model.ExpiringDate;
                 if (DateTime.Now > expiredate)
                 {
-                    return PrepareResponse(HttpStatusCode.RequestTimeout, "This Link has expired", true, null);
+                    return PrepareResponse(HttpStatusCode.NotFound, "This Link has expired", true, null);
                 }
 
 
@@ -242,7 +373,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                     // generate random password 
                    string password = IPORevamp.Core.Utilities.Utilities.GenerateRandomPassword();
-                    
+                   
+
                     var userCreated = await _userManager.CreateAsync(user, password);
 
                     if (userCreated.Succeeded)
