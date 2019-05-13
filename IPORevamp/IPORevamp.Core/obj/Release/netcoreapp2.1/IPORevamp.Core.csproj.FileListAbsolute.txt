@@ -10,3 +10,5 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.C
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Release\netcoreapp2.1\IPORevamp.Core.pdb
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.dll
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml

@@ -103,7 +103,7 @@ namespace IPORevamp.WebAPI
                 options.AddPolicy("EventAttendees", policy => policy.Requirements.Add(new EventUserRequirement("Attendee")));
                 options.AddPolicy("EventOrganizers", policy => policy.Requirements.Add(new EventUserRequirement("Organizer")));
             });
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

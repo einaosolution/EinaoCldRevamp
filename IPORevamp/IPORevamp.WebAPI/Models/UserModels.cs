@@ -26,8 +26,7 @@ namespace IPORevamp.WebAPI.Models
         public string NewPassword { get; set; }
         [Compare("NewPassword",ErrorMessage = "New password and confirm password do not match")]
         public string ConfirmPassword { get; set; }
-
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
     }
 
     public class AuthModel
@@ -37,6 +36,9 @@ namespace IPORevamp.WebAPI.Models
         public string Email { get; set; }
         public string Token { get; set; }
         public string Role { get; set; }
+        public string category { get; set; }
+        public Boolean  registrationcomplete  { get; set; }
+        public Boolean changepassword { get; set; }
         public DateTime ExpiryTime { get; set; }
     }
 

@@ -15,7 +15,7 @@ namespace IPORevamp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -668,6 +668,8 @@ namespace IPORevamp.Data.Migrations
                     b.Property<bool>("ChangePasswordFirstLogin");
 
                     b.Property<string>("City");
+
+                    b.Property<bool>("CompleteRegistration");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
