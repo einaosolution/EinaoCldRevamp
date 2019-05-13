@@ -101,22 +101,23 @@ namespace IPORevamp.WebAPI.Controllers
             var userClaims = await _userManager.GetClaimsAsync(user);
             string roles = string.Empty;
             IList<string> role = await _userManager.GetRolesAsync(user);
-            var organizedEvents = await _eventRepository.FetchOrganizedEvents(user.Id);
+         //   var organizedEvents = await _eventRepository.FetchOrganizedEvents(user.Id);
             
-            if (role.Any())
-            {
-                roles = role.Join();
-            }
+          //  if (role.Any())
+           // {
+               // roles = role.Join();
+           // }
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Category", Convert.ToString(user.CategoryId)),
                 new Claim(ClaimTypes.Name, user.UserName),
                 //new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
-                new Claim(ClaimTypes.Role,roles),
-                new Claim("OrganizedEvents", string.Join(',',organizedEvents?.Select(x=>x.Id.ToString())))
+             //   new Claim(ClaimTypes.Role,roles),
+             //   new Claim("OrganizedEvents", string.Join(',',organizedEvents?.Select(x=>x.Id.ToString())))
             }.Union(userClaims);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
@@ -137,7 +138,8 @@ namespace IPORevamp.WebAPI.Controllers
                 Username = user.UserName,
                 Role = roles,
                 Email = user.Email,
-                UserId = user.Id
+                UserId = user.Id ,
+                category = Convert.ToString( user.CategoryId)
                 
             };
             return auth;

@@ -42,10 +42,11 @@ namespace IPORevamp.Data.UserManagement.Model
         public string PostalCode { get; set; }
         public string Rcno { get; set; }
         public Boolean ChangePassword { get; set; }
+        public Boolean CompleteRegistration { get; set; }
 
-       
-       
-        
+
+
+
         public string FirstName { get; set; }
         public string MiddleName { get; set; }        
         public string LastName { get; set; }                

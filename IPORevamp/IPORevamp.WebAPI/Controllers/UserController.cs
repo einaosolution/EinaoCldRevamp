@@ -196,6 +196,12 @@ namespace IPORevamp.WebAPI.Controllers
 
                 UserVerificationTemp model = await _settings.EmailConfirmation(convertString);
 
+                var expiredate = model.ExpiringDate;
+                if (DateTime.Now > expiredate)
+                {
+                    return PrepareResponse(HttpStatusCode.RequestTimeout, "This Link has expired", true, null);
+                }
+
 
                 if (model == null)
                 {
@@ -529,7 +535,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Authenticate(LoginViewModel loginModel)
         {

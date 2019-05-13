@@ -669,6 +669,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("City");
 
+                    b.Property<bool>("CompleteRegistration");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
