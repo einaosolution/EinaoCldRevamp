@@ -44,10 +44,6 @@ namespace IPORevamp.Data.UserManagement.Model
         public Boolean ChangePassword { get; set; }
         public Boolean CompleteRegistration { get; set; }
 
-        public string FaceBook { get; set; }
-        public string Twitter { get; set; }
-        public string GooglePlus { get; set; }
-        public string Instagram { get; set; }
         
         public string FirstName { get; set; }
         public string MiddleName { get; set; }        

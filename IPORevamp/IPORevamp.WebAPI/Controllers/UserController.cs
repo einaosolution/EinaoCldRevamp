@@ -115,8 +115,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
         }
-
        
+
         // This method is used for verification of account updating aspnetuser table
         [HttpPost("UpdateUserInfo")]
         [Consumes("multipart/form-data")]
@@ -260,13 +260,15 @@ namespace IPORevamp.WebAPI.Controllers
         {
             //   _userManager.ChangePasswordAsync()
 
+           
+
             if (ModelState.IsValid)
             {
                 var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Email);
                 var username = user.FirstName + ' ' + user.LastName;
                 user.ChangePassword = true;
-                _userManager.UpdateAsync(user);
-                _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                await _userManager.UpdateAsync(user);
+                await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 try
                 {
                     await _auditTrailManager.AddAuditTrail(new AuditTrail
@@ -297,6 +299,8 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.NotAcceptable, "Incomplete Parameters", true);
 
         }
+
+
         [HttpPost("EmailVerification")]
         public async Task<IActionResult> EmailVerification(EmailVerificationView model)
         {
@@ -545,12 +549,132 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        /// <summary>
+        ///  Reset Password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+
+        [HttpGet("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(string code,string UserId, string NewPassord, string ConfirmPassword)
+        {
+            
+
+            if (code == null  || UserId == null)
+            {
+                var error = "";
+                return PrepareResponse(HttpStatusCode.BadRequest, "This request was terminated", true, error);
+            }
+            else
+            {
+                var emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION);
+
+                if(emailTemplate == null)
+                {
+                    return PrepareResponse(HttpStatusCode.PreconditionFailed, "Email Templates have not been setup", true, null);
+                }
+
+
+                // try to decrypt the request which happen to be the userId 
+
+                string Id = IPORevamp.Core.Utilities.Utilities.Decrypt(UserId);
+
+                var model =  await _userManager.FindByIdAsync(Id);
+
+                if (model == null)
+                {
+                    return PrepareResponse(HttpStatusCode.NotFound, "User information not found", true, null);
+                }
+                // invalid account or account is deleted
+                else if(model.IsActive == false || model.IsDeleted==true)
+           
+                {
+                    return PrepareResponse(HttpStatusCode.NotFound, "User information not found", true, null);
+                }
+                // check both password if equal 
+                else if (NewPassord != ConfirmPassword)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, "New Password and Confirm Pssword didn't match your request", true, null);
+                }
+
+
+
+
+                if (model != null)
+                {
+                  
+                    // generate random password 
+                    var resetPassword = await _userManager.ResetPasswordAsync(model,code,NewPassord);
+
+                    if (resetPassword.Succeeded)
+                    {
+                      
+
+                        string emailBody = emailTemplate.EmailBody.Replace("#Username", model.Email);
+                        emailBody = emailBody.Replace("#Password", NewPassord);
+                        emailBody = emailBody.Replace("#Name", model.FirstName + ' ' + model.LastName);
+                        emailBody = emailBody.Replace("#path", _configuration["LOGOURL"]);
+
+                        await _emailManager.LogEmail(new EmailLog
+                        {
+                            CreatedBy = model.UserName,
+                            MailBody = emailBody,
+                            Receiver = model.Email,
+                            Sender = emailTemplate.EmailSender,
+                            Subject = emailTemplate.EmailSubject,
+                            DateCreated = DateTime.Now,
+                            DateToSend = DateTime.Now,
+                            Status = IPOEmailStatus.Fresh,
+                            SendImmediately = true
+                        });
+                        await _emailsender.SendEmailAsync(model.Email, emailTemplate.EmailSubject, emailBody);
+
+
+                        // Update the user temp table
+
+                       
+                        await _auditTrailManager.AddAuditTrail(new AuditTrail
+                        {
+                            ActionTaken = AuditAction.Create,
+                            DateCreated = DateTime.Now,
+                            Description = $"Password Change  for  {model.Email}  was successful",
+                            Entity = "User/ResetPassword",
+                            UserId = model.Id,
+                            UserName = model.UserName,
+                        });
+
+                        return PrepareResponse(HttpStatusCode.OK, "Password Reset Successful.", true, null);
+
+                    }
+
+                    else
+                    {
+                        return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful", true, null);
+
+                    }
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful", true, null);
+
+                }
+
+
+                
+
+
+            }
+
+
+
+        }
+
+
 
         [HttpPost("signup")]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation
-                ).FirstOrDefault(x => x.IsActive);
+            var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
             if (emailtemplate != null)
             {
 
@@ -629,6 +753,7 @@ namespace IPORevamp.WebAPI.Controllers
                     }
 
                     var verificationCode = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
                     var verifyURL = _configuration["VERIFYURL"] + "?code=" + Uri.EscapeDataString(verificationCode) + "&userId=" + user.Id;
                     var emailBody = emailtemplate.EmailBody.Replace("{VerificationURL}", verifyURL);
 
@@ -712,30 +837,49 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpPost("forgotPassword")]
         public async Task<IActionResult> ForgotPassword(ForgotPassswordRequest forgot)
         {
-            var emailTemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.PasswordReset).FirstOrDefault(x=>x.IsActive);
+            
+            var emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.FORGOT_PASSWORD_EMAIL_TEMPLATE);
+
+
+
             if (emailTemplate != null)
             {
                 var user = await _userManager.FindByNameAsync(forgot.Username);
                 if(user != null)
                 {                    
-                    var passwordResetCode = await _userManager.GeneratePasswordResetTokenAsync(user);                    
+                    var passwordResetCode = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var codeBlue = IPORevamp.Core.Utilities.Utilities.Encrypt(user.Id.ToString());
 
-                    var verifyURL = _configuration["PASSWORDRESETURL"] + "?code=" + Uri.EscapeDataString(passwordResetCode)+"&userId="+user.Id;
-                    var emailBody = emailTemplate.EmailBody.Replace("{PASSWORDRESETURL}", verifyURL);
+                    var verifyURL = _configuration["FORGOTPASSWORDURL"] + "?code=" + Uri.EscapeDataString(passwordResetCode) + "&request=" + codeBlue;
 
-                    await _emailManager.LogEmail(new EmailLog
+                    EmailLog emaillog = new EmailLog();
+                    emaillog.MailBody = emailTemplate.EmailBody;
+                    emaillog.Status = IPOEmailStatus.Fresh;
+                    emaillog.Subject = emailTemplate.EmailSubject;
+                    emaillog.DateCreated = DateTime.Now;
+                    emaillog.Receiver = user.Email;
+                    emaillog.Sender = emailTemplate.EmailSender;
+                    emaillog.SendImmediately = true;
+
+                    string mailContent = emailTemplate.EmailBody;
+                    mailContent = mailContent.Replace("#Link", verifyURL);
+                    mailContent = mailContent.Replace("#Name", user.FirstName + ' ' + user.LastName);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                    //Email the verification to the registered email address 
+                    await _emailsender.SendEmailAsync(user.Email, emailTemplate.EmailSubject, mailContent);
+
+                    // Log the activities 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
                     {
-                      
-                        CreatedBy = user.UserName,
-                        MailBody = emailBody,
-                        Receiver = user.Email,
-                        Sender = emailTemplate.EmailSender,
-                        Subject = emailTemplate.EmailSubject,
+                        ActionTaken = AuditAction.Create,
                         DateCreated = DateTime.Now,
-                        Status = IPOEmailStatus.Fresh,
-                        DateToSend = DateTime.Now.Date,
-                        SendImmediately = true
+                        Description = $"Forget Password Code  for  {user.FirstName + ' ' + user.LastName} was sent to {user.Email} ",
+                        Entity = "User",
+                        UserId = user.Id,
+                        UserName = user.Email,
                     });
+
 
                     return PrepareResponse(HttpStatusCode.OK, "Forgot password link has been sent to your email", false);
                 }
@@ -857,6 +1001,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                   return PrepareResponse(HttpStatusCode.NotFound, "User not found");
         }
+
+
 
 
         [HttpPost("Authenticate")]
