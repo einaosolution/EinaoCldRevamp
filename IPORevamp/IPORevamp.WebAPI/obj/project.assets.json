@@ -5066,7 +5066,6 @@
       "type": "package",
       "path": "autofac/4.9.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "autofac.4.9.0.nupkg.sha512",
         "autofac.nuspec",
@@ -8296,7 +8295,6 @@
       "type": "package",
       "path": "microsoft.win32.systemevents/4.5.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -9918,7 +9916,6 @@
       "type": "package",
       "path": "system.drawing.common/4.5.1",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",

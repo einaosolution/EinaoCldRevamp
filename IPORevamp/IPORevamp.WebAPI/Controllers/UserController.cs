@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Net.Http.Headers;
+using EmailEngine.Repository.FileUploadRepository;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -41,6 +42,8 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IEmailSender _emailsender;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private IHostingEnvironment _hostingEnvironment;
+        private IFileHandler _fileUploadRespository;
+
 
 
 
@@ -57,9 +60,11 @@ namespace IPORevamp.WebAPI.Controllers
             IHttpContextAccessor httpContextAccessor,
             IHostingEnvironment hostingEnvironment ,
 
-            IAuditTrailManager<AuditTrail> auditTrailManager,
-            IEventRepository eventRepository
-           
+             IFileHandler fileUploadRespository,
+            IAuditTrailManager<AuditTrail> auditTrailManager
+
+
+
             ) : base(
                 userManager,
                 signInManager,
@@ -76,7 +81,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailsender = emailsender;
             _httpContextAccessor = httpContextAccessor;
             _hostingEnvironment = hostingEnvironment;
-
+            _fileUploadRespository = fileUploadRespository;
 
         }
 
@@ -100,79 +105,85 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
         [HttpGet("GetUserFromEmail")]
-        public async Task<IActionResult> GetUserFromEmail(String property1)
+        public async Task<IActionResult> GetUserFromEmail(string  EmailAddress)
         {
           
 
-            var user = _userManager.Users.FirstOrDefault(x => x.Email == property1);
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == EmailAddress);
 
             return Ok(user);
 
 
         }
 
+       
         // This method is used for verification of account updating aspnetuser table
         [HttpPost("UpdateUserInfo")]
-        public async Task<IActionResult> UpdateUserInfo([FromForm] string FirstName , [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber, [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode, [FromForm] string Country)
+        [Consumes("multipart/form-data")]
+      
+        public async Task<IActionResult> UpdateUserInfo([FromForm] string FirstName ,
+            [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, 
+            [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber,
+            [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode,
+            [FromForm] string Country)
         {
-            var context = _httpContextAccessor.HttpContext;
+          
 
-            var user = _userManager.Users.FirstOrDefault(x => x.Email == Email );
+            var user = _userManager.Users.FirstOrDefault(x => x.Email.ToLower() == Email.ToLower());
 
-            var file = Request.Form.Files[0];
-            string folderName = "Upload";
-            string filename = "";
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string newPath = Path.Combine(webRootPath, folderName);
-
-            if (file.Length > 0)
+            if (user == null)
             {
-                string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                filename = "Upload/" + fileName;
-                string fullPath = Path.Combine(newPath, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            // file upload
+            string msg= await  _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensions"],Convert.ToInt32(_configuration["_oneMegaByte"]), 
+              Convert.ToInt32(_configuration["_fileMaxSize"]));
+
+
+          string [] result = msg.Split("|");
+
+            // check status before processing request 
+
+            if (result[0] == "FAIL")
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, " Passport Upload Fail", false);
+            }
+
+            else
+            {
+                if (user != null)
                 {
-                    file.CopyTo(stream);
+                    user.FirstName = FirstName;
+                    user.LastName = LastName;
+                    user.Gender = Gender == "Male" ? Data.UserManagement.Model.Gender.Male : Data.UserManagement.Model.Gender.Female;
+                    user.DateOfBirth = Convert.ToDateTime(DateofBirth);
+                    user.Bio = Identification;
+                    user.MobileNumber = MobileNumber;
+                    user.City = City;
+                    user.State = State;
+                    user.PostalCode = PostCode;
+                    user.CountryCode = Country;
+                    user.ProfilePicLoc = result[1].ToString();
+                    user.CompleteRegistration = true;
+
+                    await _userManager.UpdateAsync(user);
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Update,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.UserName} has been Updated  successfully",
+                        Entity = "User",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                    });
+
                 }
+
             }
-
-
-
-
-
-
-            if (user != null)
-            {
-                user.FirstName = FirstName;
-                user.LastName = LastName;
-                user.Gender = Gender == "Male" ?  Data.UserManagement.Model.Gender.Male: Data.UserManagement.Model.Gender.Female;
-                user.DateOfBirth = Convert.ToDateTime(DateofBirth);
-                user.Bio = Identification;
-                user.MobileNumber = MobileNumber;
-                user.City = City;
-                user.State = State;
-                user.PostalCode = PostCode;
-                user.CountryCode = Country;
-                user.ProfilePicLoc = filename;
-                user.CompleteRegistration = true;
-
-               await _userManager.UpdateAsync(user);
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
-                {
-                    ActionTaken = AuditAction.Update,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.UserName} has been Updated  successfully",
-                    Entity = "User",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                });
-               
-            }
-
-
-
-            //  var kk =    context.Items["firstname"].ToString();
-
+            
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
         }
 
@@ -668,8 +679,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // check tha
                
-                var user = _userManager.Users.FirstOrDefault(x => x.UserName == changePasswordModel.EmailAddress.ToLower() 
-                || x.Email == changePasswordModel.EmailAddress.ToLower());
+                var user = _userManager.Users.FirstOrDefault(x => x.UserName == changePasswordModel.Email.ToLower() 
+                || x.Email == changePasswordModel.Email.ToLower());
 
                 if (user != null)
                 {

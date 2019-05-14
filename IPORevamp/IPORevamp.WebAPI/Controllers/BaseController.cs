@@ -50,6 +50,7 @@ namespace IPORevamp.WebAPI.Controllers
             IMapper mapper,
             ILogger<BaseController> logger,
             IAuditTrailManager<AuditTrail> auditTrailManager
+          
            
 
             )

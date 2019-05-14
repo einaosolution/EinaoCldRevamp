@@ -19,7 +19,7 @@ using IPORevamp.Data.Entities.AuditTrail;
 using IPORevamp.Data.Entities.Email;
 using IPORevamp.Data.UserManagement.Model;
 using IPORevamp.Repository.Event;
-
+using EmailEngine.Repository.FileUploadRepository;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -108,28 +108,28 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.NotFound, "User not found", true, null);
         }
 
-        [Consumes("multipart/form-data")]
-        [HttpPut("{userId}/upload-image")]
-        public async Task<IActionResult> UploadProfileImage(int userId, IFormFile image)
-        {
-            var loggedUser = User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(loggedUser);
-            if(user.Id != userId)
-            {
-                return PrepareResponse(HttpStatusCode.Forbidden, "You are forbidden to perform this task");
-            }
+        //[Consumes("multipart/form-data")]
+        //[HttpPut("{userId}/upload-image")]
+        //public async Task<IActionResult> UploadProfileImage(int userId, IFormFile image)
+        //{
+        //    var loggedUser = User.Identity.Name;
+        //    var user = await _userManager.FindByNameAsync(loggedUser);
+        //    if(user.Id != userId)
+        //    {
+        //        return PrepareResponse(HttpStatusCode.Forbidden, "You are forbidden to perform this task");
+        //    }
 
-            var uploadedImage = await _fileHandler.UploadFile(image, FileType.PICTURE); 
-            if (!string.IsNullOrEmpty(uploadedImage))
-            {
-                user.ProfilePicLoc = uploadedImage;
-                await _userManager.UpdateAsync(user);
+        //    var uploadedImage = await _fileHandler.UploadFile(image, FileType.PICTURE); 
+        //    if (!string.IsNullOrEmpty(uploadedImage))
+        //    {
+        //        user.ProfilePicLoc = uploadedImage;
+        //        await _userManager.UpdateAsync(user);
 
-                return PrepareResponse(HttpStatusCode.OK, "Profile Image has been uploaded successfully", false);
-            }
+        //        return PrepareResponse(HttpStatusCode.OK, "Profile Image has been uploaded successfully", false);
+        //    }
 
-            return PrepareResponse(HttpStatusCode.InternalServerError, "An error occured while uploading profile image");
-        }
+        //    return PrepareResponse(HttpStatusCode.InternalServerError, "An error occured while uploading profile image");
+        //}
 
         
             
