@@ -188,7 +188,73 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
         // This method is used for verification of account 
+        [HttpPost("UpdateCorporateRecord")]
+        public async Task<IActionResult> UpdateCorporateRecord( [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite, [FromForm] string FirstName, [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber, [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode, [FromForm] string Country)
+        {
+            var context = _httpContextAccessor.HttpContext;
 
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == Email);
+
+            var file = Request.Form.Files[0];
+            string folderName = "Upload";
+            string filename = "";
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string newPath = Path.Combine(webRootPath, folderName);
+
+            if (file.Length > 0)
+            {
+                string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                filename = "Upload/" + fileName;
+                string fullPath = Path.Combine(newPath, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+
+
+
+
+
+
+            if (user != null)
+            {
+                user.Rcno = CompanyRegistration;
+                user.MobileNumber = companytelephone;
+                user.Email = companyemail;
+                user.Website = companywebsite;
+                user.FirstName = FirstName;
+                user.LastName = LastName;
+                user.Gender = Gender == "Male" ? Data.UserManagement.Model.Gender.Male : Data.UserManagement.Model.Gender.Female;
+                user.DateOfBirth = Convert.ToDateTime(DateofBirth);
+                user.Bio = Identification;
+                user.MobileNumber = MobileNumber;
+                user.City = City;
+                user.State = State;
+                user.PostalCode = PostCode;
+                user.CountryCode = Country;
+                user.ProfilePicLoc = filename;
+                user.CompleteRegistration = true;
+
+                await _userManager.UpdateAsync(user);
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Update,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.UserName} has been Updated  successfully",
+                    Entity = "User",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                });
+
+            }
+
+
+
+            //  var kk =    context.Items["firstname"].ToString();
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+        }
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel   model)
         {
@@ -196,20 +262,33 @@ namespace IPORevamp.WebAPI.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = _userManager.Users.FirstOrDefault(x => x.Email == model.Email);
+                var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Email);
+                var username = user.FirstName + ' ' + user.LastName;
                 user.ChangePassword = true;
-                _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 _userManager.UpdateAsync(user);
-
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                try
                 {
-                    ActionTaken = AuditAction.Update,
-                    DateCreated = DateTime.Now,
-                    Description = $"Pasword Change For  {user.FirstName + ' ' + user.LastName}  ",
-                    Entity = "User",
-                    UserId = 0,
-                    UserName = model.Email,
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Update,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.UserName} has been Changed password   successfully",
+                        Entity = "User",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                    });
+
+                }
+                catch(Exception ee )
+                {
+
+                }
+
+             
+
+
+
 
 
                 return PrepareResponse(HttpStatusCode.OK, "Password Changed", false);
