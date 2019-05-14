@@ -37,6 +37,7 @@ namespace IPORevamp.WebAPI.Models
         public string Token { get; set; }
         public string Role { get; set; }
         public string category { get; set; }
+        public string loggeduser { get; set; }
         public Boolean  registrationcomplete  { get; set; }
         public Boolean changepassword { get; set; }
         public DateTime ExpiryTime { get; set; }

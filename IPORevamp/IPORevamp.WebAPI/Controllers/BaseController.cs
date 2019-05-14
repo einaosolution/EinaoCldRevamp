@@ -99,26 +99,28 @@ namespace IPORevamp.WebAPI.Controllers
         protected async Task<AuthModel> GenerateJwtToken(string email, ApplicationUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
+            var loggedinuser = user.FirstName + " " + user.LastName;
             string roles = string.Empty;
             IList<string> role = await _userManager.GetRolesAsync(user);
-         //   var organizedEvents = await _eventRepository.FetchOrganizedEvents(user.Id);
-            
-          //  if (role.Any())
-           // {
-               // roles = role.Join();
-           // }
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
-                new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
-              //  new Claim("Category", Convert.ToString(user.CategoryId)),
-                new Claim(ClaimTypes.Name, user.UserName),
-                //new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
-             //   new Claim(ClaimTypes.Role,roles),
-             //   new Claim("OrganizedEvents", string.Join(',',organizedEvents?.Select(x=>x.Id.ToString())))
-            }.Union(userClaims);
+            //   var organizedEvents = await _eventRepository.FetchOrganizedEvents(user.Id);
+
+            //  if (role.Any())
+            // {
+            // roles = role.Join();
+            // }
+          
+            //    var claims = new List<Claim>
+            //{
+            //    new Claim(JwtRegisteredClaimNames.Sub, email),
+            //    new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
+            //    new Claim(ClaimTypes.NameIdentifier, user.UserName),
+            //    new Claim(ClaimTypes.Email, user.Email),
+            //   new Claim("Category", Convert.ToString(user.CategoryId)),
+            //    new Claim(ClaimTypes.Name, user.UserName),
+              
+            //}.Union(userClaims);
+
+           
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -127,7 +129,8 @@ namespace IPORevamp.WebAPI.Controllers
             var token = new JwtSecurityToken(
                 _configuration["JwtIssuer"],
                 _configuration["JwtIssuer"],
-                claims,
+              //  claims,
+                  null,
                 expires: expires,
                 signingCredentials: creds
             );
@@ -141,7 +144,8 @@ namespace IPORevamp.WebAPI.Controllers
                 UserId = user.Id,
                 category = Convert.ToString(user.CategoryId),
                 registrationcomplete = user.CompleteRegistration,
-                changepassword = user.ChangePassword
+                changepassword = user.ChangePassword,
+                loggeduser = loggedinuser 
                 
             };
             return auth;

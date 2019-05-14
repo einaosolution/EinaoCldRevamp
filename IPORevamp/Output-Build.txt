@@ -1,0 +1,16 @@
+﻿1>------ Build started: Project: IPORevamp.WebAPI, Configuration: Debug Any CPU ------
+1>Startup.cs(36,7,36,31): warning CS0105: The using directive for 'IPORevamp.WebAPI.Filters' appeared previously in this namespace
+1>Controllers\EventController.cs(43,43,43,59): warning CS0108: 'EventController._eventRepository' hides inherited member 'BaseController._eventRepository'. Use the new keyword if hiding was intended.
+1>Controllers\UserController.cs(91,42,91,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+1>Controllers\UserController.cs(103,42,103,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+1>Controllers\UserController.cs(257,17,257,47): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+1>Controllers\UserController.cs(258,17,258,97): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+1>Controllers\UserController.cs(272,33,272,35): warning CS0168: The variable 'ee' is declared but never used
+1>Controllers\UserController.cs(742,42,742,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+1>Controllers\EmailController.cs(143,41,143,61): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+1>Controllers\EventController.cs(829,21,829,61): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+1>Controllers\EventController.cs(43,43,43,59): warning CS0649: Field 'EventController._eventRepository' is never assigned to, and will always have its default value null
+1>IPORevamp.WebAPI -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.dll
+1>IPORevamp.WebAPI -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.Views.dll
+1>Done building project "IPORevamp.WebAPI.csproj".
+========== Build: 1 succeeded, 0 failed, 4 up-to-date, 0 skipped ==========
