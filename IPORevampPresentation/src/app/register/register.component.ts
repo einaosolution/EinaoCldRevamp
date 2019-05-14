@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import {ApiClientService} from '../api-client.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2' ;
+import { NgxSpinnerService } from 'ngx-spinner';
 //const Swal = require('sweetalert2')
 
 
@@ -34,8 +35,8 @@ export class RegisterComponent implements OnInit {
   pp4:boolean=false;
   public formSubmitAttempt: boolean;
 
-  varray4 = [{ YearName: 'Applicant/Individual', YearCode: 'Applicant/Individual' }, { YearName: 'Corporate/Agent', YearCode: 'Corporate/Agent' } ]
-  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router) { }
+  varray4 = [{ YearName: 'Applicant/Individual', YearCode: '1' }, { YearName: 'Corporate/Agent', YearCode: '2' } ]
+  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router ,private spinner: NgxSpinnerService) { }
 
   valuechange(een ) {
 
@@ -70,6 +71,8 @@ this.submitted= true;
 
 if (this.userform.valid) {
 
+  this.spinner.show();
+
   var kk = {
     Email:this.userform.value.Email  ,
     First_Name:this.userform.value.firstName ,
@@ -84,9 +87,10 @@ if (this.userform.valid) {
  // this.router.navigate(['/Emailverification']);
 
 
- this.busy =   this.registerapi
+  this.registerapi
     .Register(kk)
     .then((response: any) => {
+      this.spinner.hide();
 
       this.submitted=false;
       Swal.fire(
@@ -100,8 +104,15 @@ if (this.userform.valid) {
 
     })
              .catch((response: any) => {
+              this.spinner.hide();
                console.log(response)
-              alert("Error Occured")
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
      }
      );
 

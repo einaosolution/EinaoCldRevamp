@@ -5,6 +5,7 @@ import {ApiClientService} from '../api-client.service';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from "@angular/router";
 import Swal from 'sweetalert2' ;
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var jquery:any;
 declare var $ :any;
 @Component({
@@ -27,36 +28,14 @@ export class LoginComponent implements OnInit {
   messages = ""
   public formSubmitAttempt: boolean;
   busy: Promise<any>;
-  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute) {
-    this.route.params.subscribe( params =>
-      {
-        if (params.id) {
-          console.log(params.id)
-          Swal.fire({
-            title: 'Account Confirmed ',
-            text: "Do You want  to proceed",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, proceed'
-          }).then((result) => {
-            if (result.value) {
 
-
-            }
-          })
-        }
-
-      }
-
-
-      );
-
+  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) {
 
 
 
    }
+
+
   onSubmit() {
 
     this.submitted= true;
@@ -64,25 +43,98 @@ export class LoginComponent implements OnInit {
 
 
     if (this.userform.valid) {
-
-      if (this.userform.value.Email =="testuser@yahoo.com" &&  this.userform.value.Password =="pass12345" ) {
-
-this.showerror = false;
-//this.router.navigate(['/home']);
-this.registerapi.settoken("kkkkk") ;
-this.registerapi.VChangeEvent("kkkkk") ;
-this.router.navigateByUrl('/home');
-
+      this.spinner.show();
+      var kk = {
+        Username:this.userform.value.Email  ,
+        Password:this.userform.value.Password ,
+        RememberMe:true
 
 
 
       }
 
-      else {
-        this.showerror = true;
-        this.messages ="invalid username and password";
+      this.registerapi
+      .Login(kk)
+      .then((response: any) => {
+        this.spinner.hide();
 
-      }
+        this.submitted=false;
+
+     //  this.router.navigate(['/Emailverification']);
+
+
+     console.log(response.content)
+     if (response.content.category =="1" && !response.content.registrationcomplete ) {
+      localStorage.setItem('username', this.userform.value.Email);
+      localStorage.setItem('loggeduser', response.content.loggeduser);
+      this.registerapi.settoken("");
+     // localStorage.setItem('access_tokenexpire', response.content.Token);
+      this.router.navigateByUrl('Individual');
+
+
+      return ;
+     }
+
+
+
+     if (response.content.category =="2" && !response.content.registrationcomplete ) {
+      localStorage.setItem('username', this.userform.value.Email);
+      localStorage.setItem('loggeduser', response.content.loggeduser);
+
+      this.registerapi.settoken("");
+     // localStorage.setItem('access_tokenexpire', response.content.Token);
+      this.router.navigateByUrl('Corporate');
+
+
+      return ;
+     }
+
+
+
+
+     if (!response.content.changepassword) {
+
+      localStorage.setItem('username', this.userform.value.Email);
+      localStorage.setItem('loggeduser', response.content.loggeduser);
+      localStorage.setItem('loggeduser', response.content.loggeduser);
+      this.registerapi.settoken("");
+     // localStorage.setItem('access_tokenexpire', response.content.Token);
+      this.router.navigateByUrl('/PasswordChange');
+      return ;
+    }
+    localStorage.setItem('username', this.userform.value.Email);
+
+    localStorage.setItem('access_tokenexpire', response.content.token);
+
+    localStorage.setItem('loggeduser', response.content.loggeduser);
+
+    this.registerapi.settoken(response.content.token) ;
+
+    this.registerapi.VChangeEvent("kkkkk")
+   //this.router.navigateByUrl('/home');
+   //
+
+
+
+
+    // this.userform.reset();
+
+      })
+               .catch((response: any) => {
+                this.spinner.hide();
+                console.log("response error")
+                 console.log(response)
+
+
+                Swal.fire(
+                  response.error.message,
+                  '',
+                  'error'
+                )
+       }
+       );
+
+
     }
 
   }
@@ -124,7 +176,7 @@ this.router.navigateByUrl('/home');
   ngOnInit() {
 
     if (this.islogged()) {
-      this.router.navigateByUrl('/logout');
+      this.router.navigateByUrl('/home');
      }
 
      else {

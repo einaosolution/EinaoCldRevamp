@@ -24,8 +24,9 @@
                       <div class="card">
                           <div class="card-header bg-success">
                               <h4 class="mb-0 text-white">Applicant / Individual</h4>
+                              <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                           </div>
-                          <form class="form-horizontal m-t-10" action="verification.html">
+                          <form class="form-horizontal m-t-10" action="verification.html"  [formGroup]="userform">
                               <div class="card-body">
                                   <h4 class="card-title">Person Info</h4>
                               </div>
@@ -36,14 +37,15 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label class="control-label">First Name</label>
-                                                  <input type="text" id="firstName" class="form-control" placeholder="John doe">
-                                            </div>
+                                                  <input type="text" id="firstName" formControlName="FirstName" [ngClass]="{ 'is-invalid': submitted && FirstName.errors }" class="form-control" placeholder="John doe">
+
+                                                </div>
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
                                               <div class="form-group has-danger">
                                                   <label class="control-label">Last Name</label>
-                                                  <input type="text" id="lastName" class="form-control form-control-danger" placeholder="12n">
+                                                  <input type="text" formControlName="LastName" [ngClass]="{ 'is-invalid': submitted && LastName.errors }" id="lastName" class="form-control form-control-danger" placeholder="12n">
                                                   </div>
                                           </div>
                                           <!--/span-->
@@ -53,9 +55,10 @@
                                           <div class="col-md-6">
                                               <div class="form-group has-success">
                                                   <label class="control-label">Gender</label>
-                                                  <select class="form-control custom-select">
-                                                      <option value="">Male</option>
-                                                      <option value="">Female</option>
+                                                  <select formControlName="Gender" [ngClass]="{ 'is-invalid': submitted && Gender.errors }" class="form-control custom-select">
+                                                    <option value=""> --Select Gender--</option>
+                                                    <option value="Male">Male</option>
+                                                      <option value="Female">Female</option>
                                                   </select>
                                                   <small class="form-control-feedback"> Select your gender </small> </div>
                                           </div>
@@ -63,7 +66,7 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label class="control-label">Date of Birth</label>
-                                                  <input type="text" class="form-control" bsDatepicker>
+                                                  <input type="text" formControlName="DateofBirth"  [ngClass]="{ 'is-invalid': submitted && DateofBirth.errors }" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
                                               </div>
                                           </div>
                                           <!--/span-->
@@ -73,11 +76,15 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label class="control-label">Means of Identification</label>
-                                                  <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
-                                                      <option value="Category 1">Driver License</option>
-                                                      <option value="Category 2">International Passport</option>
-                                                      <option value="Category 3">National Identity Card</option>
-                                                      <option value="Category 4">Voter's Registration Card</option>
+
+
+                                                  <select   name="Identification"  formControlName="MeansofIdentification" [ngClass]="{ 'is-invalid': submitted && MeansofIdentification.errors }"     class="custom-select form-control-lg"    id="Month">
+                                                    <option  value= "">
+                                                      --Select your Means of Identification--
+                                                      </option>
+                                                    <option *ngFor="let country2 of varray44" value= {{country2.YearCode}}>
+                                                      {{country2.YearName}}
+                                                    </option>
                                                   </select>
                                               </div>
                                           </div>
@@ -85,7 +92,7 @@
                                           <div class="col-md-6">
                                                   <div class="form-group has-danger">
                                                       <label class="control-label">Mobile Number</label>
-                                                      <input type="text" id="telnumber" class="form-control form-control-danger" placeholder="080">
+                                                      <input type="text"  formControlName="MobileNumber"  [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" id="telnumber" class="form-control form-control-danger" placeholder="080">
                                                       </div>
                                               </div>
                                           <!--/span-->
@@ -99,7 +106,7 @@
                                           <div class="col-md-12 ">
                                               <div class="form-group">
                                                   <label>Street</label>
-                                                  <input placeholder="Street" type="text" class="form-control">
+                                                  <input placeholder="Street" formControlName="Street" [ngClass]="{ 'is-invalid': submitted && Street.errors }" type="text" class="form-control">
                                               </div>
                                           </div>
                                       </div>
@@ -107,14 +114,14 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label>City</label>
-                                                  <input type="text" placeholder="City" class="form-control">
+                                                  <input type="text" formControlName="City" [ngClass]="{ 'is-invalid': submitted && City.errors }" placeholder="City" class="form-control">
                                               </div>
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label>State</label>
-                                                  <input type="text" placeholder="State" class="form-control">
+                                                  <input type="text" formControlName="State"  [ngClass]="{ 'is-invalid': submitted && State.errors }" placeholder="State" class="form-control">
                                               </div>
                                           </div>
                                           <!--/span-->
@@ -124,14 +131,14 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label>Post Code</label>
-                                                  <input type="text" placeholder="Postal Code" class="form-control">
+                                                  <input type="text"  formControlName="PostCode" [ngClass]="{ 'is-invalid': submitted && PostCode.errors }" placeholder="Postal Code" class="form-control">
                                               </div>
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label>Country</label>
-                                                  <select   name="Month"       class="custom-select form-control-lg"    id="Month">
+                                                  <select   name="Month"  formControlName="Country"  [ngClass]="{ 'is-invalid': submitted && Country.errors }"    class="custom-select form-control-lg"    id="Month">
                                                     <option  value= "">
                                                       --Select your Country--
                                                       </option>
@@ -148,15 +155,15 @@
                                         <div class="col-md-12 ">
                                             <div class="form-group">
                                                 <label>Profile Picture</label>
-                                                <input placeholder="Upload" type="file" class="form-control">
+                                                <input placeholder="Upload" #fileInput type="file" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                   </div>
                                   <div class="form-actions">
                                       <div class="card-body">
-                                          <button type="button" class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
-                                          <button type="button" class="btn btn-danger">Cancel</button>
+                                          <button type="button" (click) ="onSubmit()" class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
+                                          <button type="button" (click) ="onSubmit2()" class="btn btn-danger">Cancel</button>
                                       </div>
                                   </div>
                               </div>

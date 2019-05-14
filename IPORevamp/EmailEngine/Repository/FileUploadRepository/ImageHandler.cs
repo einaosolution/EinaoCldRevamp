@@ -1,10 +1,12 @@
 ﻿using EmailEngine.Repository.FileUploadRepository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace EmailEngine.Repository
@@ -35,7 +37,7 @@ namespace EmailEngine.Repository
             
         }
         public async Task<string> UploadFile(IFormFile FileDetail, string UploadPath,
-            string expectedExtension, int _oneMegaByte, int  _fileMaxSize)
+            string expectedExtension, int _oneMegaByte, int  _fileMaxSize , IHostingEnvironment _hostingEnvironment)
         {
             try
             {
@@ -44,15 +46,21 @@ namespace EmailEngine.Repository
                 {                    
                     var extension = FileDetail.FileName.Split('.')[1];
                     //"txt", "doc", "docx", "pdf", "xls", "xlsx"
-                    var supportedTypes = new[] { expectedExtension };
-                    int checkExtension = 0;
+                    //  var supportedTypes = new[] { expectedExtension };
+                    var supportedTypes = expectedExtension.Split(',');
+                   int checkExtension = 0;
                     foreach(var item in supportedTypes)
                     {
-                        if (item == extension)
+
+                       var  kk = item.Replace("\"", "");
+                        if (kk == extension)
+                        
                         {
                             checkExtension = checkExtension + 1;
                         }
                     }
+
+                    var filesize = _fileMaxSize * _oneMegaByte;
 
                     if (checkExtension == 0)
 
@@ -66,7 +74,10 @@ namespace EmailEngine.Repository
                         msg = "FAIL|File contain no content!";
                        
                     }
-                    else if (FileDetail.Length > (_fileMaxSize * _oneMegaByte))
+
+                    
+
+                    else if (FileDetail.Length > filesize)
                     {
                         msg =  "FAIL|File size is larger than the accepted maximum size. Maximum file size is " + _fileMaxSize + " MB!";
                    
@@ -76,14 +87,25 @@ namespace EmailEngine.Repository
                    var fileName = Guid.NewGuid ().ToString();
                     fileName += "."+extension;
 
+                    string folderName = "Upload";
+                   
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
 
-                    var fileDirectory = $"{UploadPath.ToString().ToLower()}";                                   
-
-                    var newPath = Path.Combine(Directory.GetCurrentDirectory(), fileDirectory, fileName);
-                    using (var fs = new FileStream(newPath, FileMode.Create))
+                    string fullPath = Path.Combine(newPath, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                       await FileDetail.CopyToAsync(fs);
+                        FileDetail.CopyTo(stream);
                     }
+
+
+                   // var fileDirectory = $"{UploadPath.ToString().ToLower()}";                                   
+
+                  //  var newPath = Path.Combine(Directory.GetCurrentDirectory(), fileDirectory, fileName);
+                  //  using (var fs = new FileStream(newPath, FileMode.Create))
+                  //  {
+                   //    await FileDetail.CopyToAsync(fs);
+                   // }
 
                     msg= "OK|"+ fileName;
 

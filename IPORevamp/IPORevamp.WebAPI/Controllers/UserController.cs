@@ -27,6 +27,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Net.Http.Headers;
+
+using Microsoft.AspNetCore.Authorization;
+
 using EmailEngine.Repository.FileUploadRepository;
 
 namespace IPORevamp.WebAPI.Controllers
@@ -93,9 +96,9 @@ namespace IPORevamp.WebAPI.Controllers
         /// 
 
         [HttpGet("GetUserFromEncryptEmail")]
-        public async Task<IActionResult> GetUserFromEncryptEmail( String property1)
+        public async Task<IActionResult> GetUserFromEncryptEmail([FromQuery] string EmailAddress)
         {
-            string convertString = IPORevamp.Core.Utilities.Utilities.Decrypt(property1);
+            string convertString = IPORevamp.Core.Utilities.Utilities.Decrypt(EmailAddress);
 
             var user = _userManager.Users.FirstOrDefault(x => x.Email == convertString);
 
@@ -105,7 +108,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
         [HttpGet("GetUserFromEmail")]
-        public async Task<IActionResult> GetUserFromEmail(string  EmailAddress)
+        public async Task<IActionResult> GetUserFromEmail([FromQuery] string EmailAddress)
         {
           
 
@@ -125,7 +128,7 @@ namespace IPORevamp.WebAPI.Controllers
             [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, 
             [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber,
             [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode,
-            [FromForm] string Country)
+            [FromForm] string Country, [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite)
         {
           
 
@@ -139,11 +142,26 @@ namespace IPORevamp.WebAPI.Controllers
             }
 
             // file upload
-            string msg= await  _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensions"],Convert.ToInt32(_configuration["_oneMegaByte"]), 
-              Convert.ToInt32(_configuration["_fileMaxSize"]));
+            string msg = "";
+            try
+            {
+                String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                String[]  fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                int result1 = Convert.ToInt32(oneMegaByte[0]);
+                int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                  result2, _hostingEnvironment);
+
+            }
+
+            catch (Exception ee)
+            {
+                var kk = ee.Message;
+            }
 
 
-          string [] result = msg.Split("|");
+            string [] result = msg.Split("|");
 
             // check status before processing request 
 
@@ -168,6 +186,10 @@ namespace IPORevamp.WebAPI.Controllers
                     user.CountryCode = Country;
                     user.ProfilePicLoc = result[1].ToString();
                     user.CompleteRegistration = true;
+                    user.Rcno = CompanyRegistration;
+                    user.MobileNumber = companytelephone;
+                  
+                    user.Website = companywebsite;
 
                     await _userManager.UpdateAsync(user);
                     await _auditTrailManager.AddAuditTrail(new AuditTrail
@@ -256,6 +278,7 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
         }
         [HttpPost("ChangePassword")]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel   model)
         {
             //   _userManager.ChangePasswordAsync()

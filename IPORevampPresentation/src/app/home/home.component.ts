@@ -31,7 +31,12 @@ export class HomeComponent implements OnInit,AfterViewInit {
 
    selectedNavItem(item) {
     this.islogged()
+
+
+
     window.location.reload();
+
+
   }
 
 
@@ -70,8 +75,18 @@ export class HomeComponent implements OnInit,AfterViewInit {
    //this.registerapi.VChangeEvent("kkkkk") ;
 
    if (this.islogged()) {
+
     this.router.navigateByUrl('/Dashboard/Dashboard2');
    }
+
+   else {
+    this.router.navigateByUrl('/login');
+
+   }
+
+
+
+
 
 
   }

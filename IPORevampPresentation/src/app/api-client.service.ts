@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import {EventEmitter} from '@angular/core';
+import {Router} from '@angular/router';
+
 
 
 @Injectable({
@@ -8,25 +10,38 @@ import {EventEmitter} from '@angular/core';
 })
 export class ApiClientService {
   public vpage :string =""
-  serviceBase = 'http://localhost:5000/';
- // serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+  public changepassword :boolean=false;
+// serviceBase = 'http://localhost:5000/';
+ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
   navchange: EventEmitter<string> = new EventEmitter();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router) { }
 
   VChangeEvent(number) {
+   // this.router.navigateByUrl('/home');
     this.navchange.emit(number);
   }
+
+  changepassword2(bb:boolean) {
+    // this.router.navigateByUrl('/home');
+     this.changepassword =bb;
+   }
+
+   password2() {
+    // this.router.navigateByUrl('/home');
+    var kk =this.changepassword;
+    return  kk
+   }
 
   getNavChangeEmitter() {
     return this.navchange;
   }
   settoken(kk) {
-    localStorage.setItem('token',kk);
+    localStorage.setItem('access_tokenexpire',kk);
   }
 
   gettoken() {
-    var dd = localStorage.getItem('token')
+    var dd = localStorage.getItem('access_tokenexpire')
    return dd ;
   }
 
@@ -52,6 +67,75 @@ export class ApiClientService {
                 .then(data => {  return data; });
 
   }
+
+
+  ChangePassword(formData) {
+    var token = localStorage.getItem('access_tokenexpire');
+   // var headers = new Headers();
+  //  headers.append('Authorization', 'Bearer ' + token);
+
+    const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+
+    return this.http.post( this.serviceBase + 'api/users/ChangePassword', formData,{headers})
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+
+  UpdateUser(formData) {
+
+
+
+    //return this.http.post( this.serviceBase + 'api/users/UpdateIndividualRecord', formData)
+    return this.http.post( this.serviceBase + 'api/users/UpdateUserInfo', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  UpdateUser2(formData) {
+
+
+
+  //  return this.http.post( this.serviceBase + 'api/users/UpdateCorporateRecord', formData)
+    return this.http.post( this.serviceBase + 'api/users/UpdateUserInfo', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+  GetEmail(pp: string) {
+
+		var data = {
+      EmailAddress: pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/users/GetUserFromEmail', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetEmail2(pp: string) {
+		var data = {
+      EmailAddress: pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/users/GetUserFromEncryptEmail', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+	}
+
 
   CreateTask(formData) {
 
@@ -139,7 +223,7 @@ export class ApiClientService {
   Login(formData) {
 
 
-    return this.http.post( '/user/signin', formData)
+    return this.http.post( this.serviceBase +'api/users/Authenticate', formData)
                 .toPromise()
 
                 .then(data => {  return data; });

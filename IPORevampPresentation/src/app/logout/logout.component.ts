@@ -15,10 +15,10 @@ export class LogoutComponent implements OnInit {
 
 this.registerapi.settoken("");
 
+localStorage.setItem('username', "");
 
 
-
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/login');
   }
 
 }

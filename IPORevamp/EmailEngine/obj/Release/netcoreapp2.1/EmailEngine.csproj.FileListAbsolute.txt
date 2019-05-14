@@ -32,3 +32,5 @@ C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.dl
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.pdb
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.dll
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.xml

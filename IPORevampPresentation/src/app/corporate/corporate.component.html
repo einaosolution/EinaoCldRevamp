@@ -24,8 +24,9 @@
                       <div class="card">
                           <div class="card-header bg-success">
                               <h4 class="mb-0 text-white">Corporate / Agent</h4>
+                              <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                           </div>
-                          <form class="form-horizontal m-t-10" action="index.html">
+                          <form class="form-horizontal m-t-10" action="index.html"  [formGroup]="userform">
                               <div class="card-body">
                                   <h4 class="card-title">Company Info</h4>
                               </div>
@@ -36,14 +37,14 @@
                                                       <div class="col-md-6">
                                                           <div class="form-group">
                                                               <label class="control-label">Company Name</label>
-                                                              <input type="text" id="CompanyName" class="form-control" placeholder="Witty Farms">
+                                                              <input formControlName="companyname" [ngClass]="{ 'is-invalid': submitted && companyname.errors }"  type="text" id="CompanyName" class="form-control" placeholder="Witty Farms">
                                                         </div>
                                                       </div>
                                                       <!--/span-->
                                                       <div class="col-md-6">
                                                           <div class="form-group has-danger">
                                                               <label class="control-label">Company Registration</label>
-                                                              <input type="text" id="CompanyReg" class="form-control form-control-danger" placeholder="RC123">
+                                                              <input type="text" formControlName="CompanyRegistration" [ngClass]="{ 'is-invalid': submitted && CompanyRegistration.errors }" id="CompanyReg" class="form-control form-control-danger" placeholder="RC123">
                                                               </div>
                                                       </div>
                                                       <!--/span-->
@@ -53,7 +54,7 @@
                                                   <div class="col-md-12 ">
                                                       <div class="form-group">
                                                           <label>Street</label>
-                                                          <input type="text" placeholder="Street" class="form-control">
+                                                          <input type="text" formControlName="Street" [ngClass]="{ 'is-invalid': submitted && Street.errors }" placeholder="Street" class="form-control">
                                                       </div>
                                                   </div>
                                               </div>
@@ -61,14 +62,14 @@
                                                   <div class="col-md-6">
                                                       <div class="form-group">
                                                           <label>City</label>
-                                                          <input type="text" class="form-control">
+                                                          <input formControlName="City" [ngClass]="{ 'is-invalid': submitted && City.errors }" type="text" class="form-control">
                                                       </div>
                                                   </div>
                                                   <!--/span-->
                                                   <div class="col-md-6">
                                                       <div class="form-group">
                                                           <label>State</label>
-                                                          <input type="text" placeholder="State" class="form-control">
+                                                          <input type="text" formControlName="State" [ngClass]="{ 'is-invalid': submitted && State.errors }"  placeholder="State" class="form-control">
                                                       </div>
                                                   </div>
                                                   <!--/span-->
@@ -78,7 +79,7 @@
                                                   <div class="col-md-6">
                                                       <div class="form-group">
                                                           <label>Post Code</label>
-                                                          <input type="text" placeholder="Postal Code" class="form-control">
+                                                          <input type="text" formControlName="PostCode" [ngClass]="{ 'is-invalid': submitted && PostCode.errors }" placeholder="Postal Code" class="form-control">
                                                       </div>
                                                   </div>
                                                   <!--/span-->
@@ -87,7 +88,7 @@
                                                           <label>Country</label>
 
 
-                                                          <select   name="Month"       class="custom-select form-control-lg"    id="Month">
+                                                          <select   name="Month"   formControlName="Country" [ngClass]="{ 'is-invalid': submitted && Country.errors }"    class="custom-select form-control-lg"    id="Month">
                                                             <option  value= "">
                                                               --Select your Country--
                                                               </option>
@@ -107,14 +108,14 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label class="control-label">Contact First Name</label>
-                                                  <input type="text" id="firstName" class="form-control" placeholder="First Name">
+                                                  <input type="text" formControlName="FirstName" [ngClass]="{ 'is-invalid': submitted && FirstName.errors }" id="firstName" class="form-control" placeholder="First Name">
                                             </div>
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
                                               <div class="form-group has-danger">
                                                   <label class="control-label">Contact Last Name</label>
-                                                  <input type="text" id="lastName" class="form-control form-control-danger" placeholder="12n">
+                                                  <input type="text" formControlName="LastName" id="lastName" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && LastName.errors }" class="form-control form-control-danger" placeholder="12n">
                                                   </div>
                                           </div>
                                           <!--/span-->
@@ -125,18 +126,22 @@
                                                   <div class="col-md-6">
                                                           <div class="form-group has-danger">
                                                               <label class="control-label">Last Name</label>
-                                                              <input type="text" id="telnumber" class="form-control form-control-danger" placeholder="Last Name">
+                                                              <input type="text" formControlName="LastName" id="telnumber" class="form-control form-control-danger" placeholder="Last Name">
                                                               </div>
                                                       </div>
                                                   <!--/span-->
                                                   <div class="col-md-6">
                                                       <div class="form-group">
                                                           <label class="control-label">Means of Identification</label>
-                                                          <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1">
-                                                              <option value="Category 1">Driver License</option>
-                                                              <option value="Category 2">International Passport</option>
-                                                              <option value="Category 3">National Identity Card</option>
-                                                              <option value="Category 4">Voter's Registration Card</option>
+
+
+                                                          <select   name="Identification"  formControlName="MeansofIdentification" [ngClass]="{ 'is-invalid': submitted && MeansofIdentification.errors }"     class="custom-select form-control-lg"    id="Month">
+                                                            <option  value= "">
+                                                              --Select your Means of Identification--
+                                                              </option>
+                                                            <option *ngFor="let country2 of varray44" value= {{country2.YearCode}}>
+                                                              {{country2.YearName}}
+                                                            </option>
                                                           </select>
                                                       </div>
                                                   </div>
@@ -148,9 +153,11 @@
                                           <div class="col-md-6">
                                               <div class="form-group has-success">
                                                   <label class="control-label">Gender</label>
-                                                  <select class="form-control custom-select">
-                                                      <option value="">Male</option>
-                                                      <option value="">Female</option>
+                                                  <select formControlName="Gender" [ngClass]="{ 'is-invalid': submitted && Gender.errors }" class="form-control custom-select">
+
+                                                    <option value=""> --Select Gender--</option>
+                                                    <option value="Male">Male</option>
+                                                      <option value="Female">Female</option>
                                                   </select>
                                                   <small class="form-control-feedback"> Select your gender </small> </div>
                                           </div>
@@ -158,7 +165,7 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label class="control-label">Date of Birth</label>
-                                                  <input type="text" placeholder="Date Of Birth" class="form-control" bsDatepicker>
+                                                  <input type="text" formControlName="DateofBirth" [ngClass]="{ 'is-invalid': submitted && DateofBirth.errors }" placeholder="Date Of Birth" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
                                               </div>
                                           </div>
                                           <!--/span-->
@@ -168,14 +175,14 @@
                                           <div class="col-md-6">
                                                   <div class="form-group has-danger">
                                                           <label class="control-label">Company Telephone Number</label>
-                                                          <input type="text" id="companytelnumber" class="form-control form-control-danger" placeholder="080">
+                                                          <input type="text" formControlName="companytelephone" [ngClass]="{ 'is-invalid': submitted && companytelephone.errors }" id="companytelnumber" class="form-control form-control-danger" placeholder="080">
                                                           </div>
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
                                                   <div class="form-group has-danger">
                                                       <label class="control-label">Mobile Number</label>
-                                                      <input type="text" id="telnumber" class="form-control form-control-danger" placeholder="080">
+                                                      <input type="text" formControlName="MobileNumber" [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" id="telnumber" class="form-control form-control-danger" placeholder="080">
                                                       </div>
                                               </div>
                                           <!--/span-->
@@ -184,7 +191,7 @@
                                               <div class="col-md-6">
                                                       <div class="form-group has-danger">
                                                               <label class="control-label">e-Mail</label>
-                                                              <input class="form-control" type="email" value="bootstrap@example.com" id="example-email-input" placeholder="email">
+                                                              <input formControlName="MobileNumber" [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" class="form-control"  type="email" value="bootstrap@example.com" id="example-email-input" placeholder="email">
 
                                                               </div>
                                               </div>
@@ -193,7 +200,7 @@
                                                       <div class="form-group">
                                                               <label for="example-url-input" class="col-form-label">Company Website</label>
 
-                                                <input class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input" placeholder="Company Website">
+                                                <input formControlName="companywebsite" [ngClass]="{ 'is-invalid': submitted && companywebsite.errors }" class="form-control" type="url" value="https://getbootstrap.com" id="example-url-input" placeholder="Company Website">
 
                                                           </div>
                                                   </div>
@@ -204,7 +211,7 @@
                                             <div class="col-md-12 ">
                                                 <div class="form-group">
                                                     <label>Profile Picture</label>
-                                                    <input placeholder="Upload" type="file" class="form-control">
+                                                    <input #fileInput placeholder="Upload" type="file" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -214,8 +221,8 @@
 
                                   <div class="form-actions">
                                       <div class="card-body">
-                                          <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
-                                          <button type="button" class="btn btn-danger">Cancel</button>
+                                          <button type="submit" (click) ="onSubmit()" class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
+                                          <button type="button" (click) ="onSubmit2()" class="btn btn-danger">Cancel</button>
                                       </div>
                                   </div>
                               </div>
