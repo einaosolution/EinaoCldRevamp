@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -245,6 +246,7 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
         }
         [HttpPost("ChangePassword")]
+        [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel   model)
         {
             //   _userManager.ChangePasswordAsync()
