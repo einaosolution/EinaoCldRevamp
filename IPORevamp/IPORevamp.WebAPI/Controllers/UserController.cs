@@ -73,7 +73,7 @@ namespace IPORevamp.WebAPI.Controllers
                 mapper,
                 logger,
                 auditTrailManager
-                
+
                 )
         {
             _emailManager = emailManager;
