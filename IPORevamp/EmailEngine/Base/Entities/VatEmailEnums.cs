@@ -26,6 +26,7 @@ namespace EmailEngine.Base.Entities
         public const string Individual_Account_Verification = "IV001";
         public const string Corporate_Account_Verification = "AV002";
         public const string Account_Creation = "AC003";
+        public const string CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION = "AC004";
 
     }
 

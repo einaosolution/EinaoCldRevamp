@@ -21,6 +21,7 @@ import {
 })
 export class HeaderComponent implements OnInit {
   subscription: any;
+  loggedinuser:string =""
   constructor(private registerapi :ApiClientService ) {
 
     this.subscription = this.registerapi.getNavChangeEmitter()
@@ -29,10 +30,14 @@ export class HeaderComponent implements OnInit {
 
    selectedNavItem(item) {
 
-    window.location.reload();
+   // window.location.reload();
   }
 
   ngOnInit() {
+this.loggedinuser = localStorage.getItem('loggeduser');
+
+   
+
   }
 
 }

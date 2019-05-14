@@ -27,6 +27,7 @@ namespace IPORevamp.Data.UserManagement.Model
             UserName = username;
         }
 
+
         public ProfileTitle Title { get; set; }
         public string Bio { get; set; }
         public string Nationality { get; set; }
@@ -48,13 +49,13 @@ namespace IPORevamp.Data.UserManagement.Model
 
 
         public string FirstName { get; set; }
-        public string MiddleName { get; set; }        
-        public string LastName { get; set; }                
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public Gender Gender { get; set; }
-        public DateTime ? DateOfBirth { get; set; }                                    
+        public DateTime? DateOfBirth { get; set; }
         public string MobileNumber { get; set; }
         public bool IsDeleted { get; set; } = false;
-        public bool IsActive { get; set; }= true;
+        public bool IsActive { get; set; } = true;
         public string CreatedBy { get; set; }
         public string DeletedBy { get; set; }
         public string UpdatedBy { get; set; }
@@ -66,12 +67,12 @@ namespace IPORevamp.Data.UserManagement.Model
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
-        public DateTime? LastUpdateDate { get ; set; }
+        public DateTime? LastUpdateDate { get; set; }
 
         public bool IsTransient()
         {
             return EqualityComparer<int>.Default.Equals(Id, default(int));
-        }                
+        }
     }
 
     public enum Gender

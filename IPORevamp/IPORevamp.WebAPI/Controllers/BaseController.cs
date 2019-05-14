@@ -49,8 +49,7 @@ namespace IPORevamp.WebAPI.Controllers
             IConfiguration configuration,
             IMapper mapper,
             ILogger<BaseController> logger,
-            IAuditTrailManager<AuditTrail> auditTrailManager,
-            IEventRepository eventRepository
+            IAuditTrailManager<AuditTrail> auditTrailManager
 
             )
         {
@@ -62,7 +61,7 @@ namespace IPORevamp.WebAPI.Controllers
             _roleManager = roleManager;
             _auditTrailManager = auditTrailManager;
             _userInfo = User != null && User.Identity.IsAuthenticated ? _userManager.FindByNameAsync(User?.Identity?.Name).Result : null;
-            _eventRepository = eventRepository;
+            
 
 
         }

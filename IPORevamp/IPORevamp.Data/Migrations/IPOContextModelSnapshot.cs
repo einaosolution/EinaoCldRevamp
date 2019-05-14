@@ -595,15 +595,15 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("ExpiringDate");
 
-                    b.Property<string>("First_Name");
+                    b.Property<string>("FirstName");
 
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<DateTime?>("LastUpdateDate");
+                    b.Property<string>("LastName");
 
-                    b.Property<string>("Last_Name");
+                    b.Property<DateTime?>("LastUpdateDate");
 
                     b.Property<byte[]>("RowVersion");
 

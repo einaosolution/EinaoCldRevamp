@@ -33,10 +33,9 @@ namespace IPORevamp.WebAPI.Controllers
           SignInManager<ApplicationUser> signInManager,
           IConfiguration configuration,
           IMapper mapper,
-          ILogger<EventController> logger,
+         ILogger<UserController> logger,
           IEmailManager<EmailLog, EmailTemplate> emailManager,
-          IAuditTrailManager<AuditTrail> auditTrailManager,
-          IEventRepository eventRepository
+          IAuditTrailManager<AuditTrail> auditTrailManager
 
 
            ) : base(
@@ -46,8 +45,8 @@ namespace IPORevamp.WebAPI.Controllers
               configuration,
               mapper,
               logger,
-              auditTrailManager,
-               eventRepository
+              auditTrailManager
+               
               )
         {
             _emailManager = emailManager;
@@ -172,33 +171,6 @@ namespace IPORevamp.WebAPI.Controllers
             
         }
 
-        [HttpPost("campaigns/{eventId}")]
-        public async Task<IActionResult> SendEmailCampaign(int eventId, EMailCampaignViewModel model)
-        {
-            var emailLogs = new List<EmailLog>();
-            var eventInfo = await _eventRepository.GetEvent(eventId);           
-            if(eventInfo != null)
-            {
-                var attendees = eventInfo.Attendees.Where(x => model.AttendeeIds.Contains(x.Id));
-                foreach(var attendee in attendees)
-                {
-                    emailLogs.Add(new EmailLog {
-                        MailBody = model.EmailBody,
-                        DateToSend = model.SendTime,
-                        Sender = model.Sender,
-                        Subject = model.EmailSubject,                        
-                        Status = IPOEmailStatus.Fresh,
-                        Receiver = attendee.EmailAddress,
-                        SendImmediately = false,                        
-                    });
-                }
-
-                await _emailManager.LogBatchEmail(emailLogs);
-                return PrepareResponse(HttpStatusCode.OK, "Campaigns have been sucessfully sent", false, null);
-            }
-
-            return PrepareResponse(HttpStatusCode.NotFound, "The specified event not found");
-
-        }        
+     
     }
 }

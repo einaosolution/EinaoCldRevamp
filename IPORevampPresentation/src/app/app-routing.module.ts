@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { CorporateComponent } from './corporate/corporate.component';
 import { IndividualComponent } from './individual/individual.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -20,18 +21,22 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent ,   data: { animation: 'tiger2' } } ,
   { path: 'register', component: RegisterComponent ,   data: { animation: 'tiger3' } } ,
   { path: 'logout', component: LogoutComponent ,   data: { animation: 'tiger4' } } ,
-  { path: 'task', component: TaskComponent ,   data: { animation: 'tiger5' } } ,
+  { path: 'PasswordChange', component: TaskComponent ,   data: { animation: 'tiger5' } } ,
   { path: 'ViewUser', component: ViewUserComponent ,   data: { animation: 'tiger6' } } ,
   { path: 'Contactus', component: ContactusComponent ,   data: { animation: 'tiger7' } } ,
   { path: 'Emailverification', component: EmailverificationComponent ,   data: { animation: 'tiger8' } } ,
-  { path: 'info/:id', component: CorporateComponent ,   data: { animation: 'tiger7' } } ,
+  { path: 'info/?page', component: CorporateComponent ,   data: { animation: 'tiger7' } } ,
   { path: 'info2/:id', component: IndividualComponent ,   data: { animation: 'tiger7' } } ,
+  { path: 'ChangePassword', component: ChangePasswordComponent ,   data: { animation: 'tiger9' } } ,
 
 
   { path: 'Dashboard', component: HeaderComponent,   children: [
 {
 path:  'Dashboard2',
 component:  DashboardComponent
+},{
+path:  'task',
+component:  TaskComponent
 }] } ,
 { path: 'Corporate', component: CorporateComponent ,   data: { animation: 'tiger9' } } ,
 { path: 'Individual', component: IndividualComponent ,   data: { animation: 'tiger9' } } ,

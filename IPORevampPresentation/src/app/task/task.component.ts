@@ -3,6 +3,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ApiClientService} from '../api-client.service';
 import {Router} from '@angular/router';
+import {ActivatedRoute} from "@angular/router";
+import Swal from 'sweetalert2' ;
+import { NgxSpinnerService } from 'ngx-spinner';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-task',
@@ -11,205 +16,159 @@ import {Router} from '@angular/router';
 })
 export class TaskComponent implements OnInit {
   userform: FormGroup;
+  userform2: FormGroup;
 
   Password: FormControl;
-  Name: FormControl;
-  Status: FormControl;
-  _id :string ;
-  edit :boolean = false;
-  busy: Promise<any>;
-  public rows = [];
+  Password2: FormControl;
+  submitted:boolean=false;
+  passwordchanged:boolean=false;
+  submitted2:boolean=false;
+  Email: FormControl;
+  Email2: FormControl;
+  showerror:boolean= false;
+  messages = ""
   public formSubmitAttempt: boolean;
-  varray4 = [{ YearName: 'Pending', YearCode: 'Pending' }, { YearName: 'Finish', YearCode: 'Finish' } ]
-  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router) { }
+  busy: Promise<any>;
 
-  onSubmit11() {
-
-    var AgentsData = {
+  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) {
 
 
 
-      _id: this._id,
-      name: this.userform.value.Name,
-      status: this.userform.value.Status,
-
-    }
-
-
-    this.busy = this.registerapi
-        .UpdateTask(AgentsData)
-        .then((response: any) => {
-           alert("Task  Updated Successfully")
-
-           this.edit = false;
-
-          this.userform.reset();
-          var vemail = localStorage.getItem('username');
-
-          this.busy = this.registerapi
-          .GetUserTask(vemail)
-          .then((response: any) => {
-             console.log("user task")
-             this.rows = response.task;
-             console.log(response)
-
-          })
-                   .catch((response: any) => {
-                    alert("Error Occured")
-           }
-           );
-
-        })
-                 .catch((response: any) => {
-                  alert("Error Occured")
-         }
-         );
-
-
-  }
-
-  onSubmit444 (vemp) {
-
-    if (confirm('Are you sure you want proceed with this action?')) {
-
-      this.busy = this.registerapi
-      .DeletTask(vemp._id)
-      .then((response: any) => {
-        var vemail = localStorage.getItem('username');
-        this.busy = this.registerapi
-        .GetUserTask(vemail)
-        .then((response: any) => {
-           console.log("user task")
-           this.rows = response.task;
-           console.log(response)
-
-        })
-                 .catch((response: any) => {
-                  alert("Error Occured")
-         }
-         );
-
-
-      })
-               .catch((response: any) => {
-                alert("Error Occured")
-       }
-       );
-
-  } else {
-
-  }
-
-  }
-
-onSubmit4(vemp) {
-  console.log("vemp")
-  this._id= vemp._id ;
-  (<FormControl> this.userform.controls['Name']).setValue(vemp.name);
-  (<FormControl> this.userform.controls['Status']).setValue(vemp.status);
-  this.edit = true;
- // console.log(vemp)
-
-  if (confirm('Are you sure you want proceed with this action?')) {
-    // Save it!
-} else {
-    // Do nothing!
-}
-
-}
+   }
   onSubmit() {
 
-
-    this.formSubmitAttempt = true;
-    var vemail = localStorage.getItem('username');
-
-    var AgentsData = {
+    this.submitted= true;
 
 
 
-      email: vemail,
-      name: this.userform.value.Name,
-      status: this.userform.value.Status,
+    if (this.userform.valid) {
+      this.spinner.show();
+      var kk = {
+        CurrentPassword:this.userform.value.Email  ,
+        NewPassword:this.userform.value.Password ,
+        ConfirmPassword:this.userform.value.Password2 ,
+        Email:localStorage.getItem('username')
 
-    }
+
+      }
 
 
-    this.busy = this.registerapi
-        .CreateTask(AgentsData)
+
+     // this.router.navigate(['/Emailverification']);
+
+
+      this.registerapi
+        .ChangePassword(kk)
         .then((response: any) => {
-           alert("Task  Created Successfully")
-          this.formSubmitAttempt = false;
+          this.spinner.hide();
 
-          var vemail = localStorage.getItem('username');
-          this.busy = this.registerapi
-          .GetUserTask(vemail)
-          .then((response: any) => {
-             console.log("user task")
-             this.rows = response.task;
-             console.log(response)
+          this.submitted=false;
 
-          })
-                   .catch((response: any) => {
-                    alert("Error Occured")
-           }
-           );
-          this.userform.reset();
+       //  this.router.navigate(['/Emailverification']);
+      // this.userform.reset();
+     //  this.registerapi.changepassword2(true )
+       //this.registerapi.VChangeEvent("kkkkk")
+       this.router.navigateByUrl('/login');
+     //  this.userform.reset();
 
         })
                  .catch((response: any) => {
-                  alert("Error Occured")
+                  this.spinner.hide();
+                   console.log(response)
+
+
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
          }
          );
 
+
+    }
+
+  }
+
+  onSubmit3() {
+    this.submitted2= true;
+
+    if (this.userform2.valid) {
+
+    }
+
+  }
+
+  onSubmit2() {
+
+
+
+
+    $("#loginform").slideUp();
+    $("#recoverform").fadeIn();
+
+
+  }
+
+
+  islogged() {
+
+    if (this.registerapi.gettoken()) {
+
+      return true ;
+    }
+
+    else {
+
+      return false;
+    }
   }
 
   ngOnInit() {
-    var vemail = localStorage.getItem('username');
-    this.busy = this.registerapi
-    .GetUserTask(vemail)
-    .then((response: any) => {
-       console.log("user task")
-       this.rows = response.task;
-       console.log(response)
 
-    })
-             .catch((response: any) => {
-              alert("Error Occured")
-     }
-     );
-    var vemail = localStorage.getItem('username');
-    if (vemail) {
+//if (this.registerapi.password2()) {
+ /// this.router.navigateByUrl('/home');
+//}
 
-    }
-    else {
-      alert("Access Denied")
-      this.router.navigateByUrl('/home');
-      return;
-    }
-    this.Name = new FormControl('', [
+//this.registerapi.changepassword2(false )
+
+
+    this.Email = new FormControl('', [
+      Validators.required
+    ]);
+    this.Email2 = new FormControl('', [
+      Validators.required, Validators.email
+    ]);
+
+    this.Password = new FormControl('', [
       Validators.required
 
     ]);
 
-    this.Status = new FormControl('', [
+    this.Password2 = new FormControl('', [
       Validators.required
 
     ]);
-
-
-
-
-
-
 
     this.userform = new FormGroup({
 
-      Name: this.Name,
-
-      Status: this.Status ,
+      Email: this.Email,
+      Password: this.Password ,
+      Password2: this.Password2 ,
 
 
     });
+
+    this.userform2 = new FormGroup({
+
+      Email2: this.Email2
+
+
+
+    });
+
+
+
 
   }
 

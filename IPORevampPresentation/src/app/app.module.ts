@@ -28,6 +28,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { Home2Component } from './home2/home2.component';
 import { CorporateComponent } from './corporate/corporate.component';
 import { IndividualComponent } from './individual/individual.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 
@@ -48,13 +50,15 @@ import { IndividualComponent } from './individual/individual.component';
     DashboardComponent,
     Home2Component,
     CorporateComponent,
-    IndividualComponent
+    IndividualComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
     BsDatepickerModule.forRoot(),
     AlertModule.forRoot(),
     HttpClientModule,
+    NgxSpinnerModule ,
     AppRoutingModule,
     ReactiveFormsModule,
     NgBusyModule,
