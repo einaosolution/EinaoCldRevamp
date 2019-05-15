@@ -87,7 +87,7 @@ namespace EmailEngine.Repository
                    var fileName = Guid.NewGuid ().ToString();
                     fileName += "."+extension;
 
-                    string folderName = "Upload";
+                    string folderName = UploadPath;
                    
                     string webRootPath = _hostingEnvironment.WebRootPath;
                     string newPath = Path.Combine(webRootPath, folderName);

@@ -298,7 +298,7 @@ namespace IPORevamp.WebAPI.Controllers
                     {
                         ActionTaken = AuditAction.Update,
                         DateCreated = DateTime.Now,
-                        Description = $"User {user.UserName} has been Changed password   successfully",
+                        Description = $"User {user.UserName} has  Changed password   successfully",
                         Entity = "User",
                         UserId = user.Id,
                         UserName = user.UserName,
@@ -579,7 +579,7 @@ namespace IPORevamp.WebAPI.Controllers
         /// <returns></returns>
 
         [HttpGet("ResetPassword")]
-        public async Task<IActionResult> ResetPassword(string code,string UserId, string NewPassord, string ConfirmPassword)
+        public async Task<IActionResult> ResetPassword([FromQuery] string code, [FromQuery] string UserId, [FromQuery] string NewPassord, [FromQuery] string ConfirmPassword)
         {
             
 
@@ -625,55 +625,64 @@ namespace IPORevamp.WebAPI.Controllers
 
                 if (model != null)
                 {
-                  
+
                     // generate random password 
-                    var resetPassword = await _userManager.ResetPasswordAsync(model,code,NewPassord);
-
-                    if (resetPassword.Succeeded)
+                    try
                     {
-                      
+                        var resetPassword = await _userManager.ResetPasswordAsync(model, code, NewPassord);
 
-                        string emailBody = emailTemplate.EmailBody.Replace("#Username", model.Email);
-                        emailBody = emailBody.Replace("#Password", NewPassord);
-                        emailBody = emailBody.Replace("#Name", model.FirstName + ' ' + model.LastName);
-                        emailBody = emailBody.Replace("#path", _configuration["LOGOURL"]);
-
-                        await _emailManager.LogEmail(new EmailLog
+                        if (resetPassword.Succeeded)
                         {
-                            CreatedBy = model.UserName,
-                            MailBody = emailBody,
-                            Receiver = model.Email,
-                            Sender = emailTemplate.EmailSender,
-                            Subject = emailTemplate.EmailSubject,
-                            DateCreated = DateTime.Now,
-                            DateToSend = DateTime.Now,
-                            Status = IPOEmailStatus.Fresh,
-                            SendImmediately = true
-                        });
-                        await _emailsender.SendEmailAsync(model.Email, emailTemplate.EmailSubject, emailBody);
 
 
-                        // Update the user temp table
+                            string emailBody = emailTemplate.EmailBody.Replace("#Username", model.Email);
+                            emailBody = emailBody.Replace("#Password", NewPassord);
+                            emailBody = emailBody.Replace("#Name", model.FirstName + ' ' + model.LastName);
+                            emailBody = emailBody.Replace("#path", _configuration["LOGOURL"]);
 
-                       
-                        await _auditTrailManager.AddAuditTrail(new AuditTrail
+                            await _emailManager.LogEmail(new EmailLog
+                            {
+                                CreatedBy = model.UserName,
+                                MailBody = emailBody,
+                                Receiver = model.Email,
+                                Sender = emailTemplate.EmailSender,
+                                Subject = emailTemplate.EmailSubject,
+                                DateCreated = DateTime.Now,
+                                DateToSend = DateTime.Now,
+                                Status = IPOEmailStatus.Fresh,
+                                SendImmediately = true
+                            });
+                            await _emailsender.SendEmailAsync(model.Email, emailTemplate.EmailSubject, emailBody);
+
+
+                            // Update the user temp table
+
+
+                            await _auditTrailManager.AddAuditTrail(new AuditTrail
+                            {
+                                ActionTaken = AuditAction.Create,
+                                DateCreated = DateTime.Now,
+                                Description = $"Password Change  for  {model.Email}  was successful",
+                                Entity = "User/ResetPassword",
+                                UserId = model.Id,
+                                UserName = model.UserName,
+                            });
+
+                            return PrepareResponse(HttpStatusCode.OK, "Password Reset Successful.", true, null);
+
+                        }
+
+                        else
                         {
-                            ActionTaken = AuditAction.Create,
-                            DateCreated = DateTime.Now,
-                            Description = $"Password Change  for  {model.Email}  was successful",
-                            Entity = "User/ResetPassword",
-                            UserId = model.Id,
-                            UserName = model.UserName,
-                        });
+                            return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful", true, null);
 
-                        return PrepareResponse(HttpStatusCode.OK, "Password Reset Successful.", true, null);
+                        }
 
                     }
-
-                    else
+                    catch(Exception ee)
                     {
-                        return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful", true, null);
-
+                        var ex = ee.Message;
+                        return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful" + ex, true, null); ;
                     }
                 }
                 else
@@ -873,7 +882,8 @@ namespace IPORevamp.WebAPI.Controllers
                     var passwordResetCode = await _userManager.GeneratePasswordResetTokenAsync(user);
                     var codeBlue = IPORevamp.Core.Utilities.Utilities.Encrypt(user.Id.ToString());
 
-                    var verifyURL = _configuration["FORGOTPASSWORDURL"] + "?code=" + Uri.EscapeDataString(passwordResetCode) + "&request=" + codeBlue;
+                  //  var verifyURL = _configuration["FORGOTPASSWORDURL"] + "?code=" + Uri.EscapeDataString(passwordResetCode) + "&request=" + codeBlue;
+                    var verifyURL = _configuration["FORGOTPASSWORDURL"] + "?code=" + passwordResetCode + "&request=" + codeBlue;
 
                     EmailLog emaillog = new EmailLog();
                     emaillog.MailBody = emailTemplate.EmailBody;
