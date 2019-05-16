@@ -64,19 +64,20 @@ namespace IPORevamp.Repository.SystemSetup
 
         }
         
-        public async Task<Country> SaveCountry(Country country)
-        {
+        //public async Task<Country> SaveCountry(Country country)
+        //{
            
-            var saveContent = await _countryrepository.InsertOrUpdateAsync(country);
-            _countryrepository.SaveChanges();
-            return saveContent.Entity;
-        }
+        //    var saveContent = await _countryrepository.InsertOrUpdateAsync(country);
+        //                        _countryrepository.SaveChanges();
+        //    return saveContent.Entity;
+        //}
 
 
         public async Task<UserVerificationTemp> SaveUserVerification(UserVerificationTemp userverificationTemp)
         {
             var saveContent = await _userVerirepository.InsertOrUpdateAsync(userverificationTemp);
-            _userVerirepository.SaveChanges();
+                                    _userVerirepository.SaveChanges();
+
             return saveContent.Entity;
         }
 
@@ -144,6 +145,12 @@ namespace IPORevamp.Repository.SystemSetup
         public async Task<List<State>> GetStates()
         {
             var contents = await _staterepository.GetAllListAsync();
+            return contents;
+        }
+
+        public async Task<List<State>> GetStatesByCountryId(int Id)
+        {
+            var contents =   _staterepository.GetAllList().Where(a => a.Country.Id == Id).ToList();
             return contents;
         }
 
@@ -246,6 +253,41 @@ namespace IPORevamp.Repository.SystemSetup
             var emailTemplates = await _emailtemplaterepository.
                                                                FirstOrDefaultAsync(x => x.EmailName == EmailCode && x.IsActive==true);
             return emailTemplates;
+        }
+
+        public async Task<Country> SaveUpdateCountry(Country country)
+        {
+            var saveContent = await _countryrepository.InsertOrUpdateAsync(country);
+            _countryrepository.SaveChanges();
+            return saveContent.Entity;
+        }
+
+        public async Task<Country> GetCountryByName(string CountryName)
+        {
+            var country =  await _countryrepository.FirstOrDefaultAsync(x => x.Name == CountryName);
+            return country;
+        }
+
+        public async Task<State> GetStatesByName(string StateName)
+        {
+            var country = await _staterepository.FirstOrDefaultAsync(x => x.StateName == StateName);
+            return country;
+        }
+
+        public  async Task<EmailTemplate> SaveUpdateEmailTemplate(EmailTemplate emailTemplate)
+        {
+            var saveContent = await _emailtemplaterepository.InsertOrUpdateAsync(emailTemplate);
+            _countryrepository.SaveChanges();
+            return saveContent.Entity;
+        }
+
+       
+
+        public async Task<EmailTemplate> GetEmailTemplateById(int Id)
+        {
+
+            var emailtemplate = await _emailtemplaterepository.FirstOrDefaultAsync(x => x.Id == Id);
+            return emailtemplate;
         }
     }
 }

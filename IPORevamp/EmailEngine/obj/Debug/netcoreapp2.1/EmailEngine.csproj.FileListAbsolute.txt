@@ -74,3 +74,5 @@ C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extens
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.xml
+C:\JamesonHub\IPORevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Hosting.dll
+C:\JamesonHub\IPORevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Hosting.xml

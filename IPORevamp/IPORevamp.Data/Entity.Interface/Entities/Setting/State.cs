@@ -9,6 +9,7 @@ namespace IPORevamp.Data.Entities.Setting
     {
         public string StateName { get; set; }
         [ForeignKey("CountryId")]
+
         public Country Country { get; set; }
     }
 }

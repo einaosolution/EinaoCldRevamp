@@ -48,6 +48,7 @@ namespace IPORevamp.WebAPI.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(loginUser.Username, loginUser.Password, loginUser.RememberMe, false);
+
                 if (result.Succeeded)
                 {
                     TempData["SuccessMessage"] = "Login successfully";

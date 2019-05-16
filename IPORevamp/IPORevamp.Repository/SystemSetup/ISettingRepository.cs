@@ -17,10 +17,12 @@ namespace IPORevamp.Repository.Event
     {
         #region Country Respository
 
-        Task<Country> SaveCountry(Country country);
+        Task<Country> SaveUpdateCountry(Country country);
         Task<Country> GetCountryById(int CountryId);
-
+        Task<Country> GetCountryByName(string CountryName);
         Task<List<Country>> GetCountries();
+
+  
         #endregion
 
         Task<UserVerificationTemp> SaveUserVerification(UserVerificationTemp userverificationTemp);
@@ -37,15 +39,16 @@ namespace IPORevamp.Repository.Event
         Task<Setting> SaveSetting(Setting setting);   
         Task<List<Setting>> GetSettings();
         Task<List<Setting>> GetSettingsByCode(string SetSettingCode);
-        Task<EmailTemplate> GetEmailTemplateByCode(string EmailCode);
+   
         #endregion
 
         #region State Respository
         Task<State> SaveState(State state);    
         Task<List<State>> GetStates();
+        Task<List<State>> GetStatesByCountryId(int CountryId);
         Task<State> GetStatesById(int Id);
+        Task<State> GetStatesByName(string StateName);
 
-       
         #endregion
 
         #region LGA Respository
@@ -71,6 +74,15 @@ namespace IPORevamp.Repository.Event
 
         #region MyRegion
 
+        #endregion
+
+
+
+        #region Email Template Respository
+        Task<EmailTemplate> SaveUpdateEmailTemplate(EmailTemplate emailTemplate);
+        Task<EmailTemplate> GetEmailTemplateById(int Id);
+        Task<EmailTemplate> GetEmailTemplateByCode(string EmailTemplateCode);
+      
         #endregion
 
         //Task<List<EventInfo>> FetchOrganizedEvents(int organizerId);

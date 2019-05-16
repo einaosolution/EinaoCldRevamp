@@ -6,7 +6,7 @@ using IPORevamp.Data.UserManagement.Model;
 
 namespace IPORevamp.Repository.Users
 {
-    public interface IUserRepository: IAutoDependencyRegister
+    public interface ICountryRepository: IAutoDependencyRegister
     {
         ApplicationUser AuthenticateUser(string userName, string password);
         

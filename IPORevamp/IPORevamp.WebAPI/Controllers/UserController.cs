@@ -147,11 +147,11 @@ namespace IPORevamp.WebAPI.Controllers
             {
                 String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
                 String[]  fileMaxSize = _configuration["_fileMaxSize"].Split('*');
-                int result1 = Convert.ToInt32(oneMegaByte[0]);
-                int result2 = Convert.ToInt32(fileMaxSize[0]);
+                int oneMegaByte_ = Convert.ToInt32(oneMegaByte[0]);
+                int fileMaxSize_ = Convert.ToInt32(fileMaxSize[0]);
 
-                msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
-                  result2, _hostingEnvironment);
+                msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"],
+                    _configuration["AllExtensionsImage"], oneMegaByte_, fileMaxSize_);
 
             }
 
@@ -625,9 +625,9 @@ namespace IPORevamp.WebAPI.Controllers
 
                 if (model != null)
                 {
-                  
+                    string token = await _userManager.GeneratePasswordResetTokenAsync(model);
                     // generate random password 
-                    var resetPassword = await _userManager.ResetPasswordAsync(model,code,NewPassord);
+                    var resetPassword = await _userManager.ResetPasswordAsync(model, token, NewPassord);
 
                     if (resetPassword.Succeeded)
                     {
