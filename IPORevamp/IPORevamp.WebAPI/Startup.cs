@@ -88,8 +88,11 @@ namespace IPORevamp.WebAPI
             services.Configure<IdentityOptions>(options =>
             {
 
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredUniqueChars = 1;
+               // options.Password.RequireUppercase = true;
+                options.Password.RequireUppercase = false;
+              //  options.Password.RequiredUniqueChars = 1;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireNonAlphanumeric = false;
                 options.SignIn.RequireConfirmedEmail = true;
                 options.User.RequireUniqueEmail = true;
             });
@@ -124,6 +127,7 @@ namespace IPORevamp.WebAPI
                      ValidateIssuerSigningKey = true,
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
                      //RequireExpirationTime = false,
+                   
                      ValidateLifetime = false,
                      ClockSkew = TimeSpan.Zero,
                      // remove delay of token when expire,

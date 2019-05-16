@@ -629,8 +629,11 @@ namespace IPORevamp.WebAPI.Controllers
                     // generate random password 
                     try
                     {
-                        var resetPassword = await _userManager.ResetPasswordAsync(model, code, NewPassord);
-
+                        var passwordResetCode = await _userManager.GeneratePasswordResetTokenAsync(model);
+                        
+                      //   var resetPassword = await _userManager.ResetPasswordAsync(model, code, NewPassord);
+                        var resetPassword = await _userManager.ResetPasswordAsync(model, passwordResetCode, NewPassord);
+                       
                         if (resetPassword.Succeeded)
                         {
 

@@ -575,6 +575,37 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("tMApplicationStatuses");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Setting.Sector", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sector");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.TempModel.UserVerificationTemp", b =>
                 {
                     b.Property<int>("Id")
@@ -595,15 +626,15 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("ExpiringDate");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("First_Name");
 
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("LastName");
-
                     b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("Last_Name");
 
                     b.Property<byte[]>("RowVersion");
 
