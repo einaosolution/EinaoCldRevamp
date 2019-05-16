@@ -151,7 +151,7 @@ namespace IPORevamp.WebAPI.Controllers
                 int result2 = Convert.ToInt32(fileMaxSize[0]);
 
                 msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
-                  result2, _hostingEnvironment);
+                  result2);
 
             }
 
