@@ -18,13 +18,16 @@ using IPORevamp.Data.Entities.Payment;
 using IPORevamp.Data.Entities.Modules;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.TempModel;
+using IPORevamp.Data.Entity.Interface.Entities.Setting;
 
 namespace IPORevamp.Data
 {
     public class IPOContext : IdentityDbContext<ApplicationUser,ApplicationRole,int,ApplicationUserClaim,ApplicationUserRole,ApplicationUserLogin, IdentityRoleClaim<int>,IdentityUserToken<int>>
     {
-      
+
         #region MyDBSetRegion
+        
+         public DbSet<Sector> Sector { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
