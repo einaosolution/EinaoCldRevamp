@@ -1317,10 +1317,11 @@
       ]
     },
     "Microsoft.NETCore.Platforms/2.1.0": {
-      "sha512": "TT+QCi9LcxGTjBssH7S7n5+8DVcwfG4DYgXX7Dk7+BfZ4oVHj8Q0CbYk9glzAlHLsSt3bYzol+fOdra2iu6GOw==",
+      "sha512": "aSTPL94NloSiQVL5Len8wbjFKOnoAX/vOh3s3DF6g3c7GUUMLCDvnBhmA72M2iN2AedyA8hpr7m89kzSAKUnJQ==",
       "type": "package",
       "path": "microsoft.netcore.platforms/2.1.0",
       "files": [
+        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
@@ -1498,12 +1499,10 @@
       ]
     },
     "Remotion.Linq/2.2.0": {
-      "sha512": "twDAH8dAXXCAf3sRv1Tf94u66eEHvgU75hfn1nn2v4fSWXD50XoDOAk8WpSrbViNuMkB4kN1ElnOGm1c519IHg==",
+      "sha512": "fK/76UmpC0FXBlGDFVPLJHQlDLYnGC+XY3eoDgCgbtrhi0vzbXDQ3n/IYHhqSKqXQfGw/u04A1drWs7rFVkRjw==",
       "type": "package",
       "path": "remotion.linq/2.2.0",
       "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
         "lib/net35/Remotion.Linq.XML",
         "lib/net35/Remotion.Linq.dll",
         "lib/net40/Remotion.Linq.XML",
@@ -1887,10 +1886,12 @@
       ]
     },
     "System.Interactive.Async/3.1.1": {
-      "sha512": "hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
+      "sha512": "x9y2omkjEudKbIVuhUzeWw7ZlouEzpk4W98woCEq1lq9gJxERBKRKDTHF5JPEws9E0f4/Uei/2vLxEy1IrfmMg==",
       "type": "package",
       "path": "system.interactive.async/3.1.1",
       "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
         "lib/net45/System.Interactive.Async.dll",
         "lib/net45/System.Interactive.Async.xml",
         "lib/net46/System.Interactive.Async.dll",
@@ -3099,24 +3100,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Einao2\\.nuget\\packages\\": {},
+    "C:\\Users\\ijameson\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\EinaoCldRevamp\\IPORevamp\\EmailEngine\\EmailEngine.csproj",
+      "projectUniqueName": "C:\\JamesonHub\\IPORevamp\\IPORevamp\\EmailEngine\\EmailEngine.csproj",
       "projectName": "EmailEngine",
-      "projectPath": "C:\\EinaoCldRevamp\\IPORevamp\\EmailEngine\\EmailEngine.csproj",
-      "packagesPath": "C:\\Users\\Einao2\\.nuget\\packages\\",
-      "outputPath": "C:\\EinaoCldRevamp\\IPORevamp\\EmailEngine\\obj\\",
+      "projectPath": "C:\\JamesonHub\\IPORevamp\\IPORevamp\\EmailEngine\\EmailEngine.csproj",
+      "packagesPath": "C:\\Users\\ijameson\\.nuget\\packages\\",
+      "outputPath": "C:\\JamesonHub\\IPORevamp\\IPORevamp\\EmailEngine\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Einao2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\ijameson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
@@ -3128,8 +3132,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj": {
-              "projectPath": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj"
+            "C:\\JamesonHub\\IPORevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj": {
+              "projectPath": "C:\\JamesonHub\\IPORevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj"
             }
           }
         }
