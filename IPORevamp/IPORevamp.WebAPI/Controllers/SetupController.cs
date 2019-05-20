@@ -21,7 +21,7 @@ using IPORevamp.Repository.Event;
 using IPORevamp.Data;
 using IPORevamp.Data.TempModel;
 using IPORevamp.Repository.Interface;
-using IPORevamp.Repository.SystemSetup;
+
 using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Data.Entities.Setting;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -43,7 +43,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
 
-        private readonly ISettingRepository _settings;
+  
         private readonly IEmailSender _emailsender;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -60,7 +60,7 @@ namespace IPORevamp.WebAPI.Controllers
             IConfiguration configuration,
             IMapper mapper, ILogger<UserController> logger,
             IEmailManager<EmailLog, EmailTemplate> emailManager,
-            ISettingRepository settingrepository,
+    
             IEmailSender emailsender,
             IHttpContextAccessor httpContextAccessor,
             IHostingEnvironment hostingEnvironment,
@@ -81,7 +81,7 @@ namespace IPORevamp.WebAPI.Controllers
                 )
         {
             _emailManager = emailManager;
-            _settings = settingrepository;
+         
             _emailsender = emailsender;
             _httpContextAccessor = httpContextAccessor;
 

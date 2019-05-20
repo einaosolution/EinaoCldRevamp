@@ -23,6 +23,9 @@ using IPORevamp.Data.Entities.LGAs;
 using IPORevamp.Data.Entity.Interface.Entities.Auth;
 using IPORevamp.Data.Entity.Interface.Entities.Role;
 using IPORevamp.Data.Entities.Menus;
+using IPORevamp.Data.Entities.DSApplicationStatus;
+using IPORevamp.Data.Entities.TMApplicationStatus;
+using IPORevamp.Data.Entities.PTApplicationStatus;
 
 namespace IPORevamp.Data
 {
@@ -52,11 +55,11 @@ namespace IPORevamp.Data
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
         public DbSet<Data.Entities.LGAs.LGA> LGAs { get; set; }
         
-        public DbSet<DSApplicationStatus> dSApplicationStatuses { get; set; }
+        public DbSet<TMApplicationStatus> TMApplicationStatus { get; set; }
         public DbSet<State> States { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
-        public DbSet<TMApplicationStatus> tMApplicationStatuses { get; set; }
+        public DbSet<PTApplicationStatus> PTApplicationStatus { get; set; }
 
 
        

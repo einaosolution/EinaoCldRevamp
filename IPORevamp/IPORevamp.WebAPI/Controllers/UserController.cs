@@ -20,7 +20,7 @@ using IPORevamp.Data.Entities.AuditTrail;
 using IPORevamp.Data;
 using IPORevamp.Data.TempModel;
 using IPORevamp.Repository.Interface;
-using IPORevamp.Repository.SystemSetup;
+
 using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Data.Entities.Setting;
 using Microsoft.AspNetCore.Mvc.Rendering;

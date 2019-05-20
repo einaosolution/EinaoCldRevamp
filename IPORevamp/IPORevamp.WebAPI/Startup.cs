@@ -43,7 +43,7 @@ using IPORevamp.Data.Entities.Payment;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using IPORevamp.Repository.Base;
-using IPORevamp.Repository.SystemSetup;
+
 using IPORevamp.Data.Entity.Interface;
 using NACC.Data.UserManagement.Model;
 
