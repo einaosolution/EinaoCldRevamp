@@ -68,7 +68,7 @@ export class TaskComponent implements OnInit {
       // this.userform.reset();
      //  this.registerapi.changepassword2(true )
        //this.registerapi.VChangeEvent("kkkkk")
-       this.router.navigateByUrl('/login');
+       this.router.navigateByUrl('/home');
      //  this.userform.reset();
 
         })

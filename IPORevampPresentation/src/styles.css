@@ -1,12 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/perfect-scrollbar/css/perfect-scrollbar.css';
+
+
 @import './assets/css/chartist.min.css';
 @import './assets/css/c3.min.css';
 @import './assets/css/morris.css';
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeng/resources/themes/nova-dark/theme.css';
+@import"../node_modules/angular2-busy/build/style/busy.css" ;
+
 
 @import './assets/css/style.min.css';
 
 
+
+.active2 {
+  background: #4798e8 !important;
+  border-radius: 60px 0 0 60px;
+  padding: 0 0 0 10px;
+  line-height: 25px;
+}
 
 
 

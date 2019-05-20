@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Hosting;
 using IPORevamp.Data.SetupViewModel;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Repository.Setting;
+
 using IPORevamp.Core.Utilities;
 
 namespace IPORevamp.WebAPI.Controllers
@@ -103,7 +104,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-                var Setting = await _SettingRepository.GetSettingById(SettingId);
+                var Setting = await _settings.GetSettingById(SettingId);
 
             if (Setting != null)
             {
@@ -151,7 +152,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-                var Setting = await _SettingRepository.GetSettingByCode(SettingName);
+                var Setting = await _settings.GetSettingByCode(SettingName);
 
                 if (Setting != null)
                 {
@@ -188,8 +189,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllCountries")]
-        public async Task<IActionResult> GetAllCountries( string RequestById)
+        [HttpGet("GetAllSettings")]
+        public async Task<IActionResult> GetAllSettings( string RequestById)
         {
             try
             {
@@ -201,7 +202,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
 
-                var Setting = await _SettingRepository.GetSettings();
+                var Setting = await _settings.GetSettings();
 
                 if (Setting != null)
                 {
@@ -253,9 +254,9 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 // Check if Setting Exist 
-                var checkCount = await _SettingRepository.GetSettingByCode(SettingViewModel.SettingCode);
+                var checkCount = await _settings.GetSettingByCode(SettingViewModel.SettingCode);
 
-                if (checkCount != null)
+                if (checkCount.Count > 0 )
                 {
                     return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
                 }
@@ -271,10 +272,11 @@ namespace IPORevamp.WebAPI.Controllers
                 content.IsDeleted = false;
 
 
-                var save = await _SettingRepository.SaveSetting(content);
-
+               // var save = await _SettingRepository.SaveSetting(content);
+                var save = await _settings.SaveSetting(content);
+               
                 // get User Information
-                 user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString());
 
 
                 // Added A New Setting 
@@ -299,7 +301,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateSetting/{Setting}")]
+        [HttpPost("UpdateSetting")]
         public async Task<IActionResult> UpdateSetting(SettingViewModel SettingViewModel)
         {
             try
@@ -314,7 +316,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
 
-                var record = await _SettingRepository.GetSettingById(SettingViewModel.SettingId);
+                var record = await _settings.GetSettingById(SettingViewModel.SettingId);
 
                 if (record == null)
                 {
@@ -333,7 +335,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.Id = SettingViewModel.SettingId;
                
 
-                var save = await _SettingRepository.UpdateSetting(record);
+                var save = await _settings.UpdateSetting(record);
 
                 // get User Information
                  user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString());
@@ -375,7 +377,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if Setting Exist 
-                var record = await _SettingRepository.GetSettingById(SettingId);
+                var record = await _settings.GetSettingById(SettingId);
 
                 if (record == null)
                 {
@@ -390,7 +392,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.Id = SettingId;
 
 
-                var delete = await _SettingRepository.DeleteSetting(record);
+                var delete = await _settings.DeleteSetting(record);
 
                 // get User Information
                  user = await _userManager.FindByIdAsync(UserId.ToString());

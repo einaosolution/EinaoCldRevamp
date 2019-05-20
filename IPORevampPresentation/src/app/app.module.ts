@@ -30,6 +30,19 @@ import { CorporateComponent } from './corporate/corporate.component';
 import { IndividualComponent } from './individual/individual.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { CountryComponent } from './country/country.component';
+import { StateComponent } from './state/state.component';
+import { NgxEditorModule } from 'ngx-editor';
+import { EmailTemplateComponent } from './email-template/email-template.component';
+import { UserSecurityComponent } from './user-security/user-security.component';
+import { LgaComponent } from './lga/lga.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ModalModule } from 'ngx-bootstrap';
+import { CreateRoleComponent } from './create-role/create-role.component';
+import { CreateMenuComponent } from './create-menu/create-menu.component';
+
+
 
 
 
@@ -51,10 +64,21 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     Home2Component,
     CorporateComponent,
     IndividualComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ForgetpasswordComponent,
+    CountryComponent,
+    StateComponent,
+    EmailTemplateComponent,
+    UserSecurityComponent,
+    LgaComponent,
+    SettingsComponent,
+    CreateRoleComponent,
+    CreateMenuComponent
   ],
   imports: [
     BrowserModule,
+    ModalModule.forRoot() ,
+    NgxEditorModule,
     BsDatepickerModule.forRoot(),
     AlertModule.forRoot(),
     HttpClientModule,
@@ -64,6 +88,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     NgBusyModule,
     CalendarModule,
     FormsModule ,
+
 
     BrowserAnimationsModule
   ],

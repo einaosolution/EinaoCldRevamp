@@ -13,13 +13,14 @@
     <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/auth-bg.jpg) no-repeat center center;">
 
       <div class="auth-box on-sidebar">
+          <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
             <div id="loginform">
                 <div class="logo">
                     <span class="db"><img src="assets/images/cldlogo.png" alt="logo" /></span>
                     <p></p>
                     <h5 class="font-medium m-b-20">Sign In</h5>
                     <alert *ngIf="showerror" type="danger">{{messages}}</alert>
-                    <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
                 </div>
                 <!-- Form -->
                 <div class="row m-t-20">

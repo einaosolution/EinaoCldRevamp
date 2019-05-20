@@ -24,20 +24,10 @@ export class HomeComponent implements OnInit,AfterViewInit {
 
   constructor(private registerapi :ApiClientService ,private router: Router) {
 
-    this.subscription = this.registerapi.getNavChangeEmitter()
-    .subscribe(item => this.selectedNavItem(item));
+
 
    }
 
-   selectedNavItem(item) {
-    this.islogged()
-
-
-
-    window.location.reload();
-
-
-  }
 
 
 
@@ -70,19 +60,79 @@ export class HomeComponent implements OnInit,AfterViewInit {
     this.router.navigateByUrl('/Dashboard');
   }
   ngOnInit() {
-   // this.router.navigateByUrl('/Dashboard');
 
-   //this.registerapi.VChangeEvent("kkkkk") ;
+       try {
 
-   if (this.islogged()) {
+        var vdate = localStorage.getItem('ExpiryTime')
+        if (vdate) {
 
-    this.router.navigateByUrl('/Dashboard/Dashboard2');
-   }
+          var vdate3 = new Date(vdate);
 
-   else {
-    this.router.navigateByUrl('/login');
 
-   }
+        }
+        else {
+
+    this.registerapi.settoken("");
+
+    localStorage.setItem('username', "");
+          this.router.navigateByUrl('/login');
+        }
+
+        var vdate2 = new Date(vdate);
+
+
+
+        var d1 = new Date();
+
+
+
+        if (vdate2 > d1) {
+
+
+        }
+
+        else {
+          this.router.navigateByUrl('/login');
+
+
+        }
+
+           }
+
+           catch(err) {
+
+            this.router.navigateByUrl('/login');
+
+           }
+
+        // this.router.navigateByUrl('/Dashboard');
+
+
+       //this.registerapi.VChangeEvent("kkkkk") ;
+
+
+    if( window.localStorage )
+    {
+
+      if( !localStorage.getItem('firstLoad') )
+      {
+        localStorage['firstLoad'] = true;
+        window.location.reload();
+      }
+      else
+        localStorage.removeItem('firstLoad');
+        if (this.islogged()) {
+
+          this.router.navigateByUrl('/Dashboard/Dashboard2');
+         }
+
+         else {
+          this.router.navigateByUrl('/login');
+
+         }
+    }
+
+
 
 
 

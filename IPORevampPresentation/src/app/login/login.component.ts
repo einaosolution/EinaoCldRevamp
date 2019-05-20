@@ -67,6 +67,9 @@ export class LoginComponent implements OnInit {
      if (response.content.category =="1" && !response.content.registrationcomplete ) {
       localStorage.setItem('username', this.userform.value.Email);
       localStorage.setItem('loggeduser', response.content.loggeduser);
+      localStorage.setItem('UserId', response.content.userId);
+      localStorage.setItem('profilepic', response.content.profilepic);
+
       this.registerapi.settoken("");
      // localStorage.setItem('access_tokenexpire', response.content.Token);
       this.router.navigateByUrl('Individual');
@@ -80,6 +83,8 @@ export class LoginComponent implements OnInit {
      if (response.content.category =="2" && !response.content.registrationcomplete ) {
       localStorage.setItem('username', this.userform.value.Email);
       localStorage.setItem('loggeduser', response.content.loggeduser);
+      localStorage.setItem('UserId', response.content.userId);
+      localStorage.setItem('profilepic', response.content.profilepic);
 
       this.registerapi.settoken("");
      // localStorage.setItem('access_tokenexpire', response.content.Token);
@@ -96,22 +101,41 @@ export class LoginComponent implements OnInit {
 
       localStorage.setItem('username', this.userform.value.Email);
       localStorage.setItem('loggeduser', response.content.loggeduser);
-      localStorage.setItem('loggeduser', response.content.loggeduser);
-      this.registerapi.settoken("");
-     // localStorage.setItem('access_tokenexpire', response.content.Token);
+      localStorage.setItem('UserId', response.content.userId);
+     // this.registerapi.settoken("");
+     localStorage.setItem('access_tokenexpire', response.content.Token);
+
+     localStorage.setItem('ExpiryTime', response.content.expiryTime);
+     if (response.content.profilepic ==null) {
+      localStorage.setItem('profilepic', "");
+    }
+
+    else {
+      localStorage.setItem('profilepic', response.content.profilepic);
+    }
       this.router.navigateByUrl('/PasswordChange');
       return ;
     }
     localStorage.setItem('username', this.userform.value.Email);
 
     localStorage.setItem('access_tokenexpire', response.content.token);
+    localStorage.setItem('UserId', response.content.userId);
+    localStorage.setItem('ExpiryTime', response.content.expiryTime);
 
     localStorage.setItem('loggeduser', response.content.loggeduser);
+    if (response.content.profilepic ==null) {
+      localStorage.setItem('profilepic', "");
+    }
+
+    else {
+      localStorage.setItem('profilepic', response.content.profilepic);
+    }
+
 
     this.registerapi.settoken(response.content.token) ;
 
-    this.registerapi.VChangeEvent("kkkkk")
-   //this.router.navigateByUrl('/home');
+    //this.registerapi.VChangeEvent("kkkkk")
+   this.router.navigateByUrl('/home');
    //
 
 
@@ -143,6 +167,47 @@ export class LoginComponent implements OnInit {
     this.submitted2= true;
 
     if (this.userform2.valid) {
+
+      this.spinner.show();
+      var kk = {
+        Username:this.userform2.value.Email2
+
+
+
+      }
+
+
+
+  this.registerapi
+  .ForgotPassword(kk)
+  .then((response: any) => {
+    this.spinner.hide();
+
+
+    this.submitted2=false;
+    Swal.fire(
+      'Submitted  Succesfully , email has been sent',
+      '',
+      'success'
+    )
+ //  this.router.navigate(['/Emailverification']);
+
+ this.userform2.reset();
+
+  })
+           .catch((response: any) => {
+            this.spinner.hide();
+             console.log(response)
+
+
+            Swal.fire(
+              response.error.message,
+              '',
+              'error'
+            )
+   }
+   );
+
 
     }
 

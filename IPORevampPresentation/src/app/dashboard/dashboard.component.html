@@ -40,12 +40,16 @@
                 <div class="card  bg-light no-card-border">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <div class="m-r-10">
-                                <img src="assets/images/2.jpg" alt="user" width="60" class="rounded-circle" />
+                            <div class="m-r-10" *ngIf="getprofilepic()">
+                                <img src="http://5.77.54.44/EinaoCldRevamp2/Upload/{{profilepic}}" alt="user" width="60" class="rounded-circle" />
                             </div>
+
+                            <div class="m-r-10" *ngIf="!getprofilepic()">
+                              <img src="assets/images/2.jpg" alt="user" width="60" class="rounded-circle" />
+                          </div>
                             <div>
                                 <h3 class="m-b-0">Welcome back!</h3>
-                                <span>Monday, 9 March 2019</span>
+                                <span>{{vdate|date:'fullDate'}}</span>
                             </div>
                         </div>
                     </div>

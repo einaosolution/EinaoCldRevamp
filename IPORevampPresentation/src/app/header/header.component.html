@@ -15,7 +15,7 @@
           <!-- ============================================================== -->
           <!-- Logo -->
           <!-- ============================================================== -->
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="#/home">
               <!-- Logo icon -->
               <b class="logo-icon">
                   <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -127,19 +127,27 @@
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true"
                       aria-expanded="false">
+                      <div *ngIf="getprofilepic()">
+                      <img src="http://5.77.54.44/EinaoCldRevamp2/Upload/{{profilepic}}" alt="user" class="rounded-circle" width="31">
+                    </div>
+                    <div *ngIf="!getprofilepic()">
                       <img src="assets/images/1.jpg" alt="user" class="rounded-circle" width="31">
-                  </a>
+                    </div>
+                    </a>
                   <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                       <span class="with-arrow">
                           <span class="bg-primary"></span>
                       </span>
                       <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
-                          <div class="">
-                              <img src="assets/images/1.jpg" alt="user" class="img-circle" width="60">
+                          <div *ngIf="getprofilepic()" class="">
+                              <img src="http://5.77.54.44/EinaoCldRevamp2/Upload/{{profilepic}}" alt="user" class="img-circle" width="60">
                           </div>
+                          <div *ngIf="!getprofilepic()" class="">
+                            <img src="assets/images/1.jpg" alt="user" class="img-circle" width="60">
+                        </div>
                           <div class="m-l-10">
-                              <h4 class="m-b-0">Steave Jobs</h4>
-                              <p class=" m-b-0">varun@gmail.com</p>
+                              <h4 class="m-b-0">{{loggeduser}}</h4>
+                              <p class=" m-b-0">{{loggedinemail}}</p>
                           </div>
                       </div>
                       <a class="dropdown-item" href="javascript:void(0)">
@@ -179,11 +187,14 @@
               <li>
                   <!-- User Profile-->
                   <div class="user-profile dropdown m-t-20">
-                      <div class="user-pic">
-                          <img src="assets/images/1.jpg" alt="users" class="rounded-circle img-fluid" />
+                      <div *ngIf="getprofilepic()" class="user-pic">
+                          <img src="http://5.77.54.44/EinaoCldRevamp2/Upload/{{profilepic}}" alt="users" class="rounded-circle img-fluid" />
                       </div>
+                      <div *ngIf="!getprofilepic()" class="user-pic">
+                        <img src="assets/images/1.jpg" alt="users" class="rounded-circle img-fluid" />
+                    </div>
                       <div class="user-content hide-menu m-t-10">
-                          <h5 class="m-b-10 user-name font-medium">{{loggedinuser}}</h5>
+                          <h5 class="m-b-10 user-name font-medium">{{loggeduser}}</h5>
                           <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd" role="button" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false">
                               <i class="ti-settings"></i>
@@ -215,29 +226,51 @@
                   <span class="hide-menu">User Roles and Admin</span>
               </li>
               <li class="sidebar-item">
-                  <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                  <a class="sidebar-link has-arrow waves-effect waves-dark" [ngClass]="{ 'active2': addCss}"     href="javascript:void(0)"
+                  aria-expanded="false">
                       <i class="icon-User"></i>
-                      <span class="hide-menu">List of Users </span>
+                      <span class="hide-menu">SetUp </span>
                   </a>
                   <ul aria-expanded="false" class="collapse  first-level">
                       <li class="sidebar-item">
-                          <a href="users.html" class="sidebar-link">
+                          <a href="#/Dashboard/Country"  class="sidebar-link">
                               <i class="icon-Record"></i>
-                              <span class="hide-menu"> Contact User </span>
+                              <span class="hide-menu"> Country Setup </span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="products-orders.html" class="sidebar-link">
+                          <a href="#/Dashboard/State" class="sidebar-link">
                               <i class="icon-Record"></i>
-                              <span class="hide-menu"> Product Orders </span>
+                              <span class="hide-menu"> State Setup </span>
                           </a>
                       </li>
+
                       <li class="sidebar-item">
-                          <a href="analytics.html" class="sidebar-link">
+                        <a href="#/Dashboard/Lga" class="sidebar-link">
+                            <i class="icon-Record"></i>
+                            <span class="hide-menu"> Lga Setup </span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                      <a href="#/Dashboard/Settings" class="sidebar-link">
+                          <i class="icon-Record"></i>
+                          <span class="hide-menu"> Settings Setup </span>
+                      </a>
+                  </li>
+                      <li class="sidebar-item">
+                          <a href="#/Dashboard/EmailTemplate" class="sidebar-link">
                               <i class="icon-Record"></i>
-                              <span class="hide-menu"> Analytics </span>
+                              <span class="hide-menu"> Email Template Setup </span>
                           </a>
                       </li>
+
+                      <li class="sidebar-item">
+                        <a href="#/Dashboard/Menu" class="sidebar-link">
+                            <i class="icon-Record"></i>
+                            <span class="hide-menu">Create Menu</span>
+                        </a>
+                    </li>
 
                   </ul>
               </li>
@@ -253,19 +286,19 @@
                   </a>
                   <ul aria-expanded="false" class="collapse  first-level">
                       <li class="sidebar-item">
-                          <a href="inbox-email.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-email"></i>
                               <span class="hide-menu">Trade Marks Approval </span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="inbox-email-detail.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-email-alert"></i>
                               <span class="hide-menu">Trade Marks Pending </span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="inbox-email-compose.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-email-secure"></i>
                               <span class="hide-menu">Trade Marks Progress </span>
                           </a>
@@ -285,19 +318,19 @@
                   </a>
                   <ul aria-expanded="false" class="collapse first-level">
                       <li class="sidebar-item">
-                          <a href="ui-buttons.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-toggle-switch"></i>
                               <span class="hide-menu">Patenets Approvale</span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="ui-modals.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-tablet"></i>
                               <span class="hide-menu">Patenets Pending </span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="ui-tab.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-sort-variant"></i>
                               <span class="hide-menu">Patenets Progress</span>
                           </a>
@@ -322,19 +355,19 @@
                   </a>
                   <ul aria-expanded="false" class="collapse first-level">
                       <li class="sidebar-item">
-                          <a href="form-inputs.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-priority-low"></i>
                               <span class="hide-menu"> Design Approval</span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="form-input-groups.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-rounded-corner"></i>
                               <span class="hide-menu"> Design Pending</span>
                           </a>
                       </li>
                       <li class="sidebar-item">
-                          <a href="form-input-grid.html" class="sidebar-link">
+                          <a href="#/home" class="sidebar-link">
                               <i class="mdi mdi-select-all"></i>
                               <span class="hide-menu"> Design Progress</span>
                           </a>

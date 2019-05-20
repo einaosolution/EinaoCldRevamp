@@ -22,6 +22,10 @@ import {
 export class HeaderComponent implements OnInit {
   subscription: any;
   loggedinuser:string =""
+  loggedinemail:string =""
+  addCss = false;
+  loggeduser:string ="";
+  profilepic;
   constructor(private registerapi :ApiClientService ) {
 
     this.subscription = this.registerapi.getNavChangeEmitter()
@@ -31,12 +35,45 @@ export class HeaderComponent implements OnInit {
    selectedNavItem(item) {
 
    // window.location.reload();
+   this.registerapi.setPage(item)
+
+   this.isSpecial()
   }
+  isSpecial() {
 
+    if (this.registerapi.getPage() == "Country") {
+      this.addCss =true;
+
+    }
+
+    else {
+      this.addCss =false;
+    }
+
+
+      }
+      getprofilepic() {
+        this.profilepic=localStorage.getItem('profilepic')
+
+        this.loggeduser  =localStorage.getItem('loggeduser')
+        this.loggedinemail=localStorage.getItem('username')
+
+        if (this.profilepic && this.profilepic != null ) {
+          return true ;
+        }
+
+        else {
+          return false;
+        }
+      }
   ngOnInit() {
-this.loggedinuser = localStorage.getItem('loggeduser');
+this.profilepic=  localStorage.getItem('profilepic')
+this.loggedinemail=localStorage.getItem('username')
 
-   
+
+
+
+
 
   }
 
