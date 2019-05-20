@@ -18,7 +18,11 @@ using IPORevamp.Data.Entities.Payment;
 using IPORevamp.Data.Entities.Modules;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.TempModel;
-using IPORevamp.Data.Entity.Interface.Entities.Setting;
+using System.Data.Entity.ModelConfiguration.Configuration;
+using IPORevamp.Data.Entities.LGAs;
+using IPORevamp.Data.Entity.Interface.Entities.Auth;
+using IPORevamp.Data.Entity.Interface.Entities.Role;
+using IPORevamp.Data.Entities.Menus;
 
 namespace IPORevamp.Data
 {
@@ -42,17 +46,27 @@ namespace IPORevamp.Data
 
        
         public DbSet<AccountType> AccountTypes { get; set; }
-        public DbSet<Country> Country { get; set; }
+        public DbSet<Data.Entities.Country.Country> Country { get; set; }
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
         
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
-        public DbSet<lga> LGAs { get; set; }
+        public DbSet<Data.Entities.LGAs.LGA> LGAs { get; set; }
         
         public DbSet<DSApplicationStatus> dSApplicationStatuses { get; set; }
         public DbSet<State> States { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
         public DbSet<TMApplicationStatus> tMApplicationStatuses { get; set; }
+
+
+       
+        public virtual DbSet<RoleManager> RoleManager { get; set; }
+ 
+       
+        public virtual DbSet<LinkRolesMenus> LinkRolesMenus { get; set; }
+        public virtual DbSet<MenuManager> MenuManager { get; set; }
+
+
         #endregion
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -113,6 +127,9 @@ namespace IPORevamp.Data
         protected override  void OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+          
+
             //base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<EventEventFeature>()
             //.HasKey(t => new { t.EventId, t.FeatureId });
@@ -122,10 +139,8 @@ namespace IPORevamp.Data
             //    .WithMany(p => p.Features)
             //    .HasForeignKey(pt => pt.FeatureId);
 
-            //modelBuilder.Entity<EventEventFeature>()
-            //    .HasOne(pt => pt.Feature)
-            //    .WithMany(t => t.Events)
-            //    .HasForeignKey(pt => pt.EventId);
+
+
 
 
         }

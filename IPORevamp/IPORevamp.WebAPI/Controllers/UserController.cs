@@ -16,7 +16,7 @@ using IPORevamp.Data.Entities.Email;
 using EmailEngine.Base.Entities;
 using EmailEngine.Repository.EmailRepository;
 using IPORevamp.Data.Entities.AuditTrail;
-using IPORevamp.Repository.Event;
+
 using IPORevamp.Data;
 using IPORevamp.Data.TempModel;
 using IPORevamp.Repository.Interface;
@@ -31,10 +31,13 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authorization;
 
 using EmailEngine.Repository.FileUploadRepository;
+using IPORevamp.Repository.Setting;
+using IPORevamp.Repository.UserProfiling;
+using IPORevamp.Repository.Email;
 
 namespace IPORevamp.WebAPI.Controllers
 {
-    [Route("api/users")]
+    [Route("api/UserManagement")]
     [ApiController]
     public class UserController : BaseController
     {
@@ -46,24 +49,22 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private IHostingEnvironment _hostingEnvironment;
         private IFileHandler _fileUploadRespository;
-
-
-
-
-
+        private IUserProfilingRepository _userProfilingRepository;
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
         public UserController(
-            UserManager<ApplicationUser> userManager, 
+            UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
-            SignInManager<ApplicationUser> signInManager, 
-            IConfiguration configuration, 
+            SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration,
             IMapper mapper, ILogger<UserController> logger,
             IEmailManager<EmailLog, EmailTemplate> emailManager,
-            ISettingRepository  settingrepository,
+            ISettingRepository settingrepository,
+            IUserProfilingRepository userProfilingRepository,
             IEmailSender emailsender,
             IHttpContextAccessor httpContextAccessor,
             IHostingEnvironment hostingEnvironment ,
-
-             IFileHandler fileUploadRespository,
+            IEmailTemplateRepository EmailTemplateRepository,
+        IFileHandler fileUploadRespository,
             IAuditTrailManager<AuditTrail> auditTrailManager
 
 
@@ -85,7 +86,9 @@ namespace IPORevamp.WebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
             _hostingEnvironment = hostingEnvironment;
             _fileUploadRespository = fileUploadRespository;
-
+            _userProfilingRepository = userProfilingRepository;
+            _EmailTemplateRepository = EmailTemplateRepository;
+        
         }
 
         // <summary>
@@ -333,7 +336,7 @@ namespace IPORevamp.WebAPI.Controllers
                 
 
 
-                var ExistingAccount = await _settings.ValidateVerificationEmail(model.Email);
+                var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(model.Email);
 
                 if (ExistingAccount != null)
                 {
@@ -343,14 +346,14 @@ namespace IPORevamp.WebAPI.Controllers
                 
                 EmailTemplate emailTemplate;
 
-                if (model.Category == 1)
+                if (model.Category == IPOCONSTANT.Individual_Account)
                 {
-                    emailTemplate =  await _settings.GetEmailTemplateByCode(IPOCONSTANT.Individual_Account_Verification);
+                    emailTemplate =  await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Individual_Account_Verification);
 
                 }
                 else
                 {
-                    emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.Corporate_Account_Verification);
+                    emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Corporate_Account_Verification);
                 }
 
                 EmailLog emaillog = new EmailLog();
@@ -364,7 +367,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 // Get the number of hours in min for the link to expire 
-                var getSettingList = await _settings.GetSettingsByCode(IPOCONSTANT.ACTIVATIONCODE);
+                var getSettingList = await _settings.GetSettingByCode(IPOCONSTANT.ACTIVATIONCODE);
 
 
                 // add the mins to the current datetime, which is study in hours
@@ -382,7 +385,7 @@ namespace IPORevamp.WebAPI.Controllers
                 userVerification.IsActive = true;
                 
 
-                 await _settings.SaveUserVerification(userVerification);
+                 await _userProfilingRepository.SavingUserProfile(userVerification);
 
                 string mailContent = emailTemplate.EmailBody;
                 mailContent = mailContent.Replace("#name", model.First_Name + ' ' + model.Last_Name);
@@ -442,7 +445,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // confirm if the email address exist and the date as not expired
 
-                UserVerificationTemp model = await _settings.EmailConfirmation(convertString);
+                UserVerificationTemp model = await _userProfilingRepository.EmailConfirmation(convertString);
 
                 var expiredate = model.ExpiringDate;
                 if (DateTime.Now > expiredate)
@@ -522,7 +525,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                         model.IsActive = true;
                         model.ConfirmationDate = DateTime.Now;
-                        await _settings.SaveUserVerification(model);
+                        await _userProfilingRepository.SavingUserProfile(model);
                         
                         await _auditTrailManager.AddAuditTrail(new AuditTrail
                         {
@@ -590,7 +593,7 @@ namespace IPORevamp.WebAPI.Controllers
             }
             else
             {
-                var emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION);
+                var emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION);
 
                 if(emailTemplate == null)
                 {
@@ -873,7 +876,7 @@ namespace IPORevamp.WebAPI.Controllers
         public async Task<IActionResult> ForgotPassword(ForgotPassswordRequest forgot)
         {
             
-            var emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.FORGOT_PASSWORD_EMAIL_TEMPLATE);
+            var emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.FORGOT_PASSWORD_EMAIL_TEMPLATE);
 
 
 
@@ -981,7 +984,7 @@ namespace IPORevamp.WebAPI.Controllers
                          await _userManager.UpdateAsync(user);
 
                         // send an email
-                        var  emailTemplate = await _settings.GetEmailTemplateByCode(IPOCONSTANT.CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION);
+                        var  emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.CHANGE_PASSWORD_FIRST_LOGIN_NOTIFICATION);
 
                         EmailLog emaillog = new EmailLog();
                         emaillog.MailBody = emailTemplate.EmailBody;

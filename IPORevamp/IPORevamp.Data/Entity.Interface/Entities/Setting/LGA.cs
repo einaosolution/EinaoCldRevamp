@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace IPORevamp.Data.Entities.Setting
+namespace IPORevamp.Data.Entities.lg
 {
    public  class lga : EntityBase
     {

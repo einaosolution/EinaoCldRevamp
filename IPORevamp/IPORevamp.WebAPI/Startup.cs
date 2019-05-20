@@ -126,7 +126,7 @@ namespace IPORevamp.WebAPI
                      ValidAudience = Configuration["JwtIssuer"],
                      ValidateIssuerSigningKey = true,
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                     //RequireExpirationTime = false,
+                     
                    
                      ValidateLifetime = false,
                      ClockSkew = TimeSpan.Zero,
@@ -163,15 +163,14 @@ namespace IPORevamp.WebAPI
             services.AddTransient<IAuditTrailManager<AuditTrail>, AuditTrailManager<AuditTrail>>();
             services.AddTransient<IBilling<BillLog, PaymentLog, ApplicationUser, int>, Billing<BillLog, PaymentLog, ApplicationUser, int>>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
-            services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();
-            services.AddTransient<Repository.Event.ISettingRepository, SettingRepository>();
+            services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();   
             services.AddTransient<IEmailSender, EmailService>();
 
 
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("V1", new Info { Title = "IPORevamp WebAPI", Version = "V1" });
+                c.SwaggerDoc("V1", new Info { Title = "IPO Nigeria WebAPI", Version = "V1" });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
               //  var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

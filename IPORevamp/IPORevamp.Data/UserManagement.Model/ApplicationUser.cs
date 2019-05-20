@@ -25,6 +25,7 @@ namespace IPORevamp.Data.UserManagement.Model
         public ApplicationUser(string username)
         {
             UserName = username;
+           
         }
 
 
@@ -66,6 +67,11 @@ namespace IPORevamp.Data.UserManagement.Model
         [Timestamp]
         public byte[] RowVersion { get; set; }
         public DateTime? LastUpdateDate { get; set; }
+
+
+
+        public int? RolesId { get; set; }
+        public IPORevamp.Data.Entity.Interface.Entities.Role.RoleManager Roles { get; set; }
 
         public bool IsTransient()
         {

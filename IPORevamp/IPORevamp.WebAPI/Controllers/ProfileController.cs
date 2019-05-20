@@ -20,6 +20,7 @@ using IPORevamp.Data.Entities.Email;
 using IPORevamp.Data.UserManagement.Model;
 using IPORevamp.Repository.Event;
 using EmailEngine.Repository.FileUploadRepository;
+using IPORevamp.Repository.UserProfiling;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -31,6 +32,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly IFileHandler _fileHandler;
+        private readonly IUserProfilingRepository _userProfilingRepository;
 
         public ProfileController(
            UserManager<ApplicationUser> userManager,
@@ -39,7 +41,8 @@ namespace IPORevamp.WebAPI.Controllers
            IConfiguration configuration,
            IMapper mapper,
            ILogger<UserController> logger,
-         
+           IUserProfilingRepository userProfilingRepository,
+
            IEmailManager<EmailLog, EmailTemplate> emailManager,
            IAuditTrailManager<AuditTrail> auditTrailManager,
            IFileHandler fileHandler
@@ -51,11 +54,12 @@ namespace IPORevamp.WebAPI.Controllers
                mapper,
                logger,
                auditTrailManager
-              
+
                )
         {
             _emailManager = emailManager;
             _fileHandler = fileHandler;
+            _userProfilingRepository = userProfilingRepository;
         }
 
         [AllowAnonymous]
@@ -64,10 +68,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user != null)
-            {                                
+            {
                 var returnedUser = _mapper.Map<UserModel>(user);
                 return PrepareResponse(HttpStatusCode.OK, "User found", false, returnedUser);
-                
+
             }
 
             return PrepareResponse(HttpStatusCode.NotFound, "User not found", true, null);
@@ -81,7 +85,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             if (user != null)
             {
-                if(user.Id != userId)
+                if (user.Id != userId)
                 {
                     return PrepareResponse(HttpStatusCode.Unauthorized, "You are not authorized to complete this process", true, null);
                 }
@@ -108,70 +112,6 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.NotFound, "User not found", true, null);
         }
 
-        //[Consumes("multipart/form-data")]
-        //[HttpPut("{userId}/upload-image")]
-        //public async Task<IActionResult> UploadProfileImage(int userId, IFormFile image)
-        //{
-        //    var loggedUser = User.Identity.Name;
-        //    var user = await _userManager.FindByNameAsync(loggedUser);
-        //    if(user.Id != userId)
-        //    {
-        //        return PrepareResponse(HttpStatusCode.Forbidden, "You are forbidden to perform this task");
-        //    }
-
-        //    var uploadedImage = await _fileHandler.UploadFile(image, FileType.PICTURE); 
-        //    if (!string.IsNullOrEmpty(uploadedImage))
-        //    {
-        //        user.ProfilePicLoc = uploadedImage;
-        //        await _userManager.UpdateAsync(user);
-
-        //        return PrepareResponse(HttpStatusCode.OK, "Profile Image has been uploaded successfully", false);
-        //    }
-
-        //    return PrepareResponse(HttpStatusCode.InternalServerError, "An error occured while uploading profile image");
-        //}
-
-        
-            
 
 
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> UpdateProfileDetails(int userId, UserModel model)
-        {
-            var username = User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(username);
-            if(user != null)
-            {
-                if (user.Id == userId)
-                {
-                    user.Bio = model.Bio;
-                    user.CountryCode = model.CountryCode;
-                    user.DateOfBirth = model.DoB;
-                    user.EmployerName = model.EmployerName;
-                    user.FirstName = model.FirstName;
-                    user.Gender = model.Gender;
-                //    user.Interests = model.Interests;
-                    user.LastName = model.LastName;
-                    user.MiddleName = model.MiddleName;
-                    user.MobileNumber = model.PhoneNumber;
-                    user.PhoneNumber = model.PhoneNumber;
-                    user.ResidentialAddress = model.ResidentialAddress;
-                    user.Title = model.Title;
-                    user.Nationality = model.Nationality;
-
-                    var updated = await _userManager.UpdateAsync(user);
-                    if (updated.Succeeded)
-                    {
-                        return PrepareResponse(HttpStatusCode.OK, "Profile update has been successfully completed", false, user);
-                    }
-
-                    return PrepareResponse(HttpStatusCode.ExpectationFailed, updated.Errors.FirstOrDefault().Description, true, null);
-                }            
-
-                return PrepareResponse(HttpStatusCode.NotFound, "Specified user not found", true, null);
-            }
-
-            return PrepareResponse(HttpStatusCode.Unauthorized, "You are not authorized to make this required", true, null);
-        }
-    }
-}
+    }}

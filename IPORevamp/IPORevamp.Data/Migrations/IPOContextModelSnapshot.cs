@@ -15,7 +15,7 @@ namespace IPORevamp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -58,6 +58,39 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("AuditID");
 
                     b.ToTable("AuditTrails");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.Country.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<int>("EnableForOtherCountry");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Email.EmailLog", b =>
@@ -150,6 +183,43 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("EmailTemplateID");
 
                     b.ToTable("EmailTemplates");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.LGAs.LGA", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CountryId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("LGAName");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<int>("StateId");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("LGAs");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Menus.Menu", b =>
@@ -350,6 +420,37 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("PaymentLogs");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entities.Sector", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sector");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entities.Setting.AccountType", b =>
                 {
                     b.Property<int>("Id")
@@ -381,39 +482,6 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("AccountTypes");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entities.Setting.Country", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<string>("DeletedBy");
-
-                    b.Property<int>("EnableForOtherCountry");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastUpdateDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("RowVersion");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Country");
-                });
-
             modelBuilder.Entity("IPORevamp.Data.Entities.Setting.DSApplicationStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -443,39 +511,6 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DSApplicationStatus");
-                });
-
-            modelBuilder.Entity("IPORevamp.Data.Entities.Setting.lga", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<string>("DeletedBy");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("LGAName");
-
-                    b.Property<DateTime?>("LastUpdateDate");
-
-                    b.Property<byte[]>("RowVersion");
-
-                    b.Property<int?>("StateId");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StateId");
-
-                    b.ToTable("LGAs");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Setting.Setting", b =>
@@ -511,39 +546,6 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("Settings");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entities.Setting.State", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CountryId");
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<string>("DeletedBy");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("LastUpdateDate");
-
-                    b.Property<byte[]>("RowVersion");
-
-                    b.Property<string>("StateName");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("States");
-                });
-
             modelBuilder.Entity("IPORevamp.Data.Entities.Setting.TMApplicationStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -575,7 +577,110 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("tMApplicationStatuses");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Setting.Sector", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entities.State", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CountryId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("StateName");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("States");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Auth.MenuManager", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Icon");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ParentId");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuManager");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Role.LinkRolesMenus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<int>("MenusId");
+
+                    b.Property<int>("RolesId");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenusId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("LinkRolesMenus");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Role.RoleManager", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -597,13 +702,13 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<byte[]>("RowVersion");
 
-                    b.Property<string>("Type");
+                    b.Property<string>("Title");
 
                     b.Property<string>("UpdatedBy");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sector");
+                    b.ToTable("RoleManager");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.TempModel.UserVerificationTemp", b =>
@@ -766,6 +871,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("ResidentialAddress");
 
+                    b.Property<int?>("RolesId");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -794,6 +901,8 @@ namespace IPORevamp.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("RolesId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -881,6 +990,18 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entities.LGAs.LGA", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country")
+                        .WithMany("LGA")
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("IPORevamp.Data.Entities.State", "State")
+                        .WithMany("LGA")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entities.Menus.Menu", b =>
                 {
                     b.HasOne("IPORevamp.Data.Entities.Menus.Menu")
@@ -919,18 +1040,32 @@ namespace IPORevamp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entities.Setting.lga", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entities.State", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entities.Setting.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "Country")
+                        .WithMany("States")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entities.Setting.State", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Role.LinkRolesMenus", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entities.Setting.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Auth.MenuManager", "Menus")
+                        .WithMany("LinkRolesMenus")
+                        .HasForeignKey("MenusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Role.RoleManager", "Roles")
+                        .WithMany("LinkRolesMenus")
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.UserManagement.Model.ApplicationUser", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Role.RoleManager", "Roles")
+                        .WithMany("Admins")
+                        .HasForeignKey("RolesId");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.UserManagement.Model.ApplicationUserClaim", b =>

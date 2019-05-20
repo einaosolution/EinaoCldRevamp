@@ -11,7 +11,8 @@
           "EmailEngine": "1.0.0",
           "IPORevamp.Core": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.1.1",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.3"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.3",
+          "EntityFramework": "6.0.0.0"
         },
         "runtime": {
           "IPORevamp.Data.dll": {}
@@ -926,6 +927,14 @@
         "runtime": {
           "IPORevamp.Core.dll": {}
         }
+      },
+      "EntityFramework/6.0.0.0": {
+        "runtime": {
+          "EntityFramework.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.1.30610.0"
+          }
+        }
       }
     }
   },
@@ -1544,6 +1553,11 @@
     },
     "IPORevamp.Core/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EntityFramework/6.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

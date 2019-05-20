@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using IPORevamp.Data;
 using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Repository.Base;
+using System.Collections.Generic;
 
 namespace IPORevamp.Repository.CoreRepository
 {
@@ -39,6 +40,8 @@ namespace IPORevamp.Repository.CoreRepository
             return Table.Where(x => !x.IsDeleted && x.IsActive);
         }
 
+
+      
         public override TEntity GetById(int id)
         {
             return Table.Find(id);
