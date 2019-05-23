@@ -17,7 +17,6 @@ using IPORevamp.Data.Entities.Email;
 using EmailEngine.Base.Entities;
 using EmailEngine.Repository.EmailRepository;
 using IPORevamp.Data.Entities.AuditTrail;
-using IPORevamp.Repository.Event;
 using IPORevamp.Data;
 using IPORevamp.Data.TempModel;
 using IPORevamp.Repository.Interface;

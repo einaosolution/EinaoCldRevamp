@@ -19,4 +19,8 @@
     <ProjectReference Include="..\IPORevamp.Data\IPORevamp.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Fee\" />
+  </ItemGroup>
+
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using IPORevamp.Data.Entities.Menus;
 using IPORevamp.Data.UserManagement.Model;
 
 namespace IPORevamp.WebAPI.Models
@@ -31,6 +32,7 @@ namespace IPORevamp.WebAPI.Models
 
     public class AuthModel
     {
+        public int RoleId { get; set; }
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
@@ -41,6 +43,10 @@ namespace IPORevamp.WebAPI.Models
         public Boolean  registrationcomplete  { get; set; }
         public Boolean changepassword { get; set; }
         public DateTime ExpiryTime { get; set; }
+
+        public List<MenuManager> DynamicMenu { get; set; }
+        public string menuString { get; set; }
+        public int RolesId { get; set;  }
     }
 
     public class VerifyEmailViewModel

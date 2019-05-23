@@ -27,7 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Entity.Interface\Entities\Permission\" />
     <Folder Include="Entity.Interface\Entities\TMApplicationStatus\" />
+    <Folder Include="Entities\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

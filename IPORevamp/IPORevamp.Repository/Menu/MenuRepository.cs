@@ -10,12 +10,12 @@ using IPORevamp.Repository.Interface;
 using IPORevamp.Core.Utilities;
 using IPORevamp.Data;
 using IPORevamp.Data.Entities.AuditTrail;
-using IPORevamp.Data.Entities.Event;
-using IPORevamp.Data.Entities.Modules;
+
+
 using IPORevamp.Data.Entities.Payment;
 using IPORevamp.Data.UserManagement.Model;
 
-using IPORevamp.Repository.Event;
+
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using System.Data.SqlClient;
@@ -28,7 +28,7 @@ using IPORevamp.Data.Entities.Menus;
 using IPORevamp.Data.Entity.Interface.Entities.Role;
 
 namespace IPORevamp.Repository.Menu
-{
+{ 
     public class MenuRepository : IMenuRepository
     {
         private IRepository<Data.Entities.Menus.MenuManager> _menurepository;
@@ -61,6 +61,21 @@ namespace IPORevamp.Repository.Menu
         {
             List<Data.Entities.Menus.MenuManager> Menu = new List<Data.Entities.Menus.MenuManager>();
             Menu = await _menurepository.GetAllListAsync();
+            return Menu;
+        }
+
+
+        public async Task<List<MenuManager>> GetAllParentMenu()
+        {
+            List<Data.Entities.Menus.MenuManager> Menu = new List<Data.Entities.Menus.MenuManager>();
+            Menu = await _menurepository.GetAll().Where(a => a.ParentId == 0).ToListAsync();
+            return Menu;
+        }
+
+        public async Task<List<Data.Entities.Menus.MenuManager>> GetAllParentChildMenu(int ParentId)
+        {
+            List<Data.Entities.Menus.MenuManager> Menu = new List<Data.Entities.Menus.MenuManager>();
+            Menu = await _menurepository.GetAll().Where(a => a.ParentId == 0 && a.Id== ParentId).ToListAsync();
             return Menu;
         }
 
@@ -137,12 +152,12 @@ namespace IPORevamp.Repository.Menu
 
         List<LinkRolesMenus> IMenuRepository.GetLinkRolesMenus()
         {
-            return  _linkRolesMenusrepository.GetAllList();
+            return _linkRolesMenusrepository.GetAll().Include(a => a.Menus).ToList();
         }
 
         List<LinkRolesMenus> IMenuRepository.GetMenuManagers()
         {
-            return _linkRolesMenusrepository.GetAllList();
+            return _linkRolesMenusrepository.GetAll().Include(a => a.Menus).ToList();
         }
     }
 }

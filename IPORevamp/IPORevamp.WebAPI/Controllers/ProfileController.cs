@@ -18,9 +18,11 @@ using IPORevamp.WebAPI.Models;
 using IPORevamp.Data.Entities.AuditTrail;
 using IPORevamp.Data.Entities.Email;
 using IPORevamp.Data.UserManagement.Model;
-using IPORevamp.Repository.Event;
+
 using EmailEngine.Repository.FileUploadRepository;
 using IPORevamp.Repository.UserProfiling;
+using IPORevamp.Data.Entities.Menus;
+using IPORevamp.Repository.Menu;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -33,7 +35,7 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly IFileHandler _fileHandler;
         private readonly IUserProfilingRepository _userProfilingRepository;
-
+        private readonly IMenuRepository _menuRepository;
         public ProfileController(
            UserManager<ApplicationUser> userManager,
            RoleManager<ApplicationRole> roleManager,
@@ -42,7 +44,7 @@ namespace IPORevamp.WebAPI.Controllers
            IMapper mapper,
            ILogger<UserController> logger,
            IUserProfilingRepository userProfilingRepository,
-
+            IMenuRepository menuRepository,
            IEmailManager<EmailLog, EmailTemplate> emailManager,
            IAuditTrailManager<AuditTrail> auditTrailManager,
            IFileHandler fileHandler
@@ -100,7 +102,9 @@ namespace IPORevamp.WebAPI.Controllers
                         UserName = user.UserName
                     });
 
-                    var userProfile = await GenerateJwtToken(user.Email, user);
+                    List<MenuManager> menus = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == user.RolesId).Select(s => s.Menus).ToList();                            //Generate Token                       
+                    var userProfile = await GenerateJwtToken(user.Email, user, menus);
+                
                     return PrepareResponse(HttpStatusCode.OK, "Password has been updated successfully", false, userProfile);
                 }
                 else

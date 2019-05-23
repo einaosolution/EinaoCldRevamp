@@ -10,12 +10,11 @@ using IPORevamp.Repository.Interface;
 using IPORevamp.Core.Utilities;
 using IPORevamp.Data;
 using IPORevamp.Data.Entities.AuditTrail;
-using IPORevamp.Data.Entities.Event;
-using IPORevamp.Data.Entities.Modules;
+
+
 using IPORevamp.Data.Entities.Payment;
 using IPORevamp.Data.UserManagement.Model;
 
-using IPORevamp.Repository.Event;
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using System.Data.SqlClient;

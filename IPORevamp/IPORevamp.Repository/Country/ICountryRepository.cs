@@ -4,8 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IPORevamp.Repository.Interface;
 using IPORevamp.Data;
-using IPORevamp.Data.Entities.Event;
-using IPORevamp.Data.Entities.Modules;
+
+
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using IPORevamp.Data.TempModel;

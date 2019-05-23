@@ -4,8 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IPORevamp.Repository.Interface;
 using IPORevamp.Data;
-using IPORevamp.Data.Entities.Event;
-using IPORevamp.Data.Entities.Modules;
+
+
 using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Data.ViewModel;
 using IPORevamp.Data.TempModel;
@@ -28,6 +28,9 @@ namespace IPORevamp.Repository.Menu
         Task<MenuManager> UpdateMenu(MenuManager Menu);
         Task<MenuManager> DeleteMenu(MenuManager Menu);
 
+        Task<List<MenuManager>> GetAllParentMenu();
+
+        Task<List<MenuManager>> GetAllParentChildMenu(int  ParentId);
         #endregion
 
         #region MyRegion

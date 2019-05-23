@@ -15,7 +15,7 @@ using IPORevamp.WebAPI.Models;
 using IPORevamp.Data.Entities.AuditTrail;
 using IPORevamp.Data.Entities.Email;
 using IPORevamp.Data.UserManagement.Model;
-using IPORevamp.Repository.Event;
+
 
 
 namespace NACC.Web.Controllers
@@ -33,8 +33,7 @@ namespace NACC.Web.Controllers
             IMapper mapper,
             ILogger<UserController> logger,
             IEmailManager<EmailLog, EmailTemplate> emailManager,
-            IAuditTrailManager<AuditTrail> auditTrailManager,
-            IEventRepository eventRepository
+            IAuditTrailManager<AuditTrail> auditTrailManager
             ) : base(
                 userManager,
                 signInManager,

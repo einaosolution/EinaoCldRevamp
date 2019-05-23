@@ -14,18 +14,20 @@ using IPORevamp.Data.Entities.Email;
 using EmailEngine.Base.Entities;
 using EmailEngine.Repository.EmailRepository;
 using IPORevamp.Data.Entities.AuditTrail;
-using IPORevamp.Repository.Event;
+
 using IPORevamp.Data.Entity.Interface;
 using Microsoft.AspNetCore.Hosting;
 using IPORevamp.Repository.Menu;
 using IPORevamp.Core.Utilities;
 using IPORevamp.Data.Entity.Interface.Entities.Menus;
 using IPORevamp.Data.Entities.Menus;
+using IPORevamp.WebAPI.Models;
 
 namespace IPORevamp.WebAPI.Controllers
 {
     [Route("api/Menu")]
     [ApiController]
+    //[AuthorizedAction]
     public class MenuController : BaseController
     {
 
@@ -200,6 +202,103 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetAllParentMenus")]
+        public async Task<IActionResult> GetAllParentSideMenuByParentid(string RequestById, int PatentId)
+        {
+            try
+            {
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var Menu = await _menuRepository.GetAllParentChildMenu(PatentId);
+
+                if (Menu != null)
+                {
+
+                    // get User Information
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+
+                    // Added A New Menu 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all parent menu  successfully",
+                        Entity = "GetAllParentMenus",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "Menu Returned Successfully", false, Menu);
+
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Menu", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpPost("GetAllParentMenus")]
+        public async Task<IActionResult> GetAllParentMenu(string RequestById)
+        {
+            try
+            {
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var Menu = await _menuRepository.GetAllParentMenu();
+
+                if (Menu != null)
+                {
+
+                    // get User Information
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+
+                    // Added A New Menu 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all parent menu  successfully",
+                        Entity = "GetAllParentMenus",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "Menu Returned Successfully", false, Menu);
+
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Menu", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
 
 
         [HttpPost("GetAllMenus")]

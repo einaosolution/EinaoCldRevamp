@@ -102,10 +102,7 @@ namespace IPORevamp.WebAPI
                 options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
             });
 
-            services.AddAuthorization(options => {
-                options.AddPolicy("EventAttendees", policy => policy.Requirements.Add(new EventUserRequirement("Attendee")));
-                options.AddPolicy("EventOrganizers", policy => policy.Requirements.Add(new EventUserRequirement("Organizer")));
-            });
+        
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(options =>
             {
@@ -240,6 +237,7 @@ namespace IPORevamp.WebAPI
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseCookiePolicy();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

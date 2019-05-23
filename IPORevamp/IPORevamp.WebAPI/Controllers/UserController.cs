@@ -34,6 +34,9 @@ using EmailEngine.Repository.FileUploadRepository;
 using IPORevamp.Repository.Setting;
 using IPORevamp.Repository.UserProfiling;
 using IPORevamp.Repository.Email;
+using IPORevamp.Repository.Menu;
+using IPORevamp.Data.Entities.Menus;
+using IPORevamp.Data.Entity.Interface.Entities.Role;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -51,6 +54,8 @@ namespace IPORevamp.WebAPI.Controllers
         private IFileHandler _fileUploadRespository;
         private IUserProfilingRepository _userProfilingRepository;
         private readonly IEmailTemplateRepository _EmailTemplateRepository;
+        private readonly IMenuRepository _menuRepository;
+
         public UserController(
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
@@ -65,8 +70,8 @@ namespace IPORevamp.WebAPI.Controllers
             IHostingEnvironment hostingEnvironment ,
             IEmailTemplateRepository EmailTemplateRepository,
         IFileHandler fileUploadRespository,
-            IAuditTrailManager<AuditTrail> auditTrailManager
-
+            IAuditTrailManager<AuditTrail> auditTrailManager,
+             IMenuRepository menuRepository
 
 
             ) : base(
@@ -88,7 +93,7 @@ namespace IPORevamp.WebAPI.Controllers
             _fileUploadRespository = fileUploadRespository;
             _userProfilingRepository = userProfilingRepository;
             _EmailTemplateRepository = EmailTemplateRepository;
-        
+            _menuRepository = menuRepository;
         }
 
         // <summary>
@@ -1043,56 +1048,70 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-
+        [AllowAnonymous]
         [HttpPost("Authenticate")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Authenticate(LoginViewModel loginModel)
         {
             if (ModelState.IsValid)
             {
-                var user = _userManager.Users.FirstOrDefault(x=>x.UserName == loginModel.Username || x.Email == loginModel.Username);
-                if(user != null)
+                try
                 {
+                    var user = _userManager.Users.FirstOrDefault(x => x.UserName == loginModel.Username || x.Email == loginModel.Username);
 
-                    if (user.EmailConfirmed == false)
+                    if (user != null)
                     {
-                        return PrepareResponse(HttpStatusCode.Unauthorized, "Your account is not validated yet.", true);
-                    }
-                    else if (user.EmailConfirmed == true && user.ChangePasswordFirstLogin == false)
-                    {
-                        
-                       
 
-                    }
-                    
-
-                    if (user.EmailConfirmed)
-                    {
-                        var signIn = await _signInManager.PasswordSignInAsync(user.UserName, loginModel.Password, loginModel.RememberMe, false);
-                        if (signIn.Succeeded)
+                        if (user.EmailConfirmed == false)
                         {
-                            //Generate Token                       
-                            var userProfile = await GenerateJwtToken(user.Email, user);
-                            Response.Cookies. Append("access_token", userProfile.Token, new CookieOptions {
-                                Path = "/",
-                                HttpOnly = false,
-                                IsEssential = true,
-                                Expires = DateTime.Now.AddHours(3)
-                            });
-                            return PrepareResponse(HttpStatusCode.OK, "Authentication Successful", false, userProfile);
+                            return PrepareResponse(HttpStatusCode.Unauthorized, "Your account is not validated yet.", true);
                         }
-                        else if (signIn.IsLockedOut)
+                        else if (user.EmailConfirmed == true && user.ChangePasswordFirstLogin == false)
                         {
-                            return PrepareResponse(HttpStatusCode.Unauthorized, "User has been locked out", true);
+
+
+
+                        }
+
+
+                        if (user.EmailConfirmed)
+                        {
+                            var signIn = await _signInManager.PasswordSignInAsync(user.UserName, loginModel.Password, loginModel.RememberMe, false);
+                            if (signIn.Succeeded)
+                            {
+
+
+                                var   menus = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == user.RolesId).Select(s => s.Menus).ToList();                            //Generate Token                       
+
+
+                                var userProfile = await GenerateJwtToken(user.Email, user, menus);
+                                Response.Cookies.Append("access_token", userProfile.Token, new CookieOptions
+                                {
+                                    Path = "/",
+                                    HttpOnly = false,
+                                    IsEssential = true,
+                                    Expires = DateTime.Now.AddHours(3)
+                                });
+                                return PrepareResponse(HttpStatusCode.OK, "Authentication Successful", false, userProfile);
+                            }
+                            else if (signIn.IsLockedOut)
+                            {
+                                return PrepareResponse(HttpStatusCode.Unauthorized, "User has been locked out", true);
+                            }
+                        }
+                        else
+                        {
+                            return PrepareResponse(HttpStatusCode.Unauthorized, "Please verify your email");
                         }
                     }
-                    else
-                    {
-                        return PrepareResponse(HttpStatusCode.Unauthorized, "Please verify your email");
-                    }                    
+
+                    return PrepareResponse(HttpStatusCode.Unauthorized, "Invalid username or password", true);
                 }
-
-                return PrepareResponse(HttpStatusCode.Unauthorized, "Invalid username or password", true);
+                catch (Exception ex)
+                {
+                    string f = ex.Message;
+                    return PrepareResponse(HttpStatusCode.NotAcceptable, "Incomplete Parameters", true);
+                }
             }
 
             return PrepareResponse(HttpStatusCode.NotAcceptable, "Incomplete Parameters", true);
