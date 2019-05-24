@@ -191,12 +191,18 @@ namespace IPORevamp.WebAPI
             });
 
 
+            services.AddMvc()
+            .AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    )
+
 
             //services.AddTransient<IEmailManager<EmailLog, EmailTemplate>, EmailManager<EmailLog, EmailTemplate>>();
-            services.AddMvc(options =>
-            {
-                //options.Filters.Add<ApiExceptionFilter>();
-            })
+            //services.AddMvc(options =>
+            //{
+            //    //options.Filters.Add<ApiExceptionFilter>();
+            //})
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                 
             services.AddAutoMapper();

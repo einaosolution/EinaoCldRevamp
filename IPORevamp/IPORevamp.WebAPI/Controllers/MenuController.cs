@@ -27,7 +27,7 @@ namespace IPORevamp.WebAPI.Controllers
 {
     [Route("api/Menu")]
     [ApiController]
-    //[AuthorizedAction]
+
     public class MenuController : BaseController
     {
 
@@ -203,7 +203,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("GetAllParentMenus")]
+        [HttpPost("GetAllParentSideMenuByParentid")]
         public async Task<IActionResult> GetAllParentSideMenuByParentid(string RequestById, int PatentId)
         {
             try

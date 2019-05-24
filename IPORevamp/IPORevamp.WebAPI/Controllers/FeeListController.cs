@@ -247,8 +247,8 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-
-         public async Task<IActionResult> GetFeeListsByCategory( string RequestById, string category)
+        [HttpPost("GetFeeListsByCategory")]
+        public async Task<IActionResult> GetFeeListsByCategory( string RequestById, string category)
         {
             try
             {
