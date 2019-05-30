@@ -134,8 +134,9 @@ export class LoginComponent implements OnInit {
 
     this.registerapi.settoken(response.content.token) ;
 
-    //this.registerapi.VChangeEvent("kkkkk")
-   this.router.navigateByUrl('/home');
+  //alert("login successful")
+
+  this.router.navigateByUrl('/home');
    //
 
 

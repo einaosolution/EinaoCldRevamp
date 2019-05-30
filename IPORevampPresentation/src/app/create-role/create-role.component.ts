@@ -29,7 +29,7 @@ export class CreateRoleComponent implements OnInit {
 
   onSubmit() {
     this.submitted= true;
-
+    var userid =parseInt( localStorage.getItem('UserId'));
 
 
     if (this.userform.valid) {
@@ -37,9 +37,9 @@ export class CreateRoleComponent implements OnInit {
       this.spinner.show();
 
       var kk = {
-        CountryCode:this.userform.value.Code ,
-        CountryName:this.userform.value.Description ,
-        CountryId:0
+        Title:this.userform.value.Code ,
+        Description:this.userform.value.Description ,
+        CreatedBy:userid
 
 
 
@@ -51,7 +51,7 @@ export class CreateRoleComponent implements OnInit {
 
      this.spinner.show()
       this.registerapi
-        .SaveCountry(kk)
+        .SaveRole(kk)
         .then((response: any) => {
           this.spinner.hide();
 
@@ -177,37 +177,14 @@ onSubmit4() {
     });
 
    // (<FormControl> this.userform.controls['Code']).setValue("<p> Testing </>");
-    this.registerapi.setPage("Country")
+    this.registerapi.setPage("Security")
 
-    this.registerapi.VChangeEvent("Country");
+    this.registerapi.VChangeEvent("Security");
 
    var userid = localStorage.getItem('UserId');
 
 
 
-   this.busy =   this.registerapi
-    .GetCountry("true",userid)
-    .then((response: any) => {
-      this.spinner.hide();
-      console.log("Response")
-      this.rows = response.content;
-      console.log(response)
-
-
-
-    })
-             .catch((response: any) => {
-              this.spinner.hide();
-               console.log(response)
-
-
-              Swal.fire(
-                response.error.message,
-                '',
-                'error'
-              )
-
-})
   }
 
 }

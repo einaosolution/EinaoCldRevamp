@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -8,6 +8,9 @@ import {ActivatedRoute} from "@angular/router";
 import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Subject } from 'rxjs';
+
+declare var $;
 
 @Component({
   selector: 'app-email-template',
@@ -29,8 +32,9 @@ import { trigger, style, animate, transition } from '@angular/animations';
     )
   ]
 })
-export class EmailTemplateComponent implements OnInit {
-
+export class EmailTemplateComponent implements OnInit,OnDestroy  {
+  dtOptions:any = {};
+  dtTrigger: Subject<any> = new Subject();
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
@@ -87,6 +91,8 @@ export class EmailTemplateComponent implements OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+       this.getallEmailTemplate();
+
 
         })
                  .catch((response: any) => {
@@ -149,6 +155,7 @@ onSubmit4() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     this.getallEmailTemplate();
 
       })
                .catch((response: any) => {
@@ -206,7 +213,21 @@ onSubmit4() {
       }
     })
   }
+  showcountry(kk) {
 
+    this.savemode = false;
+    this.updatemode = true;
+    this.id = kk.id ;
+
+    (<FormControl> this.userform.controls['Code']).setValue(kk.emailName);
+
+    (<FormControl> this.userform.controls['Subject']).setValue(kk.emailSubject);
+    (<FormControl> this.userform.controls['Sender']).setValue(kk.emailSender);
+    (<FormControl> this.userform.controls['Template']).setValue(kk.emailBody);
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
+  }
   onSubmit3(kk) {
     this.savemode = false;
     this.updatemode = true;
@@ -218,7 +239,63 @@ onSubmit4() {
     (<FormControl> this.userform.controls['Sender']).setValue(kk.emailSender);
     (<FormControl> this.userform.controls['Template']).setValue(kk.emailBody);
   }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  getallEmailTemplate() {
+    var userid = localStorage.getItem('UserId');
+
+
+
+
+
+
+    this.busy =   this.registerapi
+    .GetAllEmailTemplates(userid)
+    .then((response: any) => {
+
+
+      this.row2 = response.content;
+
+
+      console.log(response)
+
+
+
+    })
+             .catch((response: any) => {
+
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+    })
+  }
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+
+        'colvis',
+        'copy',
+        'print',
+        'csv',
+        'excel',
+        'pdf'
+
+      ]
+
+    };
 
     this.Code = new FormControl('', [
       Validators.required
@@ -272,6 +349,8 @@ this.busy =   this.registerapi
 
 
   this.row2 = response.content;
+
+  this.dtTrigger.next();
   console.log(response)
 
 

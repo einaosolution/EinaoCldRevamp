@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 import {Router} from '@angular/router';
 import {ActivatedRoute} from "@angular/router";
@@ -9,6 +10,10 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 
+import { map } from 'rxjs/operators';
+
+
+declare var $;
 @Component({
   selector: 'app-state',
   templateUrl: './state.component.html',
@@ -28,8 +33,10 @@ import { trigger, style, animate, transition } from '@angular/animations';
     )
   ]
 })
-export class StateComponent implements OnInit {
+export class StateComponent implements OnDestroy , OnInit {
   savemode:boolean = true;
+  dtOptions:any = {};
+  dtTrigger: Subject<any> = new Subject();
   updatemode:boolean = false;
   userform: FormGroup;
   busy: Promise<any>;
@@ -76,9 +83,13 @@ export class StateComponent implements OnInit {
             '',
             'success'
           )
+
+
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+
+       this.getallstate()
 
         })
                  .catch((response: any) => {
@@ -144,6 +155,8 @@ export class StateComponent implements OnInit {
 
        this.userform.reset();
 
+       this.getallstate()
+
         })
                  .catch((response: any) => {
                   this.spinner.hide();
@@ -158,6 +171,20 @@ export class StateComponent implements OnInit {
 
     })
   }
+  }
+
+  showcountry(kk) {
+
+    this.savemode = false;
+    this.updatemode = true;
+    this.id = kk.id ;
+
+    (<FormControl> this.userform.controls['Code']).setValue(kk.countryId);
+
+    (<FormControl> this.userform.controls['Description']).setValue(kk.stateName);
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
   }
   onSubmit3(emp) {
     this.savemode = false;
@@ -207,6 +234,10 @@ export class StateComponent implements OnInit {
             '',
             'success'
           )
+
+          this.getallstate()
+
+
           console.log(response)
 
 
@@ -232,8 +263,57 @@ export class StateComponent implements OnInit {
       }
     })
   }
-  ngOnInit() {
 
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  getallstate() {
+    var userid = localStorage.getItem('UserId');
+
+  this.busy =   this.registerapi
+  .GetAllStates(userid)
+  .then((response: any) => {
+
+
+    this.row2 = response.content;
+
+    console.log(response)
+
+
+
+  })
+           .catch((response: any) => {
+
+             console.log(response)
+
+
+            Swal.fire(
+              response.error.message,
+              '',
+              'error'
+            )
+})
+  }
+  ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+
+        'colvis',
+        'copy',
+        'print',
+        'csv',
+        'excel',
+        'pdf'
+
+      ]
+
+    };
     this.Code = new FormControl('', [
       Validators.required
     ]);
@@ -288,6 +368,7 @@ export class StateComponent implements OnInit {
 
 
     this.row2 = response.content;
+    this.dtTrigger.next();
     console.log(response)
 
 

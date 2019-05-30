@@ -47,8 +47,23 @@ namespace IPORevamp.Repository.Country
         public async Task<EmailTemplate> GetEmailTemplateByCode(string EmailCode)
         {
            
-                 var content = await _emailTemplaterepository.GetAll().FirstOrDefaultAsync(x => x.EmailName == EmailCode && x.IsActive == true);
+                 var content = await _emailTemplaterepository.GetAll().FirstOrDefaultAsync(x => x.EmailName.ToUpper() == EmailCode.ToUpper() && x.IsActive == true);
                 return content;
+        }
+
+        public async Task<EmailTemplate> DeleteEmailTemplate(EmailTemplate emailTemplate)
+        {
+            var saveContent = await _emailTemplaterepository.UpdateAsync(emailTemplate);
+            await _emailTemplaterepository.SaveChangesAsync();
+
+            return saveContent.Entity;
+        }
+
+        public async Task<EmailTemplate> GetEmailTemplateById(int Id)
+        {
+
+            var content = await _emailTemplaterepository.GetAll().FirstOrDefaultAsync(x => x.Id == Id && x.IsActive == true);
+            return content;
         }
 
 

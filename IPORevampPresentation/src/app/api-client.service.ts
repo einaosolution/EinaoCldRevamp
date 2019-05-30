@@ -12,7 +12,7 @@ export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
 serviceBase = 'http://localhost:5000/';
- //serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+// serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
   navchange: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient,private router: Router) { }
@@ -97,6 +97,60 @@ serviceBase = 'http://localhost:5000/';
                   .then(data => {  return data; });
 
     }
+
+
+    SaveSector(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/Sector/SaveSector', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
+    UpdateRolePermission(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/Role/UpdateRolePermission', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
+
+    SaveRole(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/Role/SaveRole', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
+
+    SaveMenu(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/Menu/SaveMenu', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
 
 
     SaveEmailTemplate(formData) {
@@ -378,6 +432,55 @@ serviceBase = 'http://localhost:5000/';
 			});
   }
 
+  GetAllRoles(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Role/GetAllRoles', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetMenuParentId(pp : string,pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+      ParentId:pp ,
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Menu/GetMenuParentId', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetMenuOthers(pp : string,pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+      ParentId:pp ,
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Menu/GetMenuOthers', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
 
   GetAllStates(pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');

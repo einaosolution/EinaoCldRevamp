@@ -210,8 +210,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllPTApplicationStatus")]
-        public async Task<IActionResult> GetAllPTApplicationStatus( string ActionBy)
+        [HttpGet("GetAllPTApplicationStatus")]
+        public async Task<IActionResult> GetAllPTApplicationStatus( [FromQuery] string ActionBy)
         {
             try
             {
@@ -287,6 +287,7 @@ namespace IPORevamp.WebAPI.Controllers
                 content.DateCreated = DateTime.Now;
                 content.CreatedBy = PTApplicationStatusViewModel.CreatedBy.ToString();
                 content.IsActive = true;
+                content.RoleId = 1;
                 content.IsDeleted = false;
 
 
@@ -318,7 +319,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdatePTApplicationStatus/{PTApplicationStatus}")]
+        [HttpPost("UpdatePTApplicationStatus")]
         public async Task<IActionResult> UpdatePTApplicationStatus(PTApplicationStatusViewModel PTApplicationStatusViewModel)
         {
             try
@@ -345,9 +346,10 @@ namespace IPORevamp.WebAPI.Controllers
                 record.LastUpdateDate = DateTime.Now;
                 record.UpdatedBy = PTApplicationStatusViewModel.CreatedBy.ToString();
                 record.IsActive = true;
-                
-                record.Id = PTApplicationStatusViewModel.RoleId;
-               
+
+                 record.Id = PTApplicationStatusViewModel.RoleId;
+                record.RoleId = 1;
+
 
                 var save = await _ptApplicationStatusRepository.UpdatePTApplicationStatus(record);
 
@@ -378,8 +380,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeletePTApplicationStatus/{PTApplicationStatusId}/{UserId}")]
-        public async Task<IActionResult> DeletePTApplicationStatus(int PTApplicationStatusId, int UserId)
+        [HttpGet("DeletePTApplicationStatus")]
+        public async Task<IActionResult> DeletePTApplicationStatus([FromQuery]String PTApplicationStatusId, [FromQuery] String  UserId)
         {
             try
             {
@@ -390,7 +392,7 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
                 // Check if PTApplicationStatus Exist 
-                var record = await _ptApplicationStatusRepository.GetPTApplicationStatusById(PTApplicationStatusId);
+                var record = await _ptApplicationStatusRepository.GetPTApplicationStatusById(Convert.ToInt32(PTApplicationStatusId));
 
                 if (record == null)
                 {
@@ -402,7 +404,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = PTApplicationStatusId;
+                record.Id = Convert.ToInt32(PTApplicationStatusId);
 
 
                 var delete = await _ptApplicationStatusRepository.DeletePTApplicationStatus(record);

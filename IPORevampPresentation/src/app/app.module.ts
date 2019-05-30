@@ -41,6 +41,11 @@ import { SettingsComponent } from './settings/settings.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { CreateRoleComponent } from './create-role/create-role.component';
 import { CreateMenuComponent } from './create-menu/create-menu.component';
+import { AssignRoleComponent } from './assign-role/assign-role.component';
+import { AccordionModule } from 'ngx-bootstrap';
+import { FilterPipe } from './filter.pipe';
+import { DataTablesModule } from 'angular-datatables';
+import { SectorComponent } from './sector/sector.component';
 
 
 
@@ -50,6 +55,7 @@ import { CreateMenuComponent } from './create-menu/create-menu.component';
 @NgModule({
   declarations: [
     AppComponent,
+    FilterPipe,
     RegisterComponent,
     LoginComponent,
     HomeComponent,
@@ -73,14 +79,18 @@ import { CreateMenuComponent } from './create-menu/create-menu.component';
     LgaComponent,
     SettingsComponent,
     CreateRoleComponent,
-    CreateMenuComponent
+    CreateMenuComponent,
+    AssignRoleComponent,
+    SectorComponent
   ],
   imports: [
     BrowserModule,
     ModalModule.forRoot() ,
+    DataTablesModule,
     NgxEditorModule,
     BsDatepickerModule.forRoot(),
     AlertModule.forRoot(),
+    AccordionModule.forRoot(),
     HttpClientModule,
     NgxSpinnerModule ,
     AppRoutingModule,

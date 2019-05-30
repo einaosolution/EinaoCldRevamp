@@ -95,6 +95,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailsender = emailsender;
             _httpContextAccessor = httpContextAccessor;
             _roleRepository = roleRepository;
+            _menuRepository = menuRepository;
 
 
         }
@@ -110,8 +111,8 @@ namespace IPORevamp.WebAPI.Controllers
         /// <param name="RequestById"></param>
         /// <returns></returns>
        
-        [HttpPost("GetRoleById/{RoleId}")]
-        public async Task<IActionResult> GetSingleRoleById(int RoleId,string RequestById)
+        [HttpGet("GetRoleById")]
+        public async Task<IActionResult> GetSingleRoleById([FromQuery]String  RoleId, [FromQuery]String RequestById)
         {
             try
             {
@@ -123,24 +124,26 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
-                var Role = await _roleRepository.GetRoleManagerById(RoleId);
+                var Role = await _roleRepository.GetRoleManagerById(Convert.ToInt32(RoleId));
 
             if (Role != null)
             {
-
+                    int vroleid = Convert.ToInt32(RoleId);
 
                     DataSet ds = new DataSet();
-                    List<string> menus_id = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == RoleId).Select(s => s.MenusId.ToString()).ToList();
-                    ds = ToDataSet(_menuRepository.GetMenuManagers());
-                    DataTable table = ds.Tables[0];
-                    DataRow[] parentMenus = table.Select("ParentId = 0");
+                  //  List<string> menus_id = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == vroleid).Select(s => s.MenusId.ToString()).ToList();
+                    var menus = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == vroleid).Select(s => s.Menus).ToList();
+                   // ds = ToDataSet(_menuRepository.GetMenuManagers());
+                   // DataTable table = ds.Tables[0];
+                   // DataRow[] parentMenus = table.Select("ParentId = 0");
 
                     var sb = new StringBuilder();
-                    string unorderedList = GenerateUL(parentMenus, table, sb, menus_id);
+                  //  string unorderedList = GenerateUL(parentMenus, table, sb, menus_id);
                   //  ViewBag.menu = unorderedList;
-                    MenuResult menuResult = new MenuResult();
-                    menuResult.Role = Role;
-                    menuResult.menu = unorderedList;
+                   // MenuResult menuResult = new MenuResult();
+                   // menuResult.Role = Role;
+                   // menuResult.menu = unorderedList;
+                   // menuResult.menuid = menus_id;
 
 
                     // get User Information
@@ -158,7 +161,7 @@ namespace IPORevamp.WebAPI.Controllers
                         UserName = user.UserName,
                     });
 
-                    return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, menuResult);
+                    return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, menus);
                
             }
             else
@@ -240,8 +243,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllRoles")]
-        public async Task<IActionResult> GetAllRoles( string RequestById)
+        [HttpGet("GetAllRoles")]
+        public async Task<IActionResult> GetAllRoles([FromQuery] string RequestById)
         {
             try
             {
@@ -254,12 +257,26 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var Role = await _roleRepository.GetAllRoles();
+                List<RoleViewModel> RoleViewModel = new List<RoleViewModel>();
+                foreach (var role in Role)
+                {
+                    RoleViewModel roleview = new RoleViewModel();
+
+                    roleview.RoleId = role.Id;
+                    roleview.Title = role.Title;
+                    roleview.Description = role.Description;
+                    RoleViewModel.Add(roleview);
+
+
+
+
+                }
 
                 if (Role != null)
                 {
 
                     // get User Information
-                     user = await _userManager.FindByIdAsync(RequestById.ToString());
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
 
 
                     // Added A New Role 
@@ -273,18 +290,20 @@ namespace IPORevamp.WebAPI.Controllers
                         UserName = user.UserName,
                     });
 
-                    return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, Role);
+                    //   return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, Role);
+                    return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, RoleViewModel);
+
 
                 }
                 else
                 {
-                    return PrepareResponse(HttpStatusCode.BadRequest,  WebApiMessage.RecordNotFound);
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Select Role", "");
-                return PrepareResponse(HttpStatusCode.BadRequest,  WebApiMessage.RecordNotFound);
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
             }
         }
 
@@ -352,14 +371,14 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateRolePermission/{Role}")]
-        public async Task<IActionResult> UpdateRolePermission(int UserId, List<int> AssignedRoles, int CurrentRole)
+        [HttpPost("UpdateRolePermission")]
+        public async Task<IActionResult> UpdateRolePermission([FromBody]  ReceiveRoleArray ReceiveRoles)
         {
             try
             {
 
 
-                var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
+                var user = await _userManager.FindByIdAsync(ReceiveRoles.UserId.ToString()); ;
                 if (user == null)
                 {
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
@@ -367,17 +386,17 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if Role Exist 
 
-                var record = await _roleRepository.GetRoleManagerById(CurrentRole);
+                var record = await _roleRepository.GetRoleManagerById(ReceiveRoles.CurrentRole);
 
                 if (record == null)
                 {
                     return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
                 }
 
-                var msg  = await  _roleRepository.UpdateRole(record.Id, AssignedRoles, CurrentRole);
-
+                //  var msg  = await  _roleRepository.UpdateRole(record.Id, AssignedRoles, CurrentRole);
+                var msg = await _roleRepository.UpdateRole(record.Id, ReceiveRoles.AssignedRoles, ReceiveRoles.CurrentRole);
                 // get User Information
-                user = await _userManager.FindByIdAsync(UserId.ToString());
+                user = await _userManager.FindByIdAsync(ReceiveRoles.UserId.ToString());
 
 
                 // log action
@@ -391,7 +410,7 @@ namespace IPORevamp.WebAPI.Controllers
                     UserName = user.UserName,
                 });
 
-                return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false,  msg);
+                return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, msg);
             }
 
             catch (Exception ex)
@@ -403,7 +422,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("EditRoleRole/{Role}")]
+        [HttpPost("EditRole")]
         public async Task<IActionResult> EditRole(RoleViewModel roleViewModel)
         {
             try
@@ -462,14 +481,14 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteRole/{RoleId}/{UserId}")]
-        public async Task<IActionResult> DeleteRole(int RoleId, int UserId)
+        [HttpGet("DeleteRole")]
+        public async Task<IActionResult> DeleteRole([FromQuery] String  RoleId, [FromQuery] String UserId)
         {
             try
             {
 
                 // Check if Role Exist 
-                var record = await _roleRepository.GetRoleManagerById(RoleId);
+                var record = await _roleRepository.GetRoleManagerById(Convert.ToInt32(RoleId));
 
                 if (record == null)
                 {
@@ -481,7 +500,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = RoleId;
+                record.Id = Convert.ToInt32(RoleId);
 
 
                 var delete = await _roleRepository.DeleteRole(record);

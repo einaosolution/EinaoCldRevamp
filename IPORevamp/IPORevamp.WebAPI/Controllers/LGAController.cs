@@ -211,8 +211,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllLGAs")]
-        public async Task<IActionResult> GetAllLGAs( string RequestById)
+        [HttpGet("GetAllLGAs")]
+        public async Task<IActionResult> GetAllLGAs([FromQuery] string RequestById)
         {
             try
             {
@@ -318,7 +318,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateLGA/{LGA}")]
+        [HttpPost("UpdateLGA")]
         public async Task<IActionResult> UpdateLGA(LGAStateViewModel LGAViewModel)
         {
             try
@@ -378,8 +378,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteLGA/{LGAId}/{UserId}")]
-        public async Task<IActionResult> DeleteLGA(int LGAId, int UserId)
+        [HttpGet("DeleteLGA")]
+        public async Task<IActionResult> DeleteLGA([FromQuery]String  LGAId, [FromQuery]String UserId)
         {
             try
             {
@@ -391,7 +391,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if LGA Exist 
-                var record = await _lgarepository.GetLGAById(LGAId);
+                var record = await _lgarepository.GetLGAById(Convert.ToInt32(LGAId));
 
                 if (record == null)
                 {
@@ -403,7 +403,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = LGAId;
+                record.Id = Convert.ToInt32(LGAId);
 
 
                 var delete = await _lgarepository.DeleteLGA(record);

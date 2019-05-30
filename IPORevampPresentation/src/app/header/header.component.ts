@@ -24,7 +24,11 @@ export class HeaderComponent implements OnInit {
   loggedinuser:string =""
   loggedinemail:string =""
   addCss = false;
+  addCss2 = false;
   loggeduser:string ="";
+  menuclass:string ="";
+  menuclass2:string ="Security";
+  menuclass3:string ="Country";
   profilepic;
   constructor(private registerapi :ApiClientService ) {
 
@@ -35,6 +39,8 @@ export class HeaderComponent implements OnInit {
    selectedNavItem(item) {
 
    // window.location.reload();
+   this.menuclass=item
+
    this.registerapi.setPage(item)
 
    this.isSpecial()
@@ -43,11 +49,22 @@ export class HeaderComponent implements OnInit {
 
     if (this.registerapi.getPage() == "Country") {
       this.addCss =true;
+      this.addCss2 =false;
+      this.menuclass3="Country"
+       this.menuclass2=""
 
+    }
+
+    else if (this.registerapi.getPage() == "Security") {
+      this.addCss =false;
+      this.addCss2 =true;
+      this.menuclass2="Security"
+      this.menuclass3=""
     }
 
     else {
       this.addCss =false;
+      this.addCss2 =false;
     }
 
 

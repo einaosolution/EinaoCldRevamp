@@ -20,6 +20,9 @@ using IPORevamp.Data.Entities.Menus;
 using IPORevamp.Data.Entities.DSApplicationStatus;
 using IPORevamp.Data.Entities.TMApplicationStatus;
 using IPORevamp.Data.Entities.PTApplicationStatus;
+using IPORevamp.Data.Entities.Fee;
+using IPORevamp.Data.Entity.Interface.Entities.Product;
+using IPORevamp.Data.Entity.Interface.Entities.Department;
 
 namespace IPORevamp.Data
 {
@@ -43,10 +46,16 @@ namespace IPORevamp.Data
 
        
         public DbSet<AccountType> AccountTypes { get; set; }
+
+        public DbSet<FeeList> FeeList { get; set; }
+
+        
         public DbSet<Data.Entities.Country.Country> Country { get; set; }
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
         
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Department> Department { get; set; }
         public DbSet<Data.Entities.LGAs.LGA> LGAs { get; set; }
         
         public DbSet<TMApplicationStatus> TMApplicationStatus { get; set; }

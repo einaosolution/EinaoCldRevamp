@@ -203,8 +203,8 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("GetAllParentMenus")]
-        public async Task<IActionResult> GetAllParentSideMenuByParentid(string RequestById, int PatentId)
+        [HttpGet("GetAllParentMenus")]
+        public async Task<IActionResult> GetAllParentSideMenuByParentid([FromQuery]string RequestById, [FromQuery] String  PatentId)
         {
             try
             {
@@ -216,7 +216,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
 
-                var Menu = await _menuRepository.GetAllParentChildMenu(PatentId);
+                var Menu = await _menuRepository.GetAllParentChildMenu(Convert.ToInt32(PatentId));
 
                 if (Menu != null)
                 {
@@ -301,8 +301,8 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("GetAllMenus")]
-        public async Task<IActionResult> GetAllMenu( string RequestById)
+        [HttpGet("GetAllMenus")]
+        public async Task<IActionResult> GetAllMenu([FromQuery] string RequestById)
         {
             try
             {
@@ -315,9 +315,11 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var Menu = await _menuRepository.GetMenus();
+               
 
                 if (Menu != null)
                 {
+                    
 
                     // get User Information
                      user = await _userManager.FindByIdAsync(RequestById.ToString());
@@ -413,7 +415,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateMenu/{Menu}")]
+        [HttpPost("UpdateMenu")]
         public async Task<IActionResult> UpdateMenu(MenuViewModel MenuViewModel)
         {
             try
@@ -477,8 +479,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteMenu/{MenuId}/{UserId}")]
-        public async Task<IActionResult> DeleteMenu(int MenuId, int UserId)
+        [HttpGet("DeleteMenu")]
+        public async Task<IActionResult> DeleteMenu([FromQuery]String  MenuId, [FromQuery] String  UserId)
         {
             try
             {
@@ -490,7 +492,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if Menu Exist 
-                var record = await _menuRepository.GetMenuById(MenuId);
+                var record = await _menuRepository.GetMenuById(Convert.ToInt32(MenuId));
 
                 if (record == null)
                 {
@@ -502,7 +504,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = MenuId;
+                record.Id = Convert.ToInt32(MenuId);
 
 
                 var delete = await _menuRepository.DeleteMenu(record);

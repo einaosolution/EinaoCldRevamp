@@ -8,6 +8,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Role
     {
         public RoleManager Role { get; set; }
         public string menu { get; set; }
-        
+        public List<String>  menuid { get; set; }
+
     }
 }

@@ -31263,11 +31263,7 @@ label {
 .sidebar-nav>ul>li.selected {
  padding:0 0 0 10px
 }
-.sidebar-nav>ul>li.selected>a {
- border-radius:60px 0 0 60px;
- background:#4798e8;
- color:#fff
-}
+
 .collapse.in {
  display:block
 }

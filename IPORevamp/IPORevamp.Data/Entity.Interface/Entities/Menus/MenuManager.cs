@@ -2,6 +2,7 @@
 using IPORevamp.Data.Entity.Interface.Entities.Role;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace IPORevamp.Data.Entities.Menus
@@ -18,7 +19,8 @@ namespace IPORevamp.Data.Entities.Menus
         public string Icon { get; set; }
         public string Url { get; set; }
         public int ParentId { get; set; }
-
+        [NotMapped]
+        public Boolean Selected { get; set; }
         public ICollection<LinkRolesMenus> LinkRolesMenus { get; set; }
     }
 }

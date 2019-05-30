@@ -211,8 +211,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllStates")]
-        public async Task<IActionResult> GetAllStates( string RequestById)
+        [HttpGet("GetAllStates")]
+        public async Task<IActionResult> GetAllStates([FromQuery] string RequestById)
         {
             try
             {
@@ -322,7 +322,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateState/{State}")]
+        [HttpPost("UpdateState")]
         public async Task<IActionResult> UpdateState(StateCountryViewModel StateViewModel)
         {
             try
@@ -381,8 +381,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteState/{StateId}/{UserId}")]
-        public async Task<IActionResult> DeleteState(int StateId, int UserId)
+        [HttpGet("DeleteState")]
+        public async Task<IActionResult> DeleteState([FromQuery]String  StateId, [FromQuery] String UserId)
         {
             try
             {
@@ -395,7 +395,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if State Exist 
-                var record = await _StateRepository.GetStateById(StateId);
+                var record = await _StateRepository.GetStateById(Convert.ToInt32(StateId));
 
                 if (record == null)
                 {
@@ -407,7 +407,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = StateId;
+                record.Id = Convert.ToInt32(StateId);
 
 
                 var delete = await _StateRepository.DeleteState(record);

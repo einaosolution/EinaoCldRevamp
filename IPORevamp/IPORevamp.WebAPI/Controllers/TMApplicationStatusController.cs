@@ -210,8 +210,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllTMApplicationStatus")]
-        public async Task<IActionResult> GetAllTMApplicationStatus( string RequestById)
+        [HttpGet("GetAllTMApplicationStatus")]
+        public async Task<IActionResult> GetAllTMApplicationStatus([FromQuery] string RequestById)
         {
             try
             {
@@ -288,6 +288,7 @@ namespace IPORevamp.WebAPI.Controllers
                 content.CreatedBy = TMApplicationStatusViewModel.CreatedBy.ToString();
                 content.IsActive = true;
                 content.IsDeleted = false;
+                content.RoleId = 1;
 
 
                 var save = await _tmApplicationStatusRepository.SaveTMApplicationStatus(content);
@@ -318,7 +319,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateTMApplicationStatus/{TMApplicationStatus}")]
+        [HttpPost("UpdateTMApplicationStatus")]
         public async Task<IActionResult> UpdateTMApplicationStatus(TMApplicationStatusViewModel TMApplicationStatusViewModel)
         {
             try
@@ -346,7 +347,8 @@ namespace IPORevamp.WebAPI.Controllers
                 record.LastUpdateDate = DateTime.Now;
                 record.UpdatedBy = TMApplicationStatusViewModel.CreatedBy.ToString();
                 record.IsActive = true;
-                
+                record.RoleId = 1;
+
                 record.Id = TMApplicationStatusViewModel.RoleId;
                
 
@@ -379,14 +381,14 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteTMApplicationStatus/{TMApplicationStatusId}/{UserId}")]
-        public async Task<IActionResult> DeleteTMApplicationStatus(int TMApplicationStatusId, int UserId)
+        [HttpGet("DeleteTMApplicationStatus")]
+        public async Task<IActionResult> DeleteTMApplicationStatus([FromQuery]String  TMApplicationStatusId, [FromQuery] String  UserId)
         {
             try
             {
 
                 // Check if TMApplicationStatus Exist 
-                var record = await _tmApplicationStatusRepository.GetTMApplicationStatusById(TMApplicationStatusId);
+                var record = await _tmApplicationStatusRepository.GetTMApplicationStatusById(Convert.ToInt32(TMApplicationStatusId));
 
                 if (record == null)
                 {
@@ -398,7 +400,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = TMApplicationStatusId;
+                record.Id = Convert.ToInt32(TMApplicationStatusId);
 
 
                 var delete = await _tmApplicationStatusRepository.DeleteTMApplicationStatus(record);

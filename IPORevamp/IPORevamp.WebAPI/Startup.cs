@@ -46,6 +46,7 @@ using IPORevamp.Repository.Base;
 
 using IPORevamp.Data.Entity.Interface;
 using NACC.Data.UserManagement.Model;
+using IPORevamp.Repository.Department;
 
 namespace IPORevamp.WebAPI
 {
@@ -162,6 +163,7 @@ namespace IPORevamp.WebAPI
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();   
             services.AddTransient<IEmailSender, EmailService>();
+           
 
 
 
@@ -169,7 +171,7 @@ namespace IPORevamp.WebAPI
             {
                 c.SwaggerDoc("V1", new Info { Title = "IPO Nigeria WebAPI", Version = "V1" });
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+              //  var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
               //  var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
               
@@ -196,7 +198,11 @@ namespace IPORevamp.WebAPI
             services.AddMvc(options =>
             {
                 //options.Filters.Add<ApiExceptionFilter>();
-            })
+            }).AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    )
+
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                 
             services.AddAutoMapper();

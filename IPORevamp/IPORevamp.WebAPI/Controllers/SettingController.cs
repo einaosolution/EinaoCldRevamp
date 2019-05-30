@@ -190,7 +190,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
         [HttpGet("GetAllSettings")]
-        public async Task<IActionResult> GetAllSettings( string RequestById)
+        public async Task<IActionResult> GetAllSettings([FromQuery] string RequestById)
         {
             try
             {
@@ -364,8 +364,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteSetting/{SettingId}/{UserId}")]
-        public async Task<IActionResult> DeleteSetting(int SettingId, int UserId)
+        [HttpGet("DeleteSetting")]
+        public async Task<IActionResult> DeleteSetting([FromQuery] String  SettingId, [FromQuery] String UserId)
         {
             try
             {
@@ -377,7 +377,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if Setting Exist 
-                var record = await _settings.GetSettingById(SettingId);
+                var record = await _settings.GetSettingById(Convert.ToInt32(SettingId));
 
                 if (record == null)
                 {
@@ -389,7 +389,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = SettingId;
+                record.Id = Convert.ToInt32(SettingId);
 
 
                 var delete = await _settings.DeleteSetting(record);

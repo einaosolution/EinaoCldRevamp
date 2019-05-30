@@ -209,8 +209,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllSectors")]
-        public async Task<IActionResult> GetAllSector( string RequestById)
+        [HttpGet("GetAllSectors")]
+        public async Task<IActionResult> GetAllSector([FromQuery] string RequestById)
         {
             try
             {
@@ -283,6 +283,7 @@ namespace IPORevamp.WebAPI.Controllers
                 Sector content = new Sector();
                 content.Description = SectorViewModel.Description;
                 content.DateCreated = DateTime.Now;
+                content.Type = SectorViewModel.Type;
                 content.CreatedBy = SectorViewModel.CreatedBy.ToString();
                 content.IsActive = true;
                
@@ -317,7 +318,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateSector/{Sector}")]
+        [HttpPost("UpdateSector")]
         public async Task<IActionResult> UpdateSector(SectorViewModel SectorViewModel)
         {
             try
@@ -343,6 +344,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 record.Description = SectorViewModel.Description;
+                record.Type = SectorViewModel.Type;
                 record.LastUpdateDate = DateTime.Now;
                 record.UpdatedBy = SectorViewModel.CreatedBy.ToString();
                 record.IsActive = true;
@@ -378,8 +380,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteSector/{SectorId}/{UserId}")]
-        public async Task<IActionResult> DeleteSector(int SectorId, int UserId)
+        [HttpGet("DeleteSector")]
+        public async Task<IActionResult> DeleteSector([FromQuery]String  SectorId, [FromQuery] String UserId)
         {
             try
             {
@@ -391,7 +393,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if Sector Exist 
-                var record = await _sectorRepository.GetSectorById(SectorId);
+                var record = await _sectorRepository.GetSectorById(Convert.ToInt32(SectorId));
 
                 if (record == null)
                 {
@@ -403,7 +405,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = SectorId;
+                record.Id = Convert.ToInt32(SectorId);
 
 
                 var delete = await _sectorRepository.DeleteSector(record);

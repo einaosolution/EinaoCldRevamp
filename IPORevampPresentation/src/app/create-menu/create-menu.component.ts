@@ -1,4 +1,4 @@
-import { Component, OnInit , TemplateRef  } from '@angular/core';
+import { Component, OnInit , TemplateRef,ViewChild  } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -25,16 +25,58 @@ export class CreateMenuComponent implements OnInit {
   Code: FormControl;
   id:string;
   Description: FormControl;
+  icon : FormControl;
+  url : FormControl;
+  parent : FormControl;
   public rows = [];
+
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
+  close(emp,template) {
+    console.log(template)
+    template.hide()
+  // this.modalService.hide(template);
+  // this.modalone.hide()
+  }
+
+  onSelectionChange(emp) {
+  //  alert(emp.id)
+
+  (<FormControl> this.userform.controls['parent']).setValue(emp.id);
+  }
+
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
+    var userid = localStorage.getItem('UserId');
+    this.busy =   this.registerapi
+    . GetMenuParentId("0",userid)
+    .then((response: any) => {
+
+      this.modalRef = this.modalService.show(template );
+      console.log("Response")
+      this.rows = response.content;
+      console.log(response)
+
+
+
+    })
+             .catch((response: any) => {
+
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+
+})
+
   }
 
 
   onSubmit() {
     this.submitted= true;
-
+    var userid =parseInt( localStorage.getItem('UserId'));
 
 
     if (this.userform.valid) {
@@ -42,9 +84,11 @@ export class CreateMenuComponent implements OnInit {
       this.spinner.show();
 
       var kk = {
-        CountryCode:this.userform.value.Code ,
-        CountryName:this.userform.value.Description ,
-        CountryId:0
+        Name:this.userform.value.Code ,
+        Icon:this.userform.value.icon ,
+        Url:this.userform.value.url ,
+        ParentId:this.userform.value.parent ,
+        CreatedBy:userid
 
 
 
@@ -56,7 +100,7 @@ export class CreateMenuComponent implements OnInit {
 
      this.spinner.show()
       this.registerapi
-        .SaveCountry(kk)
+        .SaveMenu(kk)
         .then((response: any) => {
           this.spinner.hide();
 
@@ -69,6 +113,8 @@ export class CreateMenuComponent implements OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+       (<FormControl> this.userform.controls['parent']).setValue("0");
+
 
         })
                  .catch((response: any) => {
@@ -168,8 +214,22 @@ onSubmit4() {
     ]);
 
     this.Description = new FormControl('', [
-      Validators.required
+
     ]);
+
+    this.icon  = new FormControl('', [
+
+    ]);
+
+    this.url  = new FormControl('', [
+
+    ]);
+
+
+    this.parent  = new FormControl('', [
+
+    ]);
+
 
 
 
@@ -177,16 +237,25 @@ onSubmit4() {
 
       Code: this.Code,
       Description: this.Description ,
+      icon: this.icon ,
+      url: this.url ,
+      parent: this.parent ,
 
 
     });
 
+    (<FormControl> this.userform.controls['parent']).setValue("0");
+
    // (<FormControl> this.userform.controls['Code']).setValue("<p> Testing </>");
-    this.registerapi.setPage("Country")
+    this.registerapi.setPage("Security")
 
-    this.registerapi.VChangeEvent("Country");
+    this.registerapi.VChangeEvent("Security");
 
-   var userid = localStorage.getItem('UserId');
+
+
+
+
+
 
 
 

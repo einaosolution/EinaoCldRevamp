@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -8,7 +8,9 @@ import {ActivatedRoute} from "@angular/router";
 import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Subject } from 'rxjs';
 
+declare var $;
 
 @Component({
   selector: 'app-lga',
@@ -29,8 +31,9 @@ import { trigger, style, animate, transition } from '@angular/animations';
     )
   ]
 })
-export class LgaComponent implements OnInit {
-
+export class LgaComponent implements OnDestroy, OnInit {
+  dtOptions:any = {};
+  dtTrigger: Subject<any> = new Subject();
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
@@ -80,6 +83,8 @@ export class LgaComponent implements OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+
+       this.getalllga();
 
         })
                  .catch((response: any) => {
@@ -137,6 +142,7 @@ onSubmit11() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     this.getalllga();
 
       })
                .catch((response: any) => {
@@ -152,6 +158,20 @@ onSubmit11() {
 
   })
 }
+}
+
+showcountry(kk) {
+
+  this.savemode = false;
+  this.updatemode = true;
+  this.id = kk.id ;
+
+  (<FormControl> this.userform.controls['Code']).setValue(kk.stateId);
+
+  (<FormControl> this.userform.controls['Description']).setValue(kk.lgaName);
+  $("#createmodel").modal('show');
+  //document.getElementById("openModalButton").click();
+ // this.modalRef = this.modalService.show(ref );
 }
 onSubmit3(emp) {
   this.savemode = false;
@@ -203,6 +223,8 @@ onSubmit5(emp) {
         )
         console.log(response)
 
+        this.getalllga();
+
 
 
       })
@@ -231,7 +253,58 @@ onSubmit5(emp) {
     this.savemode = true;
     this.updatemode = false;
   }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  getalllga() {
+    var userid = localStorage.getItem('UserId');
+this.busy =   this.registerapi
+.GetAllLGAs(userid)
+.then((response: any) => {
+
+
+  this.row2 = response.content;
+
+
+  console.log(response)
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+})
+  }
+
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+
+        'colvis',
+        'copy',
+        'print',
+        'csv',
+        'excel',
+        'pdf'
+
+      ]
+
+    };
 
     this.Code = new FormControl('', [
       Validators.required
@@ -291,6 +364,8 @@ this.busy =   this.registerapi
 
 
   this.row2 = response.content;
+
+  this.dtTrigger.next();
   console.log(response)
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -8,7 +8,17 @@ import {ActivatedRoute} from "@angular/router";
 import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
+
+import { map } from 'rxjs/operators';
+
+import 'datatables.net'
+import 'datatables.net-dt'
+
+
+declare var $;
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
@@ -28,7 +38,12 @@ import { trigger, style, animate, transition } from '@angular/animations';
     )
   ]
 })
-export class CountryComponent implements OnInit {
+export class CountryComponent implements OnDestroy ,OnInit {
+  @ViewChild('dataTable') table;
+  dtOptions:any = {};
+  modalRef: BsModalRef;
+  dtTrigger: Subject<any> = new Subject();
+  dataTable: any;
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
@@ -38,7 +53,7 @@ export class CountryComponent implements OnInit {
   id:string;
   Description: FormControl;
   public rows = [];
-  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) { }
+  constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
   onSubmit() {
     this.submitted= true;
@@ -78,6 +93,8 @@ export class CountryComponent implements OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+
+       this. getCountry()
 
         })
                  .catch((response: any) => {
@@ -198,7 +215,7 @@ onSubmit4() {
             'success'
           )
 
-
+this.getCountry()
 
         })
                  .catch((response: any) => {
@@ -221,7 +238,19 @@ onSubmit4() {
       }
     })
   }
+showcountry(kk) {
 
+  this.savemode = false;
+  this.updatemode = true;
+  this.id = kk.id ;
+
+  (<FormControl> this.userform.controls['Code']).setValue(kk.code);
+
+  (<FormControl> this.userform.controls['Description']).setValue(kk.name);
+  $("#createmodel").modal('show');
+  //document.getElementById("openModalButton").click();
+ // this.modalRef = this.modalService.show(ref );
+}
   onSubmit3(kk) {
     this.savemode = false;
     this.updatemode = true;
@@ -231,7 +260,62 @@ onSubmit4() {
 
     (<FormControl> this.userform.controls['Description']).setValue(kk.name);
   }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  getCountry() {
+
+   var userid = localStorage.getItem('UserId');
+   this.busy =   this.registerapi
+   .GetCountry("true",userid)
+   .then((response: any) => {
+     this.spinner.hide();
+     console.log("Response")
+     this.rows = response.content;
+     console.log(response)
+
+
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
+  }
+
   ngOnInit() {
+
+
+
+  this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 10,
+    dom: 'Bfrtip',
+    // Configure the buttons
+    buttons: [
+
+      'colvis',
+      'copy',
+      'print',
+      'csv',
+      'excel',
+      'pdf'
+
+    ]
+
+  };
+
 
     this.Code = new FormControl('', [
       Validators.required
@@ -267,7 +351,7 @@ onSubmit4() {
       console.log("Response")
       this.rows = response.content;
       console.log(response)
-
+      this.dtTrigger.next();
 
 
     })

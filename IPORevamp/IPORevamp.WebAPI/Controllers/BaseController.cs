@@ -207,20 +207,21 @@ namespace IPORevamp.WebAPI.Controllers
                 expires: expires,
                 signingCredentials: creds
             );
+           
             var auth = new AuthModel
             {
                 ExpiryTime = token.ValidTo,
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Username = user.UserName,
                 Role = roles,
-                RoleId = (int)user.RolesId,
+                RoleId = user.RolesId != null ? Convert.ToInt32(user.RolesId) :0,
                 Email = user.Email,
                 UserId = user.Id,
                 category = Convert.ToString(user.CategoryId),
                 registrationcomplete = user.CompleteRegistration,
                 changepassword = user.ChangePassword,
                 loggeduser = loggedinuser ,
-                DynamicMenu = menuManager,
+               DynamicMenu = menuManager,
                 menuString = menuString,
 
             };

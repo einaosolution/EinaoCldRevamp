@@ -158,8 +158,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllEmailTemplates")]
-        public async Task<IActionResult> GetAllEmailTemplates(string RequestById)
+        [HttpGet("GetAllEmailTemplates")]
+        public async Task<IActionResult> GetAllEmailTemplates([FromQuery]string RequestById)
         {
             try
             {
@@ -226,7 +226,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 if (checkCount != null)
                 {
-                    return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
+                    return PrepareResponse(HttpStatusCode.Conflict, "Email Name Exist ", true, null);
                 }
 
                 // attempt to save
@@ -235,7 +235,8 @@ namespace IPORevamp.WebAPI.Controllers
                 content.DateCreated = DateTime.Now;
                 content.EmailBody = EmailTemplateViewModel.EmailBody;
                 content.EmailName = EmailTemplateViewModel.EmailName;
-                content.EmailSender = EmailTemplateViewModel.EmailSender;
+               // content.EmailSender = EmailTemplateViewModel.EmailSender;
+                content.EmailSender = _configuration["EmailSettings:UserNameEmail"]; ;
                 content.EmailSubject = EmailTemplateViewModel.EmailSubject;
 
                 content.IsActive = true;
@@ -270,7 +271,63 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateEmail Template/{EmailTemplate}")]
+
+        [HttpGet("DeleteEmailTemplate")]
+        public async Task<IActionResult> DeleteEmailTemplate([FromQuery] String EmailName, [FromQuery] String UserId, [FromQuery] String EmailId)
+        {
+            try
+            {
+
+                var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+                // Check if Setting Exist 
+                var record = await _EmailTemplateRepository.GetEmailTemplateByCode(EmailName);
+
+                if (record == null)
+                {
+                    return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
+                }
+
+                // attempt to delete the Setting
+
+                record.IsDeleted = true;
+                record.DeletedBy = UserId.ToString();
+                record.LastUpdateDate = DateTime.Now;
+                record.Id = Convert.ToInt32(EmailId);
+
+
+                var delete = await _EmailTemplateRepository.DeleteEmailTemplate(record);
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(UserId.ToString());
+
+
+                // log action
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName} deleted Setting {record}  Setting  successfully",
+                    Entity = "SettingDelete",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Delete Setting", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.FailDeletedRequest);
+            }
+        }
+
+        [HttpPost("UpdateEmailTemplate")]
         public async Task<IActionResult> UpdateEmailTemplate(EmailTemplateViewModel EmailTemplateViewModel)
         {
             try
@@ -298,7 +355,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.LastUpdateDate = DateTime.Now;
                 record.EmailBody = EmailTemplateViewModel.EmailBody;
                 record.EmailName = EmailTemplateViewModel.EmailName;
-                record.EmailSender = EmailTemplateViewModel.EmailSender;
+                record.EmailSender = _configuration["EmailSettings:UserNameEmail"]; ;
                 record.EmailSubject = EmailTemplateViewModel.EmailSubject;
                 record.Id = EmailTemplateViewModel.EmailTemplateId;
 

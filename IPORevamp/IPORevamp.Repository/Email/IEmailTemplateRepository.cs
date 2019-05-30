@@ -20,9 +20,12 @@ namespace IPORevamp.Repository.Email
         Task<EmailTemplate> GetEmailTemplateByCode(string  EmailTemplateCode);
          Task<List<EmailTemplate>> GetEmailTemplates();
         Task<EmailTemplate> CheckExistingEmailTemplate(string ByCode);
-       
+        Task<EmailTemplate> GetEmailTemplateById(int Id);
+
         Task<EmailTemplate> UpdateEmailTemplate(EmailTemplate emailTemplate);
-      
+
+        Task<EmailTemplate> DeleteEmailTemplate(EmailTemplate emailTemplate);
+
 
         #endregion
 

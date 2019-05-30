@@ -94,7 +94,7 @@ namespace IPORevamp.Repository.Setting
 
         public async Task<List<IPORevamp.Data.Entities.Setting.Setting>> GetSettingByCode(string SettingCode)
         {
-            var content = await _settingrepository.GetAll().Where(a => a.ItemValue == SettingCode).ToListAsync();          
+            var content = await _settingrepository.GetAll().Where(a => a.ItemName == SettingCode).ToListAsync();          
             return content;
         }
 

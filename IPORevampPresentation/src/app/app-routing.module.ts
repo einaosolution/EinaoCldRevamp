@@ -24,6 +24,7 @@ import { SettingsComponent } from './settings/settings.component';
 
 import { CreateRoleComponent } from './create-role/create-role.component';
 import { CreateMenuComponent } from './create-menu/create-menu.component';
+import { AssignRoleComponent } from './assign-role/assign-role.component';
 
 
 
@@ -71,7 +72,10 @@ component:  CountryComponent
       },{
         path:  'Menu',
         component:  CreateMenuComponent
-        }] } ,
+        } ,{
+          path:  'AssignRole',
+          component:  AssignRoleComponent
+          }] } ,
 { path: 'Corporate', component: CorporateComponent ,   data: { animation: 'tiger9' } } ,
 { path: 'Individual', component: IndividualComponent ,   data: { animation: 'tiger9' } } ,
   { path: '',   redirectTo: 'home', pathMatch: 'full' }

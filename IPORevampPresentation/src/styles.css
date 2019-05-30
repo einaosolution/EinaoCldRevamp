@@ -5,13 +5,17 @@
 @import './assets/css/chartist.min.css';
 @import './assets/css/c3.min.css';
 @import './assets/css/morris.css';
-@import '~primeicons/primeicons.css';
-@import '~primeng/resources/primeng.min.css';
-@import '~primeng/resources/themes/nova-dark/theme.css';
-@import"../node_modules/angular2-busy/build/style/busy.css" ;
+@import './assets/css/busy.css';
+
+
+
+
 
 
 @import './assets/css/style.min.css';
+
+
+
 
 
 
@@ -21,6 +25,7 @@
   padding: 0 0 0 10px;
   line-height: 25px;
 }
+
 
 
 

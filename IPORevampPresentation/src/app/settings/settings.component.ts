@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -9,6 +9,9 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { idLocale } from 'ngx-bootstrap';
+import { Subject } from 'rxjs';
+
+declare var $;
 
 @Component({
   selector: 'app-settings',
@@ -29,8 +32,9 @@ import { idLocale } from 'ngx-bootstrap';
     )
   ]
 })
-export class SettingsComponent implements OnInit {
-
+export class SettingsComponent implements OnDestroy, OnInit {
+  dtOptions:any = {};
+  dtTrigger: Subject<any> = new Subject();
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
@@ -83,6 +87,8 @@ export class SettingsComponent implements OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+
+       this.getallsetting();
 
         })
                  .catch((response: any) => {
@@ -142,6 +148,7 @@ onSubmit4() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     this.getallsetting();
 
       })
                .catch((response: any) => {
@@ -210,7 +217,74 @@ onSubmit4() {
     (<FormControl> this.userform.controls['Description']).setValue(kk.itemName);
     (<FormControl> this.userform.controls['Description2']).setValue(kk.itemValue);
   }
+  showcountry(kk) {
+
+    this.savemode = false;
+    this.updatemode = true;
+    this.id = kk.id ;
+
+    (<FormControl> this.userform.controls['Code']).setValue(kk.settingCode);
+
+    (<FormControl> this.userform.controls['Description']).setValue(kk.itemName);
+    (<FormControl> this.userform.controls['Description2']).setValue(kk.itemValue);
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  getallsetting() {
+
+   var userid = localStorage.getItem('UserId');
+
+
+   this.busy =   this.registerapi
+   .GetAllSettings(userid)
+   .then((response: any) => {
+
+
+     this.row2 = response.content;
+
+     console.log(response)
+
+
+
+   })
+            .catch((response: any) => {
+
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+ })
+  }
   ngOnInit() {
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+
+        'colvis',
+        'copy',
+        'print',
+        'csv',
+        'excel',
+        'pdf'
+
+      ]
+
+    };
 
     this.Code = new FormControl('', [
       Validators.required
@@ -249,6 +323,7 @@ onSubmit4() {
 
 
      this.row2 = response.content;
+     this.dtTrigger.next();
      console.log(response)
 
 

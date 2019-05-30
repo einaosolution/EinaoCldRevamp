@@ -75,7 +75,8 @@ namespace IPORevamp.Repository.Menu
         public async Task<List<Data.Entities.Menus.MenuManager>> GetAllParentChildMenu(int ParentId)
         {
             List<Data.Entities.Menus.MenuManager> Menu = new List<Data.Entities.Menus.MenuManager>();
-            Menu = await _menurepository.GetAll().Where(a => a.ParentId == 0 && a.Id== ParentId).ToListAsync();
+           // Menu = await _menurepository.GetAll().Where(a =>  a.Id== ParentId).ToListAsync();
+            Menu = await _menurepository.GetAll().Where(a => a.ParentId != ParentId).ToListAsync();
             return Menu;
         }
 

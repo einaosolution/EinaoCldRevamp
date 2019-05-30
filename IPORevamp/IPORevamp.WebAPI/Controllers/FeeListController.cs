@@ -199,8 +199,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllFeeLists")]
-        public async Task<IActionResult> GetAllFeeLists( string RequestById)
+        [HttpGet("GetAllFeeLists")]
+        public async Task<IActionResult> GetAllFeeLists([FromQuery] string RequestById)
         {
             try
             {
@@ -247,8 +247,8 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-
-         public async Task<IActionResult> GetFeeListsByCategory( string RequestById, string category)
+        [HttpPost("GetFeeListsByCategory")]
+        public async Task<IActionResult> GetFeeListsByCategory( string RequestById, string category)
         {
             try
             {
@@ -358,7 +358,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateFeeList/{FeeList}")]
+        [HttpPost("UpdateFeeList")]
         public async Task<IActionResult> UpdateFeeList(FeeListViewModel feeListViewModel)
         {
             try
@@ -423,8 +423,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteFeeList/{FeeListId}/{UserId}")]
-        public async Task<IActionResult> DeleteFeeList(int FeeListId, int UserId)
+        [HttpGet("DeleteFeeList")]
+        public async Task<IActionResult> DeleteFeeList([FromQuery] String  FeeListId, [FromQuery] String  UserId)
         {
             try
             {
@@ -436,7 +436,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if FeeList Exist 
-                var record = await _FeeListrepository.GetFeeListById(FeeListId);
+                var record = await _FeeListrepository.GetFeeListById(Convert.ToInt32(FeeListId));
 
                 if (record == null)
                 {
@@ -448,7 +448,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = FeeListId;
+                record.Id = Convert.ToInt32(FeeListId);
 
 
                 var delete = await _FeeListrepository.DeleteFeeList(record);

@@ -208,8 +208,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllCountries")]
-        public async Task<IActionResult> GetAllCountries( string RequestById)
+        [HttpGet("GetAllCountries")]
+        public async Task<IActionResult> GetAllCountries([FromQuery] string RequestById)
         {
             try
             {
@@ -318,7 +318,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateCountry/{Country}")]
+        [HttpPost("UpdateCountry")]
         public async Task<IActionResult> UpdateCountry(CountryViewModel countryViewModel)
         {
             try
@@ -380,8 +380,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteCountry/{CountryId}/{UserId}")]
-        public async Task<IActionResult> DeleteCountry(int CountryId, int UserId)
+        [HttpGet("DeleteCountry")]
+        public async Task<IActionResult> DeleteCountry([FromQuery]String  CountryId, [FromQuery]String  UserId)
         {
             try
             {
@@ -393,7 +393,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if Country Exist 
-                var record = await _countryRepository.GetCountryById(CountryId);
+                var record = await _countryRepository.GetCountryById(Convert.ToInt32(CountryId));
 
                 if (record == null)
                 {
@@ -405,7 +405,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = CountryId;
+                record.Id = Convert.ToInt32(CountryId);
 
 
                 var delete = await _countryRepository.DeleteCountry(record);
