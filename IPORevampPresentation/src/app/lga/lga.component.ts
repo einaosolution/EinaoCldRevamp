@@ -39,16 +39,18 @@ export class LgaComponent implements OnDestroy, OnInit {
   userform: FormGroup;
   submitted:boolean=false;
   Code: FormControl;
+  Code2: FormControl;
   Description: FormControl;
   busy: Promise<any>;
   id:string;
   public rows = [];
   public row2 = [];
+  public row3 = [];
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) { }
 
   onSubmit() {
     this.submitted= true;
-
+    var table = $('#myTable').DataTable();
 
 
     if (this.userform.valid) {
@@ -83,7 +85,9 @@ export class LgaComponent implements OnDestroy, OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+       $("#createmodel").modal('hide');
 
+       table.destroy();
        this.getalllga();
 
         })
@@ -106,7 +110,7 @@ export class LgaComponent implements OnDestroy, OnInit {
 onSubmit11() {
 
   this.submitted= true;
-
+  var table = $('#myTable').DataTable();
   var userid =parseInt( localStorage.getItem('UserId'));
 
   if (this.userform.valid) {
@@ -142,6 +146,9 @@ onSubmit11() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     $("#createmodel").modal('hide');
+     table.destroy();
+
      this.getalllga();
 
       })
@@ -173,6 +180,25 @@ showcountry(kk) {
   //document.getElementById("openModalButton").click();
  // this.modalRef = this.modalService.show(ref );
 }
+
+
+showcountry2() {
+
+  this.savemode = true;
+  this.updatemode = false;
+
+
+  (<FormControl> this.userform.controls['Code']).setValue("");
+
+  (<FormControl> this.userform.controls['Description']).setValue("");
+  $("#createmodel").modal('show');
+  //document.getElementById("openModalButton").click();
+ // this.modalRef = this.modalService.show(ref );
+}
+
+reload() {
+  window.location.reload();
+}
 onSubmit3(emp) {
   this.savemode = false;
   this.updatemode = true;
@@ -187,7 +213,7 @@ onSubmit3(emp) {
 
 onSubmit5(emp) {
   var userid =localStorage.getItem('UserId');
-
+  var table = $('#myTable').DataTable();
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -208,12 +234,12 @@ onSubmit5(emp) {
   }).then((result) => {
     if (result.value) {
 
-      this.busy =   this.registerapi
+       this.registerapi
       .DeleteLGA(emp.id,userid)
       .then((response: any) => {
         this.spinner.hide();
         console.log("Response")
-        this.rows = response.content;
+
 
         this.submitted=false;
         Swal.fire(
@@ -222,8 +248,9 @@ onSubmit5(emp) {
           'success'
         )
         console.log(response)
-
-        this.getalllga();
+      //  this.reload()
+      table.destroy();
+       this.getalllga();
 
 
 
@@ -267,6 +294,7 @@ this.busy =   this.registerapi
 
 
   this.row2 = response.content;
+  this.dtTrigger.next();
 
 
   console.log(response)
@@ -310,6 +338,8 @@ this.busy =   this.registerapi
       Validators.required
     ]);
 
+
+
     this.Description = new FormControl('', [
       Validators.required
     ]);
@@ -319,16 +349,20 @@ this.busy =   this.registerapi
     this.userform = new FormGroup({
 
       Code: this.Code,
+
       Description: this.Description ,
 
 
     });
 
 
-    this.registerapi.setPage("Country")
+    this.registerapi.setPage("Setup")
 
-    this.registerapi.VChangeEvent("Country");
+    this.registerapi.VChangeEvent("Setup");
     var userid = localStorage.getItem('UserId');
+
+
+
 
 
 

@@ -103,7 +103,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('loggeduser', response.content.loggeduser);
       localStorage.setItem('UserId', response.content.userId);
      // this.registerapi.settoken("");
-     localStorage.setItem('access_tokenexpire', response.content.Token);
+     localStorage.setItem('access_tokenexpire', response.content.token);
+     localStorage.setItem('Roles',JSON.stringify( response.content.dynamicMenu));
 
      localStorage.setItem('ExpiryTime', response.content.expiryTime);
      if (response.content.profilepic ==null) {
@@ -123,6 +124,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('ExpiryTime', response.content.expiryTime);
 
     localStorage.setItem('loggeduser', response.content.loggeduser);
+    localStorage.setItem('Roles',JSON.stringify( response.content.dynamicMenu));
     if (response.content.profilepic ==null) {
       localStorage.setItem('profilepic', "");
     }
@@ -134,7 +136,8 @@ export class LoginComponent implements OnInit {
 
     this.registerapi.settoken(response.content.token) ;
 
-  //alert("login successful")
+
+console.log(response)
 
   this.router.navigateByUrl('/home');
    //

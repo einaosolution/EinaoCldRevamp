@@ -51,7 +51,7 @@ export class SettingsComponent implements OnDestroy, OnInit {
 
   onSubmit() {
     this.submitted= true;
-
+    var table = $('#myTable').DataTable();
 
 
     if (this.userform.valid) {
@@ -87,6 +87,8 @@ export class SettingsComponent implements OnDestroy, OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+       $("#createmodel").modal('hide');
+       table.destroy();
 
        this.getallsetting();
 
@@ -111,7 +113,7 @@ export class SettingsComponent implements OnDestroy, OnInit {
 
 onSubmit4() {
   this.submitted= true;
-
+  var table = $('#myTable').DataTable();
   var userid = localStorage.getItem('UserId');
 
   if (this.userform.valid) {
@@ -148,6 +150,8 @@ onSubmit4() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     $("#createmodel").modal('hide');
+     table.destroy();
      this.getallsetting();
 
       })
@@ -176,7 +180,7 @@ onSubmit4() {
 
   onSubmit5(emp) {
     var userid =localStorage.getItem('UserId');
-
+    var table = $('#myTable').DataTable();
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -196,9 +200,39 @@ onSubmit4() {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
+        this.registerapi
+        .DeleteSetting(emp.id,userid)
+        .then((response: any) => {
+          this.spinner.hide();
+          console.log("Response")
 
 
-      } else if (
+          this.submitted=false;
+          Swal.fire(
+            'Record Deleted  Succesfully ',
+            '',
+            'success'
+          )
+          console.log(response)
+        //  this.reload()
+        table.destroy();
+        this.getallsetting();
+
+
+
+        })
+                 .catch((response: any) => {
+                  this.spinner.hide();
+                   console.log(response)
+
+
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
+
+      })} else if (
         // Read more about handling dismissals
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -216,6 +250,21 @@ onSubmit4() {
 
     (<FormControl> this.userform.controls['Description']).setValue(kk.itemName);
     (<FormControl> this.userform.controls['Description2']).setValue(kk.itemValue);
+  }
+
+  showcountry2() {
+
+    this.savemode = true;
+    this.updatemode = false;
+
+
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    (<FormControl> this.userform.controls['Description']).setValue("");
+    (<FormControl> this.userform.controls['Description2']).setValue("");
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
   }
   showcountry(kk) {
 
@@ -248,6 +297,7 @@ onSubmit4() {
 
 
      this.row2 = response.content;
+     this.dtTrigger.next();
 
      console.log(response)
 
@@ -310,9 +360,9 @@ onSubmit4() {
     });
 
    // (<FormControl> this.userform.controls['Code']).setValue("<p> Testing </>");
-    this.registerapi.setPage("Country")
+    this.registerapi.setPage("Setup")
 
-    this.registerapi.VChangeEvent("Country");
+    this.registerapi.VChangeEvent("Setup");
 
    var userid = localStorage.getItem('UserId');
 

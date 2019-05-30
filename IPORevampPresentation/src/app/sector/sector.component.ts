@@ -46,6 +46,7 @@ export class SectorComponent implements OnDestroy ,OnInit {
     this.submitted= true;
 
     var userid =parseInt( localStorage.getItem('UserId'));
+    var table = $('#myTable').DataTable();
 
 
     if (this.userform.valid) {
@@ -81,6 +82,10 @@ export class SectorComponent implements OnDestroy ,OnInit {
 
        this.userform.reset();
 
+       $("#createmodel").modal('hide');
+       table.destroy();
+       this.getallsector()
+
         })
                  .catch((response: any) => {
                   this.spinner.hide();
@@ -104,15 +109,16 @@ onSubmit4() {
   this.submitted= true;
 
   var userid =parseInt( localStorage.getItem('UserId'));
+  var table = $('#myTable').DataTable();
 
   if (this.userform.valid) {
 
     this.spinner.show();
 
     var kk = {
-      CountryCode:this.userform.value.Code ,
-      CountryName:this.userform.value.Description ,
-      CountryId:this.id ,
+      Type:this.userform.value.Code ,
+      Description:this.userform.value.Description ,
+      SectorId:this.id ,
       CreatedBy:userid
 
 
@@ -125,11 +131,12 @@ onSubmit4() {
 
 
     this.registerapi
-      .UpdateCountry(kk)
+      .UpdateSector(kk)
       .then((response: any) => {
-        this.spinner.hide();
+
 
         this.submitted=false;
+        this.spinner.hide();
         Swal.fire(
           'Record Updated Succesfully ',
           '',
@@ -138,10 +145,13 @@ onSubmit4() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     $("#createmodel").modal('hide');
+     table.destroy();
+     this.getallsector()
 
       })
                .catch((response: any) => {
-                this.spinner.hide();
+
                  console.log(response)
 
 
@@ -166,7 +176,7 @@ onSubmit4() {
   onSubmit5(emp) {
     var userid =localStorage.getItem('UserId');
 
-
+    var table = $('#myTable').DataTable();
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -187,11 +197,11 @@ onSubmit4() {
       if (result.value) {
 
         this.busy =   this.registerapi
-        .DeleteCountry(emp.id,userid)
+        .DeleteSector(emp.id,userid)
         .then((response: any) => {
           this.spinner.hide();
           console.log("Response")
-          this.rows = response.content;
+
           console.log(response)
 
           Swal.fire(
@@ -200,7 +210,9 @@ onSubmit4() {
             'success'
           )
 
-
+          $("#createmodel").modal('hide');
+          table.destroy();
+          this.getallsector()
 
         })
                  .catch((response: any) => {
@@ -229,13 +241,27 @@ showcountry(kk) {
   this.updatemode = true;
   this.id = kk.id ;
 
-  (<FormControl> this.userform.controls['Code']).setValue(kk.code);
+  (<FormControl> this.userform.controls['Code']).setValue(kk.type);
 
-  (<FormControl> this.userform.controls['Description']).setValue(kk.name);
+  (<FormControl> this.userform.controls['Description']).setValue(kk.description);
   $("#createmodel").modal('show');
   //document.getElementById("openModalButton").click();
  // this.modalRef = this.modalService.show(ref );
 }
+showcountry2() {
+
+    this.savemode = true;
+    this.updatemode = false;
+
+
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    (<FormControl> this.userform.controls['Description']).setValue("");
+
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
+  }
   onSubmit3(kk) {
     this.savemode = false;
     this.updatemode = true;
@@ -249,6 +275,33 @@ showcountry(kk) {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  getallsector() {
+    var userid = localStorage.getItem('UserId');
+    this.busy =   this.registerapi
+    .GetAllSectors(userid)
+    .then((response: any) => {
+
+      console.log("Sector Response")
+      this.rows = response.content;
+      console.log(response)
+      this.dtTrigger.next();
+
+
+    })
+             .catch((response: any) => {
+              this.spinner.hide();
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+
+})
   }
 
   ngOnInit() {
@@ -302,10 +355,10 @@ showcountry(kk) {
 
 
    this.busy =   this.registerapi
-    .GetCountry("true",userid)
+    .GetAllSectors(userid)
     .then((response: any) => {
-      this.spinner.hide();
-      console.log("Response")
+
+      console.log("Sector Response")
       this.rows = response.content;
       console.log(response)
       this.dtTrigger.next();

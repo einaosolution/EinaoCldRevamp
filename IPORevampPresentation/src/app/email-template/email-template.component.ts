@@ -9,6 +9,7 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
+import { AbstractControl } from '@angular/forms';
 
 declare var $;
 
@@ -53,7 +54,24 @@ export class EmailTemplateComponent implements OnInit,OnDestroy  {
 
   onSubmit() {
     this.submitted= true;
+    var table = $('#myTable').DataTable();
     var userid =parseInt( localStorage.getItem('UserId'));
+
+    if (this.ContainsAlphabet(this.userform.value.Subject) && this.ContainsAlphabet(this.userform.value.Code) ) {
+
+    }
+
+    else {
+
+      Swal.fire(
+       "Invalid Input",
+        '',
+        'error'
+      )
+
+      return
+
+    }
 
 
     if (this.userform.valid) {
@@ -63,7 +81,7 @@ export class EmailTemplateComponent implements OnInit,OnDestroy  {
       var kk = {
         EmailName:this.userform.value.Code ,
         EmailSubject:this.userform.value.Subject ,
-        EmailSender:this.userform.value.Sender ,
+
         EmailBody:this.userform.value.Template ,
         CreatedBy:userid,
         EmailCode:this.userform.value.Code
@@ -91,6 +109,8 @@ export class EmailTemplateComponent implements OnInit,OnDestroy  {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
+       $("#createmodel").modal('hide');
+       table.destroy();
        this.getallEmailTemplate();
 
 
@@ -111,12 +131,43 @@ export class EmailTemplateComponent implements OnInit,OnDestroy  {
 
 }
 
+ContainsAlphabet(str) {
+
+  if (str.match(/[a-z]/i)) {
+    return true
+  }
+
+  else {
+    return false
+  }
+
+}
+
 
 
 onSubmit4() {
   this.submitted= true;
 
+if (this.ContainsAlphabet(this.userform.value.Subject) && this.ContainsAlphabet(this.userform.value.Code) ) {
+
+}
+
+else {
+
+  Swal.fire(
+   "Invalid Input",
+    '',
+    'error'
+  )
+
+  return
+
+}
+
+
+
   var userid =parseInt( localStorage.getItem('UserId'));
+  var table = $('#myTable').DataTable();
 
   if (this.userform.valid) {
 
@@ -124,8 +175,8 @@ onSubmit4() {
 
     var kk = {
       EmailName:this.userform.value.Code ,
-      EmailSubject:this.userform.value.Subject ,
-      EmailSender:this.userform.value.Sender ,
+      EmailSubject:this.userform.value.Subject,
+
       EmailBody:this.userform.value.Template ,
       EmailTemplateId:this.id ,
       CreatedBy:userid ,
@@ -155,6 +206,8 @@ onSubmit4() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     $("#createmodel").modal('hide');
+     table.destroy();
      this.getallEmailTemplate();
 
       })
@@ -183,7 +236,7 @@ onSubmit4() {
 
   onSubmit5(emp) {
     var userid =localStorage.getItem('UserId');
-
+    var table = $('#myTable').DataTable();
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -203,7 +256,36 @@ onSubmit4() {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
+        this.registerapi
+        .DeleteEmailTemplate(emp.emailName,userid,emp.id)
+        .then((response: any) => {
+          this.spinner.hide();
+          console.log("Response")
+          this.rows = response.content;
+          console.log(response)
+          $("#createmodel").modal('hide');
+          Swal.fire(
+            'Record Deleted  Succesfully ',
+            '',
+            'success'
+          )
 
+          table.destroy();
+          this.getallEmailTemplate();
+
+        })
+                 .catch((response: any) => {
+                  this.spinner.hide();
+                   console.log(response)
+
+
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
+
+    })
 
       } else if (
         // Read more about handling dismissals
@@ -212,6 +294,22 @@ onSubmit4() {
 
       }
     })
+  }
+
+  showcountry2() {
+
+    this.savemode = true;
+    this.updatemode = false;
+
+
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    (<FormControl> this.userform.controls['Subject']).setValue("");
+
+    (<FormControl> this.userform.controls['Template']).setValue("");
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
   }
   showcountry(kk) {
 
@@ -222,7 +320,7 @@ onSubmit4() {
     (<FormControl> this.userform.controls['Code']).setValue(kk.emailName);
 
     (<FormControl> this.userform.controls['Subject']).setValue(kk.emailSubject);
-    (<FormControl> this.userform.controls['Sender']).setValue(kk.emailSender);
+
     (<FormControl> this.userform.controls['Template']).setValue(kk.emailBody);
     $("#createmodel").modal('show');
     //document.getElementById("openModalButton").click();
@@ -278,6 +376,13 @@ onSubmit4() {
               )
     })
   }
+
+  removeSpaces(control: AbstractControl) {
+    if (control && control.value && !control.value.replace(/\s/g, '').length) {
+      control.setValue('');
+    }
+    return null;
+  }
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -311,7 +416,7 @@ onSubmit4() {
     ]);
 
     this.Sender = new FormControl('', [
-      Validators.required
+
     ]);
 
     this.Template = new FormControl('', [
@@ -332,9 +437,9 @@ onSubmit4() {
     });
 
    // (<FormControl> this.userform.controls['Code']).setValue("<p> Testing </>");
-    this.registerapi.setPage("Country")
+    this.registerapi.setPage("Setup")
 
-    this.registerapi.VChangeEvent("Country");
+    this.registerapi.VChangeEvent("Setup");
 
    var userid = localStorage.getItem('UserId');
 

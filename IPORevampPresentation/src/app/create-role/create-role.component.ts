@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -8,14 +8,32 @@ import {ActivatedRoute} from "@angular/router";
 import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
-
+import { Subject } from 'rxjs';
+declare var $;
 @Component({
   selector: 'app-create-role',
   templateUrl: './create-role.component.html',
-  styleUrls: ['./create-role.component.css']
+  styleUrls: ['./create-role.component.css'] ,
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({ transform: 'translateX(100%)', opacity: 0 }),
+          animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))
+        ]),
+        transition(':leave', [
+          style({ transform: 'translateX(0)', opacity: 1 }),
+          animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))
+        ])
+      ]
+    )
+  ]
 })
-export class CreateRoleComponent implements OnInit {
+export class CreateRoleComponent implements OnInit,OnDestroy {
+  dtOptions:any = {};
 
+  dtTrigger: Subject<any> = new Subject();
+  dataTable: any;
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
@@ -26,12 +44,16 @@ export class CreateRoleComponent implements OnInit {
   Description: FormControl;
   public rows = [];
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) { }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
 
   onSubmit() {
     this.submitted= true;
     var userid =parseInt( localStorage.getItem('UserId'));
 
-
+    var table = $('#myTable').DataTable();
     if (this.userform.valid) {
 
       this.spinner.show();
@@ -65,6 +87,10 @@ export class CreateRoleComponent implements OnInit {
 
        this.userform.reset();
 
+       $("#createmodel").modal('hide');
+       table.destroy();
+       this.getRoles()
+
         })
                  .catch((response: any) => {
                   this.spinner.hide();
@@ -82,11 +108,99 @@ export class CreateRoleComponent implements OnInit {
 
 }
 
+showcountry2() {
 
+  this.savemode = true;
+  this.updatemode = false;
+
+
+  (<FormControl> this.userform.controls['Code']).setValue("");
+
+  (<FormControl> this.userform.controls['Description']).setValue("");
+  $("#createmodel").modal('show');
+  //document.getElementById("openModalButton").click();
+ // this.modalRef = this.modalService.show(ref );
+}
+
+onSubmit5(emp) {
+  var userid =localStorage.getItem('UserId');
+  var table = $('#myTable').DataTable();
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false,
+  })
+
+  swalWithBootstrapButtons.fire({
+    title: 'Are you sure?',
+    text: "",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.value) {
+
+        this.registerapi
+      .DeleteRole(emp.roleId,userid)
+      .then((response: any) => {
+        this.spinner.hide();
+        console.log("Response")
+        this.rows = response.content;
+        console.log(response)
+        $("#createmodel").modal('hide');
+        Swal.fire(
+          'Record Deleted  Succesfully ',
+          '',
+          'success'
+        )
+
+        table.destroy();
+        this.getRoles();
+
+      })
+               .catch((response: any) => {
+                this.spinner.hide();
+                 console.log(response)
+
+
+                Swal.fire(
+                  response.error.message,
+                  '',
+                  'error'
+                )
+
+  })
+    } else if (
+      // Read more about handling dismissals
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+
+    }
+  })
+}
+
+showcountry(kk) {
+
+  this.savemode = false;
+  this.updatemode = true;
+  this.id = kk.roleId ;
+
+  (<FormControl> this.userform.controls['Code']).setValue(kk.title);
+
+  (<FormControl> this.userform.controls['Description']).setValue(kk.description);
+  $("#createmodel").modal('show');
+  //document.getElementById("openModalButton").click();
+ // this.modalRef = this.modalService.show(ref );
+}
 
 onSubmit4() {
   this.submitted= true;
-
+  var table = $('#myTable').DataTable();
   var userid =parseInt( localStorage.getItem('UserId'));
 
   if (this.userform.valid) {
@@ -94,10 +208,10 @@ onSubmit4() {
     this.spinner.show();
 
     var kk = {
-      CountryCode:this.userform.value.Code ,
-      CountryName:this.userform.value.Description ,
-      CountryId:this.id ,
-      CreatedBy:userid
+      Title:this.userform.value.Code ,
+      Description:this.userform.value.Description ,
+      CreatedBy:userid ,
+      RoleId :this.id
 
 
 
@@ -109,7 +223,7 @@ onSubmit4() {
 
 
     this.registerapi
-      .SaveCountry(kk)
+      .EditRole(kk)
       .then((response: any) => {
         this.spinner.hide();
 
@@ -122,6 +236,10 @@ onSubmit4() {
      //  this.router.navigate(['/Emailverification']);
 
      this.userform.reset();
+     $("#createmodel").modal('hide');
+     table.destroy();
+     this.getRoles()
+
 
       })
                .catch((response: any) => {
@@ -147,6 +265,34 @@ onSubmit4() {
 
   }
 
+  getRoles() {
+    var userid = localStorage.getItem('UserId');
+    this.busy =   this.registerapi
+    .GetAllRoles(userid)
+    .then((response: any) => {
+      this.spinner.hide();
+      console.log("Response")
+      this.rows = response.content;
+      this.dtTrigger.next();
+      console.log(response)
+
+
+
+    })
+             .catch((response: any) => {
+              this.spinner.hide();
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+
+ })
+  }
+
   onSubmit3(kk) {
     this.savemode = false;
     this.updatemode = true;
@@ -157,6 +303,24 @@ onSubmit4() {
     (<FormControl> this.userform.controls['Description']).setValue(kk.name);
   }
   ngOnInit() {
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'Bfrtip',
+      // Configure the buttons
+      buttons: [
+
+        'colvis',
+        'copy',
+        'print',
+        'csv',
+        'excel',
+        'pdf'
+
+      ]
+
+    };
 
     this.Code = new FormControl('', [
       Validators.required
@@ -182,6 +346,32 @@ onSubmit4() {
     this.registerapi.VChangeEvent("Security");
 
    var userid = localStorage.getItem('UserId');
+
+
+   this.busy =   this.registerapi
+   .GetAllRoles(userid)
+   .then((response: any) => {
+     this.spinner.hide();
+     console.log("Response")
+     this.rows = response.content;
+     this.dtTrigger.next();
+     console.log(response)
+
+
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
 
 
 

@@ -36,6 +36,8 @@ export class CorporateComponent implements OnInit {
    queryParam: string;
    submitted:boolean=false;
    UserEmail:string ="";
+   public row2 = [];
+   public row = [];
 
   varray4 = [{ YearName: 'Argentina', YearCode: 'AR' }, {  YearName: 'Austria', YearCode: 'AT' }  ,{  YearName: 'Cameroon', YearCode: 'CM' },{  YearName: 'China', YearCode: 'CN' } ,{  YearName: 'Nigeria', YearCode: 'NG' } ]
   varray44 = [{ YearName: 'Driver License', YearCode: 'Driver License' }, {  YearName: 'International Passport', YearCode: 'International Passport' }  ,{  YearName: 'National Identity Card', YearCode: 'National Identity Card' },{  YearName: 'Voters Registration Card', YearCode: 'Voters Registration Card' }  ]
@@ -122,6 +124,7 @@ export class CorporateComponent implements OnInit {
     var email = "";
     var email2 = "";
     const firstParam: string = this.route.snapshot.queryParamMap.get('page');
+    var userid =localStorage.getItem('UserId');
     if (localStorage.getItem('username')) {
 
 
@@ -246,10 +249,60 @@ export class CorporateComponent implements OnInit {
       .then((response: any) => {
 
   this.UserEmail = response.email;
+  userid  = response.id;
 
   (<FormControl> this.userform.controls['FirstName']).setValue(response.firstName);
   (<FormControl> this.userform.controls['LastName']).setValue( response.lastName);
 
+
+
+  this.registerapi
+  .GetAllStates(userid)
+  .then((response: any) => {
+
+
+    this.row2 = response.content;
+
+    console.log(response)
+
+
+
+  })
+           .catch((response: any) => {
+
+             console.log(response)
+
+
+            Swal.fire(
+              response.error.message,
+              '',
+              'error'
+            )
+})
+
+this.registerapi
+.GetCountry("true",userid)
+.then((response: any) => {
+
+  console.log("Response2")
+  this.row = response.content;
+  console.log(response)
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
 
    console.log("response")
    console.log(response)
@@ -262,18 +315,66 @@ export class CorporateComponent implements OnInit {
 
       }
 
-      if (email) {
+     else if (email) {
         this.registerapi
         .GetEmail(email)
         .then((response: any) => {
           console.log("response email")
           console.log(response)
     this.UserEmail = response.email;
+    userid  = response.id;
 
     (<FormControl> this.userform.controls['FirstName']).setValue(response.firstName);
     (<FormControl> this.userform.controls['LastName']).setValue( response.lastName);
 
 
+    this.registerapi
+    .GetAllStates(userid)
+    .then((response: any) => {
+
+
+      this.row2 = response.content;
+
+      console.log(response)
+
+
+
+    })
+             .catch((response: any) => {
+
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+  })
+
+  this.registerapi
+  .GetCountry("true",userid)
+  .then((response: any) => {
+
+    console.log("Response2")
+    this.row = response.content;
+    console.log(response)
+
+
+
+  })
+           .catch((response: any) => {
+
+             console.log(response)
+
+
+            Swal.fire(
+              response.error.message,
+              '',
+              'error'
+            )
+
+  })
      console.log("response")
      console.log(response)
         })
@@ -284,6 +385,7 @@ export class CorporateComponent implements OnInit {
          })
 
         }
+
   }
 
 }

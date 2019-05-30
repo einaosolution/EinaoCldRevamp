@@ -43,12 +43,47 @@
                       <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                       <div class="ml-auto">
                           <div class="btn-group">
-                              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#createmodel">
+                              <button type="button" class="btn btn-dark" data-toggle="modal" (click) ="showcountry2()">
                                 Create Role
                               </button>
                           </div>
                       </div>
                   </div>
+
+                  <br/>
+
+                  <div class="table-responsive">
+                    <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                        <thead>
+                            <tr>
+
+                                <th>Title </th>
+                                <th>Description </th>
+
+                               <th>Action </th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                              <tr *ngFor="let emp of rows  let i = index">
+
+
+                                   <td>{{emp.title}}</td>
+                                   <td> {{emp.description}}</td>
+
+
+                                    <td>
+                                      <button type="button" id="openModalButton"  (click) ="showcountry(emp)" class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                         <button type="button" (click) ="onSubmit5(emp)"   class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
+
+
+                                 </td>
+
+                                  </tr>
+                                </tbody>
+                    </table>
+                </div>
 
 
 
@@ -78,11 +113,11 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
 
-                                    <h2>Create Role </h2>
+
                                     <div [ngBusy]="busy"></div>
 
                                     <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
-                                    <hr>
+
                                 </div>
                             </div>
 
@@ -154,18 +189,7 @@
 
 
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6" >
-                                    <button type="button"  (click) ="onSubmit()"   class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
 
-                                    <button type="button"  (click) ="onSubmit2()" class="btn btn-danger">Cancel</button>
-
-                                </div>
-
-
-
-                            </div>
 
 
 
@@ -177,7 +201,8 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
+            <button type="submit" *ngIf="savemode"  (click) ="onSubmit()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+            <button type="button" *ngIf="updatemode" (click) ="onSubmit4()"  class="btn btn-success"><i class="ti-save"></i> Update</button>
         </div>
     </form>
   </div>

@@ -50,7 +50,7 @@ export class StateComponent implements OnDestroy , OnInit {
 
   onSubmit() {
     this.submitted= true;
-
+    var table = $('#myTable').DataTable();
 
 
     if (this.userform.valid) {
@@ -89,6 +89,11 @@ export class StateComponent implements OnDestroy , OnInit {
 
        this.userform.reset();
 
+       $("#createmodel").modal('hide');
+
+
+  table.destroy();
+
        this.getallstate()
 
         })
@@ -118,6 +123,7 @@ export class StateComponent implements OnDestroy , OnInit {
   onSubmit11() {
 
     this.submitted= true;
+    var table = $('#myTable').DataTable();
 
     var userid =parseInt( localStorage.getItem('UserId'));
 
@@ -155,6 +161,12 @@ export class StateComponent implements OnDestroy , OnInit {
 
        this.userform.reset();
 
+       $("#createmodel").modal('hide');
+
+
+
+
+       table.destroy();
        this.getallstate()
 
         })
@@ -171,6 +183,20 @@ export class StateComponent implements OnDestroy , OnInit {
 
     })
   }
+  }
+
+  showcountry2() {
+
+    this.savemode = true;
+    this.updatemode = false;
+
+
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    (<FormControl> this.userform.controls['Description']).setValue("");
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
   }
 
   showcountry(kk) {
@@ -200,7 +226,7 @@ export class StateComponent implements OnDestroy , OnInit {
 
   onSubmit5(emp) {
     var userid =localStorage.getItem('UserId');
-
+    var table = $('#myTable').DataTable();
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -221,12 +247,12 @@ export class StateComponent implements OnDestroy , OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this.busy =   this.registerapi
+    this.registerapi
         .DeleteState(emp.id,userid)
         .then((response: any) => {
-          this.spinner.hide();
+
           console.log("Response")
-          this.rows = response.content;
+
 
           this.submitted=false;
           Swal.fire(
@@ -235,6 +261,9 @@ export class StateComponent implements OnDestroy , OnInit {
             'success'
           )
 
+
+
+          table.destroy();
           this.getallstate()
 
 
@@ -278,6 +307,8 @@ export class StateComponent implements OnDestroy , OnInit {
 
 
     this.row2 = response.content;
+    this.dtTrigger.next();
+
 
     console.log(response)
 
@@ -333,9 +364,9 @@ export class StateComponent implements OnDestroy , OnInit {
     });
 
 
-    this.registerapi.setPage("Country")
+    this.registerapi.setPage("Setup")
 
-    this.registerapi.VChangeEvent("Country");
+    this.registerapi.VChangeEvent("Setup");
     var userid = localStorage.getItem('UserId');
 
     this.busy =   this.registerapi
@@ -344,6 +375,9 @@ export class StateComponent implements OnDestroy , OnInit {
 
 
       this.rows = response.content;
+      console.log("rsponse.content")
+
+      console.log(response.content)
 
 
 

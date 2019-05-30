@@ -69,8 +69,17 @@
                                                   <div class="col-md-6">
                                                       <div class="form-group">
                                                           <label>State</label>
-                                                          <input type="text" formControlName="State" [ngClass]="{ 'is-invalid': submitted && State.errors }"  placeholder="State" class="form-control">
-                                                      </div>
+
+                                                          <select   name="Month"   formControlName="State" [ngClass]="{ 'is-invalid': submitted &&  State.errors }"    class="custom-select form-control-lg"    id="State">
+                                                            <option  value= "">
+                                                              --Select State--
+                                                              </option>
+                                                            <option *ngFor="let state2 of row2" value= {{state2.id}}>
+                                                              {{state2.stateName}}
+                                                            </option>
+                                                          </select>
+
+                                                        </div>
                                                   </div>
                                                   <!--/span-->
                                               </div>
@@ -92,8 +101,8 @@
                                                             <option  value= "">
                                                               --Select your Country--
                                                               </option>
-                                                            <option *ngFor="let country2 of varray4" value= {{country2.YearCode}}>
-                                                              {{country2.YearName}}
+                                                            <option *ngFor="let country2 of row" value= {{country2.code}}>
+                                                              {{country2.name}}
                                                             </option>
                                                           </select>
                                                       </div>

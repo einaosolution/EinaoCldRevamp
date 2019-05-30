@@ -43,17 +43,17 @@
                       <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                       <div class="ml-auto">
                           <div class="btn-group">
-                              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#createmodel">
+                              <button type="button" class="btn btn-dark" data-toggle="modal" (click) ="showcountry2()">
                               Create State
                               </button>
                           </div>
                       </div>
                   </div>
-
+                  <br/>
 
 
                   <div class="table-responsive">
-                      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
                           <thead>
                               <tr>
                                   <th>Name</th>
@@ -107,14 +107,22 @@
 
                             <div class="row">
                               <div class="col-md-3 field-label-responsive d-flex justify-content-end">
-                                  <label for="email">Code</label>
+                                  <label for="email">Country</label>
                               </div>
                               <div class="col-md-6">
                                   <div class="form-group">
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <input type="text" name="name"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
-                                                 placeholder="Code" required autofocus>
+
+
+                                                 <select   name="Identification"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"       class="custom-select form-control-lg "    id="Month">
+                                                  <option  value= "">
+                                                    --Select Country--
+                                                    </option>
+                                                  <option *ngFor="let country2 of rows" value= {{country2.id}}>
+                                                    {{country2.name}}
+                                                  </option>
+                                                </select>
 
 
                                                  <div *ngIf="submitted && Code.errors" class="invalid-feedback">
@@ -173,18 +181,6 @@
 
 
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6" >
-                                    <button type="button" [@enterAnimation] *ngIf="savemode" (click) ="onSubmit()"   class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
-                                    <button type="button" [@enterAnimation] *ngIf="updatemode" (click) ="onSubmit4()"   class="btn btn-success"> <i class="fa fa-check"></i> Update</button>
-                                    <button type="button"  (click) ="onSubmit2()" class="btn btn-danger">Cancel</button>
-
-                                </div>
-
-
-
-                            </div>
 
 
 
@@ -195,7 +191,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                <button type="button" *ngIf="savemode" (click) ="onSubmit()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+                <button type="button" *ngIf="updatemode" (click) ="onSubmit11()"  class="btn btn-success"><i class="ti-save"></i> Update</button>
             </div>
         </form>
       </div>

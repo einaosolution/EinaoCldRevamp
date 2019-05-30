@@ -49,7 +49,35 @@
                           </div>
                       </div>
                   </div>
+                  <br/>
 
+                  <div class="table-responsive">
+                    <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Icon</th>
+                                <th>Url</th>
+                               <th>Parent Name </th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                              <tr *ngFor="let emp of row2  let i = index">
+                                  <td>{{emp.name}}</td>
+
+                                   <td>{{emp.icon}}</td>
+                                    <td>{{emp.url}}</td>
+                                    <td>{{emp.parentId}}</td>
+
+
+
+
+                                  </tr>
+                                </tbody>
+                    </table>
+                </div>
 
 
 
@@ -63,8 +91,9 @@
 </div>
 
 <!-- Create Modal -->
-<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+
+<div class="modal fade " id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
                <div class="card-body wizard-content">
                       <div class="modal-header">
@@ -73,56 +102,46 @@
                               <span aria-hidden="true">&times;</span>
                               </button>
                           </div>
-                          <form class="form-horizontal"  role="form" >
+
                             <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
 
-                                    <h2>Assign Role </h2>
-                                    <div [ngBusy]="busy"></div>
 
-                                    <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
-                                    <hr>
+
                                 </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-3 field-label-responsive d-flex justify-content-end">
-                                  <label for="email">Role</label>
-                              </div>
+
                               <div class="col-md-6">
+
                                   <div class="form-group">
-                                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <select   name="Identification" [(ngModel)]="CurrentRole"     class="custom-select form-control-lg"    id="Month">
-                                              <option  value= "">
-                                                --Select Role--
-                                                </option>
-                                              <option *ngFor="let country2 of rows" value= {{country2.roleId}}>
-                                                {{country2.title}}
-                                              </option>
-                                            </select>
+                                      <div [ngBusy]="busy"></div>
+
+                                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+                                      <label for="sel1">Role:</label>
+                                      <select class="form-control"    (change)="onChange($event.target.value)" id="sel1">
+                                          <option value="">---- --Select Role-----</option>
 
 
+                                          <option *ngFor="let country2 of rows" value= {{country2.roleId}}>
+                                            {{country2.title}}
+                                          </option>
+                                      </select>
+                                    </div>
 
-
-
-                                                 <div *ngIf="submitted && Code.errors" class="invalid-feedback">
-                                                  <div *ngIf="submitted && Code.errors.required">Code is required</div>
-
-                                                </div>
-
-                                      </div>
-                                  </div>
                               </div>
 
                           </div>
                             <div class="row">
                                 <div class="container">
 
+
+
                                 <accordion >
-                                    <accordion-group *ngFor="let group of row2" [heading]="group.name"  [isOpen]="isFirstOpen">
-                                      {{ group.id }}
+                                    <accordion-group *ngFor="let group of row2| filter2" [heading]="group.name"  [isOpen]="isFirstOpen">
 
                                       <table id="zero_config" class="table table-striped table-bordered">
 
@@ -137,8 +156,8 @@
                                       </thead>
                                       <tbody>
 
-                                        <tr *ngFor="let emp of row3 | filter :   group.id  let i = index">
-                                          <td> <input type="checkbox" [(ngModel)]="emp.selected" name="vcheckbox"  (change)="contactSelectionChange()"   /></td>
+                                        <tr *ngFor="let emp of row3| filter :   group.id     let i = index">
+                                          <td> <input type="checkbox"   ng-true-value=true ng-false-value=false   [(ngModel)]="emp.selected" name="vcheckbox"     /></td>
                                             <td>{{emp.name}}</td>
                                             <td>{{emp.icon}}</td>
                                             <td>{{emp.url}}</td>
@@ -178,29 +197,18 @@
 
 
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6" >
-                                    <button type="button"  (click) ="onSubmit()"   class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
 
 
 
-                                </div>
 
-
-
-                            </div>
-
-
-
-                        </form>
   </div>
           <form>
 
 
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="button"   (click) ="onSubmit()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <div [ngBusy]="busy"></div>
               </div>
           </form>
       </div>

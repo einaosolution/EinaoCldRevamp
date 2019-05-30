@@ -11,8 +11,8 @@ import {Router} from '@angular/router';
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
-serviceBase = 'http://localhost:5000/';
-// serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+//serviceBase = 'http://localhost:5000/';
+serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
   navchange: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient,private router: Router) { }
@@ -98,6 +98,56 @@ serviceBase = 'http://localhost:5000/';
 
     }
 
+    SaveDepartment(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/Department/SaveDepartment', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+    SaveProduct(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/Product/SaveProduct', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+    SaveTMApplicationStatus(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/TMApplicationStatus/SaveTMApplicationStatus', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
+      SavePTApplicationStatus(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+          return this.http.post( this.serviceBase + 'api/PTApplicationStatus/SavePTApplicationStatus', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
+
 
     SaveSector(formData) {
 
@@ -123,6 +173,21 @@ serviceBase = 'http://localhost:5000/';
                     .then(data => {  return data; });
 
       }
+
+
+      UpdateDepartment(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+          return this.http.post( this.serviceBase + 'api/Department/UpdateDepartment', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
+
 
 
 
@@ -207,6 +272,85 @@ serviceBase = 'http://localhost:5000/';
 
     }
 
+    UpdateProduct(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/Product/UpdateProduct', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
+    UpdateTMApplicationStatus(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/TMApplicationStatus/UpdateTMApplicationStatus', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+    UpdatePTApplicationStatus(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/PTApplicationStatus/UpdatePTApplicationStatus', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
+    UpdateSector(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/Sector/UpdateSector', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
+
+    UpdateMenu(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/Menu/UpdateMenu', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
+
+    EditRole(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/Role/EditRole', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
     UpdateEmailTemplate(formData) {
 
       var token = localStorage.getItem('access_tokenexpire');
@@ -255,7 +399,6 @@ serviceBase = 'http://localhost:5000/';
 
     }
 
-
     DeleteCountry(pp: string,pp2: string ) {
 
       var data = {
@@ -265,6 +408,181 @@ serviceBase = 'http://localhost:5000/';
       };
       return this.http
         .get(this.serviceBase + 'api/Country/DeleteCountry', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteDepartment(pp: string,pp2: string ) {
+
+      var data = {
+        ProductId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Department/DeleteDepartment', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteProduct(pp: string,pp2: string ) {
+
+      var data = {
+        ProductId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Product/DeleteProduct', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteFeeList(pp: string,pp2: string ) {
+
+      var data = {
+        FeeListId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/FeeList/DeleteFeeList', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteSector(pp: string,pp2: string ) {
+
+      var data = {
+        SectorId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Sector/DeleteSector', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    DeleteTMApplicationStatu(pp: string,pp2: string ) {
+
+      var data = {
+        TMApplicationStatusId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/TMApplicationStatus/DeleteTMApplicationStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    DeletePTApplicationStatus(pp: string,pp2: string ) {
+
+      var data = {
+        PTApplicationStatusId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PTApplicationStatus/DeletePTApplicationStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    DeleteRole(pp: string,pp2: string ) {
+
+      var data = {
+        RoleId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Role/DeleteRole', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    DeleteMenu(pp: string,pp2: string ) {
+
+      var data = {
+        MenuId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Menu/DeleteMenu', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteSetting(pp: string,pp2: string ) {
+
+      var data = {
+        SettingId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/SystemSetup/DeleteSetting', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    DeleteEmailTemplate(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        EmailName: pp ,
+        UserId: pp2,
+        EmailId:pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/EmailTemplate/DeleteEmailTemplate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+
+
+
+    GetRoleById(pp: string,pp2: string ) {
+
+      var data = {
+        RoleId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Role/GetRoleById', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -321,6 +639,20 @@ serviceBase = 'http://localhost:5000/';
     }
 
 
+    SaveFeeList(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/FeeList/SaveFeeList', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
+
 
   Register(formData) {
 
@@ -345,9 +677,12 @@ serviceBase = 'http://localhost:5000/';
 
 
   ChangePassword(formData) {
+  //  var token = localStorage.getItem('access_tokenexpire');
     var token = localStorage.getItem('access_tokenexpire');
-   // var headers = new Headers();
-  //  headers.append('Authorization', 'Bearer ' + token);
+
+
+
+
 
     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
 
@@ -366,6 +701,18 @@ serviceBase = 'http://localhost:5000/';
 
     //return this.http.post( this.serviceBase + 'api/UserManagement/UpdateIndividualRecord', formData)
     return this.http.post( this.serviceBase + 'api/UserManagement/UpdateUserInfo', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  UpdateFeeList(formData) {
+
+
+
+    //return this.http.post( this.serviceBase + 'api/UserManagement/UpdateIndividualRecord', formData)
+    return this.http.post( this.serviceBase + 'api/FeeList/UpdateFeeList', formData)
                 .toPromise()
 
                 .then(data => {  return data; });
@@ -416,6 +763,20 @@ serviceBase = 'http://localhost:5000/';
   }
 
 
+  all() {
+    var token = localStorage.getItem('access_tokenexpire');
+
+    const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+
+		return this.http
+			.get(this.serviceBase + 'api/audit/all',{headers})
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetCountry(pp : string,pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -426,6 +787,103 @@ serviceBase = 'http://localhost:5000/';
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Country/GetAllCountries', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllProduct(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Product/GetAllProduct', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetAllDepartment(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Department/GetAllDepartment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllSectors(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Sector/GetAllSectors', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllTMApplicationStatus(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/TMApplicationStatus/GetAllTMApplicationStatus', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllPTApplicationStatus(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      ActionBy:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PTApplicationStatus/GetAllPTApplicationStatus', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllFeeLists(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/FeeList/GetAllFeeLists', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -454,11 +912,12 @@ serviceBase = 'http://localhost:5000/';
 
      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
 		var data = {
-      ParentId:pp ,
-      RequestById:pp2
+
+      RequestById:pp2,
+      PatentId:pp
 		};
 		return this.http
-			.get(this.serviceBase + 'api/Menu/GetMenuParentId', { params: data,headers })
+			.get(this.serviceBase + 'api/Menu/GetAllParentMenus', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -466,16 +925,16 @@ serviceBase = 'http://localhost:5000/';
   }
 
 
-  GetMenuOthers(pp : string,pp2:string) {
+  GetMenuOthers(pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
 		var data = {
-      ParentId:pp ,
+
       RequestById:pp2
 		};
 		return this.http
-			.get(this.serviceBase + 'api/Menu/GetMenuOthers', { params: data,headers })
+			.get(this.serviceBase + 'api/Menu/GetAllMenus', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

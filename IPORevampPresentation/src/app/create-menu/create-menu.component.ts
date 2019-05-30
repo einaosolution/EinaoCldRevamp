@@ -1,4 +1,4 @@
-import { Component, OnInit , TemplateRef,ViewChild  } from '@angular/core';
+import { Component, OnInit , TemplateRef,ViewChild ,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -9,14 +9,20 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Subject } from 'rxjs';
+declare var $;
 
 @Component({
   selector: 'app-create-menu',
   templateUrl: './create-menu.component.html',
   styleUrls: ['./create-menu.component.css']
 })
-export class CreateMenuComponent implements OnInit {
+export class CreateMenuComponent implements OnInit ,OnDestroy {
   modalRef: BsModalRef;
+  dtOptions:any = {};
+
+  dtTrigger: Subject<any> = new Subject();
+  dataTable: any;
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
@@ -28,7 +34,12 @@ export class CreateMenuComponent implements OnInit {
   icon : FormControl;
   url : FormControl;
   parent : FormControl;
+  parent2 : FormControl;
   public rows = [];
+
+  public  row2 = [];
+  vshow:boolean=false;
+  varray4 = [{ YearName: 'Leaf', YearCode: 'Leaf' }, {  YearName: 'Parent', YearCode: 'Parent' }   ]
 
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
   close(emp,template) {
@@ -73,13 +84,36 @@ export class CreateMenuComponent implements OnInit {
 
   }
 
+  onChange($event) {
+    if (this.userform.value.parent2 =="Parent" ) {
+this.vshow = false;
+this.userform.value.parent="0";
 
+    }
+
+    else {
+      this.vshow = true;
+    }
+
+  }
   onSubmit() {
     this.submitted= true;
     var userid =parseInt( localStorage.getItem('UserId'));
+    var table = $('#myTable').DataTable();
 
 
     if (this.userform.valid) {
+
+      if (this.userform.value.parent2 =="" ) {
+
+        Swal.fire(
+         "Select Menu Type",
+          '',
+          'error'
+        )
+
+        return;
+      }
 
       this.spinner.show();
 
@@ -113,7 +147,13 @@ export class CreateMenuComponent implements OnInit {
        //  this.router.navigate(['/Emailverification']);
 
        this.userform.reset();
-       (<FormControl> this.userform.controls['parent']).setValue("0");
+       this.vshow = false;
+
+       $("#createmodel").modal('hide');
+
+       table.destroy();
+       this.getmenu();
+
 
 
         })
@@ -139,16 +179,30 @@ onSubmit4() {
   this.submitted= true;
 
   var userid =parseInt( localStorage.getItem('UserId'));
+  var table = $('#myTable').DataTable();
 
   if (this.userform.valid) {
+
+    if (this.userform.value.parent2 =="" ) {
+
+      Swal.fire(
+       "Select Menu Type",
+        '',
+        'error'
+      )
+
+      return;
+    }
 
     this.spinner.show();
 
     var kk = {
-      CountryCode:this.userform.value.Code ,
-      CountryName:this.userform.value.Description ,
-      CountryId:this.id ,
-      CreatedBy:userid
+      Name:this.userform.value.Code ,
+      Icon:this.userform.value.icon ,
+      Url:this.userform.value.url ,
+      ParentId:this.userform.value.parent ,
+      CreatedBy:userid ,
+      MenuId:this.id
 
 
 
@@ -156,11 +210,13 @@ onSubmit4() {
 
 
 
+
+
    // this.router.navigate(['/Emailverification']);
 
 
     this.registerapi
-      .SaveCountry(kk)
+      .UpdateMenu(kk)
       .then((response: any) => {
         this.spinner.hide();
 
@@ -171,6 +227,11 @@ onSubmit4() {
           'success'
         )
      //  this.router.navigate(['/Emailverification']);
+
+     $("#createmodel").modal('hide');
+
+     table.destroy();
+     this.getmenu();
 
      this.userform.reset();
 
@@ -207,8 +268,167 @@ onSubmit4() {
 
     (<FormControl> this.userform.controls['Description']).setValue(kk.name);
   }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+
+  showcountry(kk) {
+
+    this.savemode = false;
+    this.updatemode = true;
+    this.id = kk.id;
+
+    (<FormControl> this.userform.controls['Code']).setValue(kk.name);
+
+    (<FormControl> this.userform.controls['icon']).setValue(kk.icon);
+    (<FormControl> this.userform.controls['url']).setValue(kk.url);
+    (<FormControl> this.userform.controls['parent']).setValue(kk.parentId);
+    if(kk.parentId =="0") {
+      (<FormControl> this.userform.controls['parent2']).setValue("Parent");
+    }
+
+    else {
+      (<FormControl> this.userform.controls['parent2']).setValue("Leaf");
+    }
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
+  }
+
+
+  showcountry2() {
+
+    this.savemode = true;
+    this.updatemode = false;
+    this.vshow = false;
+
+
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    (<FormControl> this.userform.controls['icon']).setValue("");
+    (<FormControl> this.userform.controls['url']).setValue("");
+    (<FormControl> this.userform.controls['parent']).setValue("");
+    (<FormControl> this.userform.controls['parent2']).setValue("");
+    $("#createmodel").modal('show');
+    //document.getElementById("openModalButton").click();
+   // this.modalRef = this.modalService.show(ref );
+  }
+  onSubmit5(emp) {
+    var userid =localStorage.getItem('UserId');
+    var table = $('#myTable').DataTable();
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false,
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+
+          this.registerapi
+        .DeleteMenu(emp.id,userid)
+        .then((response: any) => {
+          this.spinner.hide();
+          console.log("Response")
+          this.rows = response.content;
+          console.log(response)
+          $("#createmodel").modal('hide');
+          Swal.fire(
+            'Record Deleted  Succesfully ',
+            '',
+            'success'
+          )
+
+          table.destroy();
+     this.getmenu();
+
+        })
+                 .catch((response: any) => {
+                  this.spinner.hide();
+                   console.log(response)
+
+
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
+
+    })
+      } else if (
+        // Read more about handling dismissals
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+
+      }
+    })
+  }
+
+  getmenu() {
+    var userid = localStorage.getItem('UserId');
+    this.busy =   this.registerapi
+.GetMenuOthers(userid)
+.then((response: any) => {
+
+
+
+  this.row2 = response.content;
+
+  this.dtTrigger.next();
+
+  console.log(response)
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
+  }
   ngOnInit() {
 
+
+  this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 10,
+    dom: 'Bfrtip',
+    // Configure the buttons
+    buttons: [
+
+      'colvis',
+      'copy',
+      'print',
+      'csv',
+      'excel',
+      'pdf'
+
+    ]
+
+  };
+    var userid = localStorage.getItem('UserId');
     this.Code = new FormControl('', [
       Validators.required
     ]);
@@ -230,6 +450,10 @@ onSubmit4() {
 
     ]);
 
+    this.parent2  = new FormControl('', [
+
+    ]);
+
 
 
 
@@ -240,6 +464,7 @@ onSubmit4() {
       icon: this.icon ,
       url: this.url ,
       parent: this.parent ,
+      parent2: this.parent2,
 
 
     });
@@ -250,6 +475,34 @@ onSubmit4() {
     this.registerapi.setPage("Security")
 
     this.registerapi.VChangeEvent("Security");
+
+
+
+    this.busy =   this.registerapi
+.GetMenuOthers(userid)
+.then((response: any) => {
+
+
+
+  this.row2 = response.content;
+  this.dtTrigger.next();
+  console.log(response)
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
 
 
 

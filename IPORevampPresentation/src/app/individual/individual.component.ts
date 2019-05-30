@@ -31,6 +31,8 @@ export class IndividualComponent implements OnInit {
   Country: FormControl;
   queryParam: string;
   submitted:boolean=false;
+  public row2 = [];
+  public row = [];
 
   varray4 = [{ YearName: 'Argentina', YearCode: 'AR' }, {  YearName: 'Austria', YearCode: 'AT' }  ,{  YearName: 'Cameroon', YearCode: 'CM' },{  YearName: 'China', YearCode: 'CN' } ,{  YearName: 'Nigeria', YearCode: 'NG' } ]
 
@@ -106,6 +108,7 @@ export class IndividualComponent implements OnInit {
    }
 
   ngOnInit() {
+    var userid = localStorage.getItem('UserId');
     var firstname = "";
     var lastname ="";
     var email = "";
@@ -200,6 +203,7 @@ export class IndividualComponent implements OnInit {
     });
 
     if ( email2) {
+
     this.registerapi
     .GetEmail2(email2)
     .then((response: any) => {
@@ -208,9 +212,58 @@ this.UserEmail = response.email;
 (<FormControl> this.userform.controls['FirstName']).setValue(response.firstName);
 (<FormControl> this.userform.controls['LastName']).setValue( response.lastName);
 
-
+userid  = response.id;
  console.log("response")
  console.log(response)
+
+
+ this.registerapi
+ .GetAllStates(userid)
+ .then((response: any) => {
+
+
+   this.row2 = response.content;
+
+   console.log(response)
+
+
+
+ })
+          .catch((response: any) => {
+
+            console.log(response)
+
+
+           Swal.fire(
+             response.error.message,
+             '',
+             'error'
+           )
+})
+
+this.registerapi
+.GetCountry("true",userid)
+.then((response: any) => {
+
+ console.log("Response2")
+ this.row = response.content;
+ console.log(response)
+
+
+
+})
+        .catch((response: any) => {
+
+          console.log(response)
+
+
+         Swal.fire(
+           response.error.message,
+           '',
+           'error'
+         )
+
+})
     })
              .catch((response: any) => {
                this.submitted= false;
@@ -220,7 +273,8 @@ this.UserEmail = response.email;
 
     }
 
-    if ( email) {
+    else if  ( email) {
+
       this.registerapi
       .GetEmail(email)
       .then((response: any) => {
@@ -229,9 +283,57 @@ this.UserEmail = response.email;
   (<FormControl> this.userform.controls['FirstName']).setValue(response.firstName);
   (<FormControl> this.userform.controls['LastName']).setValue( response.lastName);
 
-
+  userid  = response.id;
    console.log("response")
    console.log(response)
+
+   this.registerapi
+   .GetAllStates(userid)
+   .then((response: any) => {
+
+
+     this.row2 = response.content;
+
+     console.log(response)
+
+
+
+   })
+            .catch((response: any) => {
+
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+ })
+
+ this.registerapi
+ .GetCountry("true",userid)
+ .then((response: any) => {
+
+   console.log("Response2")
+   this.row = response.content;
+   console.log(response)
+
+
+
+ })
+          .catch((response: any) => {
+
+            console.log(response)
+
+
+           Swal.fire(
+             response.error.message,
+             '',
+             'error'
+           )
+
+ })
       })
                .catch((response: any) => {
                  this.submitted= false;
@@ -240,6 +342,9 @@ this.UserEmail = response.email;
        })
 
       }
+
+
+
 
 
   }

@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   menuclass:string ="";
   menuclass2:string ="Security";
   menuclass3:string ="Country";
+  row :any[]=[];
   profilepic;
   constructor(private registerapi :ApiClientService ) {
 
@@ -86,6 +87,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 this.profilepic=  localStorage.getItem('profilepic')
 this.loggedinemail=localStorage.getItem('username')
+try {
+var ppp2 = localStorage.getItem('Roles');
+this.row= JSON.parse(ppp2);
+console.log("roles")
+console.log(this.row)
+
+}
+catch(err) {
+
+}
 
 
 

@@ -25,6 +25,15 @@ import { SettingsComponent } from './settings/settings.component';
 import { CreateRoleComponent } from './create-role/create-role.component';
 import { CreateMenuComponent } from './create-menu/create-menu.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
+import { SectorComponent } from './sector/sector.component';
+import { FeeListComponent } from './fee-list/fee-list.component';
+
+import { AppStatusTmComponent } from './app-status-tm/app-status-tm.component';
+import { AppStatusPtComponent } from './app-status-pt/app-status-pt.component';
+import { AppStatusDsComponent } from './app-status-ds/app-status-ds.component';
+import { ProductComponent } from './product/product.component';
+import { DepartmentComponent } from './department/department.component';
+import { AuditComponent } from './audit/audit.component';
 
 
 
@@ -53,7 +62,22 @@ component:  CountryComponent
 } ,{
   path:  'State',
   component:  StateComponent
-  }
+  } ,{
+  path:  'Product',
+  component:  ProductComponent
+  } ,{
+    path:  'Audit',
+    component:  AuditComponent
+    } ,
+
+  {
+    path:  'Department',
+    component:  DepartmentComponent
+    } ,
+  {
+    path:  'FeeList',
+    component:  FeeListComponent
+    }
 
   ,{
     path:  'Lga',
@@ -70,12 +94,24 @@ component:  CountryComponent
       path:  'Role',
       component:  CreateRoleComponent
       },{
+        path:  'AppStatusTm',
+        component:  AppStatusTmComponent
+        } ,{
+          path:  'AppStatusPt',
+          component:  AppStatusPtComponent
+          },{
+            path:  'AppStatusDs',
+            component:  AppStatusDsComponent
+            },{
         path:  'Menu',
         component:  CreateMenuComponent
         } ,{
           path:  'AssignRole',
           component:  AssignRoleComponent
-          }] } ,
+          },{
+            path:  'Sector',
+            component:  SectorComponent
+            }] } ,
 { path: 'Corporate', component: CorporateComponent ,   data: { animation: 'tiger9' } } ,
 { path: 'Individual', component: IndividualComponent ,   data: { animation: 'tiger9' } } ,
   { path: '',   redirectTo: 'home', pathMatch: 'full' }

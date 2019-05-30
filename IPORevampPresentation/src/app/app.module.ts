@@ -44,8 +44,18 @@ import { CreateMenuComponent } from './create-menu/create-menu.component';
 import { AssignRoleComponent } from './assign-role/assign-role.component';
 import { AccordionModule } from 'ngx-bootstrap';
 import { FilterPipe } from './filter.pipe';
+import { FilterPipe2 } from './filter2.pipe';
 import { DataTablesModule } from 'angular-datatables';
 import { SectorComponent } from './sector/sector.component';
+import { SubMenuComponent } from './sub-menu/sub-menu.component';
+import { FeeListComponent } from './fee-list/fee-list.component';
+import { AppStatusTmComponent } from './app-status-tm/app-status-tm.component';
+import { AppStatusPtComponent } from './app-status-pt/app-status-pt.component';
+import { AppStatusDsComponent } from './app-status-ds/app-status-ds.component';
+import { ProductComponent } from './product/product.component';
+import { DepartmentComponent } from './department/department.component';
+import { AuditComponent } from './audit/audit.component';
+
 
 
 
@@ -56,6 +66,7 @@ import { SectorComponent } from './sector/sector.component';
   declarations: [
     AppComponent,
     FilterPipe,
+    FilterPipe2,
     RegisterComponent,
     LoginComponent,
     HomeComponent,
@@ -81,7 +92,15 @@ import { SectorComponent } from './sector/sector.component';
     CreateRoleComponent,
     CreateMenuComponent,
     AssignRoleComponent,
-    SectorComponent
+    SectorComponent,
+    SubMenuComponent,
+    FeeListComponent,
+    AppStatusTmComponent,
+    AppStatusPtComponent,
+    AppStatusDsComponent,
+    ProductComponent,
+    DepartmentComponent,
+    AuditComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +117,7 @@ import { SectorComponent } from './sector/sector.component';
     NgBusyModule,
     CalendarModule,
     FormsModule ,
+
 
 
     BrowserAnimationsModule

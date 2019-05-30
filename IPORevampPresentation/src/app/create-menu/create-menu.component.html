@@ -43,12 +43,47 @@
                       <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                       <div class="ml-auto">
                           <div class="btn-group">
-                              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#createmodel">
+                              <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showcountry2()">
                                 Create Menu
                               </button>
                           </div>
                       </div>
                   </div>
+
+                  <br/>
+
+                  <div class="table-responsive">
+                    <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Icon</th>
+                                <th>Url</th>
+                               <th>Parent Name</th>
+                               <th></th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                              <tr *ngFor="let emp of row2  let i = index">
+                                  <td>{{emp.name}}</td>
+
+                                   <td>{{emp.icon}}</td>
+                                    <td>{{emp.url}}</td>
+                                    <td>{{emp.parentId}}</td>
+
+                                    <td>
+                                      <button type="button" id="openModalButton" (click) ="showcountry(emp)"  class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                         <button type="button"  (click) ="onSubmit5(emp)"  class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
+
+
+                                 </td>
+
+                                  </tr>
+                                </tbody>
+                    </table>
+                </div>
 
 
 
@@ -157,25 +192,55 @@
                           </div>
 
 
-
                           <div class="row">
                             <div class="col-md-3 field-label-responsive d-flex justify-content-end">
-                                <label for="email">Parent </label>
+                                <label for="email">Menu Type </label>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                        <input disabled type="text" name="name"   formControlName="parent" [ngClass]="{ 'is-invalid': submitted && parent.errors }"     class="form-control" id="name"
-                                               placeholder="Parent" required autofocus>
-
-                                               <button type="button"     class="btn btn-success">  Select Parent</button>
 
 
-                                               <div *ngIf="submitted && parent.errors" class="invalid-feedback">
-                                                <div *ngIf="submitted && parent.errors.required">Parent is required</div>
+                                               <select   name="Identification"  formControlName="parent2"  (change)="onChange($event)"      class="custom-select form-control-lg"    id="Month">
+                                                <option  value= "">
+                                                  --Select Menu Type--
+                                                  </option>
+                                                <option *ngFor="let country2 of varray4" value= {{country2.YearCode}}>
+                                                  {{country2.YearName}}
+                                                </option>
+                                              </select>
 
-                                              </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                          <div class="row"   *ngIf="vshow">
+                            <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                                <label for="email">Select Parent </label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+
+                                      <select   name="Identification"  formControlName="parent"        class="custom-select form-control-lg"    id="Month">
+                                        <option  value= "">
+                                          --Select Parent--
+                                          </option>
+                                        <option *ngFor="let country2 of row2| filter2" value= {{country2.id}}>
+                                          {{country2.name}}
+                                        </option>
+                                      </select>
+
+
 
 
                                     </div>
@@ -206,18 +271,7 @@
 
 
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6" >
-                                    <button type="button" [@enterAnimation]  (click) ="onSubmit()"   class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
 
-                                    <button type="button"  (click) ="onSubmit2()" class="btn btn-danger">Cancel</button>
-
-                                </div>
-
-
-
-                            </div>
 
 
 
@@ -228,7 +282,8 @@
 
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="button" *ngIf="savemode" (click) ="onSubmit()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="button" *ngIf="updatemode" (click) ="onSubmit4()"  class="btn btn-success"><i class="ti-save"></i> Update</button>
               </div>
           </form>
       </div>

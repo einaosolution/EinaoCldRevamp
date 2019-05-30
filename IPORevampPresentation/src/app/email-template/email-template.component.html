@@ -43,21 +43,21 @@
                       <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                       <div class="ml-auto">
                           <div class="btn-group">
-                              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#createmodel">
+                              <button type="button" class="btn btn-dark" data-toggle="modal" (click) ="showcountry2()">
                               Create Email Template
                               </button>
                           </div>
                       </div>
                   </div>
-
+<br/>
 
 
                   <div class="table-responsive">
-                      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
                           <thead>
                               <tr>
                                   <th>Email Name</th>
-                                  <th>Email Sender</th>
+
                                   <th>Email Subject</th>
                                   <th>DateCreated</th>
                                  <th>Action </th>
@@ -69,7 +69,7 @@
                                 <tr *ngFor="let emp of row2   let i = index">
                                     <td>{{emp.emailName}}</td>
 
-                                     <td>{{emp.emailSender}}</td>
+
                                      <td>{{emp.emailSubject}}</td>
                                       <td>{{emp.dateCreated|date}}</td>
 
@@ -95,7 +95,7 @@
 
 <!-- Create Modal -->
 <div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
                <div class="card-body wizard-content">
                       <div class="modal-header">
@@ -109,12 +109,12 @@
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
 
-                                    <h2>Register New Email Template </h2>
+
                                     <div [ngBusy]="busy"></div>
 
 
                                     <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
-                                    <hr>
+
                                 </div>
                             </div>
 
@@ -149,13 +149,13 @@
                                   <div class="form-group">
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <input type="text" name="name"  formControlName="Subject" [ngClass]="{ 'is-invalid': submitted && Subject.errors }"   class="form-control" id="name"
+                                          <input  id="subject" type="text" name="name"  formControlName="Subject" [ngClass]="{ 'is-invalid': submitted && Subject.errors }"   class="form-control"
                                                  placeholder="Subject" required autofocus>
 
 
                                                  <div *ngIf="submitted && Subject.errors" class="invalid-feedback">
                                                   <div *ngIf="submitted && Subject.errors.required">Subject is required</div>
-
+                                                  <div *ngIf="submitted && Subject.hasError('whitespace')">Please enter valid data</div>
                                                 </div>
 
                                       </div>
@@ -164,29 +164,6 @@
 
                           </div>
 
-
-                          <div class="row">
-                              <div class="col-md-3 field-label-responsive d-flex justify-content-end">
-                                  <label for="email">Email Sender</label>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-
-                                          <input type="text" name="name"  formControlName="Sender" [ngClass]="{ 'is-invalid': submitted && Sender.errors }"   class="form-control" id="name"
-                                                 placeholder="Sender" required autofocus>
-
-
-                                                 <div *ngIf="submitted && Sender.errors" class="invalid-feedback">
-                                                  <div *ngIf="submitted && Sender.errors.required">Sender is required</div>
-
-                                                </div>
-
-                                      </div>
-                                  </div>
-                              </div>
-
-                          </div>
 
 
 
@@ -194,11 +171,11 @@
                             <div class="col-md-3 field-label-responsive d-flex justify-content-end">
                                 <label for="email">Editor</label>
                             </div>
-                            <div class="col-md-6"  >
+                            <div class="col-md-12"  >
                                 <div class="form-group">
-                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0"  >
+                                    <div class="input-group "  >
 
-                                      <app-ngx-editor   height="100px" formControlName="Template" minHeight="50px" [spellcheck]="true"   ></app-ngx-editor>
+                                      <app-ngx-editor   height="700px" [minWidth]="700" formControlName="Template" minHeight="50px" [spellcheck]="true"   ></app-ngx-editor>
                                     </div>
                                 </div>
                             </div>
@@ -220,18 +197,6 @@
 
 
 
-                            <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6" >
-                                    <button type="button" [@enterAnimation] *ngIf="savemode" (click) ="onSubmit()"   class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
-                                    <button type="button" [@enterAnimation] *ngIf="updatemode" (click) ="onSubmit4()"   class="btn btn-success"> <i class="fa fa-check"></i> Update</button>
-                                    <button type="button"  (click) ="onSubmit2()"    class="btn btn-danger">Cancel</button>
-
-                                </div>
-
-
-
-                            </div>
 
 
 
@@ -240,7 +205,8 @@
 
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="button" *ngIf="savemode" (click) ="onSubmit()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="button" *ngIf="updatemode" (click) ="onSubmit4()"  class="btn btn-success"><i class="ti-save"></i> Update</button>
               </div>
           </form>
       </div>
