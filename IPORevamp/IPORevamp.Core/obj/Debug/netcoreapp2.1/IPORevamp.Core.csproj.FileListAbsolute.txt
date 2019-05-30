@@ -37,3 +37,4 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Cor
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.pdb
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csprojAssemblyReference.cache

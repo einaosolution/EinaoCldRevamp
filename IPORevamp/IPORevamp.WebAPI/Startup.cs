@@ -193,8 +193,6 @@ namespace IPORevamp.WebAPI
             });
 
 
-
-            //services.AddTransient<IEmailManager<EmailLog, EmailTemplate>, EmailManager<EmailLog, EmailTemplate>>();
             services.AddMvc(options =>
             {
                 //options.Filters.Add<ApiExceptionFilter>();

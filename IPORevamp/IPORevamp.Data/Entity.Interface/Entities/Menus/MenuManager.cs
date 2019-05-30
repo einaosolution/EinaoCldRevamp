@@ -11,7 +11,7 @@ namespace IPORevamp.Data.Entities.Menus
     {
         public MenuManager()
         {
-            LinkRolesMenus = new HashSet<LinkRolesMenus>();
+          //  LinkRolesMenus = new HashSet<LinkRolesMenus>();
         }
 
         public int Id { get; set; }

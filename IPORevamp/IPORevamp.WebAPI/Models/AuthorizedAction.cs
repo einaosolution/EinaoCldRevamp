@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IPORevamp.WebAPI.Models
@@ -23,9 +22,7 @@ namespace IPORevamp.WebAPI.Models
         {
             base.OnActionExecuting(filterContext);
 
-            var claims = ClaimsPrincipal.Current.Claims;
-
-
+            
             if (filterContext.HttpContext.Session.GetString("email") == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
