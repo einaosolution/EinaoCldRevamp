@@ -46,8 +46,11 @@ namespace IPORevamp.Repository.LGA
         public async Task<List<Data.Entities.LGAs.LGA>> GetLGAs()
         {
 
-            var entities = await _lgarepository.GetAllListAsync();
-           
+           // var entities = await _lgarepository.GetAllListAsync();
+            var entities = await _lgarepository.GetAll().Include(a => a.State).ToListAsync();
+
+         
+
 
             return entities;
 

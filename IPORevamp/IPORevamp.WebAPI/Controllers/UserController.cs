@@ -110,6 +110,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             var user = _userManager.Users.FirstOrDefault(x => x.Email == convertString);
 
+         
             return Ok(user);
 
 
@@ -126,7 +127,140 @@ namespace IPORevamp.WebAPI.Controllers
 
 
         }
+
+        [HttpGet("GetUser")]
+        public async Task<IActionResult> GetUser()
+        {
+
+
+            var user = _userManager.Users.Where(x => x.IsDeleted != true).ToList();
+
+            return Ok(user);
+
+
+        }
+
+
+
+        [HttpGet("GetAllTempUser")]
+        public async Task<IActionResult> GetAllTempUser()
+        {
+        var tempuser =    _userProfilingRepository.GetAll();
+
+          
+
+            return Ok(tempuser);
+
+
+        }
+
+
+
+        [HttpPost("AssignUser")]
        
+        public async Task<IActionResult> AssignUser([FromForm] string UserId,
+            [FromForm] string RoleId , [FromForm] string RequestedBy)
+        {
+            var user = await _userManager.FindByIdAsync(UserId); ;
+            var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.OK,"User Does not  Exist", true, null); ;
+            }
+
+            user.RolesId = Convert.ToInt32(RoleId);
+          
+            await _userManager.UpdateAsync(user);
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"Assign Role   for  {user.FirstName + ' ' + user.LastName} by  { user2.FirstName + " " + user2.LastName} ",
+                Entity = "User",
+                UserId = 0,
+                UserName = user.Email,
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+
+        }
+
+
+        [HttpPost("UpdateUser")]
+
+        public async Task<IActionResult> UpdateUser([FromForm] string UserId,
+      [FromForm] string RoleId, [FromForm] string RequestedBy , [FromForm] string Firstname, [FromForm] string Lastname, [FromForm] string PhoneNumber, [FromForm] string Occupation)
+        {
+            var user = await _userManager.FindByIdAsync(UserId); ;
+            var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.OK, "User Does not  Exist", true, null); ;
+            }
+
+            user.RolesId = Convert.ToInt32(RoleId);
+            user.FirstName = Firstname;
+            user.LastName = Lastname;
+            user.PhoneNumber = PhoneNumber;
+            user.Occupation = Occupation;
+
+            await _userManager.UpdateAsync(user);
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Update    for  {user.FirstName + ' ' + user.LastName} by  { user2.FirstName + " " + user2.LastName} ",
+                Entity = "User",
+                UserId = 0,
+                UserName = user.Email,
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+
+        }
+
+
+
+        [HttpGet("DeleteUser")]
+
+        public async Task<IActionResult> DeleteUser([FromQuery] string UserId,
+            [FromQuery] string RequestedBy)
+        {
+            var user = await _userManager.FindByIdAsync(UserId); ;
+            var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
+            var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(user.Email);
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.OK, "User Does not  Exist", true, null); ;
+            }
+
+            user.IsDeleted = true;
+
+            await _userManager.UpdateAsync(user);
+
+            if (ExistingAccount != null)
+            {
+                ExistingAccount.IsDeleted = true;
+                ExistingAccount.IsActive = false;
+                _userProfilingRepository.SavingUserProfile(ExistingAccount);
+            }
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"Delete User   {user.FirstName + ' ' + user.LastName} by  { user2.FirstName + " " + user2.LastName} ",
+                Entity = "User",
+                UserId = 0,
+                UserName = user.Email,
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Delete  Successful", false);
+
+        }
+
 
         // This method is used for verification of account updating aspnetuser table
         [HttpPost("UpdateUserInfo")]
@@ -296,10 +430,14 @@ namespace IPORevamp.WebAPI.Controllers
             if (ModelState.IsValid)
             {
                 var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Email);
+              
+                await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 var username = user.FirstName + ' ' + user.LastName;
                 user.ChangePassword = true;
+                user.ChangePasswordFirstLogin = true;
+                user.LastPasswordChangDate = DateTime.Now;
+                
                 await _userManager.UpdateAsync(user);
-                await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 try
                 {
                     await _auditTrailManager.AddAuditTrail(new AuditTrail
@@ -781,10 +919,283 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.PreconditionFailed, "Email Templates have not been setup", true, null);
         }
 
+
+        [HttpGet("ApproveUser")]
+        public async Task<IActionResult> ApproveUser([FromQuery] String Email , [FromQuery] String Roleid, [FromQuery] String RequestedBy)
+        {
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id ==Convert.ToInt32(RequestedBy));
+
+            EmailTemplate emailtemplate;
+            emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Account_Creation);
+
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(Email);
+
+
+
+            var user2 = new ApplicationUser
+            {
+                UserName = ExistingAccount.Email,
+                Email = ExistingAccount.Email,
+                FirstName = ExistingAccount.First_Name,
+                LastName = ExistingAccount.Last_Name,
+                MobileNumber = ExistingAccount.MobileNumber,
+                Gender = ExistingAccount.Gender == "Male" ? Gender.Male : Gender.Female,
+                CategoryId = Convert.ToInt32(ExistingAccount.Unit),
+                City = ExistingAccount.City,
+                State = ExistingAccount.State,
+                PostalCode = ExistingAccount.Postal,
+                CountryCode = ExistingAccount.Country,
+                RolesId = Convert.ToInt32(Roleid),
+                EmailConfirmed = true,
+                IsActive = true,
+                IsDeleted =false
+
+
+            };
+            string password = IPORevamp.Core.Utilities.Utilities.GenerateRandomPassword();
+
+
+            var userCreated = await _userManager.CreateAsync(user2, password);
+            List<IPORevamp.Data.Entities.Setting.Setting> Setting = null;
+            String Department = "";
+            if (userCreated.Succeeded)
+            {
+               
+              
+
+               
+
+                ExistingAccount.Status = "Approve";
+                _userProfilingRepository.SavingUserProfile(ExistingAccount);
+
+
+
+                string mailContent = emailtemplate.EmailBody;
+                string fullname = ExistingAccount.First_Name + " " + ExistingAccount.Last_Name;
+                mailContent = mailContent.Replace("#Name", fullname);
+                mailContent = mailContent.Replace(" #Username", ExistingAccount.Email);
+                mailContent = mailContent.Replace("#Password", password);
+               
+                //  mailContent = mailContent.Replace("#Password", password);
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+
+
+                await _emailsender.SendEmailAsync(ExistingAccount.Email, emailtemplate.EmailSubject, mailContent);
+
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"Create Admin User    {ExistingAccount.Email} ",
+                    Entity = "User",
+                    UserId = 0,
+                    UserName = ExistingAccount.Email,
+                });
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully, a mail has been sent to your email address to validate your email address", false);
+            }
+
+            else
+            {
+                return PrepareResponse(HttpStatusCode.PreconditionFailed, "Error", false);
+
+            }
+
+
+
+        }
+
+
+        [HttpGet("RejectUser")]
+        public async Task<IActionResult> RejectUser([FromQuery] String Email, [FromQuery] String RequestedBy)
+        {
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(RequestedBy));
+
+            EmailTemplate emailtemplate;
+            emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Account_Creation);
+
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(Email);
+
+            ExistingAccount.Status = "Reject";
+            ExistingAccount.IsActive = false;
+            ExistingAccount.IsDeleted = true;
+
+            _userProfilingRepository.SavingUserProfile(ExistingAccount);
+
+
+          
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully, a mail has been sent to your email address to validate your email address", false);
+          
+
+        }
+
+
+        [HttpPost("signup2")]
+        public async Task<IActionResult> Register2(RegisterViewModel model)
+        {
+            //    var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
+            EmailTemplate emailtemplate;
+            emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Send_Registra_Mail);
+            String Department = "";
+            if (emailtemplate != null)
+            {
+
+                var user = _userManager.Users.Where(x => x.RolesId == 8).ToList();
+             if (user.Count() ==0 )
+                {
+                    return PrepareResponse(HttpStatusCode.PreconditionFailed, "No user with registra role found", true, null);
+                }
+
+                //var user = new ApplicationUser
+                //{
+                //    UserName = model.Username,
+                //    Email = model.Email,
+                //    FirstName = model.Firstname,
+                //    LastName = model.Lastname ,
+                //    MobileNumber = model.MobileNumber  ,
+                //    Gender = model.Gender ,
+                //   CategoryId= Convert.ToInt32(model.Unit) ,
+                //   City = model.City ,
+                //   State = model.State,
+                //   PostalCode = model.Postal,
+                //   CountryCode = model.Country,
+                //   IsActive = false
+
+
+                //};
+                //string password = IPORevamp.Core.Utilities.Utilities.GenerateRandomPassword();
+
+
+                //var userCreated = await _userManager.CreateAsync(user, password);
+                //  if (userCreated.Succeeded)
+                //  {
+
+
+                UserVerificationTemp userVerification = new UserVerificationTemp();
+                    userVerification.First_Name = model.Firstname;
+                    userVerification.Last_Name = model.Lastname;
+                    userVerification.Email = model.Email;
+                    userVerification.CategoryId = Convert.ToInt32(model.Unit);
+                    userVerification.City = model.City;
+                    userVerification.Country = model.Country;
+                    userVerification.State = model.State;
+                    userVerification.Street = model.Street;
+                    userVerification.Gender =Convert.ToString(model.Gender);
+                    userVerification.MobileNumber = model.MobileNumber;
+                    userVerification.Unit = model.Unit;
+                    userVerification.Status = "Pending";
+                    userVerification.expired = false;
+                    userVerification.ExpiringDate = null;
+                  //  userVerification.auth = password;
+                    userVerification.DateCreated = DateTime.Now;
+                    userVerification.IsActive = true;
+
+
+                    await _userProfilingRepository.SavingUserProfile(userVerification);
+                List<IPORevamp.Data.Entities.Setting.Setting> Setting = null;
+                List<IPORevamp.Data.Entities.Setting.Setting> Setting2 = null;
+                if (model.Unit == "3")
+                {
+                  //  Setting = await _settings.GetSettingByCode("TrademarkRegistraEmail");
+                  //  Setting2 = await _settings.GetSettingByCode("TrademarkRegistraName");
+                    Department = "Trademark";
+                }
+
+                else if(model.Unit == "4")
+                {
+                  //  Setting = await _settings.GetSettingByCode("PatentRegistraEmail");
+                   // Setting2 = await _settings.GetSettingByCode("PatentRegistraName");
+                    Department = "Patent";
+                }
+
+                else if (model.Unit == "5")
+                {
+                  //  Setting = await _settings.GetSettingByCode("DesignRegistraEmail");
+                  //  Setting2 = await _settings.GetSettingByCode("DesignRegistraName");
+                    Department = "Design";
+                }
+
+
+        
+
+
+                foreach (var users in user)
+                {
+                    var vname = users.FirstName + " " + users.LastName;
+
+                    string mailContent = emailtemplate.EmailBody;
+                    mailContent = mailContent.Replace("#firstname", model.Firstname);
+                    mailContent = mailContent.Replace("#lastname", model.Lastname);
+                    mailContent = mailContent.Replace("#Email", model.Username);
+                    mailContent = mailContent.Replace("#Department", Department);
+                   // mailContent = mailContent.Replace("#Registrar", Setting2[0].ItemValue);
+                    mailContent = mailContent.Replace("#Registrar", vname);
+                    //  mailContent = mailContent.Replace("#Password", password);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+
+
+                   // await _emailsender.SendEmailAsync(Setting[0].ItemValue, emailtemplate.EmailSubject, mailContent);
+                    await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+                }
+
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"Create Admin User    {model.Username} ",
+                        Entity = "User",
+                        UserId = 0,
+                        UserName = model.Username,
+                    });
+
+              
+
+                  //  var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(model.Email);
+
+                //  if (ExistingAccount != null)
+                //  {
+                //    return PrepareResponse(HttpStatusCode.Found, "Existing Email Record Found", false);
+
+                //  }
+                // await _userManager.AddToRoleAsync(user, "USERS");
+                return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully, a mail has been sent to your email address to validate your email address", false);
+        
+
+            }
+            return PrepareResponse(HttpStatusCode.PreconditionFailed, "Email Templates have not been setup", true, null);
+        }
+
+
         [HttpPost("resendConfirmMail")]
         public async Task<IActionResult> ResendCOnfirmationMail(ForgotPassswordRequest forgot)
         {
             var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.ResendCOnfirmationLink).FirstOrDefault(x => x.IsActive);
+    
             if (emailtemplate != null)
             {
                 var user = _userManager.Users.FirstOrDefault(x => x.Email == forgot.Username || x.UserName == forgot.Username);
@@ -1061,6 +1472,10 @@ namespace IPORevamp.WebAPI.Controllers
 
                     if (user != null)
                     {
+                        if (user.IsActive == false || user.IsDeleted == true)
+                        {
+                            return PrepareResponse(HttpStatusCode.Unauthorized, "Your account is not Active.", true);
+                        }
 
                         if (user.EmailConfirmed == false)
                         {

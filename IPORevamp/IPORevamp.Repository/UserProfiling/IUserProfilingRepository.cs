@@ -18,6 +18,7 @@ namespace IPORevamp.Repository.UserProfiling
         Task<UserVerificationTemp> SavingUserProfile(UserVerificationTemp userverificationTemp);
         Task<UserVerificationTemp> EmailConfirmation(string Code);
         Task<UserVerificationTemp> ValidateVerificationEmail(string email);
+        List<UserVerificationTemp> GetAll();
 
     }
 }

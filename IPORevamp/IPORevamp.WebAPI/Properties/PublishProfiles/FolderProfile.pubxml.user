@@ -8,4 +8,393 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\publish\EinaoCldRevamp2</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Autofac.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Autofac.Extensions.DependencyInjection.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="AutoMapper.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="AutoMapper.Extensions.Microsoft.DependencyInjection.dll">
+      <publishTime>05/23/2019 10:47:23</publishTime>
+    </File>
+    <File Include="Dapper.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="dotnet-aspnet-codegenerator-design.dll">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="ElmahCore.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="ElmahCore.Mvc.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="EmailEngine.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="EmailEngine.pdb">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="es/Hangfire.Core.resources.dll">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Hangfire.AspNetCore.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Hangfire.Core.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Hangfire.SqlServer.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.AspNetCore.Authentication.AzureADB2C.UI.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.AspNetCore.Authentication.AzureADB2C.UI.Views.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Abstractions.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.Relational.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.EntityFrameworkCore.SqlServer.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.PlatformAbstractions.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Microsoft.Win32.SystemEvents.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="NuGet.Frameworks.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Remotion.Linq.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="runtimes/unix/lib/netcoreapp2.0/System.Drawing.Common.dll">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.Swagger.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerGen.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerUI.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Composition.AttributedModel.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Composition.Convention.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Composition.Hosting.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Composition.Runtime.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Composition.TypedParts.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Drawing.Common.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.Interactive.Async.dll">
+      <publishTime>05/23/2019 10:47:24</publishTime>
+    </File>
+    <File Include="System.ServiceModel.dll">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="VATEEP.Core.dll">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="VATEEP.Core.pdb">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="VATEEP.Data.dll">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="VATEEP.Data.pdb">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="VATEEP.Repository.dll">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="VATEEP.Repository.pdb">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.deps.json">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.dll">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.pdb">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.runtimeconfig.json">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.Views.dll">
+      <publishTime>05/23/2019 10:47:25</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.Views.pdb">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="Vateep.WebAPI.xml">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="wwwroot/.DS_Store">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="wwwroot/._.DS_Store">
+      <publishTime>05/23/2019 10:47:26</publishTime>
+    </File>
+    <File Include="wwwroot/._favicon.ico">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.min.css">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/dist/app.css">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/dist/app.js">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/dist/logo.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/dist/overrides.css">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/dist/vendor.js">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/background.jpg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner1.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner2.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner3.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/event.jpg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/event2.jpg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/evt.jpg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/evt2.jpg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/group.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/loading.gif">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/network.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/Vateep_Logo.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/images/Vateep_Logo_wh.svg">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.js">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.min.js">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/.bower.json">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css.map">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css.map">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/npm.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/LICENSE">
+      <publishTime>05/23/2019 10:47:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/.bower.json">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/.bower.json">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/.bower.json">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/LICENSE.txt">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/toastr/toastr.css">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/toastr/toastr.js.map">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/toastr/toastr.min.css">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="wwwroot/lib/toastr/toastr.min.js">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="zh-TW/Hangfire.Core.resources.dll">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+    <File Include="zh/Hangfire.Core.resources.dll">
+      <publishTime>05/23/2019 10:47:28</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

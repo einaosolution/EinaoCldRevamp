@@ -861,7 +861,11 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
+                    b.Property<string>("City");
+
                     b.Property<DateTime?>("ConfirmationDate");
+
+                    b.Property<string>("Country");
 
                     b.Property<string>("CreatedBy");
 
@@ -875,6 +879,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("First_Name");
 
+                    b.Property<string>("Gender");
+
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
@@ -883,7 +889,19 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("Last_Name");
 
+                    b.Property<string>("MobileNumber");
+
+                    b.Property<string>("Postal");
+
                     b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("Street");
+
+                    b.Property<string>("Unit");
 
                     b.Property<string>("UpdatedBy");
 
@@ -978,6 +996,8 @@ namespace IPORevamp.Data.Migrations
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LastName");
+
+                    b.Property<DateTime?>("LastPasswordChangDate");
 
                     b.Property<DateTime?>("LastUpdateDate");
 

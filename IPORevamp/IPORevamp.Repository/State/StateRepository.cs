@@ -72,8 +72,9 @@ namespace IPORevamp.Repository.state
 
             List<State> entity = new List<State>();
 
-            entity = await _staterepository.GetAllListAsync();
-           
+          //  entity = await _staterepository.GetAllListAsync();
+            entity = await _staterepository.GetAll().Include(a => a.Country).ToListAsync(); ;
+
 
             return entity;
 

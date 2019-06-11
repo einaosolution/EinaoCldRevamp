@@ -73,16 +73,28 @@ namespace IPORevamp.WebAPI.Models
         [Display(Name = "Username")]
         public string Username{ get; set; }
 
+        public string Firstname { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string MobileNumber { get; set; }
+        public IPORevamp.Data.UserManagement.Model.Gender  Gender { get; set; }
+        public string Unit { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+
+        public string Postal { get; set; }
+        public string Country { get; set; }
+
         [Required(ErrorMessage = "Email address field is required")]
         [DataType(DataType.EmailAddress,ErrorMessage ="Please provide a valid Email address")]
         [Display(Name = "Email")]
         public string Email{ get; set; }
 
-        [Required(ErrorMessage = "Password field is required")]
+      
         public string Password { get; set; }
-
-        [Required]
-        [Compare("Password",ErrorMessage = "Confirm password not the same as password")]        
+       
         public string ConfirmPassword{ get; set; }
 
         public bool UpdateIPORevampProfile { get; set; }        

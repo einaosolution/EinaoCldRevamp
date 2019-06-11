@@ -214,8 +214,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetAllDSApplicationStatus")]
-        public async Task<IActionResult> GetAllDSApplicationStatus( string ActionBy)
+        [HttpGet("GetAllDSApplicationStatus")]
+        public async Task<IActionResult> GetAllDSApplicationStatus([FromQuery] string ActionBy)
         {
             try
             {
@@ -323,7 +323,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("UpdateDSApplicationStatus/{DSApplicationStatus}")]
+        [HttpPost("UpdateDSApplicationStatus")]
         public async Task<IActionResult> UpdateDSApplicationStatus(DSApplicationStatusViewModel DSApplicationStatusViewModel)
         {
 			try
@@ -384,8 +384,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("DeleteDSApplicationStatus/{DSApplicationStatusId}/{UserId}")]
-        public async Task<IActionResult> DeleteDSApplicationStatus(int DSApplicationStatusId, int UserId)
+        [HttpGet("DeleteDSApplicationStatus")]
+        public async Task<IActionResult> DeleteDSApplicationStatus([FromQuery]string  DSApplicationStatusId, [FromQuery] string  UserId)
         {
             try
             {
@@ -396,7 +396,7 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
                 // Check if DSApplicationStatus Exist 
-                var record = await _dsApplicationStatusRepository.GetDSApplicationStatusById(DSApplicationStatusId);
+                var record = await _dsApplicationStatusRepository.GetDSApplicationStatusById(Convert.ToInt32(DSApplicationStatusId));
 
                 if (record == null)
                 {
@@ -408,7 +408,7 @@ namespace IPORevamp.WebAPI.Controllers
                 record.IsDeleted = true;
                 record.DeletedBy = UserId.ToString();
                 record.LastUpdateDate = DateTime.Now;
-                record.Id = DSApplicationStatusId;
+                record.Id = Convert.ToInt32(DSApplicationStatusId);
 
 
                 var delete = await _dsApplicationStatusRepository.DeleteDSApplicationStatus(record);

@@ -58,6 +58,7 @@ namespace IPORevamp.Data.UserManagement.Model
         public string CreatedBy { get; set; }
         public string DeletedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public DateTime? LastPasswordChangDate { get; set; }
 
         public int CategoryId { get; set; }
         public bool ChangePasswordFirstLogin { get; set; }

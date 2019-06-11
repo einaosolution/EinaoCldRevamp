@@ -7,10 +7,10 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\bin\Release\netcoreapp2.1\IPORe
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\bin\Release\netcoreapp2.1\IPORevamp.Data.pdb
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\bin\Release\netcoreapp2.1\EmailEngine.pdb
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\bin\Release\netcoreapp2.1\IPORevamp.Core.pdb
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.csprojAssemblyReference.cache
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.csproj.CoreCompileInputs.cache
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.AssemblyInfoInputs.cache
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.AssemblyInfo.cs
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.pdb
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\obj\Release\netcoreapp2.1\IPORevamp.Repository.csprojAssemblyReference.cache
