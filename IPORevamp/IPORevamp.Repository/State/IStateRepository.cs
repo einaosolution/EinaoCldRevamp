@@ -20,6 +20,7 @@ namespace IPORevamp.Repository.state
 
         Task<IPORevamp.Data.Entities.State> SaveState(IPORevamp.Data.Entities.State state);
         Task<IPORevamp.Data.Entities.State> GetStateById(int StateId, bool IncludeStates);
+        Task<List<Data.Entities.State>> GetStateByCountryId(int CountryId);
         Task<IPORevamp.Data.Entities.State> GetStateByName(string StateName, bool IncludeLGA);
         Task<List<IPORevamp.Data.Entities.State>> GetStates();
         Task<IPORevamp.Data.Entities.State> CheckExistingState(string StateName);

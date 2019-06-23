@@ -31,9 +31,21 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) {
 
-
+this.getIpAddress();
 
    }
+
+
+   getIpAddress() {
+
+    $.getJSON('https://api.ipify.org?format=json', function(data){
+      console.log("ip");
+      localStorage.setItem('ip',data.ip );
+
+
+      console.log(data);
+  });
+}
 
 
   onSubmit() {
@@ -65,10 +77,9 @@ export class LoginComponent implements OnInit {
 
      console.log(response.content)
      if (response.content.category =="1" && !response.content.registrationcomplete ) {
-      localStorage.setItem('username', this.userform.value.Email);
-      localStorage.setItem('loggeduser', response.content.loggeduser);
-      localStorage.setItem('UserId', response.content.userId);
-      localStorage.setItem('profilepic', response.content.profilepic);
+      localStorage.setItem('username2', this.userform.value.Email);
+      localStorage.setItem('ChangePassword', "False");
+
 
       this.registerapi.settoken("");
      // localStorage.setItem('access_tokenexpire', response.content.Token);
@@ -81,10 +92,8 @@ export class LoginComponent implements OnInit {
 
 
      if (response.content.category =="2" && !response.content.registrationcomplete ) {
-      localStorage.setItem('username', this.userform.value.Email);
-      localStorage.setItem('loggeduser', response.content.loggeduser);
-      localStorage.setItem('UserId', response.content.userId);
-      localStorage.setItem('profilepic', response.content.profilepic);
+      localStorage.setItem('username2', this.userform.value.Email);
+      localStorage.setItem('ChangePassword', "False");
 
       this.registerapi.settoken("");
      // localStorage.setItem('access_tokenexpire', response.content.Token);
@@ -113,7 +122,10 @@ export class LoginComponent implements OnInit {
 
     else {
       localStorage.setItem('profilepic', response.content.profilepic);
+
     }
+
+    localStorage.setItem('ChangePassword', "False");
       this.router.navigateByUrl('/PasswordChange');
       return ;
     }
@@ -135,7 +147,8 @@ export class LoginComponent implements OnInit {
 
 
     this.registerapi.settoken(response.content.token) ;
-
+    localStorage.setItem('ChangePassword', "True");
+    localStorage.setItem('lastpasswordchange', response.content.lastpasswordchange);
 
 console.log(response)
 
@@ -224,6 +237,18 @@ console.log(response)
 
     $("#loginform").slideUp();
     $("#recoverform").fadeIn();
+
+
+  }
+
+
+  onSubmit2a() {
+
+
+
+    $("#recoverform").slideUp();
+    $("#loginform").fadeIn();
+
 
 
   }

@@ -173,6 +173,45 @@ this.userform.value.parent="0";
 
 }
 
+valuechange(een ) {
+  //  alert(this.userform.value.email);
+   // this.userform.value.email ="aa@ya.com";
+   let obj = this.row2.find(o => o.name.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+   if (obj) {
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    Swal.fire(
+      "Name Already Exist",
+      '',
+      'error'
+    )
+   }
+
+
+
+
+  }
+
+
+
+getMenuName(roleid) {
+  var vrole = "";
+  //this.row2
+
+  for (var i=0; i<this.row2.length; i++){
+    if (this.row2[i].id ==roleid)  {
+      vrole =this.row2[i].name
+
+
+    }
+
+  }
+
+
+  return vrole
+}
+
 
 
 onSubmit4() {
@@ -409,7 +448,16 @@ onSubmit4() {
 })
   }
   ngOnInit() {
+    if (this.registerapi.checkAccess("#/Dashboard/Menu"))  {
 
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
 
   this.dtOptions = {
     pagingType: 'full_numbers',

@@ -53,13 +53,15 @@ namespace NACC.Web.Controllers
         public async Task<IActionResult> All()
         {
             var all = await _auditTrailManager.GetAuditTrails();
-            var allvm=_mapper.Map<List<AuditVm>>(all);
-            
-            if(allvm.Count > 0)
-            {
-                return PrepareResponse(HttpStatusCode.OK, "Records Found", false, allvm);
-            }
-            return PrepareResponse(HttpStatusCode.NotFound, "No records Found", true, null);
+
+            return PrepareResponse(HttpStatusCode.OK, "Records Found", false, all);
+            // var allvm=_mapper.Map<List<AuditVm>>(all);
+
+          //  if (all.Count > 0)
+           // {
+             //   return PrepareResponse(HttpStatusCode.OK, "Records Found", false, all);
+           // }
+           /// return PrepareResponse(HttpStatusCode.NotFound, "No records Found", true, null);
         }
     }
 }

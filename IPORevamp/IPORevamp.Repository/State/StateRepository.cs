@@ -65,6 +65,19 @@ namespace IPORevamp.Repository.state
         }
 
 
+        public async Task<List<Data.Entities.State>> GetStateByCountryId(int CountryId)
+        {
+
+            List<Data.Entities.State> entity = new List<Data.Entities.State>();
+    
+          
+                entity = _staterepository.GetAll().Where(s => s.CountryId == CountryId).ToList();
+            
+
+            return entity;
+        }
+
+
         // Get All States 
         public async Task<List<Data.Entities.State>> GetStates()
         {

@@ -38,6 +38,7 @@ using IPORevamp.Repository.TMApplicationStatus;
 using IPORevamp.Core.Utilities;
 
 using IPORevamp.Data.Entity.Interface.Entities.TMApplicationStatus;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -215,6 +216,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
 
                 if (user == null)
@@ -240,6 +244,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllTMApplicationStatus",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip 
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "TMApplicationStatus Returned Successfully", false, TMApplicationStatus);
@@ -266,6 +271,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(TMApplicationStatusViewModel.CreatedBy.ToString()); ;
 
                 if (user == null)
@@ -288,13 +296,14 @@ namespace IPORevamp.WebAPI.Controllers
                 content.CreatedBy = TMApplicationStatusViewModel.CreatedBy.ToString();
                 content.IsActive = true;
                 content.IsDeleted = false;
-                content.RoleId = 1;
+                content.RoleId = TMApplicationStatusViewModel.RoleId;
 
 
                 var save = await _tmApplicationStatusRepository.SaveTMApplicationStatus(content);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(TMApplicationStatusViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(TMApplicationStatusViewModel.CreatedBy.ToString());
 
 
                 // Added A New TMApplicationStatus 
@@ -306,6 +315,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "TMApplicationStatusAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -324,6 +335,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(TMApplicationStatusViewModel.CreatedBy.ToString()); ;
 
                 if (user == null)
@@ -334,6 +348,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if TMApplicationStatus Exist 
 
                 var record = await _tmApplicationStatusRepository.GetTMApplicationStatusById(TMApplicationStatusViewModel.Id);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -347,15 +362,16 @@ namespace IPORevamp.WebAPI.Controllers
                 record.LastUpdateDate = DateTime.Now;
                 record.UpdatedBy = TMApplicationStatusViewModel.CreatedBy.ToString();
                 record.IsActive = true;
-                record.RoleId = 1;
+                record.RoleId = TMApplicationStatusViewModel.RoleId;
 
-                record.Id = TMApplicationStatusViewModel.RoleId;
+                record.Id = TMApplicationStatusViewModel.Id;
                
 
                 var save = await _tmApplicationStatusRepository.UpdateTMApplicationStatus(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(TMApplicationStatusViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(TMApplicationStatusViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -367,6 +383,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "TMApplicationStatusUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress =ip,
+                    RecordBefore =json ,
+                    RecordAfter = json 
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -386,9 +405,13 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 // Check if TMApplicationStatus Exist 
                 var record = await _tmApplicationStatusRepository.GetTMApplicationStatusById(Convert.ToInt32(TMApplicationStatusId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -404,6 +427,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _tmApplicationStatusRepository.DeleteTMApplicationStatus(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
                 var user = await _userManager.FindByIdAsync(UserId.ToString());
@@ -418,6 +442,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "TMApplicationStatusDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress= ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

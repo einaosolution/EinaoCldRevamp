@@ -38,6 +38,7 @@ using IPORevamp.Core.Utilities;
 using IPORevamp.Data.Entities;
 using IPORevamp.Repository.state;
 using IPORevamp.Repository.Fee;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -204,6 +205,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -229,6 +233,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllFeeList",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Fee List Returned Successfully", false, FeeList);
@@ -252,6 +257,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -277,6 +285,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllFeeList",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Fee List Returned Successfully", false, FeeList);
@@ -301,6 +310,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(feeListViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -333,8 +345,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                                 var save = await _FeeListrepository.SaveFeeList(content);
 
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
+
                 // get User Information
-                 user = await _userManager.FindByIdAsync(feeListViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(feeListViewModel.CreatedBy.ToString());
 
                 // Added A New FeeList 
                 await _auditTrailManager.AddAuditTrail(new AuditTrail
@@ -345,6 +360,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "FeeListAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -363,7 +380,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(feeListViewModel.CreatedBy.ToString()); 
 
@@ -375,6 +394,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if FeeList Exist 
 
                 var record = await _FeeListrepository.GetFeeListById(feeListViewModel.FeeId);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -395,9 +415,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var save = await _FeeListrepository.UpdateFeeList(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(feeListViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(feeListViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -409,6 +430,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "FeeListUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -428,6 +452,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -437,6 +464,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if FeeList Exist 
                 var record = await _FeeListrepository.GetFeeListById(Convert.ToInt32(FeeListId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -453,6 +481,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var delete = await _FeeListrepository.DeleteFeeList(record);
 
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(UserId.ToString());
 
@@ -465,6 +495,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "FeeListDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

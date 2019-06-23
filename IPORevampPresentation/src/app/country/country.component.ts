@@ -116,6 +116,52 @@ export class CountryComponent implements OnDestroy ,OnInit {
 }
 
 
+valuechange2(een ) {
+  //  alert(this.userform.value.email);
+   // this.userform.value.email ="aa@ya.com";
+
+   let obj2 = this.rows.find(o => o.name.toUpperCase() === this.userform.value.Description.toUpperCase());
+
+
+
+   if (obj2) {
+    (<FormControl> this.userform.controls['Description']).setValue("");
+
+    Swal.fire(
+      "Name Already Exist",
+      '',
+      'error'
+    )
+   }
+
+
+
+
+  }
+
+valuechange(een ) {
+  //  alert(this.userform.value.email);
+   // this.userform.value.email ="aa@ya.com";
+   let obj = this.rows.find(o => o.code.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+
+   if (obj) {
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    Swal.fire(
+      "Code Already Exist",
+      '',
+      'error'
+    )
+   }
+
+
+
+
+
+
+  }
+
 
 onSubmit4() {
   var table = $('#myTable').DataTable();
@@ -317,6 +363,16 @@ showcountry2() {
 
   ngOnInit() {
 
+   if (this.registerapi.checkAccess("#/Dashboard/Country"))  {
+
+   }
+
+   else {
+     alert("Access Denied ")
+
+     this.router.navigateByUrl('/logout');
+     return ;
+   }
 
 
   this.dtOptions = {

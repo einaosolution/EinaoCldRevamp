@@ -11,6 +11,9 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { AbstractControl } from '@angular/forms';
 
+
+
+
 declare var $;
 
 @Component({
@@ -49,9 +52,34 @@ export class EmailTemplateComponent implements OnInit,OnDestroy  {
   public rows = [];
   public row2 = [];
   busy: Promise<any>;
+config = {
+
+  height: 300,
+}
+
 
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) { }
 
+
+  valuechange(een ) {
+    //  alert(this.userform.value.email);
+     // this.userform.value.email ="aa@ya.com";
+     let obj = this.row2.find(o => o.emailName.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+     if (obj) {
+      (<FormControl> this.userform.controls['Code']).setValue("");
+
+      Swal.fire(
+        "Code Already Exist",
+        '',
+        'error'
+      )
+     }
+
+
+
+
+    }
   onSubmit() {
     this.submitted= true;
     var table = $('#myTable').DataTable();
@@ -84,7 +112,8 @@ export class EmailTemplateComponent implements OnInit,OnDestroy  {
 
         EmailBody:this.userform.value.Template ,
         CreatedBy:userid,
-        EmailCode:this.userform.value.Code
+        EmailCode:this.userform.value.Code,
+        EmailTemplateId:0
 
 
 
@@ -384,6 +413,17 @@ else {
     return null;
   }
   ngOnInit() {
+
+    if (this.registerapi.checkAccess("#/Dashboard/EmailTemplate"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,

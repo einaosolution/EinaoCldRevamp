@@ -103,6 +103,47 @@ export class ProductComponent implements OnDestroy ,OnInit {
 }
 
 
+valuechange(een ) {
+  //  alert(this.userform.value.email);
+   // this.userform.value.email ="aa@ya.com";
+   let obj = this.rows.find(o => o.code.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+   if (obj) {
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    Swal.fire(
+      "Code Already Exist",
+      '',
+      'error'
+    )
+   }
+
+
+
+
+  }
+
+
+  valuechange2(een ) {
+    //  alert(this.userform.value.email);
+     // this.userform.value.email ="aa@ya.com";
+     let obj = this.rows.find(o => o.name.toUpperCase() === this.userform.value.Description.toUpperCase());
+
+     if (obj) {
+      (<FormControl> this.userform.controls['Description']).setValue("");
+
+      Swal.fire(
+        "Name Already Exist",
+        '',
+        'error'
+      )
+     }
+
+
+
+
+    }
+
 
 onSubmit4() {
   var table = $('#myTable').DataTable();
@@ -302,7 +343,16 @@ showcountry2() {
   }
 
   ngOnInit() {
+    if (this.registerapi.checkAccess("#/Dashboard/Product"))  {
 
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
 
 
   this.dtOptions = {

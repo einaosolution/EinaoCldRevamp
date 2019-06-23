@@ -281,6 +281,26 @@ onSubmit4() {
    // this.modalRef = this.modalService.show(ref );
   }
 
+  valuechange(een ) {
+    //  alert(this.userform.value.email);
+     // this.userform.value.email ="aa@ya.com";
+     let obj = this.row2.find(o => o.settingCode.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+     if (obj) {
+      (<FormControl> this.userform.controls['Code']).setValue("");
+
+      Swal.fire(
+        "Code Already Exist",
+        '',
+        'error'
+      )
+     }
+
+
+
+
+    }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -317,6 +337,17 @@ onSubmit4() {
  })
   }
   ngOnInit() {
+
+    if (this.registerapi.checkAccess("#/Dashboard/Settings"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
 
     this.dtOptions = {
       pagingType: 'full_numbers',

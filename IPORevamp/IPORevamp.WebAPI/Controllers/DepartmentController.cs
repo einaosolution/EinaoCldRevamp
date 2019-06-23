@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace IPORevamp.WebAPI.Controllers
      RoleManager<ApplicationRole> roleManager,
      SignInManager<ApplicationUser> signInManager,
      IConfiguration configuration,
-     IMapper mapper, ILogger<UserController> logger,
+     IMapper mapper, ILogger<DepartmentController> logger,
      EmailEngine.Base.Repository.EmailRepository.IEmailManager<EmailLog, EmailTemplate> emailManager,
 
      IPORevamp.Repository.Department.IDepartmentRepository departmentRepository,
@@ -64,8 +65,12 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("DeleteDepartment")]
         public async Task<IActionResult> DeleteDepartment([FromQuery]String ProductId, [FromQuery]String UserId)
         {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
             try
             {
+
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -73,8 +78,9 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
-                // Check if Country Exist 
+                // Check if Department Exist 
                 var record = await _departmentRepository.GetDepartmentById(Convert.ToInt32(ProductId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -90,6 +96,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _departmentRepository.DeleteDepartment(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
                 user = await _userManager.FindByIdAsync(UserId.ToString());
@@ -104,6 +111,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "DepartmentDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);
@@ -119,6 +129,9 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("GetAllDepartment")]
         public async Task<IActionResult> GetAllDepartment([FromQuery] string RequestById)
         {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
             try
             {
 
@@ -146,6 +159,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAlldepartment",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "department Returned Successfully", false, department);
@@ -169,6 +183,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(departmentview.CreatedBy.ToString()); ;
                 if (user == null)
@@ -176,9 +193,10 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
-                // Check if Country Exist 
+                // Check if Department Exist 
 
                 var record = await _departmentRepository.GetDepartmentById(departmentview.id);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -199,6 +217,9 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var save = await _departmentRepository.UpdateDepartment(record);
 
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(departmentview.CreatedBy.ToString());
 
@@ -212,6 +233,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "DepartmentUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -227,10 +251,14 @@ namespace IPORevamp.WebAPI.Controllers
 
 
         [HttpPost("SaveDepartment")]
-        public async Task<IActionResult> SaveProduct(DepartmentViewModel departmentview)
+        public async Task<IActionResult> SaveDepartment(DepartmentViewModel departmentview)
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
 
                 var user = await _userManager.FindByIdAsync(departmentview.CreatedBy.ToString()); ;
                 if (user == null)
@@ -238,7 +266,7 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
-                // Check if Country Exist 
+                // Check if Department Exist 
                 var checkCount = await _departmentRepository.CheckExistingDepartment(departmentview.Code);
 
                 if (checkCount != null)
@@ -259,6 +287,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var save = await _departmentRepository.SaveDepartment(content);
 
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(departmentview.CreatedBy.ToString());
 
@@ -272,6 +302,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "DepartmentAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);

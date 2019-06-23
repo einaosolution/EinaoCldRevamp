@@ -30,23 +30,64 @@ export class TaskComponent implements OnInit {
   public formSubmitAttempt: boolean;
   busy: Promise<any>;
 
+  public account = {
+    oldpassword: null,
+   newpassword: null,
+    confirmpasword:null
+};
+  public barLabel: string = "Password strength:";
+  public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
+
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) {
 
-
+this.getIpAddress()
 
    }
-  onSubmit() {
+
+   getIpAddress() {
+
+    $.getJSON('https://api.ipify.org?format=json', function(data){
+      console.log("ip");
+      localStorage.setItem('ip',data.ip );
+
+
+      console.log(data);
+  });
+}
+  onSubmit(f) {
 
     this.submitted= true;
 
 
 
-    if (this.userform.valid) {
+    if (f) {
+
+
+      if (this.account.newpassword  === this.account.oldpassword) {
+         Swal.fire(
+                   "New Password Cannot Be same with old password",
+                    '',
+                    'error'
+                  )
+
+                  return;
+      }
+
+
+      if (this.account.newpassword  != this.account.confirmpasword) {
+        Swal.fire(
+                  "Confirm Password not equal to New Password",
+                   '',
+                   'error'
+                 )
+
+                 return;
+     }
       this.spinner.show();
       var kk = {
-        CurrentPassword:this.userform.value.Email  ,
-        NewPassword:this.userform.value.Password ,
-        ConfirmPassword:this.userform.value.Password2 ,
+        CurrentPassword:this.account.oldpassword  ,
+        NewPassword:this.account.newpassword ,
+        ConfirmPassword:this.account.confirmpasword ,
         Email:localStorage.getItem('username')
 
 

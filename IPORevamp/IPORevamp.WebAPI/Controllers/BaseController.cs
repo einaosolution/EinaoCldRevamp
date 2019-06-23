@@ -163,7 +163,7 @@ namespace IPORevamp.WebAPI.Controllers
             return ds;
         }
 
-        protected async Task<AuthModel> GenerateJwtToken(string email, ApplicationUser user, List<MenuManager> menuManager)
+        protected async Task<AuthModel> GenerateJwtToken(string email, ApplicationUser user, List<MenuManager> menuManager,DateTime ? lastpasswordchange)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
 
@@ -223,6 +223,7 @@ namespace IPORevamp.WebAPI.Controllers
                 loggeduser = loggedinuser ,
                DynamicMenu = menuManager,
                 menuString = menuString,
+                lastpasswordchange = lastpasswordchange
 
             };
             return auth;

@@ -18,6 +18,9 @@
     <Compile Remove="Migrations\20190512161924_updateUserVerificationTemp.cs" />
     <Compile Remove="Migrations\20190519182859_updateMenu.cs" />
     <Compile Remove="Migrations\20190520184241_ApplicationTable1.cs" />
+    <Compile Remove="Migrations\20190612132315_tempuser.cs" />
+    <Compile Remove="Migrations\20190617145455_unittable.cs" />
+    <Compile Remove="Migrations\20190618153455_appuser.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

@@ -103,7 +103,7 @@ namespace IPORevamp.WebAPI.Controllers
                     });
 
                     List<MenuManager> menus = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == user.RolesId).Select(s => s.Menus).ToList();                            //Generate Token                       
-                    var userProfile = await GenerateJwtToken(user.Email, user, menus);
+                    var userProfile = await GenerateJwtToken(user.Email, user, menus,null);
                 
                     return PrepareResponse(HttpStatusCode.OK, "Password has been updated successfully", false, userProfile);
                 }

@@ -116,7 +116,7 @@
                                     <div class="form-group">
                                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                            <input type="text" name="name"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
+                                            <input type="text" name="name"  (change)="valuechange($event)"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
                                                    placeholder="Code" required autofocus>
 
 
@@ -138,7 +138,7 @@
                                       <div class="form-group">
                                           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                              <input type="text" name="name"   formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
+                                              <input type="text" name="name" (change)="valuechange2($event)"  formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
                                                      placeholder="Name" required autofocus>
 
 

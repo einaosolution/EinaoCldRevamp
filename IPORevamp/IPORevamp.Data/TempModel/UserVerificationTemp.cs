@@ -22,6 +22,10 @@ namespace IPORevamp.Data.TempModel
         public string Country { get; set; }
         public string Status { get; set; }
         public int CategoryId { get; set; }
+        public string ministry { get; set; }
+        public string department { get; set; }
+      
+        public string staffid { get; set; }
         public DateTime ?  ExpiringDate { get; set; }
         public Boolean  expired  { get; set; }
         public DateTime? ConfirmationDate { get; set; }

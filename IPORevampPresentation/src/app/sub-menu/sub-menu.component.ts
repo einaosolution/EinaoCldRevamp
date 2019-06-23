@@ -10,11 +10,20 @@ export class SubMenuComponent implements OnInit {
   @Input() vrow: any[];
   constructor() { }
 
+
+
+
   ngOnInit() {
+
+
+
 
     console.log("parent id =" + this.parentid )
     console.log("vrow =" )
     console.log(this.vrow )
+
+
+
 
   }
 

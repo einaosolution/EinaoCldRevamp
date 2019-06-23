@@ -60,6 +60,8 @@
                               <tr>
 
                                   <th>Name</th>
+                                  <th>State</th>
+                                  <th>Country</th>
                                   <th>DateCreated</th>
                                  <th>Action </th>
 
@@ -71,6 +73,8 @@
 
 
                                      <td>{{emp.lgaName}}</td>
+                                     <td>{{emp.state.stateName}}</td>
+                                     <td>{{emp.country.name}}</td>
                                       <td>{{emp.dateCreated|date}}</td>
 
                                       <td>
@@ -117,7 +121,37 @@
           </div>
       </div>
 
+      <div class="row">
+        <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+            <label for="email">Country</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
+
+
+
+                           <select   name="Identification"  formControlName="Country" [ngClass]="{ 'is-invalid': submitted && Country.errors }"       class="custom-select form-control-lg "    id="Month">
+                              <option  value= "">
+                                --Select Country--
+                                </option>
+                              <option *ngFor="let country2 of row" value= {{country2.id}}>
+                                {{country2.name}}
+                              </option>
+                            </select>
+
+
+                           <div *ngIf="submitted && Country.errors" class="invalid-feedback">
+                            <div *ngIf="submitted && Country.errors.required">Country is required</div>
+
+                          </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
     <div class="row">
@@ -159,7 +193,7 @@
               <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                      <input type="text" name="name"   formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
+                      <input type="text" name="name"  (change)="valuechange($event)"   formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
                              placeholder="Name" required autofocus>
 
 

@@ -12,6 +12,17 @@ export class LogoutComponent implements OnInit {
   constructor(private router: Router,private registerapi :ApiClientService) { }
 
   ngOnInit() {
+    var userid = localStorage.getItem('UserId');
+    this.registerapi.LogoutUser(userid)
+    .then((response: any) => {
+
+
+
+    })
+             .catch((response: any) => {
+
+
+})
 
 this.registerapi.settoken("");
 

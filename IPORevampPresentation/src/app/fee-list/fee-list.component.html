@@ -63,7 +63,7 @@
                                   <th>Description</th>
                                   <th>Qt Code</th>
                                   <th>Category</th>
-                                  <th>Init Amount</th>
+                                  <th>Initial Amount</th>
                                   <th>Tech Amount</th>
                                  <th>Action </th>
 
@@ -122,7 +122,7 @@
                                     <div class="form-group">
                                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                            <input type="text" name="name"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
+                                            <input type="text" name="name" (change)="valuechange($event)"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
                                                    placeholder="Code" required autofocus>
 
 
@@ -194,9 +194,15 @@
                                   <div class="form-group">
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <input type="text" name="name"   formControlName="Category" [ngClass]="{ 'is-invalid': submitted && Category.errors }"     class="form-control" id="name"
-                                                 placeholder="Category" required autofocus>
 
+                                                 <select   name="category"  formControlName="Category" [ngClass]="{ 'is-invalid': submitted && Category.errors }"     class="custom-select form-control-lg"    id="Month">
+                                                  <option  value= "">
+                                                    --Select Category--
+                                                    </option>
+                                                  <option *ngFor="let country2 of varray4" value= {{country2.YearCode}}>
+                                                    {{country2.YearName}}
+                                                  </option>
+                                                </select>
 
                                                  <div *ngIf="submitted &&Category.errors" class="invalid-feedback">
                                                   <div *ngIf="submitted && Category.errors.required">Category is required</div>
@@ -219,7 +225,7 @@
                                 <div class="form-group">
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                        <input type="text" name="name"   formControlName="InitAmount" [ngClass]="{ 'is-invalid': submitted && InitAmount.errors }"     class="form-control" id="name"
+                                        <input type="number" name="name"   formControlName="InitAmount" [ngClass]="{ 'is-invalid': submitted && InitAmount.errors }"     class="form-control" id="name"
                                                placeholder="Initial Amount" required autofocus>
 
 
@@ -244,7 +250,7 @@
                               <div class="form-group">
                                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                      <input type="text" name="name"   formControlName="TechAmount" [ngClass]="{ 'is-invalid': submitted && TechAmount.errors }"     class="form-control" id="name"
+                                      <input type="number" name="name"   formControlName="TechAmount" [ngClass]="{ 'is-invalid': submitted && TechAmount.errors }"     class="form-control" id="name"
                                              placeholder="Tech Amount" required autofocus>
 
 

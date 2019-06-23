@@ -37,15 +37,44 @@ export class AppStatusTmComponent  implements OnDestroy ,OnInit {
   submitted:boolean=false;
   busy: Promise<any>;
   Code: FormControl;
+  Role2 : FormControl;
   id:string;
   Description: FormControl;
   public rows = [];
+  public row2 = [];
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
+
+  valuechange(een ) {
+    //  alert(this.userform.value.email);
+     // this.userform.value.email ="aa@ya.com";
+
+
+
+
+    }
   onSubmit() {
     this.submitted= true;
     var table = $('#myTable').DataTable();
     var userid =parseInt( localStorage.getItem('UserId'));
+
+    let obj = this.rows.find(o => o.statusDescription.toUpperCase() === this.userform.value.Description.toUpperCase());
+
+
+    if (obj) {
+
+    //let obj2 = obj.find(o => o.departmentId.toUpperCase() === this.userform.value.Department.toUpperCase());
+    if (obj.roleId == this.userform.value.Role2) {
+     (<FormControl> this.userform.controls['Description']).setValue("");
+
+     Swal.fire(
+       "Description Already Exist",
+       '',
+       'error'
+     )
+    }
+
+   }
 
 
     if (this.userform.valid) {
@@ -55,7 +84,7 @@ export class AppStatusTmComponent  implements OnDestroy ,OnInit {
       var kk = {
 
         StatusDescription:this.userform.value.Description ,
-        RoleId:0 ,
+        RoleId:this.userform.value.Role2  ,
         CreatedBy:userid
 
 
@@ -102,6 +131,22 @@ export class AppStatusTmComponent  implements OnDestroy ,OnInit {
 
 }
 
+getrole2(roleid) {
+  var vrole = "";
+  //this.row2
+
+  for (var i=0; i<this.row2.length; i++){
+    if (this.row2[i].roleId ==roleid)  {
+      vrole =this.row2[i].title
+
+
+    }
+
+  }
+
+
+  return vrole
+}
 
 
 onSubmit4() {
@@ -117,7 +162,7 @@ onSubmit4() {
     var kk = {
 
       StatusDescription:this.userform.value.Description ,
-      RoleId:this.id ,
+      RoleId:this.userform.value.Role2  ,
       Id:this.id ,
       CreatedBy:userid
 
@@ -243,6 +288,7 @@ showcountry(kk) {
 
 
   (<FormControl> this.userform.controls['Description']).setValue(kk.statusDescription);
+  (<FormControl> this.userform.controls['Role2']).setValue(kk.roleId);
   $("#createmodel").modal('show');
   //document.getElementById("openModalButton").click();
  // this.modalRef = this.modalService.show(ref );
@@ -331,6 +377,16 @@ showcountry2() {
   }
 
   ngOnInit() {
+    if (this.registerapi.checkAccess("#/Dashboard/AppStatusTm"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
 
 
 
@@ -361,15 +417,27 @@ showcountry2() {
       Validators.required
     ]);
 
+    this.Role2 = new FormControl('', [
+      Validators.required
+    ]);
+
+
+
 
 
     this.userform = new FormGroup({
 
       Code: this.Code,
       Description: this.Description ,
+      Role2:this. Role2
 
 
     });
+
+
+
+
+
 
    // (<FormControl> this.userform.controls['Code']).setValue("<p> Testing </>");
     this.registerapi.setPage("Setup")
@@ -377,6 +445,31 @@ showcountry2() {
     this.registerapi.VChangeEvent("Setup");
 
    var userid = localStorage.getItem('UserId');
+
+
+   this.busy =   this.registerapi
+   .GetAllRoles(userid)
+   .then((response: any) => {
+
+     console.log("Response")
+     this.row2 = response.content;
+     console.log(response)
+
+
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
 
 
 

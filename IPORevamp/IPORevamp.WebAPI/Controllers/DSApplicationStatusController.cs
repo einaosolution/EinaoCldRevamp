@@ -38,6 +38,7 @@ using IPORevamp.Repository.DSApplicationStatus;
 using IPORevamp.Core.Utilities;
 using IPORevamp.Repository.DSApplicationStatus;
 using IPORevamp.Data.Entity.Interface.Entities.DSApplicationStatus;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -219,6 +220,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(ActionBy.ToString()); ;
 
                 if (user == null)
@@ -245,6 +249,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllDSApplicationStatus",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "DSApplicationStatus Returned Successfully", false, DSApplicationStatus);
@@ -271,6 +276,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(DSApplicationStatusViewModel.CreatedBy.ToString()); ;
 
                 if (user == null)
@@ -291,14 +300,17 @@ namespace IPORevamp.WebAPI.Controllers
                 content.StatusDescription = DSApplicationStatusViewModel.StatusDescription;
                 content.DateCreated = DateTime.Now;
                 content.CreatedBy = DSApplicationStatusViewModel.CreatedBy.ToString();
+                content.RoleId = DSApplicationStatusViewModel.RoleId;
                 content.IsActive = true;
                 content.IsDeleted = false;
 
 
                 var save = await _dsApplicationStatusRepository.SaveDSApplicationStatus(content);
 
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
-                 user = await _userManager.FindByIdAsync(DSApplicationStatusViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(DSApplicationStatusViewModel.CreatedBy.ToString());
 
 
                 // Added A New DSApplicationStatus 
@@ -310,6 +322,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "DSApplicationStatusAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -328,6 +342,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
 			try
 			{
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 // Check if DSApplicationStatus Exist 
                 var user = await _userManager.FindByIdAsync(DSApplicationStatusViewModel.CreatedBy.ToString()); ;
@@ -338,8 +355,9 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var record = await _dsApplicationStatusRepository.GetDSApplicationStatusById(DSApplicationStatusViewModel.RoleId);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
-				if (record == null)
+                if (record == null)
 				{
 					return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
 				}
@@ -348,7 +366,9 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 				record.StatusDescription = DSApplicationStatusViewModel.StatusDescription;
-				record.LastUpdateDate = DateTime.Now;
+                record.RoleId = DSApplicationStatusViewModel.RoleId;
+
+                record.LastUpdateDate = DateTime.Now;
 				record.UpdatedBy = DSApplicationStatusViewModel.CreatedBy.ToString();
 				record.IsActive = true;
 
@@ -356,9 +376,12 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 				var save = await _dsApplicationStatusRepository.UpdateDSApplicationStatus(record);
+              
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
-				// get User Information
-				 user = await _userManager.FindByIdAsync(DSApplicationStatusViewModel.CreatedBy.ToString());
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(DSApplicationStatusViewModel.CreatedBy.ToString());
 
 
 				// log action
@@ -370,6 +393,9 @@ namespace IPORevamp.WebAPI.Controllers
 					Entity = "DSApplicationStatusUpdate",
 					UserId = user.Id,
 					UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
 				});
 
 				return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -389,6 +415,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
 
                 if (user == null)
@@ -397,6 +427,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 // Check if DSApplicationStatus Exist 
                 var record = await _dsApplicationStatusRepository.GetDSApplicationStatusById(Convert.ToInt32(DSApplicationStatusId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -413,8 +444,10 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var delete = await _dsApplicationStatusRepository.DeleteDSApplicationStatus(record);
 
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
-                 user = await _userManager.FindByIdAsync(UserId.ToString());
+                user = await _userManager.FindByIdAsync(UserId.ToString());
 
 
                 // log action
@@ -426,6 +459,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "DSApplicationStatusDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

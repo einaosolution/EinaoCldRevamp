@@ -24,6 +24,7 @@
                       <div class="card">
                           <div class="card-header bg-success">
                               <h4 class="mb-0 text-white">Applicant / Individual</h4>
+                              <div [ngBusy]="busy"></div>
                               <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                           </div>
                           <form class="form-horizontal m-t-10" action="verification.html"  [formGroup]="userform">
@@ -45,7 +46,7 @@
                                           <div class="col-md-6">
                                               <div class="form-group has-danger">
                                                   <label class="control-label">Last Name</label>
-                                                  <input type="text" formControlName="LastName" [ngClass]="{ 'is-invalid': submitted && LastName.errors }" id="lastName" class="form-control form-control-danger" placeholder="12n">
+                                                  <input type="text" formControlName="LastName" [ngClass]="{ 'is-invalid': submitted && LastName.errors }" id="lastName" class="form-control form-control-danger" placeholder="LastName">
                                                   </div>
                                           </div>
                                           <!--/span-->
@@ -66,7 +67,7 @@
                                           <div class="col-md-6">
                                               <div class="form-group">
                                                   <label class="control-label">Date of Birth</label>
-                                                  <input type="text" formControlName="DateofBirth"  [ngClass]="{ 'is-invalid': submitted && DateofBirth.errors }" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                                                  <input type="text" id="dateval" formControlName="DateofBirth"   [maxDate]="maxDate"  [ngClass]="{ 'is-invalid': submitted && DateofBirth.errors }" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" >
                                               </div>
                                           </div>
                                           <!--/span-->
@@ -89,14 +90,30 @@
                                               </div>
                                           </div>
                                           <!--/span-->
-                                          <div class="col-md-6">
-                                                  <div class="form-group has-danger">
-                                                      <label class="control-label">Mobile Number</label>
-                                                      <input type="text"  formControlName="MobileNumber"  [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" id="telnumber" class="form-control form-control-danger" placeholder="080">
-                                                      </div>
-                                              </div>
+                                          <div class="col-md-6"  >
+                                            <div class="form-group has-danger">
+                                                <label class="control-label">Identification Value</label>
+                                                <input type="text" formControlName="IdentificationValue"  [ngClass]="{ 'is-invalid': submitted && IdentificationValue.errors }"  id="telnumber" class="form-control form-control-danger"   placeholder="Identification Value">
+                                                </div>
+                                        </div>
                                           <!--/span-->
                                       </div>
+
+                                      <div class="row">
+
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                                <div class="form-group has-danger"  >
+                                                    <label class="control-label" >Mobile Number</label>
+
+                                                    <international-phone-number   [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" formControlName="MobileNumber"  placeholder="Enter phone number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number   name="phone_number" ></international-phone-number>
+
+
+
+                                                  </div>
+                                            </div>
+                                        <!--/span-->
+                                    </div>
                                       <!--/row-->
                                       <h4 class="card-title mt-5">Address</h4>
                                   </div>
@@ -118,21 +135,23 @@
                                               </div>
                                           </div>
                                           <!--/span-->
+
                                           <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label>State</label>
-
-                                                  <select   name="State"   formControlName="State" [ngClass]="{ 'is-invalid': submitted &&  State.errors }"    class="custom-select form-control-lg"    id="State">
-                                                    <option  value= "">
-                                                      --Select State--
-                                                      </option>
-                                                    <option *ngFor="let state2 of row2" value= {{state2.id}}>
-                                                      {{state2.stateName}}
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <select   name="Month" (change)="onChange($event)"  formControlName="Country" [ngClass]="{ 'is-invalid': submitted && Country.errors }"    class="custom-select form-control-lg"    id="Month">
+                                                  <option  value= "">
+                                                    --Select your Country--
                                                     </option>
-                                                  </select>
+                                                  <option *ngFor="let country2 of row" value= {{country2.id}}>
+                                                    {{country2.name}}
+                                                  </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
 
-                                                </div>
-                                          </div>
+
                                           <!--/span-->
                                       </div>
                                       <!--/row-->
@@ -145,23 +164,41 @@
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
-                                              <div class="form-group">
-                                                  <label>Country</label>
-                                                  <select   name="Month"   formControlName="Country" [ngClass]="{ 'is-invalid': submitted && Country.errors }"    class="custom-select form-control-lg"    id="Month">
-                                                    <option  value= "">
-                                                      --Select your Country--
-                                                      </option>
-                                                    <option *ngFor="let country2 of row" value= {{country2.code}}>
-                                                      {{country2.name}}
+                                            <div class="form-group">
+                                                <label>State</label>
+
+                                                <select   name="State" (change)="onChange2($event)"   formControlName="State" [ngClass]="{ 'is-invalid': submitted &&  State.errors }"    class="custom-select form-control-lg"    id="State">
+                                                  <option  value= "">
+                                                    --Select State--
                                                     </option>
-                                                  </select>
+                                                  <option *ngFor="let state2 of row2" value= {{state2.id}}>
+                                                    {{state2.stateName}}
+                                                  </option>
+                                                </select>
+
                                               </div>
-                                          </div>
+                                        </div>
                                           <!--/span-->
                                       </div>
 
                                       <div class="row">
-                                        <div class="col-md-12 ">
+                                          <div class="col-md-6">
+                                              <div class="form-group">
+                                                  <label>LGA</label>
+
+                                                  <select   name="State"   formControlName="lga" [ngClass]="{ 'is-invalid': submitted &&  lga.errors }"    class="custom-select form-control-lg"    id="State">
+                                                    <option  value= "">
+                                                      --Select Lga--
+                                                      </option>
+                                                    <option *ngFor="let state2 of row4" value= {{state2.id}}>
+                                                      {{state2.lgaName}}
+                                                    </option>
+                                                  </select>
+
+                                                </div>
+                                          </div>
+
+                                        <div class="col-md-6 ">
                                             <div class="form-group">
                                                 <label>Profile Picture</label>
                                                 <input placeholder="Upload" #fileInput type="file" class="form-control">
@@ -171,6 +208,7 @@
                                   </div>
                                   <div class="form-actions">
                                       <div class="card-body">
+
                                           <button type="button" (click) ="onSubmit()" class="btn btn-success"> <i class="fa fa-check"></i> Submit</button>
                                           <button type="button" (click) ="onSubmit2()" class="btn btn-danger">Cancel</button>
                                       </div>

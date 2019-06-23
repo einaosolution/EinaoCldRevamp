@@ -14,6 +14,9 @@ namespace IPORevamp.Data.Entities.AuditTrail
         public string CreatedBy { get; set; }
         public string DeletedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public string IpAddress { get; set; }
+        public string RecordBefore { get; set; }
+        public string RecordAfter { get; set; }
         public DateTime? LastUpdateDate { get; set; }
         public byte[] RowVersion { get; set; }
     }

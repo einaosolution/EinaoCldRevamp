@@ -224,6 +224,28 @@ export class StateComponent implements OnDestroy , OnInit {
 
   }
 
+
+  valuechange(een ) {
+    //  alert(this.userform.value.email);
+     // this.userform.value.email ="aa@ya.com";
+     let obj = this.row2.find(o => o.stateName.toUpperCase() === this.userform.value.Description.toUpperCase() );
+
+     if (obj) {
+      (<FormControl> this.userform.controls['Description']).setValue("");
+
+      Swal.fire(
+        "State Name  Already Exist",
+        '',
+        'error'
+      )
+     }
+
+
+
+
+    }
+
+
   onSubmit5(emp) {
     var userid =localStorage.getItem('UserId');
     var table = $('#myTable').DataTable();
@@ -328,6 +350,18 @@ export class StateComponent implements OnDestroy , OnInit {
 })
   }
   ngOnInit() {
+
+    if (this.registerapi.checkAccess("#/Dashboard/State"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,

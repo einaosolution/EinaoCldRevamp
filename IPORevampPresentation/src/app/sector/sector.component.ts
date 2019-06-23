@@ -103,6 +103,25 @@ export class SectorComponent implements OnDestroy ,OnInit {
 
 }
 
+valuechange(een ) {
+  //  alert(this.userform.value.email);
+   // this.userform.value.email ="aa@ya.com";
+   let obj = this.rows.find(o => o.type.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+   if (obj) {
+    (<FormControl> this.userform.controls['Code']).setValue("");
+
+    Swal.fire(
+      "Type Already Exist",
+      '',
+      'error'
+    )
+   }
+
+
+
+
+  }
 
 
 onSubmit4() {
@@ -306,7 +325,16 @@ showcountry2() {
 
   ngOnInit() {
 
+    if (this.registerapi.checkAccess("#/Dashboard/Sector"))  {
 
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
 
   this.dtOptions = {
     pagingType: 'full_numbers',

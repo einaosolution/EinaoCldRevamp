@@ -24,11 +24,20 @@ export class HomeComponent implements OnInit,AfterViewInit {
 
   constructor(private registerapi :ApiClientService ,private router: Router) {
 
-
+this.getIpAddress()
 
    }
 
+   getIpAddress() {
 
+    $.getJSON('https://api.ipify.org?format=json', function(data){
+      console.log("ip");
+      localStorage.setItem('ip',data.ip );
+
+
+      console.log(data);
+  });
+}
 
 
   ngAfterViewInit(){
@@ -44,8 +53,8 @@ export class HomeComponent implements OnInit,AfterViewInit {
   }
 
   islogged() {
-
-    if (this.registerapi.gettoken()) {
+   var vpassord = localStorage.getItem('ChangePassword');
+    if (this.registerapi.gettoken() && vpassord =="True" ) {
 
       return true ;
     }
@@ -127,7 +136,9 @@ export class HomeComponent implements OnInit,AfterViewInit {
          }
 
          else {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/logout');
+
+
 
          }
     }

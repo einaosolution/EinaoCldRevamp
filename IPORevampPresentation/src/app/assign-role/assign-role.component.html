@@ -40,10 +40,10 @@
                       <h4 class="card-title">Assign Role</h4>
                       <div [ngBusy]="busy"></div>
 
-                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
                       <div class="ml-auto">
                           <div class="btn-group">
-                              <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#createmodel">
+                              <button type="button" class="btn btn-dark" data-toggle="modal" (click) ="showcountry2()" >
                                 Assign Role
                               </button>
                           </div>
@@ -111,17 +111,17 @@
 
                                 </div>
                             </div>
-
+                          <div class="d-flex flex-row justify-content-center mt-sm-3 mb-sm-2">
                             <div class="row">
 
-                              <div class="col-md-6">
+                              <div >
 
                                   <div class="form-group">
 
                                       <div [ngBusy]="busy"></div>
 
                                       <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
-                                      <label for="sel1">Role:</label>
+
                                       <select class="form-control"    (change)="onChange($event.target.value)" id="sel1">
                                           <option value="">---- --Select Role-----</option>
 
@@ -135,6 +135,7 @@
                               </div>
 
                           </div>
+                        </div>
                             <div class="row">
                                 <div class="container">
 
@@ -206,8 +207,9 @@
 
 
               <div class="modal-footer">
+                  <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button"   (click) ="onSubmit()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="button" [disabled]="submitted"   (click) ="onSubmit()" class="btn btn-success"><i class="ti-save"></i> Save</button>
                   <div [ngBusy]="busy"></div>
               </div>
           </form>

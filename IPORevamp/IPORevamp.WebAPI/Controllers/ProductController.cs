@@ -23,6 +23,7 @@ using EmailEngine.Base.Entities;
 using IPORevamp.Data.SetupViewModel;
 using IPORevamp.Data.Entity.Interface.Entities.Product;
 using IPORevamp.Repository.Department;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 
@@ -72,6 +73,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -79,8 +83,9 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
-                // Check if Country Exist 
+                // Check if Product Exist 
                 var record = await _productRepository.GetProductById(Convert.ToInt32(ProductId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -96,6 +101,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _productRepository.DeleteProduct(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
                 user = await _userManager.FindByIdAsync(UserId.ToString());
@@ -110,6 +116,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "ProductDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);
@@ -127,6 +136,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -152,6 +164,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllProduct",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip 
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Product Returned Successfully", false, product);
@@ -175,6 +188,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(productview.CreatedBy.ToString()); ;
                 if (user == null)
@@ -185,6 +201,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if Country Exist 
 
                 var record = await _productRepository.GetProductById(productview.id);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -204,6 +221,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var save = await _productRepository.UpdateProduct(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
 
                 // get User Information
                 user = await _userManager.FindByIdAsync(productview.CreatedBy.ToString());
@@ -218,6 +237,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "ProductUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -237,6 +259,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
 
                 var user = await _userManager.FindByIdAsync(productview.CreatedBy.ToString()); ;
                 if (user == null)
@@ -264,6 +290,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var save = await _productRepository.SaveProduct(content);
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
                 user = await _userManager.FindByIdAsync(productview.CreatedBy.ToString());
@@ -278,6 +305,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "ProductAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json 
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);

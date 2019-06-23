@@ -36,6 +36,7 @@ using IPORevamp.Data.SetupViewModel;
 using IPORevamp.Data.Entities.Country;
 using IPORevamp.Repository.Country;
 using IPORevamp.Core.Utilities;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -136,6 +137,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetCountryById",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Country Returned Successfully", false, country);
@@ -211,9 +213,12 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("GetAllCountries")]
         public async Task<IActionResult> GetAllCountries([FromQuery] string RequestById)
         {
+            string ip = "";
+
+           
             try
             {
-
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
                 {
@@ -238,6 +243,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllCountries",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress =ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Country Returned Successfully", false, country);
@@ -262,8 +268,16 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpPost("SaveCountry")]
         public async Task<IActionResult> SaveCountry(CountryViewModel countryViewModel)
         {
+            string ip = "";
             try
             {
+
+                ip =Request.Headers["ip"];
+
+
+
+
+         
 
                 var user = await _userManager.FindByIdAsync(countryViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -289,7 +303,7 @@ namespace IPORevamp.WebAPI.Controllers
                 content.Name = countryViewModel.CountryName;
                 content.IsDeleted = false;
 
-
+               string json = JsonConvert.SerializeObject(countryViewModel, Newtonsoft.Json.Formatting.Indented);
                 var save = await _countryRepository.SaveCountry(content);
 
                 // get User Information
@@ -305,6 +319,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "CountryAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress =ip ,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -321,8 +337,12 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpPost("UpdateCountry")]
         public async Task<IActionResult> UpdateCountry(CountryViewModel countryViewModel)
         {
+            string ip = "";
+
+          
             try
             {
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(countryViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -353,8 +373,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var save = await _countryRepository.UpdateCountry(record);
 
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
-                 user = await _userManager.FindByIdAsync(countryViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(countryViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -366,6 +389,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "CountryUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip,
+                    RecordBefore =json,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -383,8 +409,12 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("DeleteCountry")]
         public async Task<IActionResult> DeleteCountry([FromQuery]String  CountryId, [FromQuery]String  UserId)
         {
+            string ip = "";
+
+         
             try
             {
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -394,6 +424,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if Country Exist 
                 var record = await _countryRepository.GetCountryById(Convert.ToInt32(CountryId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -410,6 +441,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var delete = await _countryRepository.DeleteCountry(record);
 
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(UserId.ToString());
 
@@ -423,6 +456,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "CountryDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore=json,
+                    RecordAfter=json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

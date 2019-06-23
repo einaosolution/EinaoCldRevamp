@@ -304,6 +304,16 @@ onSubmit4() {
   }
   ngOnInit() {
 
+    if (this.registerapi.checkAccess("#/Dashboard/Role"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,

@@ -23,6 +23,9 @@ using IPORevamp.Data.Entities.PTApplicationStatus;
 using IPORevamp.Data.Entities.Fee;
 using IPORevamp.Data.Entity.Interface.Entities.Product;
 using IPORevamp.Data.Entity.Interface.Entities.Department;
+using IPORevamp.Data.Entity.Interface.Entities.Ministry;
+using IPORevamp.Data.Entity.Interface.Entities.Unit;
+using IPORevamp.Data.Entity.Interface.Entities.Sms;
 
 namespace IPORevamp.Data
 {
@@ -35,6 +38,7 @@ namespace IPORevamp.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
+        public DbSet<SmsLog> SmsLog { get; set; }
         public DbSet<ApplicationUserClaim> ApplicationUserClaims { get; set; }
         public DbSet<ApplicationUserLogin> ApplicationUserLogins { get; set; }
         public DbSet<EmailLog> EmailLog { get; set; }
@@ -46,6 +50,8 @@ namespace IPORevamp.Data
 
        
         public DbSet<AccountType> AccountTypes { get; set; }
+        public DbSet<Ministry> Ministry { get; set; }
+        public DbSet<Units> Units { get; set; }
 
         public DbSet<FeeList> FeeList { get; set; }
 

@@ -37,6 +37,7 @@ using IPORevamp.Data.Entities.TMApplicationStatus;
 using IPORevamp.Repository.PTApplicationStatus;
 using IPORevamp.Core.Utilities;
 using IPORevamp.Data.Entity.Interface.Entities.PTApplicationStatus;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -215,6 +216,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(ActionBy.ToString()); ;
 
                 if (user == null)
@@ -240,6 +245,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllPTApplicationStatus",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "PTApplicationStatus Returned Successfully", false, PTApplicationStatus);
@@ -266,6 +272,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(PTApplicationStatusViewModel.CreatedBy.ToString()); ;
 
                 if (user == null)
@@ -287,14 +297,17 @@ namespace IPORevamp.WebAPI.Controllers
                 content.DateCreated = DateTime.Now;
                 content.CreatedBy = PTApplicationStatusViewModel.CreatedBy.ToString();
                 content.IsActive = true;
-                content.RoleId = 1;
+                content.RoleId = PTApplicationStatusViewModel.RoleId;
                 content.IsDeleted = false;
 
 
                 var save = await _ptApplicationStatusRepository.SavePTApplicationStatus(content);
 
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
+
                 // get User Information
-                 user = await _userManager.FindByIdAsync(PTApplicationStatusViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(PTApplicationStatusViewModel.CreatedBy.ToString());
 
 
                 // Added A New PTApplicationStatus 
@@ -306,6 +319,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "PTApplicationStatusAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -324,6 +339,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(PTApplicationStatusViewModel.CreatedBy.ToString()); ;
 
                 if (user == null)
@@ -332,7 +350,8 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 // Check if PTApplicationStatus Exist 
 
-                var record = await _ptApplicationStatusRepository.GetPTApplicationStatusById(PTApplicationStatusViewModel.RoleId);
+                var record = await _ptApplicationStatusRepository.GetPTApplicationStatusById(PTApplicationStatusViewModel.Id);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -347,14 +366,15 @@ namespace IPORevamp.WebAPI.Controllers
                 record.UpdatedBy = PTApplicationStatusViewModel.CreatedBy.ToString();
                 record.IsActive = true;
 
-                 record.Id = PTApplicationStatusViewModel.RoleId;
-                record.RoleId = 1;
+                 record.Id = PTApplicationStatusViewModel.Id;
+                record.RoleId = PTApplicationStatusViewModel.RoleId;
 
 
                 var save = await _ptApplicationStatusRepository.UpdatePTApplicationStatus(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(PTApplicationStatusViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(PTApplicationStatusViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -366,6 +386,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "PTApplicationStatusUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -385,6 +408,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
 
                 if (user == null)
@@ -393,6 +420,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 // Check if PTApplicationStatus Exist 
                 var record = await _ptApplicationStatusRepository.GetPTApplicationStatusById(Convert.ToInt32(PTApplicationStatusId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -408,9 +436,11 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _ptApplicationStatusRepository.DeletePTApplicationStatus(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
+
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(UserId.ToString());
+                user = await _userManager.FindByIdAsync(UserId.ToString());
 
 
                 // log action
@@ -422,6 +452,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "PTApplicationStatusDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

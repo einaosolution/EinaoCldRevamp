@@ -41,6 +41,8 @@ namespace IPORevamp.Data.UserManagement.Model
         public string CountryCode { get; set; }
         public string ProfilePicLoc { get; set; }
         public string Website { get; set; }
+        public string MeansOfIdentification_value { get; set; }
+        public string Lga_Id { get; set; }
         public string PostalCode { get; set; }
         public string Rcno { get; set; }
         public Boolean ChangePassword { get; set; }
@@ -58,6 +60,10 @@ namespace IPORevamp.Data.UserManagement.Model
         public string CreatedBy { get; set; }
         public string DeletedBy { get; set; }
         public string UpdatedBy { get; set; }
+        public string ministry { get; set; }
+        public string department { get; set; }
+        public string unit { get; set; }
+        public string staffid { get; set; }
         public DateTime? LastPasswordChangDate { get; set; }
 
         public int CategoryId { get; set; }

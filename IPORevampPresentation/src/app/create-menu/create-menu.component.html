@@ -71,7 +71,7 @@
 
                                    <td>{{emp.icon}}</td>
                                     <td>{{emp.url}}</td>
-                                    <td>{{emp.parentId}}</td>
+                                    <td>{{getMenuName(emp.parentId)}}</td>
 
                                     <td>
                                       <button type="button" id="openModalButton" (click) ="showcountry(emp)"  class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
@@ -128,7 +128,7 @@
                                   <div class="form-group">
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <input type="text" name="name"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
+                                          <input type="text" name="name"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }" (change)="valuechange($event)"  class="form-control" id="name"
                                                  placeholder="Name" required autofocus>
 
 

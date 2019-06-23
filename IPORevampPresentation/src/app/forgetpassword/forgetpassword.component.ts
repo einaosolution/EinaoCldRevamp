@@ -33,19 +33,28 @@ export class ForgetpasswordComponent implements OnInit {
   messages = ""
   public formSubmitAttempt: boolean;
   busy: Promise<any>;
+  password22:string = null;
+  password23:string = null;
+  public account = {
+    password: null,
+    confirmpasword:null
+};
+  public barLabel: string = "Password strength:";
+  public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
 
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) {
 
 
 
    }
-  onSubmit() {
+  onSubmit(f) {
 
     this.submitted= true;
 
 
 
-    if (this.userform.valid) {
+
+    if (f) {
       this.spinner.show();
 
 
@@ -54,7 +63,7 @@ export class ForgetpasswordComponent implements OnInit {
 
 
       this.registerapi
-        .ResetPassword(this.code,this.request,this.userform.value.Password,this.userform.value.Password2)
+        .ResetPassword(this.code,this.request,this.account.password,this.account.confirmpasword)
         .then((response: any) => {
           this.spinner.hide();
 
@@ -85,6 +94,11 @@ export class ForgetpasswordComponent implements OnInit {
          );
 
 
+    }
+
+    else {
+      alert("Form not valid")
+     // this.submitted= false;
     }
 
   }

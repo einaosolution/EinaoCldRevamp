@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using System.Net;
 
 namespace IPORevamp.Core.Utilities
 {
@@ -338,6 +339,50 @@ namespace IPORevamp.Core.Utilities
         }
 
         //This method generate random numbers
+        public static string SMSServicesmsprovider(string username, string password, string message, string sender, string mobiles)
+        {
+            try
+            {
+                HttpWebRequest s = default(HttpWebRequest);
+                UTF8Encoding enc = default(UTF8Encoding);
+                string postdata = null;
+                byte[] postdatabytes = null;
+                s = (HttpWebRequest)HttpWebRequest.Create("http://customer.smsprovider.com.ng/api/");
+                enc = new System.Text.UTF8Encoding();
+                postdata = string.Format("username={0}&password={1}&message={2}&sender={3}&mobiles={4}", username, password, message, sender, mobiles);
+                postdatabytes = enc.GetBytes(postdata);
+                s.Method = "POST";
+                s.ContentType = "application/x-www-form-urlencoded";
+                s.ContentLength = postdatabytes.Length;
+
+                Stream stream = s.GetRequestStream();
+                stream.Write(postdatabytes, 0, postdatabytes.Length);
+                stream.Close();
+
+                // Close the Stream object.
+                WebResponse result = s.GetResponse();
+                // Open the stream using a StreamReader for easy access.
+
+                // Get the stream containing content returned by the server.
+                stream = result.GetResponseStream();
+
+                StreamReader reader = new StreamReader(stream);
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd();
+                // Clean up the streams.
+                reader.Close();
+                stream.Close();
+                result.Close();
+                return responseFromServer;
+            }
+            catch (Exception ex)
+            {
+             //   Common.WriteLog(ex);
+                return "";
+            }
+
+        }
+
 
         public static string Randomize()
         {

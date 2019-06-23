@@ -31,6 +31,7 @@ export class CorporateComponent implements OnInit {
    Street: FormControl;
    City: FormControl;
    State: FormControl;
+  IdentificationValue: FormControl;
    PostCode: FormControl;
    Country: FormControl;
    queryParam: string;
@@ -41,16 +42,55 @@ export class CorporateComponent implements OnInit {
 
   varray4 = [{ YearName: 'Argentina', YearCode: 'AR' }, {  YearName: 'Austria', YearCode: 'AT' }  ,{  YearName: 'Cameroon', YearCode: 'CM' },{  YearName: 'China', YearCode: 'CN' } ,{  YearName: 'Nigeria', YearCode: 'NG' } ]
   varray44 = [{ YearName: 'Driver License', YearCode: 'Driver License' }, {  YearName: 'International Passport', YearCode: 'International Passport' }  ,{  YearName: 'National Identity Card', YearCode: 'National Identity Card' },{  YearName: 'Voters Registration Card', YearCode: 'Voters Registration Card' }  ]
-  constructor(private fb: FormBuilder ,private route: ActivatedRoute ,private registerapi :ApiClientService ,private router: Router ,private spinner: NgxSpinnerService) { }
+  constructor(private fb: FormBuilder ,private route: ActivatedRoute ,private registerapi :ApiClientService ,private router: Router ,private spinner: NgxSpinnerService) {
+    this.getIpAddress()
+   }
 
 
   onSubmit2() {
     this.userform.reset();
    }
 
+
+   getIpAddress() {
+
+    $.getJSON('https://api.ipify.org?format=json', function(data){
+      console.log("ip");
+      localStorage.setItem('ip',data.ip );
+
+
+      console.log(data);
+  });
+}
+
    onSubmit() {
    var  formData = new FormData();
    this.submitted= true;
+   var regexp = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+   if (this.userform.value.companytelephone.match(regexp) == null) {
+    Swal.fire(
+      "Invalid Phone Number ",
+       '',
+       'error'
+     )
+
+     return ;
+   }
+
+
+   else if (this.userform.value.MobileNumber.match(regexp) == null) {
+    Swal.fire(
+      "Invalid  Mobile  Number ",
+       '',
+       'error'
+     )
+
+     return ;
+   }
+
+
+
+
    let fi = this.fileInput.nativeElement;
 
    if (fi.files && fi.files[0]) {
@@ -90,6 +130,7 @@ export class CorporateComponent implements OnInit {
    formData.append("State",this.userform.value.State);
    formData.append("PostCode",this.userform.value.PostCode);
    formData.append("Country",this.userform.value.Country);
+   formData.append("meanofidentification_value",this.userform.value.IdentificationValue);
 
 
 
@@ -125,10 +166,10 @@ export class CorporateComponent implements OnInit {
     var email2 = "";
     const firstParam: string = this.route.snapshot.queryParamMap.get('page');
     var userid =localStorage.getItem('UserId');
-    if (localStorage.getItem('username')) {
+    if (localStorage.getItem('username2')) {
 
 
-      email = localStorage.getItem('username');
+      email = localStorage.getItem('username2');
 
     }
 
@@ -161,6 +202,12 @@ export class CorporateComponent implements OnInit {
       Validators.required
 
     ]);
+
+    this.IdentificationValue = new FormControl('', [
+      Validators.required
+
+    ]);
+
 
     this.MobileNumber = new FormControl('', [
       Validators.required
@@ -203,12 +250,12 @@ export class CorporateComponent implements OnInit {
     ]);
 
     this.companytelephone = new FormControl('', [
-
+      Validators.required
     ]);
 
     this.companyemail = new FormControl('', [
 
-
+      Validators.required,  Validators.email
     ]);
 
     this.companywebsite = new FormControl('', [
@@ -226,6 +273,7 @@ export class CorporateComponent implements OnInit {
 
       DateofBirth: this.DateofBirth ,
       MeansofIdentification: this.MeansofIdentification ,
+      IdentificationValue:this.IdentificationValue,
       MobileNumber: this.MobileNumber ,
       Street: this.Street ,
       City: this.City ,

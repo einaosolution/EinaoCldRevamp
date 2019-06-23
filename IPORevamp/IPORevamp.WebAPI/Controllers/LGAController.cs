@@ -39,6 +39,7 @@ using IPORevamp.Repository.LGA;
 using IPORevamp.Data.Entities;
 using IPORevamp.Repository.state;
 using IPORevamp.Data.Entities.LGAs;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -158,7 +159,39 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
-     
+
+        [HttpGet("GetLGAByState")]
+        public async Task<IActionResult> GetLGAByState([FromQuery] string State2)
+        {
+            try
+            {
+                // check for user information before processing the request
+
+
+
+                var Lga2= await _lgarepository.GetLGAByState(Convert.ToInt32(State2));
+
+                if (Lga2 != null)
+                {
+
+                    // get User Information
+
+
+                    return PrepareResponse(HttpStatusCode.OK, "State Returned Successfully", false, Lga2);
+
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.OK, "State Returned Successfully", false, Lga2);
+                    //  return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select State", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
 
 
 
@@ -216,6 +249,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -241,6 +278,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllLGA",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "LGA Returned Successfully", false, LGA);
@@ -267,6 +305,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
 
                 var user = await _userManager.FindByIdAsync(lGAStateViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -275,12 +317,12 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 // Check if LGA Exist 
 
-                var checkCount = await _lgarepository.CheckExistingLGA(lGAStateViewModel.LGAName);
+              //  var checkCount = await _lgarepository.CheckExistingLGA(lGAStateViewModel.LGAName);
 
-                if (checkCount != null)
-                {
-                    return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
-                }
+             //   if (checkCount != null)
+             //   {
+                  //  return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
+              //  }
 
                 // attempt to save
                 Data.Entities.LGAs.LGA content = new Data.Entities.LGAs.LGA();
@@ -290,11 +332,13 @@ namespace IPORevamp.WebAPI.Controllers
                 content.IsActive = true;       
                 content.IsDeleted = false;
                 content.StateId = lGAStateViewModel.StateId;
+                content.CountryId = lGAStateViewModel.CountryId;
 
                                 var save = await _lgarepository.SaveLGA(content);
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(lGAStateViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(lGAStateViewModel.CreatedBy.ToString());
 
                 // Added A New LGA 
                 await _auditTrailManager.AddAuditTrail(new AuditTrail
@@ -305,6 +349,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "LGAAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress= ip ,
+                    RecordAfter = json 
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -323,7 +369,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(LGAViewModel.CreatedBy.ToString()); 
 
@@ -335,6 +383,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if LGA Exist 
 
                 var record = await _lgarepository.GetLGAById(LGAViewModel.LGAId);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -348,11 +397,13 @@ namespace IPORevamp.WebAPI.Controllers
                 record.LGAName = LGAViewModel.LGAName;
                 record.Id = LGAViewModel.LGAId;
                 record.StateId = LGAViewModel.StateId;
+                record.CountryId = LGAViewModel.CountryId;
 
                 var save = await _lgarepository.UpdateLGA(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(LGAViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(LGAViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -364,6 +415,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "LGAUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -383,6 +437,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -392,6 +449,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if LGA Exist 
                 var record = await _lgarepository.GetLGAById(Convert.ToInt32(LGAId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -408,6 +466,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var delete = await _lgarepository.DeleteLGA(record);
 
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(UserId.ToString());
 
@@ -420,6 +480,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "LGADelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

@@ -57,6 +57,7 @@
                           <thead>
                               <tr>
                                   <th>Name</th>
+                                  <th>Country</th>
 
                                   <th>DateCreated</th>
                                  <th>Action </th>
@@ -67,6 +68,7 @@
 
                                 <tr *ngFor="let emp of row2  let i = index">
                                     <td>{{emp.stateName}}</td>
+                                    <td>{{emp.country.name}}</td>
 
 
                                       <td>{{emp.dateCreated|date}}</td>
@@ -143,7 +145,7 @@
                                     <div class="form-group">
                                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                            <input type="text" name="name"   formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
+                                            <input type="text" name="name"   (change)="valuechange($event)"  formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
                                                    placeholder="Name" required autofocus>
 
 

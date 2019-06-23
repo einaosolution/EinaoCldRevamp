@@ -11,6 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Subject } from 'rxjs';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { map } from 'rxjs/operators';
+declare var $ :any;
 
 @Component({
   selector: 'app-assign-role',
@@ -165,8 +166,13 @@ for (var i=0; i<this.row3 .length; i++){
 
     // ... do other stuff here ...
 }
-  onSubmit() {
 
+showcountry2() {
+  this.submitted = false;
+  $("#createmodel").modal('show');
+}
+  onSubmit() {
+this.submitted = true;
     if (this.vrole =="" ) {
 
       Swal.fire(
@@ -174,7 +180,7 @@ for (var i=0; i<this.row3 .length; i++){
         '',
         'error'
       )
-
+      this.submitted = false;
       return;
     }
     for (var i=0; i<this.row3.length; i++){
@@ -217,6 +223,10 @@ if (this.row3[i].selected)  {
 
           this.spinner.show();
 
+         // $("#createmodel").scrollTop(0);
+
+          $('#createmodel').show().scrollTop(0);
+
           this.busy =   this.registerapi
           .UpdateRolePermission(kk)
           .then((response: any) => {
@@ -234,7 +244,7 @@ if (this.row3[i].selected)  {
 
          this.row4 =[]
 
-         $(document).scrollTop(0);
+     //    $(document).scrollTop(0);
 
 
           })
@@ -253,11 +263,15 @@ if (this.row3[i].selected)  {
 
         } else if (
           // Read more about handling dismissals
+
+
           result.dismiss === Swal.DismissReason.cancel
 
 
-        ) {
 
+
+        ) {
+          this.submitted = false;
         }
       })
     }
@@ -294,7 +308,7 @@ if (this.row3[i].selected)  {
              .catch((response: any) => {
               this.spinner.hide();
                console.log(response)
-
+               this.submitted=false;
 
               Swal.fire(
                 response.error.message,
@@ -455,6 +469,19 @@ onSubmit4() {
     this.dtTrigger.unsubscribe();
   }
   ngOnInit() {
+
+    if (this.registerapi.checkAccess("#/Dashboard/AssignRole"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
+
+
 
     this.dtOptions = {
       pagingType: 'full_numbers',

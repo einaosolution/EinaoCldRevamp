@@ -126,12 +126,12 @@
                                   <div class="form-group">
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <input type="text" name="name"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
-                                                 placeholder="Code" required autofocus>
+                                          <input type="text" name="name"  (change)="valuechange($event)"  formControlName="Code" [ngClass]="{ 'is-invalid': submitted && Code.errors }"   class="form-control" id="name"
+                                                 placeholder="Email Name" required autofocus>
 
 
                                                  <div *ngIf="submitted && Code.errors" class="invalid-feedback">
-                                                  <div *ngIf="submitted && Code.errors.required">Code is required</div>
+                                                  <div *ngIf="submitted && Code.errors.required">Email Name is required</div>
 
                                                 </div>
 
@@ -175,8 +175,11 @@
                                 <div class="form-group">
                                     <div class="input-group "  >
 
-                                      <app-ngx-editor   height="700px" [minWidth]="700" formControlName="Template" minHeight="50px" [spellcheck]="true"   ></app-ngx-editor>
-                                    </div>
+                                   <!--    <app-ngx-editor   height="700px" [minWidth]="700" formControlName="Template" minHeight="50px" [spellcheck]="true"   ></app-ngx-editor>  -->
+                                    <!--    <angular-editor  height="700px" formControlName="Template"></angular-editor>  -->
+                                    <div  [ngxSummernote] ="config"  formControlName="Template"></div>
+
+                                  </div>
                                 </div>
                             </div>
                             <div class="col-md-3">

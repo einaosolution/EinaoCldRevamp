@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import {EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 
@@ -15,7 +16,9 @@ export class ApiClientService {
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
   navchange: EventEmitter<string> = new EventEmitter();
 
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private http: HttpClient,private router: Router , private deviceService: DeviceDetectorService) {
+    this.getIpAddress()
+   }
 
   VChangeEvent(number) {
    // this.router.navigateByUrl('/home');
@@ -26,6 +29,18 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
     // this.router.navigateByUrl('/home');
      this.changepassword =bb;
    }
+
+
+   getIpAddress() {
+
+    $.getJSON('https://api.ipify.org?format=json', function(data){
+      console.log("ip");
+      localStorage.setItem('ip',data.ip );
+
+
+      console.log(data);
+  });
+}
 
    password2() {
     // this.router.navigateByUrl('/home');
@@ -91,12 +106,27 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
     //  var token = localStorage.getItem('access_tokenexpire');
 
      // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+     //var vip = localStorage.getItem('ip');
+    // const  headers = new  HttpHeaders().set("ip", vip);
       return this.http.post( this.serviceBase + 'api/Country/SaveCountry', formData )
                   .toPromise()
 
                   .then(data => {  return data; });
 
     }
+
+    SaveUser(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/UserManagement/signup2', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
 
     SaveDepartment(formData) {
 
@@ -146,6 +176,45 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
                       .then(data => {  return data; });
 
         }
+
+
+        SaveDSApplicationStatus(formData) {
+
+          //  var token = localStorage.getItem('access_tokenexpire');
+
+           // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+            return this.http.post( this.serviceBase + 'api/DSApplicationStatus/SaveDSApplicationStatus', formData )
+                        .toPromise()
+
+                        .then(data => {  return data; });
+
+          }
+
+          SaveMinistry(formData) {
+
+            //  var token = localStorage.getItem('access_tokenexpire');
+
+             // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+              return this.http.post( this.serviceBase + 'api/Ministry/SaveMinistry', formData )
+                          .toPromise()
+
+                          .then(data => {  return data; });
+
+            }
+
+
+          SaveUnit(formData) {
+
+            //  var token = localStorage.getItem('access_tokenexpire');
+
+             // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+              return this.http.post( this.serviceBase + 'api/Unit/SaveUnit', formData )
+                          .toPromise()
+
+                          .then(data => {  return data; });
+
+            }
+
 
 
 
@@ -309,6 +378,43 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 
     }
 
+    UpdateDSApplicationStatus(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/DSApplicationStatus/UpdateDSApplicationStatus', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+    UpdateMinistry(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/Ministry/UpdateMinistry', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
+
+    UpdateUnit(formData) {
+
+      var token = localStorage.getItem('access_tokenexpire');
+
+      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+      return this.http.post( this.serviceBase + 'api/Unit/UpdateUnit', formData ,{headers})
+                  .toPromise()
+
+                  .then(data => {  return data; });
+
+    }
+
 
     UpdateSector(formData) {
 
@@ -399,6 +505,37 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 
     }
 
+    ApproveUser(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        Email: pp ,
+        RequestedBy: pp2 ,
+        Roleid: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/ApproveUser', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+RejectUser(pp: string,pp2: string ) {
+
+      var data = {
+        Email: pp ,
+        RequestedBy: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/RejectUser', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     DeleteCountry(pp: string,pp2: string ) {
 
       var data = {
@@ -414,6 +551,35 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
         });
     }
 
+
+    DeleteUser(pp: string,pp2: string ) {
+
+      var data = {
+        UserId: pp ,
+        RequestedBy: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/DeleteUser', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+    LogoutUser(pp: string ) {
+
+      var data = {
+
+        RequestedBy: pp
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/Logout', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
 
     DeleteDepartment(pp: string,pp2: string ) {
 
@@ -507,6 +673,78 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
           return data;
         });
     }
+
+
+    GetUser2() {
+
+
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/GetUser')
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetAllTempUser() {
+
+
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/GetAllTempUser')
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteDSApplicationStatus(pp: string,pp2: string ) {
+
+      var data = {
+        DSApplicationStatusId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DSApplicationStatus/DeleteDSApplicationStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeleteMinistry(pp: string,pp2: string ) {
+
+      var data = {
+        MinistryId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Ministry/DeleteMinistry', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DeletUnit(pp: string,pp2: string ) {
+
+      var data = {
+        ProductId: pp ,
+        UserId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Unit/DeletUnit', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     DeleteRole(pp: string,pp2: string ) {
 
@@ -707,6 +945,47 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 
   }
 
+
+  AssignUser(formData) {
+
+
+
+    //return this.http.post( this.serviceBase + 'api/UserManagement/UpdateIndividualRecord', formData)
+    return this.http.post( this.serviceBase + 'api/UserManagement/AssignUser', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  checkAccess(vurl) {
+    var pp3 =[]
+    var ppp2 = localStorage.getItem('Roles');
+     pp3= JSON.parse(ppp2);
+
+
+    let obj = pp3.find(o => o.url.toUpperCase() === vurl.toUpperCase());
+
+    if (obj) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  UpdateUserFunction(formData) {
+
+
+
+    //return this.http.post( this.serviceBase + 'api/UserManagement/UpdateIndividualRecord', formData)
+    return this.http.post( this.serviceBase + 'api/UserManagement/UpdateUser', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
   UpdateFeeList(formData) {
 
 
@@ -793,6 +1072,43 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 			});
   }
 
+
+  GetStateByCountry(pp : string) {
+   // var token = localStorage.getItem('access_tokenexpire');
+
+   //  const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      Countryid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/State/GetStateByCountry', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetLGAByState(pp : string) {
+    // var token = localStorage.getItem('access_tokenexpire');
+
+    //  const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+     var data = {
+
+
+      State2:pp
+     };
+     return this.http
+       .get(this.serviceBase + 'api/LGA/GetLGAByState', { params: data })
+       .toPromise()
+       .then((data) => {
+         return data;
+       });
+   }
+
+
   GetAllProduct(pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -868,6 +1184,56 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 		};
 		return this.http
 			.get(this.serviceBase + 'api/PTApplicationStatus/GetAllPTApplicationStatus', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllDSApplicationStatus(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      ActionBy:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DSApplicationStatus/GetAllDSApplicationStatus', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetAllMinistry(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Ministry/GetAllMinistry', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetAllUnit(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Unit/GetAllUnit', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

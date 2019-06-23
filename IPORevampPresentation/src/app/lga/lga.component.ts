@@ -41,16 +41,38 @@ export class LgaComponent implements OnDestroy, OnInit {
   Code: FormControl;
   Code2: FormControl;
   Description: FormControl;
+  Country: FormControl;
   busy: Promise<any>;
   id:string;
   public rows = [];
   public row2 = [];
   public row3 = [];
+  public row = [];
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService) { }
 
   onSubmit() {
     this.submitted= true;
     var table = $('#myTable').DataTable();
+
+    let obj = this.row2.find(o => o.lgaName.toUpperCase() === this.userform.value.Description.toUpperCase());
+
+
+    if (obj) {
+
+    //let obj2 = obj.find(o => o.departmentId.toUpperCase() === this.userform.value.Department.toUpperCase());
+    if (obj.stateId== this.userform.value.Code) {
+     (<FormControl> this.userform.controls['Description']).setValue("");
+
+     Swal.fire(
+       "Description Already Exist",
+       '',
+       'error'
+     )
+    }
+
+
+
+   }
 
 
     if (this.userform.valid) {
@@ -60,7 +82,8 @@ export class LgaComponent implements OnDestroy, OnInit {
       var kk = {
         StateId:this.userform.value.Code ,
         LGAName:this.userform.value.Description ,
-        CreatedBy:userid
+        CreatedBy:userid,
+        CountryId:this.userform.value.Country
 
 
 
@@ -107,6 +130,16 @@ export class LgaComponent implements OnDestroy, OnInit {
 
 }
 
+valuechange(een ) {
+  //  alert(this.userform.value.email);
+   // this.userform.value.email ="aa@ya.com";
+
+
+
+
+
+  }
+
 onSubmit11() {
 
   this.submitted= true;
@@ -121,7 +154,9 @@ onSubmit11() {
       StateId:this.userform.value.Code ,
       LGAName:this.userform.value.Description ,
       LGAId:this.id ,
-      CreatedBy:userid
+      CreatedBy:userid ,
+      CountryId:this.userform.value.Country
+
 
 
 
@@ -174,6 +209,7 @@ showcountry(kk) {
   this.id = kk.id ;
 
   (<FormControl> this.userform.controls['Code']).setValue(kk.stateId);
+  (<FormControl> this.userform.controls['Country']).setValue(kk.countryId);
 
   (<FormControl> this.userform.controls['Description']).setValue(kk.lgaName);
   $("#createmodel").modal('show');
@@ -316,6 +352,17 @@ this.busy =   this.registerapi
   }
 
   ngOnInit() {
+
+    if (this.registerapi.checkAccess("#/Dashboard/Lga"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -344,6 +391,10 @@ this.busy =   this.registerapi
       Validators.required
     ]);
 
+    this.Country = new FormControl('', [
+      Validators.required
+    ]);
+
 
 
     this.userform = new FormGroup({
@@ -351,6 +402,7 @@ this.busy =   this.registerapi
       Code: this.Code,
 
       Description: this.Description ,
+      Country:this.Country
 
 
     });
@@ -390,7 +442,29 @@ this.busy =   this.registerapi
 })
 
 
+this.registerapi
+.GetCountry("true",userid)
+.then((response: any) => {
 
+ console.log("Response2")
+ this.row = response.content;
+ console.log(response)
+
+
+
+})
+        .catch((response: any) => {
+
+          console.log(response)
+
+
+         Swal.fire(
+           response.error.message,
+           '',
+           'error'
+         )
+
+})
 
 this.busy =   this.registerapi
 .GetAllLGAs(userid)

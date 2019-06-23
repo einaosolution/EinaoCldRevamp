@@ -180,7 +180,8 @@ namespace IPORevamp.WebAPI
 
             services.AddDataProtection();
 
-           // services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
+           
 
             services.Configure<ApiBehaviorOptions>(options => {
                 options.SuppressModelStateInvalidFilter = true;
@@ -221,7 +222,7 @@ namespace IPORevamp.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, IBackgroundJobClient backgroundJobs)
         {
 
            // app.UseMiddleware<CookieChecker>();
@@ -252,8 +253,9 @@ namespace IPORevamp.WebAPI
             GlobalConfiguration.Configuration
                                 .UseActivator(new HangfireActivator(serviceProvider));
             //Make sure you're adding required authentication 
-         //   app.UseHangfireDashboard();
-           // app.UseHangfireServer();
+         //  app.UseHangfireDashboard();
+         //   backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+            // app.UseHangfireServer();
             app.UseElmah();
 
             
@@ -264,6 +266,8 @@ namespace IPORevamp.WebAPI
             //RecurringJob.AddOrUpdate<IEmailManager<EmailLog, EmailTemplate>>(j => j.SendBatchMailAsync(), cronsetting);
 
             app.UseAuthentication();
+            app.UseHangfireDashboard();
+         //   backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 
             app.UseMvc(routes =>
             {

@@ -37,6 +37,8 @@ using IPORevamp.Repository.Email;
 using IPORevamp.Repository.Menu;
 using IPORevamp.Data.Entities.Menus;
 using IPORevamp.Data.Entity.Interface.Entities.Role;
+using Newtonsoft.Json;
+using IPORevamp.Data.Entity.Interface.Entities.Sms;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -52,7 +54,9 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private IHostingEnvironment _hostingEnvironment;
         private IFileHandler _fileUploadRespository;
+        private IPOContext _dbcontext;
         private IUserProfilingRepository _userProfilingRepository;
+        private readonly IPORevamp.Repository.Department.IDepartmentRepository _departmentRepository;
         private readonly IEmailTemplateRepository _EmailTemplateRepository;
         private readonly IMenuRepository _menuRepository;
 
@@ -65,7 +69,9 @@ namespace IPORevamp.WebAPI.Controllers
             IEmailManager<EmailLog, EmailTemplate> emailManager,
             ISettingRepository settingrepository,
             IUserProfilingRepository userProfilingRepository,
+             IPORevamp.Repository.Department.IDepartmentRepository departmentRepository,
             IEmailSender emailsender,
+            IPOContext dbcontext,
             IHttpContextAccessor httpContextAccessor,
             IHostingEnvironment hostingEnvironment ,
             IEmailTemplateRepository EmailTemplateRepository,
@@ -93,7 +99,9 @@ namespace IPORevamp.WebAPI.Controllers
             _fileUploadRespository = fileUploadRespository;
             _userProfilingRepository = userProfilingRepository;
             _EmailTemplateRepository = EmailTemplateRepository;
+            _dbcontext = dbcontext;
             _menuRepository = menuRepository;
+            _departmentRepository = departmentRepository;
         }
 
         // <summary>
@@ -116,12 +124,31 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [HttpGet("TestSms")]
+        public async Task<IActionResult> TestSms()
+          {
+            var Registrar = "Anthony Dolo";
+            var firstname = "Fred";
+            var lastname = "agbaje";
+            var Department = "Trademark";
+
+            var template = $"Hello {Registrar},{Environment.NewLine} A request to create admin user has been initiated.  Find below the login details {Environment.NewLine} Firstname :{firstname} {Environment.NewLine} Lastname :{lastname} {Environment.NewLine} Department :{Department} {Environment.NewLine} Kindly login to the portal to approve or reject this request.";
+          var status = IPORevamp.Core.Utilities.Utilities.SMSServicesmsprovider("bolajiworld@gmail.com", "password", template, "IpoNigeria", "07059394683");
+
+   
+
+
+            return Ok();
+        }
+
         [HttpGet("GetUserFromEmail")]
         public async Task<IActionResult> GetUserFromEmail([FromQuery] string EmailAddress)
         {
           
 
             var user = _userManager.Users.FirstOrDefault(x => x.Email == EmailAddress);
+
+           
 
             return Ok(user);
 
@@ -162,6 +189,10 @@ namespace IPORevamp.WebAPI.Controllers
             [FromForm] string RoleId , [FromForm] string RequestedBy)
         {
             var user = await _userManager.FindByIdAsync(UserId); ;
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
+            string ip = "";
+
+            ip = Request.Headers["ip"];
             var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
             if (user == null)
             {
@@ -171,6 +202,9 @@ namespace IPORevamp.WebAPI.Controllers
             user.RolesId = Convert.ToInt32(RoleId);
           
             await _userManager.UpdateAsync(user);
+            var user3 = await _userManager.FindByIdAsync(UserId); ;
+
+            string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
 
             await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
@@ -180,6 +214,9 @@ namespace IPORevamp.WebAPI.Controllers
                 Entity = "User",
                 UserId = 0,
                 UserName = user.Email,
+                IpAddress=ip,
+                RecordBefore=json,
+                RecordAfter = json2
             });
 
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
@@ -193,7 +230,11 @@ namespace IPORevamp.WebAPI.Controllers
       [FromForm] string RoleId, [FromForm] string RequestedBy , [FromForm] string Firstname, [FromForm] string Lastname, [FromForm] string PhoneNumber, [FromForm] string Occupation)
         {
             var user = await _userManager.FindByIdAsync(UserId); ;
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
             var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
+            string ip = "";
+
+            ip = Request.Headers["ip"];
             if (user == null)
             {
                 return PrepareResponse(HttpStatusCode.OK, "User Does not  Exist", true, null); ;
@@ -206,6 +247,8 @@ namespace IPORevamp.WebAPI.Controllers
             user.Occupation = Occupation;
 
             await _userManager.UpdateAsync(user);
+            var user3 = await _userManager.FindByIdAsync(UserId); ;
+            string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
 
             await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
@@ -215,6 +258,9 @@ namespace IPORevamp.WebAPI.Controllers
                 Entity = "User",
                 UserId = 0,
                 UserName = user.Email,
+                IpAddress = ip,
+                RecordBefore =json,
+                RecordAfter =json2
             });
 
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
@@ -222,13 +268,45 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("Logout")]
+
+        public async Task<IActionResult> Logout(  [FromQuery] string RequestedBy)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+            var user = await _userManager.FindByIdAsync(RequestedBy); ;
+
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"Logged Out  User   {user.FirstName + ' ' + user.LastName}  ",
+                Entity = "User",
+                UserId = 0,
+                UserName = user.Email,
+                IpAddress = ip,
+                
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "LogOut  Successful", false);
+
+
+        }
 
         [HttpGet("DeleteUser")]
 
         public async Task<IActionResult> DeleteUser([FromQuery] string UserId,
             [FromQuery] string RequestedBy)
         {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
             var user = await _userManager.FindByIdAsync(UserId); ;
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
             var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
             var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(user.Email);
             if (user == null)
@@ -239,6 +317,10 @@ namespace IPORevamp.WebAPI.Controllers
             user.IsDeleted = true;
 
             await _userManager.UpdateAsync(user);
+
+            var user3 = await _userManager.FindByIdAsync(UserId); ;
+
+            string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
 
             if (ExistingAccount != null)
             {
@@ -255,6 +337,9 @@ namespace IPORevamp.WebAPI.Controllers
                 Entity = "User",
                 UserId = 0,
                 UserName = user.Email,
+                IpAddress= ip,
+                RecordBefore = json,
+                RecordAfter = json2
             });
 
             return PrepareResponse(HttpStatusCode.OK, "Delete  Successful", false);
@@ -270,11 +355,15 @@ namespace IPORevamp.WebAPI.Controllers
             [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, 
             [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber,
             [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode,
-            [FromForm] string Country, [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite)
+            [FromForm] string Country, [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite, [FromForm] string meanofidentification_value, [FromForm] string lgaid)
         {
-          
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
 
             var user = _userManager.Users.FirstOrDefault(x => x.Email.ToLower() == Email.ToLower());
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
 
             if (user == null)
             {
@@ -330,10 +419,16 @@ namespace IPORevamp.WebAPI.Controllers
                     user.CompleteRegistration = true;
                     user.Rcno = CompanyRegistration;
                     user.MobileNumber = companytelephone;
-                  
+                    user.MeansOfIdentification_value = meanofidentification_value;
+                    user.Lga_Id = lgaid;
+
+
                     user.Website = companywebsite;
 
                     await _userManager.UpdateAsync(user);
+
+                    var user3 = _userManager.Users.FirstOrDefault(x => x.Email.ToLower() == Email.ToLower());
+                    string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
                     await _auditTrailManager.AddAuditTrail(new AuditTrail
                     {
                         ActionTaken = AuditAction.Update,
@@ -342,6 +437,9 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "User",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip,
+                        RecordBefore = json ,
+                        RecordAfter = json2
                     });
 
                 }
@@ -425,17 +523,29 @@ namespace IPORevamp.WebAPI.Controllers
         {
             //   _userManager.ChangePasswordAsync()
 
-           
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
 
             if (ModelState.IsValid)
             {
                 var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Email);
               
-                await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+           var kk =     await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (kk.Errors.Count() > 0)
+                {
+                    var code = kk.Errors.ToArray()[0].Code;
+                    if (code == "PasswordMismatch")
+                    {
+                        return PrepareResponse(HttpStatusCode.BadRequest, "The old password supplied is wrong", false);
+                    }
+                    return PrepareResponse(HttpStatusCode.BadRequest, code, false);
+                }
                 var username = user.FirstName + ' ' + user.LastName;
                 user.ChangePassword = true;
                 user.ChangePasswordFirstLogin = true;
-                user.LastPasswordChangDate = DateTime.Now;
+                 user.LastPasswordChangDate = DateTime.Now;
                 
                 await _userManager.UpdateAsync(user);
                 try
@@ -448,6 +558,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "User",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress=ip
                     });
 
                 }
@@ -475,15 +586,17 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
-               
-                
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
 
 
                 var ExistingAccount = await _userProfilingRepository.ValidateVerificationEmail(model.Email);
 
                 if (ExistingAccount != null)
                 {
-                    return PrepareResponse(HttpStatusCode.Found, "Existing Email Record Found", false);
+                    return PrepareResponse(HttpStatusCode.Found, "Email already exist", false);
 
                 }
                 
@@ -530,6 +643,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                  await _userProfilingRepository.SavingUserProfile(userVerification);
 
+                string json = JsonConvert.SerializeObject(userVerification, Newtonsoft.Json.Formatting.Indented);
+
                 string mailContent = emailTemplate.EmailBody;
                 mailContent = mailContent.Replace("#name", model.First_Name + ' ' + model.Last_Name);
                 mailContent = mailContent.Replace("#Duration", expiringDate.ToString());
@@ -554,6 +669,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "User",
                     UserId = 0,
                     UserName = model.Email,
+                    IpAddress = ip,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, "Email Verification Created", false);
@@ -571,7 +688,9 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("Confirmation")]
         public async Task<IActionResult> Confirmation(string code)
         {
-          
+            string ip = "";
+
+            ip = Request.Headers["ip"];
             var corporatelink = _configuration["CORPORATEREDIRECTURL"] + code;
             var individuallink = _configuration["INDIVIDUALREDIRECTURL"] + code;
 
@@ -624,6 +743,7 @@ namespace IPORevamp.WebAPI.Controllers
                         UserName = model.Email,
                         Email = model.Email,
                         FirstName = model.First_Name,
+                        LastName = model.Last_Name,
                         CategoryId = model.CategoryId,
                         CreatedBy = model.First_Name + " " + model.Last_Name,
                         DateCreated = DateTime.Now,
@@ -678,6 +798,7 @@ namespace IPORevamp.WebAPI.Controllers
                             Entity = "User",
                             UserId = user.Id,
                             UserName = user.UserName,
+                            IpAddress= ip
                         });
 
 
@@ -727,7 +848,9 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("ResetPassword")]
         public async Task<IActionResult> ResetPassword([FromQuery] string code, [FromQuery] string UserId, [FromQuery] string NewPassord, [FromQuery] string ConfirmPassword)
         {
-            
+            string ip = "";
+
+            ip = Request.Headers["ip"];
 
             if (code == null  || UserId == null)
             {
@@ -779,7 +902,9 @@ namespace IPORevamp.WebAPI.Controllers
                         
                       //   var resetPassword = await _userManager.ResetPasswordAsync(model, code, NewPassord);
                         var resetPassword = await _userManager.ResetPasswordAsync(model, passwordResetCode, NewPassord);
-                       
+
+                        
+
                         if (resetPassword.Succeeded)
                         {
 
@@ -815,6 +940,7 @@ namespace IPORevamp.WebAPI.Controllers
                                 Entity = "User/ResetPassword",
                                 UserId = model.Id,
                                 UserName = model.UserName,
+                                IpAddress= ip
                             });
 
                             return PrepareResponse(HttpStatusCode.OK, "Password Reset Successful.", true, null);
@@ -823,7 +949,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                         else
                         {
-                            return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful", true, null);
+                            return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful reason " + resetPassword.Errors.ToArray().ToString(), true, null);
 
                         }
 
@@ -925,6 +1051,11 @@ namespace IPORevamp.WebAPI.Controllers
         {
 
             var user = _userManager.Users.FirstOrDefault(x => x.Id ==Convert.ToInt32(RequestedBy));
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
+
+            string ip = "";
+
+            ip = Request.Headers["ip"];
 
             EmailTemplate emailtemplate;
             emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Account_Creation);
@@ -954,6 +1085,10 @@ namespace IPORevamp.WebAPI.Controllers
                 State = ExistingAccount.State,
                 PostalCode = ExistingAccount.Postal,
                 CountryCode = ExistingAccount.Country,
+                ministry = ExistingAccount.ministry,
+                department = ExistingAccount.department,
+                staffid = ExistingAccount.staffid ,
+
                 RolesId = Convert.ToInt32(Roleid),
                 EmailConfirmed = true,
                 IsActive = true,
@@ -992,6 +1127,9 @@ namespace IPORevamp.WebAPI.Controllers
 
                 await _emailsender.SendEmailAsync(ExistingAccount.Email, emailtemplate.EmailSubject, mailContent);
 
+                var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(RequestedBy));
+                string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
+
                 await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
@@ -1000,6 +1138,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "User",
                     UserId = 0,
                     UserName = ExistingAccount.Email,
+                    IpAddress =ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
 
@@ -1020,8 +1161,12 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("RejectUser")]
         public async Task<IActionResult> RejectUser([FromQuery] String Email, [FromQuery] String RequestedBy)
         {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
 
             var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(RequestedBy));
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
 
             EmailTemplate emailtemplate;
             emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Account_Creation);
@@ -1042,11 +1187,26 @@ namespace IPORevamp.WebAPI.Controllers
 
             _userProfilingRepository.SavingUserProfile(ExistingAccount);
 
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(RequestedBy));
+            string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
 
-          
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"Reject Admin User    {ExistingAccount.Email} ",
+                Entity = "User",
+                UserId = 0,
+                UserName = ExistingAccount.Email,
+                IpAddress = ip,
+                RecordBefore = json,
+                RecordAfter = json2
+            });
 
 
-                return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully, a mail has been sent to your email address to validate your email address", false);
+
+            return PrepareResponse(HttpStatusCode.OK, "Account has been created successfully, a mail has been sent to your email address to validate your email address", false);
           
 
         }
@@ -1055,9 +1215,12 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpPost("signup2")]
         public async Task<IActionResult> Register2(RegisterViewModel model)
         {
-            //    var emailtemplate = _emailManager.GetEmailTemplate(IPOEmailTemplateType.AccountCreation).FirstOrDefault(x => x.IsActive);
-            EmailTemplate emailtemplate;
-            emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Send_Registra_Mail);
+           
+            EmailTemplate  emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Send_Registra_Mail);
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
             String Department = "";
             if (emailtemplate != null)
             {
@@ -1105,6 +1268,9 @@ namespace IPORevamp.WebAPI.Controllers
                     userVerification.Gender =Convert.ToString(model.Gender);
                     userVerification.MobileNumber = model.MobileNumber;
                     userVerification.Unit = model.Unit;
+                userVerification.staffid = model.staffid;
+                userVerification.ministry = model.ministry;
+                userVerification.department = model.department;
                     userVerification.Status = "Pending";
                     userVerification.expired = false;
                     userVerification.ExpiringDate = null;
@@ -1114,28 +1280,18 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                     await _userProfilingRepository.SavingUserProfile(userVerification);
+
+                string json = JsonConvert.SerializeObject(userVerification, Newtonsoft.Json.Formatting.Indented);
                 List<IPORevamp.Data.Entities.Setting.Setting> Setting = null;
                 List<IPORevamp.Data.Entities.Setting.Setting> Setting2 = null;
-                if (model.Unit == "3")
-                {
-                  //  Setting = await _settings.GetSettingByCode("TrademarkRegistraEmail");
-                  //  Setting2 = await _settings.GetSettingByCode("TrademarkRegistraName");
-                    Department = "Trademark";
-                }
 
-                else if(model.Unit == "4")
+                var record = await _departmentRepository.GetDepartmentById(Convert.ToInt32(model.department));
+                if (record != null)
                 {
-                  //  Setting = await _settings.GetSettingByCode("PatentRegistraEmail");
-                   // Setting2 = await _settings.GetSettingByCode("PatentRegistraName");
-                    Department = "Patent";
+                    Department = record.Name;
                 }
-
-                else if (model.Unit == "5")
-                {
-                  //  Setting = await _settings.GetSettingByCode("DesignRegistraEmail");
-                  //  Setting2 = await _settings.GetSettingByCode("DesignRegistraName");
-                    Department = "Design";
-                }
+              
+             
 
 
         
@@ -1160,6 +1316,33 @@ namespace IPORevamp.WebAPI.Controllers
                    // await _emailsender.SendEmailAsync(Setting[0].ItemValue, emailtemplate.EmailSubject, mailContent);
                     await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
 
+                    try
+                    {
+                        var template = $"Hello {vname},{Environment.NewLine} A request to create admin user has been initiated.  Find below the login details {Environment.NewLine} Firstname :{model.Firstname} {Environment.NewLine} Lastname :{model.Lastname} {Environment.NewLine} Department :{Department} {Environment.NewLine} Kindly login to the portal to approve or reject this request.";
+                        var status = IPORevamp.Core.Utilities.Utilities.SMSServicesmsprovider("bolajiworld@gmail.com", "password", template, "IpoNigeria", users.MobileNumber);
+
+                        _dbcontext.Add(new SmsLog
+                        {
+                            username = "bolajiworld@gmail.com",
+                            message = template,
+                            sender = "IpoNigeria",
+                            mobilenumber = users.MobileNumber,
+                            useremail = users.Email,
+                            status = status,
+                            IsDeleted = false,
+                            IsActive = true,
+                            DateCreated = DateTime.Now
+                        });
+
+                        _dbcontext.SaveChanges();
+
+                    }
+
+                    catch(Exception ee)
+                    {
+
+                    }
+
 
                 }
 
@@ -1171,6 +1354,8 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "User",
                         UserId = 0,
                         UserName = model.Username,
+                        IpAddress = ip ,
+                        RecordBefore = json
                     });
 
               
@@ -1293,7 +1478,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             
             var emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.FORGOT_PASSWORD_EMAIL_TEMPLATE);
+            string ip = "";
 
+            ip = Request.Headers["ip"];
 
 
             if (emailTemplate != null)
@@ -1333,6 +1520,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "User",
                         UserId = user.Id,
                         UserName = user.Email,
+                        IpAddress = ip
                     });
 
 
@@ -1464,11 +1652,23 @@ namespace IPORevamp.WebAPI.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Authenticate(LoginViewModel loginModel)
         {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
             if (ModelState.IsValid)
             {
                 try
                 {
                     var user = _userManager.Users.FirstOrDefault(x => x.UserName == loginModel.Username || x.Email == loginModel.Username);
+                  if ( user.LastPasswordChangDate != null ) {
+                 if ( Convert.ToDateTime(user.LastPasswordChangDate).AddDays(60)  < DateTime.Now )
+                        {
+                            user.ChangePassword = false;
+                            await _userManager.UpdateAsync(user);
+
+
+                        }
+                    }
 
                     if (user != null)
                     {
@@ -1496,10 +1696,10 @@ namespace IPORevamp.WebAPI.Controllers
                             {
 
 
-                                var   menus = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == user.RolesId).Select(s => s.Menus).ToList();                            //Generate Token                       
+                                var   menus = _menuRepository.GetLinkRolesMenus().Where(s => s.RolesId == user.RolesId).Select(s => s.Menus).Distinct().ToList();                            //Generate Token                       
 
 
-                                var userProfile = await GenerateJwtToken(user.Email, user, menus);
+                                var userProfile = await GenerateJwtToken(user.Email, user, menus, user.LastPasswordChangDate);
                                 Response.Cookies.Append("access_token", userProfile.Token, new CookieOptions
                                 {
                                     Path = "/",
@@ -1507,12 +1707,26 @@ namespace IPORevamp.WebAPI.Controllers
                                     IsEssential = true,
                                     Expires = DateTime.Now.AddHours(3)
                                 });
+
+                                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                                {
+                                    ActionTaken = AuditAction.Update,
+                                    DateCreated = DateTime.Now,
+                                    Description = $"Login  for   {user.FirstName + ' ' + user.LastName} was successful",
+                                    Entity = "User",
+                                    UserId = user.Id,
+                                    UserName = user.Email,
+                                    IpAddress = ip
+
+                                });
                                 return PrepareResponse(HttpStatusCode.OK, "Authentication Successful", false, userProfile);
                             }
                             else if (signIn.IsLockedOut)
                             {
                                 return PrepareResponse(HttpStatusCode.Unauthorized, "User has been locked out", true);
                             }
+
+               
                         }
                         else
                         {

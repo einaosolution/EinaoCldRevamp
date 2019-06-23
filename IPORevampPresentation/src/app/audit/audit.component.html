@@ -59,23 +59,30 @@
                       <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
                           <thead>
                               <tr>
+                                  <th>IP Address</th>
                                   <th>Description</th>
                                   <th>Created By</th>
                                   <th>Entity</th>
-                                  <th>Entity</th>
                                   <th>UserName</th>
+                                  <th>Date Created</th>
+                                  <th>Record Before</th>
+                                  <th>Record After</th>
 
                               </tr>
                             </thead>
                             <tbody>
 
                                 <tr *ngFor="let emp of rows  let i = index">
+                                    <td>{{emp.ipAddress}}</td>
                                     <td>{{emp.description}}</td>
 
                                      <td>{{emp.createdBy}}</td>
                                      <td>{{emp.entity}}</td>
                                      <td>{{emp.userName}}</td>
                                       <td>{{emp.dateCreated|date}}</td>
+                                      <td>{{emp.recordBefore}}</td>
+                                      <td>{{emp.recordAfter}}</td>
+
 
 
                                     </tr>

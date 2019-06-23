@@ -2,8 +2,12 @@ import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import {ApiClientService} from '../api-client.service';
-
 import {Router} from '@angular/router';
+
+import '../../assets/js/perfect-scrollbar.jquery.min.js';
+declare var jquery:any;
+declare var $ :any;
+
 import {
   trigger,
   state,
@@ -29,12 +33,27 @@ export class HeaderComponent implements OnInit {
   menuclass:string ="";
   menuclass2:string ="Security";
   menuclass3:string ="Country";
+  datediff :number ;
   row :any[]=[];
   profilepic;
-  constructor(private registerapi :ApiClientService ) {
+  constructor(private registerapi :ApiClientService ,private router: Router ) {
 
     this.subscription = this.registerapi.getNavChangeEmitter()
     .subscribe(item => this.selectedNavItem(item));
+   }
+
+
+   islogged() {
+    var vpassord = localStorage.getItem('ChangePassword');
+     if (this.registerapi.gettoken() && vpassord =="True" ) {
+
+       return true ;
+     }
+
+     else {
+
+       return false;
+     }
    }
 
    selectedNavItem(item) {
@@ -85,10 +104,48 @@ export class HeaderComponent implements OnInit {
         }
       }
   ngOnInit() {
+
+    if (this.islogged()) {
+
+    //  this.router.navigateByUrl('/Dashboard/Dashboard2');
+     }
+
+     else {
+      this.router.navigateByUrl('/logout');
+      return;
+
+     }
 this.profilepic=  localStorage.getItem('profilepic')
+
 this.loggedinemail=localStorage.getItem('username')
+
+try {
+  var lastpasswordchange= localStorage.getItem('lastpasswordchange')
+  if (!isNaN(Date.parse(lastpasswordchange))) {
+
+    var dd = Date.parse(lastpasswordchange)
+    if (dd !=NaN) {
+     var today = new Date();
+     var diff =  Math.floor(( (Date.parse(lastpasswordchange))  - Date.parse(today.toString()) ) / 86400000);
+   this.datediff = diff + 60;
+  //   alert(diff + 60)
+
+ }
+  }
+ else {
+  this.datediff =0;
+  // alert("Invalid Date")
+ }
+
+}
+
+catch(err) {
+  console.log("Date Error")
+
+}
 try {
 var ppp2 = localStorage.getItem('Roles');
+this.row=[]
 this.row= JSON.parse(ppp2);
 console.log("roles")
 console.log(this.row)

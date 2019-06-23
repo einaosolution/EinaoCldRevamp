@@ -132,12 +132,7 @@
                                       <!--/row-->
                                            <!--/row-->
                                            <div class="row">
-                                                  <div class="col-md-6">
-                                                          <div class="form-group has-danger">
-                                                              <label class="control-label">Last Name</label>
-                                                              <input type="text" formControlName="LastName" id="telnumber" class="form-control form-control-danger" placeholder="Last Name">
-                                                              </div>
-                                                      </div>
+                                                  
                                                   <!--/span-->
                                                   <div class="col-md-6">
                                                       <div class="form-group">
@@ -155,6 +150,13 @@
                                                       </div>
                                                   </div>
                                                   <!--/span-->
+
+                                                  <div class="col-md-6">
+                                                    <div class="form-group has-danger">
+                                                        <label class="control-label">Identification Value</label>
+                                                        <input type="text" formControlName="IdentificationValue" [ngClass]="{ 'is-invalid': submitted && IdentificationValue.errors }" id="telnumber" class="form-control form-control-danger" placeholder="Identification Value">
+                                                        </div>
+                                                </div>
 
                                               </div>
                                               <!--/row-->
@@ -182,17 +184,20 @@
                                       <!--/row-->
                                       <div class="row">
                                           <div class="col-md-6">
-                                                  <div class="form-group has-danger">
+                                                  <div class="form-group has-danger"   [ngClass]="{ 'is-invalid': submitted && companytelephone.errors }">
                                                           <label class="control-label">Company Telephone Number</label>
-                                                          <input type="text" formControlName="companytelephone" [ngClass]="{ 'is-invalid': submitted && companytelephone.errors }" id="companytelnumber" class="form-control form-control-danger" placeholder="080">
-                                                          </div>
+                                                         
+                                                          <international-phone-number formControlName="companytelephone" placeholder="Enter phone number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number   name="phone_number" ></international-phone-number>
+                                                        
+                                                        </div>
                                           </div>
                                           <!--/span-->
                                           <div class="col-md-6">
                                                   <div class="form-group has-danger">
                                                       <label class="control-label">Mobile Number</label>
-                                                      <input type="text" formControlName="MobileNumber" [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" id="telnumber" class="form-control form-control-danger" placeholder="080">
-                                                      </div>
+
+                                                      <international-phone-number formControlName="MobileNumber" placeholder="Enter Mobile  number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number   name="phone_number" ></international-phone-number>
+                                                    </div>
                                               </div>
                                           <!--/span-->
                                       </div>
@@ -200,7 +205,7 @@
                                               <div class="col-md-6">
                                                       <div class="form-group has-danger">
                                                               <label class="control-label">e-Mail</label>
-                                                              <input formControlName="MobileNumber" [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" class="form-control"  type="email" value="bootstrap@example.com" id="example-email-input" placeholder="email">
+                                                              <input formControlName="companyemail" [ngClass]="{ 'is-invalid': submitted && companyemail.errors }" class="form-control"  type="email" value="bootstrap@example.com" id="example-email-input" placeholder="email">
 
                                                               </div>
                                               </div>

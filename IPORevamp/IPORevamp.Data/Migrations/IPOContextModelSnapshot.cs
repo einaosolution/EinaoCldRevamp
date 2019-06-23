@@ -15,7 +15,7 @@ namespace IPORevamp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -41,11 +41,17 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<int>("Id");
 
+                    b.Property<string>("IpAddress");
+
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("RecordAfter");
+
+                    b.Property<string>("RecordBefore");
 
                     b.Property<byte[]>("RowVersion");
 
@@ -269,7 +275,7 @@ namespace IPORevamp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CountryId");
+                    b.Property<int>("CountryId");
 
                     b.Property<string>("CreatedBy");
 
@@ -756,6 +762,36 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("Department");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Ministry.Ministry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ministry");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Product.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -853,6 +889,79 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("RoleManager");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Sms.SmsLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("message");
+
+                    b.Property<string>("mobilenumber");
+
+                    b.Property<string>("sender");
+
+                    b.Property<string>("status");
+
+                    b.Property<string>("useremail");
+
+                    b.Property<string>("username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SmsLog");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Unit.Units", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<int>("DepartmentId");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Units");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.TempModel.UserVerificationTemp", b =>
                 {
                     b.Property<int>("Id")
@@ -905,7 +1014,13 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("UpdatedBy");
 
+                    b.Property<string>("department");
+
                     b.Property<bool>("expired");
+
+                    b.Property<string>("ministry");
+
+                    b.Property<string>("staffid");
 
                     b.HasKey("Id");
 
@@ -1001,9 +1116,13 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("LastUpdateDate");
 
+                    b.Property<string>("Lga_Id");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("MeansOfIdentification_value");
 
                     b.Property<string>("MiddleName");
 
@@ -1053,6 +1172,14 @@ namespace IPORevamp.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Website");
+
+                    b.Property<string>("department");
+
+                    b.Property<string>("ministry");
+
+                    b.Property<string>("staffid");
+
+                    b.Property<string>("unit");
 
                     b.HasKey("Id");
 
@@ -1154,9 +1281,10 @@ namespace IPORevamp.Data.Migrations
 
             modelBuilder.Entity("IPORevamp.Data.Entities.LGAs.LGA", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entities.Country.Country")
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "Country")
                         .WithMany("LGA")
-                        .HasForeignKey("CountryId");
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("IPORevamp.Data.Entities.State", "State")
                         .WithMany("LGA")
@@ -1220,6 +1348,14 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Role.RoleManager", "Roles")
                         .WithMany("LinkRolesMenus")
                         .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Unit.Units", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Department.Department", "Department")
+                        .WithMany("Units")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

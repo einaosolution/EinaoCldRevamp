@@ -35,6 +35,7 @@ using IPORevamp.Data.SetupViewModel;
 
 using IPORevamp.Core.Utilities;
 using IPORevamp.Repository.Email;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -163,6 +164,10 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -189,6 +194,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllEmailTemplates",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Email Template Returned Successfully", false, EmailTemplate);
@@ -215,6 +221,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(EmailTemplateViewModel.CreatedBy.ToString()); ;
                 if (user == null)
                 {
@@ -245,6 +254,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var save = await _EmailTemplateRepository.SaveEmailTemplate(content);
 
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(EmailTemplateViewModel.CreatedBy.ToString());
 
@@ -258,6 +269,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "EmailTemplateAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content.EmailSubject);
@@ -277,6 +290,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -286,6 +302,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if Setting Exist 
                 var record = await _EmailTemplateRepository.GetEmailTemplateByCode(EmailName);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -302,6 +319,8 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var delete = await _EmailTemplateRepository.DeleteEmailTemplate(record);
 
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(UserId.ToString());
 
@@ -315,6 +334,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SettingDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);
@@ -332,6 +354,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(EmailTemplateViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -342,6 +367,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if Email Template Exist 
 
                 var record = await _EmailTemplateRepository.CheckExistingEmailTemplate(EmailTemplateViewModel.EmailCode);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -361,9 +387,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var save = await _EmailTemplateRepository.UpdateEmailTemplate(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(EmailTemplateViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(EmailTemplateViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -375,6 +402,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "EmailTemplateUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);

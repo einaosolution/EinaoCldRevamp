@@ -43,6 +43,7 @@ export class FeeListComponent implements OnDestroy ,OnInit {
   Category: FormControl;
   InitAmount: FormControl;
  TechAmount: FormControl;
+ varray4 = [ {  YearName: 'Trademark', YearCode: 'tm' }  ,{  YearName: 'Patent', YearCode: 'pt' },{  YearName: 'Design', YearCode: 'ds' }  ]
   public rows = [];
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
@@ -356,8 +357,39 @@ showcountry2() {
 })
   }
 
+  valuechange(een ) {
+    //  alert(this.userform.value.email);
+     // this.userform.value.email ="aa@ya.com";
+     let obj = this.rows.find(o => o.itemCode.toUpperCase() === this.userform.value.Code.toUpperCase());
+
+     if (obj) {
+      (<FormControl> this.userform.controls['Code']).setValue("");
+
+      Swal.fire(
+        "itemCode Already Exist",
+        '',
+        'error'
+      )
+     }
+
+
+
+
+    }
+
+
   ngOnInit() {
 
+    if (this.registerapi.checkAccess("#/Dashboard/FeeList"))  {
+
+    }
+
+    else {
+      alert("Access Denied ")
+
+      this.router.navigateByUrl('/logout');
+      return ;
+    }
 
 
   this.dtOptions = {

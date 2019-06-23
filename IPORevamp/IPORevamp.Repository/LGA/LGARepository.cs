@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using IPORevamp.Repository.Interface;
 using IPORevamp.Data.Entities.AuditTrail;
-
+using System.Linq;
 
 namespace IPORevamp.Repository.LGA
 {
@@ -47,7 +47,7 @@ namespace IPORevamp.Repository.LGA
         {
 
            // var entities = await _lgarepository.GetAllListAsync();
-            var entities = await _lgarepository.GetAll().Include(a => a.State).ToListAsync();
+            var entities = await _lgarepository.GetAll().Include(a => a.State).Include(a => a.Country).ToListAsync();
 
          
 
@@ -107,6 +107,17 @@ namespace IPORevamp.Repository.LGA
             {
                 content = await _lgarepository.GetAll().FirstOrDefaultAsync(x => x.LGAName.ToUpper() == LGAName.ToUpper());
             }
+
+            return content;
+        }
+
+        public async Task<List<Data.Entities.LGAs.LGA>> GetLGAByState(int state)
+        {
+
+           List< Data.Entities.LGAs.LGA > content = new List<Data.Entities.LGAs.LGA>();
+           
+                content =  _lgarepository.GetAll().Where(s => s.StateId== state).ToList();
+           
 
             return content;
         }

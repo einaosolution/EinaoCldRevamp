@@ -34,6 +34,12 @@ import { AppStatusDsComponent } from './app-status-ds/app-status-ds.component';
 import { ProductComponent } from './product/product.component';
 import { DepartmentComponent } from './department/department.component';
 import { AuditComponent } from './audit/audit.component';
+import { UserAssignmentComponent } from './user-assignment/user-assignment.component';
+import { BackEndUserComponent } from './back-end-user/back-end-user.component';
+import { PendingUserComponent } from './pending-user/pending-user.component';
+import { UnitsComponent } from './units/units.component';
+import { MinistryComponent } from './ministry/ministry.component';
+import { RemittaComponent } from './remitta/remitta.component';
 
 
 
@@ -50,6 +56,7 @@ const routes: Routes = [
   { path: 'info/?page', component: CorporateComponent ,   data: { animation: 'tiger7' } } ,
   { path: 'info2/:id', component: IndividualComponent ,   data: { animation: 'tiger7' } } ,
    { path: 'Forgetpassword', component: ForgetpasswordComponent ,   data: { animation: 'tiger10' } } ,
+   { path: 'Remitta', component: RemittaComponent ,   data: { animation: 'tiger11' } } ,
 
 
   { path: 'Dashboard', component: HeaderComponent,   children: [
@@ -59,7 +66,19 @@ component:  DashboardComponent
 },{
 path:  'Country',
 component:  CountryComponent
-} ,{
+},{
+  path:  'Staff',
+  component:  BackEndUserComponent
+  } ,{
+    path:  'Unit',
+    component:  UnitsComponent
+    },{
+      path:  'Ministry',
+      component:  MinistryComponent
+      },{
+    path:  'PendingUser',
+    component:  PendingUserComponent
+    } ,{
   path:  'State',
   component:  StateComponent
   } ,{
@@ -94,6 +113,9 @@ component:  CountryComponent
       path:  'Role',
       component:  CreateRoleComponent
       },{
+        path:  'AssignUser',
+        component:  UserAssignmentComponent
+        },{
         path:  'AppStatusTm',
         component:  AppStatusTmComponent
         } ,{

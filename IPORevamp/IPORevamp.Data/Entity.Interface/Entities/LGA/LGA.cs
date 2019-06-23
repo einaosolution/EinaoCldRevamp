@@ -11,5 +11,10 @@ namespace IPORevamp.Data.Entities.LGAs
         [ForeignKey("StateId")]
         public int StateId { get; set; }
         public State State { get; set; }
+
+        [ForeignKey("CountryId")]
+
+        public int CountryId { get; set; }
+        public Data.Entities.Country.Country Country { get; set; }
     }
 }

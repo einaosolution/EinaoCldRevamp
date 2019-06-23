@@ -22,6 +22,7 @@ using IPORevamp.Core.Utilities;
 using IPORevamp.Data.Entity.Interface.Entities.Menus;
 using IPORevamp.Data.Entities.Menus;
 using IPORevamp.WebAPI.Models;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -210,6 +211,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -236,6 +240,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllParentMenus",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Menu Returned Successfully", false, Menu);
@@ -259,6 +264,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -285,6 +293,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllParentMenus",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Menu Returned Successfully", false, Menu);
@@ -308,6 +317,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -336,6 +348,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GelAllMenu",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip 
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Menu Returned Successfully", false, Menu);
@@ -362,6 +375,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(menuViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -390,9 +406,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var save = await _menuRepository.SaveMenu(content);
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(menuViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(menuViewModel.CreatedBy.ToString());
 
 
                 // Added A New Menu 
@@ -404,6 +421,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "MenuAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -422,6 +441,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(MenuViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -432,6 +454,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if Menu Exist 
 
                 var record = await _menuRepository.GetMenuById(MenuViewModel.MenuId);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -453,9 +476,10 @@ namespace IPORevamp.WebAPI.Controllers
                 record.Id = MenuViewModel.MenuId;
                 
                  var save = await _menuRepository.UpdateMenu(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(MenuViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(MenuViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -467,6 +491,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "MenuUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -486,6 +513,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -495,6 +525,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if Menu Exist 
                 var record = await _menuRepository.GetMenuById(Convert.ToInt32(MenuId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -510,9 +541,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _menuRepository.DeleteMenu(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(UserId.ToString());
+                user = await _userManager.FindByIdAsync(UserId.ToString());
 
 
                 // log action
@@ -524,6 +556,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "MenuDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

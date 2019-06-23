@@ -26,6 +26,8 @@ namespace IPORevamp.Repository.LGA
         Task<Data.Entities.LGAs.LGA> GetLGAById(int LGAId);
         Task<Data.Entities.LGAs.LGA> UpdateLGA(Data.Entities.LGAs.LGA LGA);
         Task<Data.Entities.LGAs.LGA> DeleteLGA(Data.Entities.LGAs.LGA LGA);
+        Task<List<Data.Entities.LGAs.LGA>> GetLGAByState(int state);
+ 
         #endregion
 
 

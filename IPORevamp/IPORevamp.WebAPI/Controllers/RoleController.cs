@@ -43,6 +43,7 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 using IPORevamp.Repository.Menu;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -116,7 +117,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -159,6 +162,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetRoleById",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip 
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, menus);
@@ -248,7 +252,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -288,6 +294,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllRoles",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip 
                     });
 
                     //   return PrepareResponse(HttpStatusCode.OK, "Role Returned Successfully", false, Role);
@@ -316,7 +323,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(roleViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -344,9 +353,10 @@ namespace IPORevamp.WebAPI.Controllers
                 content.IsDeleted = false;
 
                 var save = await _roleRepository.SaveRole(content);
+                string json = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(roleViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(roleViewModel.CreatedBy.ToString());
 
 
                 // Added A New Role 
@@ -358,6 +368,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "RoleAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip,
+                    RecordAfter = json
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content.Title);
@@ -376,7 +388,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(ReceiveRoles.UserId.ToString()); ;
                 if (user == null)
@@ -387,6 +401,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if Role Exist 
 
                 var record = await _roleRepository.GetRoleManagerById(ReceiveRoles.CurrentRole);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -395,6 +410,9 @@ namespace IPORevamp.WebAPI.Controllers
 
                 //  var msg  = await  _roleRepository.UpdateRole(record.Id, AssignedRoles, CurrentRole);
                 var msg = await _roleRepository.UpdateRole(record.Id, ReceiveRoles.AssignedRoles, ReceiveRoles.CurrentRole);
+
+                var record2 = await _roleRepository.GetRoleManagerById(ReceiveRoles.CurrentRole);
+                string json2 = JsonConvert.SerializeObject(record2, Newtonsoft.Json.Formatting.Indented);
                 // get User Information
                 user = await _userManager.FindByIdAsync(ReceiveRoles.UserId.ToString());
 
@@ -408,6 +426,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "RoleUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, msg);
@@ -427,6 +448,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(roleViewModel.CreatedBy.ToString()); ;
                 if (user == null)
@@ -437,6 +461,7 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if Role Exist 
 
                 var record = await _roleRepository.GetRoleManagerById(roleViewModel.RoleId);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -453,9 +478,10 @@ namespace IPORevamp.WebAPI.Controllers
                
 
                 var save = await _roleRepository.EditRole(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(roleViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(roleViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -467,6 +493,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "RoleUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -486,9 +515,13 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 // Check if Role Exist 
                 var record = await _roleRepository.GetRoleManagerById(Convert.ToInt32(RoleId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -504,6 +537,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _roleRepository.DeleteRole(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
                 var user = await _userManager.FindByIdAsync(UserId.ToString());
@@ -517,6 +551,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "RoleDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
   state: FormControl;
   program : FormControl;
   phoneNumber : FormControl;
+  agreement : FormControl;
   dob: FormControl;
   busy: Promise<any>;
   pp4:boolean=false;
@@ -68,6 +69,18 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit() {
 this.submitted= true;
+
+if (!this.userform.value.agreement) {
+  Swal.fire(
+    "Select Terms And Agreement",
+    '',
+    'error'
+  )
+
+  return;
+}
+
+
 
 if (this.userform.valid) {
 
@@ -169,6 +182,11 @@ if (this.userform.valid) {
 
     ]);
 
+    this.agreement = new FormControl('', [
+      Validators.required
+
+    ]);
+
 
 
 
@@ -199,7 +217,8 @@ if (this.userform.valid) {
       firstName: this.firstName,
       lastName: this.lastName,
 
-      program: this.program
+      program: this.program ,
+      agreement:this.agreement
 
 
     });

@@ -8,7 +8,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.PTApplicationStatus
 	{
 
 		public int RoleId { get; set; }
-		public string StatusDescription { get; set; }
+        public int Id { get; set; }
+        public string StatusDescription { get; set; }
 		public int CreatedBy { get; set; }
 	}
 }

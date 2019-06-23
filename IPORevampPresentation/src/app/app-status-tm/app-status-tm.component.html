@@ -61,6 +61,7 @@
                               <tr>
 
                                   <th>Description</th>
+                                  <th>Role</th>
                                   <th>DateCreated</th>
                                  <th>Action </th>
 
@@ -72,6 +73,7 @@
 
 
                                      <td>{{emp.statusDescription}}</td>
+                                     <td>{{getrole2(emp.roleId)}}</td>
                                       <td>{{emp.dateCreated|date}}</td>
 
                                       <td>
@@ -117,8 +119,8 @@
                                       <div class="form-group">
                                           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                              <input type="text" name="name"   formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
-                                                     placeholder="Name" required autofocus>
+                                              <input type="text" name="name" (change)="valuechange($event)"  formControlName="Description" [ngClass]="{ 'is-invalid': submitted && Description.errors }"     class="form-control" id="name"
+                                                     placeholder="Decription" required autofocus>
 
 
                                                      <div *ngIf="submitted && Description.errors" class="invalid-feedback">
@@ -132,6 +134,33 @@
                                   </div>
 
                               </div>
+
+
+                              <div class="row">
+                                <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                                    <label for="email">Role </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+
+                                            <select class="form-control"   formControlName="Role2"  [ngClass]="{ 'is-invalid': submitted && Role2.errors }"     id="sel1">
+                                                <option value="">---- --Select Role-----</option>
+
+
+                                                <option *ngFor="let country2 of row2" value= {{country2.roleId}}>
+                                                  {{country2.title}}
+                                                </option>
+                                            </select>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
 
 
 

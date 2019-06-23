@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,9 @@ import { CorporateComponent } from './corporate/corporate.component';
 import { IndividualComponent } from './individual/individual.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { CustomHttpInterceptorService } from './CustomHttpInterceptorService';
+
+
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { CountryComponent } from './country/country.component';
 import { StateComponent } from './state/state.component';
@@ -55,6 +59,20 @@ import { AppStatusDsComponent } from './app-status-ds/app-status-ds.component';
 import { ProductComponent } from './product/product.component';
 import { DepartmentComponent } from './department/department.component';
 import { AuditComponent } from './audit/audit.component';
+import { UserAssignmentComponent } from './user-assignment/user-assignment.component';
+import { BackEndUserComponent } from './back-end-user/back-end-user.component';
+import { PendingUserComponent } from './pending-user/pending-user.component';
+
+import { NgxSummernoteModule } from 'ngx-summernote';
+import { UnitsComponent } from './units/units.component';
+import { MinistryComponent } from './ministry/ministry.component';
+import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { RemittaComponent } from './remitta/remitta.component';
+
+
+
 
 
 
@@ -65,6 +83,7 @@ import { AuditComponent } from './audit/audit.component';
 @NgModule({
   declarations: [
     AppComponent,
+
     FilterPipe,
     FilterPipe2,
     RegisterComponent,
@@ -100,11 +119,22 @@ import { AuditComponent } from './audit/audit.component';
     AppStatusDsComponent,
     ProductComponent,
     DepartmentComponent,
-    AuditComponent
+    AuditComponent,
+    UserAssignmentComponent,
+    BackEndUserComponent,
+    PendingUserComponent,
+    UnitsComponent,
+    MinistryComponent,
+    RemittaComponent
   ],
   imports: [
     BrowserModule,
     ModalModule.forRoot() ,
+    InternationalPhoneNumberModule ,
+    PasswordStrengthBarModule,
+    DeviceDetectorModule.forRoot(),
+    NgxSummernoteModule,
+
     DataTablesModule,
     NgxEditorModule,
     BsDatepickerModule.forRoot(),
@@ -122,7 +152,7 @@ import { AuditComponent } from './audit/audit.component';
 
     BrowserAnimationsModule
   ],
-  providers: [ApiClientService ,	{ provide: LocationStrategy, useClass: HashLocationStrategy },],
+  providers: [ApiClientService ,	{ provide: LocationStrategy, useClass: HashLocationStrategy },{provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true},],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

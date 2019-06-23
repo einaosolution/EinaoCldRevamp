@@ -22,6 +22,7 @@ using IPORevamp.Data.Entities.Setting;
 using IPORevamp.Repository.Setting;
 
 using IPORevamp.Core.Utilities;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -194,6 +195,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -220,6 +224,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllCountries",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip 
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Setting Returned Successfully", false, Setting);
@@ -246,6 +251,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
                 var user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString()); ;
                 if (user == null)
                 {
@@ -274,7 +282,9 @@ namespace IPORevamp.WebAPI.Controllers
 
                // var save = await _SettingRepository.SaveSetting(content);
                 var save = await _settings.SaveSetting(content);
-               
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
+
+
                 // get User Information
                 user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString());
 
@@ -288,6 +298,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SettingAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -306,6 +318,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 // Check if Setting Exist 
 
@@ -317,6 +332,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var record = await _settings.GetSettingById(SettingViewModel.SettingId);
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -336,9 +352,10 @@ namespace IPORevamp.WebAPI.Controllers
                
 
                 var save = await _settings.UpdateSetting(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(SettingViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -350,6 +367,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SettingUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -369,6 +389,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -378,6 +401,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if Setting Exist 
                 var record = await _settings.GetSettingById(Convert.ToInt32(SettingId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -393,9 +417,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _settings.DeleteSetting(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(UserId.ToString());
+                user = await _userManager.FindByIdAsync(UserId.ToString());
 
 
                 // log action
@@ -407,6 +432,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SettingDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);

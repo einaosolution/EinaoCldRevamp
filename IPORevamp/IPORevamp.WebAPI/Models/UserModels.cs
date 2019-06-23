@@ -44,6 +44,8 @@ namespace IPORevamp.WebAPI.Models
         public Boolean changepassword { get; set; }
         public DateTime ExpiryTime { get; set; }
 
+        public DateTime ? lastpasswordchange { get; set; }
+
         public List<MenuManager> DynamicMenu { get; set; }
         public string menuString { get; set; }
         public int RolesId { get; set;  }
@@ -86,7 +88,10 @@ namespace IPORevamp.WebAPI.Models
 
         public string Postal { get; set; }
         public string Country { get; set; }
-
+        public string ministry { get; set; }
+        public string department { get; set; }
+       
+        public string staffid { get; set; }
         [Required(ErrorMessage = "Email address field is required")]
         [DataType(DataType.EmailAddress,ErrorMessage ="Please provide a valid Email address")]
         [Display(Name = "Email")]

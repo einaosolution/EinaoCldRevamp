@@ -37,6 +37,7 @@ using IPORevamp.Repository.Sector;
 using IPORevamp.Core.Utilities;
 using IPORevamp.Data.Entity.Interface.Entities.Sector;
 using IPORevamp.Data.Entities;
+using Newtonsoft.Json;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -215,6 +216,10 @@ namespace IPORevamp.WebAPI.Controllers
             try
             {
 
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
                 {
@@ -239,6 +244,7 @@ namespace IPORevamp.WebAPI.Controllers
                         Entity = "GetAllCountries",
                         UserId = user.Id,
                         UserName = user.UserName,
+                        IpAddress = ip
                     });
 
                     return PrepareResponse(HttpStatusCode.OK, "Sector Returned Successfully", false, Sector);
@@ -266,6 +272,10 @@ namespace IPORevamp.WebAPI.Controllers
             try
             {
 
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
                 var user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString()); ;
                 if (user == null)
                 {
@@ -291,9 +301,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var save = await _sectorRepository.SaveSector(content);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
 
 
                 // Added A New Sector 
@@ -305,6 +316,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SectorAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, content);
@@ -323,7 +336,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
                 // Check if Sector Exist 
 
 
@@ -334,6 +349,8 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var record = await _sectorRepository.GetSectorById(SectorViewModel.SectorId);
+
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -352,9 +369,10 @@ namespace IPORevamp.WebAPI.Controllers
                 
 
                  var save = await _sectorRepository.UpdateSector(record);
+                string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
+                user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
 
 
                 // log action
@@ -366,6 +384,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SectorUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip ,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.UpdateRequest, false, record);
@@ -385,6 +406,9 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
 
                 var user = await _userManager.FindByIdAsync(UserId.ToString()); ;
                 if (user == null)
@@ -394,6 +418,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // Check if Sector Exist 
                 var record = await _sectorRepository.GetSectorById(Convert.ToInt32(SectorId));
+                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
 
                 if (record == null)
                 {
@@ -409,9 +434,10 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var delete = await _sectorRepository.DeleteSector(record);
+                string json2 = JsonConvert.SerializeObject(delete, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information
-                 user = await _userManager.FindByIdAsync(UserId.ToString());
+                user = await _userManager.FindByIdAsync(UserId.ToString());
 
 
                 // log action
@@ -423,6 +449,9 @@ namespace IPORevamp.WebAPI.Controllers
                     Entity = "SectorDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
+                    IpAddress = ip,
+                    RecordBefore = json ,
+                    RecordAfter = json2
                 });
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.DeleteRequest, false, record);
