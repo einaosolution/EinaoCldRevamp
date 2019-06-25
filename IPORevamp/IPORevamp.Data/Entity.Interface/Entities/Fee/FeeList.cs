@@ -23,8 +23,10 @@ namespace IPORevamp.Data.Entities.Fee
         public decimal TechnologyFee { get; set; }
         [Required]
         public string Category { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.Twallet.Twallet> twallet { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.FeeDetail.FeeDetail> feedetail { get; set; }
 
-        
+
 
 
     }
