@@ -457,6 +457,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<int>("PaymentMethod");
 
+                    b.Property<string>("RRR");
+
                     b.Property<byte[]>("RowVersion");
 
                     b.Property<string>("UpdatedBy");
@@ -569,6 +571,72 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PTApplicationStatus");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.RemitaAccountSplit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BeneficiaryAccount");
+
+                    b.Property<string>("BeneficiaryBank");
+
+                    b.Property<string>("BeneficiaryName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeductFee");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RemitaAccountSplit");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.RemitaBankCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BankCode");
+
+                    b.Property<string>("BankName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RemitaBankCode");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Sector", b =>
@@ -821,6 +889,159 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.CustomField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("orderId");
+
+                    b.Property<string>("type");
+
+                    b.Property<string>("value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomFields");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.LineItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BankCode");
+
+                    b.Property<string>("BeneficiaryAccount");
+
+                    b.Property<string>("BeneficiaryAmount");
+
+                    b.Property<string>("BeneficiaryName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeductFeeFrom");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("LineItemsId");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LineItems");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.RemitaPayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal?>("Amount");
+
+                    b.Property<string>("Channel");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("FeeId");
+
+                    b.Property<string>("FeeItemName");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<string>("PayerEmail");
+
+                    b.Property<string>("PayerName");
+
+                    b.Property<string>("PayerPhone");
+
+                    b.Property<DateTime?>("PaymentDate");
+
+                    b.Property<int>("PaymentPurposeId");
+
+                    b.Property<int>("PaymentStatus");
+
+                    b.Property<string>("RRR");
+
+                    b.Property<string>("RRRCode");
+
+                    b.Property<string>("RemitaPostPayLoad");
+
+                    b.Property<string>("RemitaPostVerifyPayLoad");
+
+                    b.Property<string>("RemitaResponsePayLoad");
+
+                    b.Property<string>("RemitaResponseVerifyPayLoad");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("ServiceTypeId");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("Statuscode");
+
+                    b.Property<decimal?>("TechFee");
+
+                    b.Property<string>("TotalAmount");
+
+                    b.Property<DateTime>("TransactionCompletedDate");
+
+                    b.Property<DateTime>("TransactionInitiatedDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RemitaPayments");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Role.LinkRolesMenus", b =>

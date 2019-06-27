@@ -9,7 +9,7 @@ namespace IPORevamp.Data.Entities.Payment
 {
     public class BillLog:VatBill<ApplicationUser, int, PaymentLog >, IEntity, IAudit
     {
-
+        public string RRR { get; set; }
     }
 
     public enum BillStatus

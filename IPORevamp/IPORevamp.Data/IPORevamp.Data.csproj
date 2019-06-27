@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entity.Interface\Entities\RemitaPayment\RemitaPaymentbkp.cs" />
     <Compile Remove="Migrations\20190512061640_aa.cs" />
     <Compile Remove="Migrations\20190512075958_InitalMigration.cs" />
     <Compile Remove="Migrations\20190512081038_InitalMigration.cs" />

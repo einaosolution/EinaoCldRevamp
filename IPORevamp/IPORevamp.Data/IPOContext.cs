@@ -26,6 +26,7 @@ using IPORevamp.Data.Entity.Interface.Entities.Department;
 using IPORevamp.Data.Entity.Interface.Entities.Ministry;
 using IPORevamp.Data.Entity.Interface.Entities.Unit;
 using IPORevamp.Data.Entity.Interface.Entities.Sms;
+using IPORevamp.Data.Entity.Interface.Entities.RemitaPayment;
 
 namespace IPORevamp.Data
 {
@@ -78,6 +79,17 @@ namespace IPORevamp.Data
         public virtual DbSet<LinkRolesMenus> LinkRolesMenus { get; set; }
         public virtual DbSet<MenuManager> MenuManager { get; set; }
 
+
+
+        #endregion
+
+        #region Remitta Payment
+        public virtual DbSet<RemitaPayment> RemitaPayments { get; set; }
+        public virtual DbSet<LineItem> LineItems { get; set; }
+        public virtual DbSet<CustomField> CustomFields { get; set; }
+        public DbSet<RemitaBankCode> RemitaBankCode { get; set; }
+
+        public DbSet<RemitaAccountSplit> RemitaAccountSplit { get; set; }
 
         #endregion
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

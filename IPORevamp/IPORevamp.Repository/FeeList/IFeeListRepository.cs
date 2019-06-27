@@ -21,6 +21,7 @@ namespace IPORevamp.Repository.Fee
 
         Task<FeeList> SaveFeeList(FeeList FeeList);
         Task<FeeList> GetFeeListById(int FeeListId);
+        Task<List<FeeList>> GetFeeListById(int[] FeeListId);
         Task<FeeList> GetFeeListByName(string FeeListName);
         Task<List<FeeList>> GetFeeLists();
         Task<FeeList> CheckExistingFeeList(string FeeListName);
