@@ -123,298 +123,12 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        private async Task<RemitaPaymentResponseModel> GenerateRemitaRRRCode(int[] feeIds, string payerName, string payerEmail, string payerPhone)
-        {
-            var feeItems = await _feeRepository.GetFeeListById(feeIds);
 
 
-            decimal totalTechnologyFee = 0;
-            decimal totalMerchantFee = 0;
-            RemitaPaymentResponseModel errorresult = new RemitaPaymentResponseModel();
 
-            if (feeItems.Count == 0)
-            {
-                errorresult.status = "No Fee Setup was found for the selected payment";
-                errorresult.statuscode = "x";
-                return errorresult;
-            }
 
-            var remitaPaymentwithoutRRR = new RemitaPaymentPayLoad();
 
-            if (feeItems != null)
-            {
-                var orderId = "IPONMW" + DateTime.Now.Ticks;
-
-                // loop through all the fee list items
-
-                foreach (var item in feeItems)
-                {
-
-                    // insert each of the amount for the above filing
-                    await _remitaPaymentRepository.SaveRemitaPayment(new RemitaPayment
-                    {
-                        Amount = item.init_amt,
-                        TechFee = item.TechnologyFee,
-                        OrderId = orderId,
-                        PayerEmail = payerEmail,
-                        PayerName = payerName,
-                        PayerPhone = payerPhone,
-                        TotalAmount = (item.init_amt + item.TechnologyFee).ToString(),
-                        FeeItemName = item.ItemName,
-                        FeeId = item.Id,
-                         
-
-                    });
-
-                    // get all the total cost to be pass to gateway later
-                    totalTechnologyFee = totalTechnologyFee + item.TechnologyFee;
-                    totalMerchantFee = totalMerchantFee + item.init_amt;
-
-                }
-
-                var remitaPayements = await _remitaPaymentRepository.FetchByOrderId(orderId);
-
-                if (remitaPayements != null)
-                {
-                    remitaPaymentwithoutRRR = new RemitaPaymentPayLoad
-                    {
-
-
-                        amount = remitaPayements.Sum(x => Convert.ToDecimal(x.TotalAmount)),
-
-                        orderId = orderId,
-                        payerEmail = payerEmail,
-                        payerPhone = payerPhone,
-                        payerName = payerName,
-                        description = "Payment For Service on IPO Nigeria",
-
-
-                        serviceTypeId = _configuration.GetValue<string>("ServiceTypeId")
-                    };
-
-
-                    List<RemitaLineItem> lineItems = new List<RemitaLineItem>();
-                    List<RemitaLineItem> lineItemsHolder= new List<RemitaLineItem>();
-
-                    var splitAccount = await _remitaSplitRepository.GetRemitaAccountSplits();
-
-                    int RowNumber = 0;
-                    foreach (var item in splitAccount)
-                    {
-                        RowNumber = RowNumber + 1;
-                          RemitaLineItem k = new RemitaLineItem();
-
-                             k.lineItemsId = RowNumber.ToString();
-                             k.bankCode = item.BeneficiaryBank;
-                             k.beneficiaryAccount = item.BeneficiaryAccount;
-
-
-                                    if (item.DeductFee == "1")
-                                    {
-                                        k.beneficiaryAmount = totalMerchantFee.ToString();
-                                    }
-                                    else
-                                    {
-                                        k.beneficiaryAmount = totalTechnologyFee.ToString();
-                                    }
-                           
-                             k.beneficiaryName = item.BeneficiaryName;
-                             k.orderId = orderId;
-                             k.deductFeeFrom = item.DeductFee;
-
-                             lineItems.Add(k);
-                    };
-
-                     
-
-                        remitaPaymentwithoutRRR.lineItems = lineItems;
-
-                        var merchantID = _configuration.GetValue<string>("merchantID");
-                        var apiKey = _configuration.GetValue<string>("apiKey");
-                        var hash = SHA512(merchantID + remitaPaymentwithoutRRR.serviceTypeId + remitaPaymentwithoutRRR.orderId + remitaPaymentwithoutRRR.amount + apiKey);
-                        var respModel = new RemitaPaymentResponseModel();
-
-                        WebClient webClient = new WebClient
-                        {
-                            UseDefaultCredentials = true,
-                            Headers =
-                        {
-                            ["Authorization"] = $"remitaConsumerKey={merchantID},remitaConsumerToken={hash}",
-
-                        }
-                        };
-
-                        try
-                        {
-                            var ttry = JsonConvert.SerializeObject(remitaPaymentwithoutRRR);
-                            var URL = _configuration.GetValue<string>("RemitaRRURL");
-
-                            webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-                            var remitaResponse = webClient.UploadString(new Uri(URL), "POST", ttry);
-
-                            string jsondata = "";
-                            jsondata = remitaResponse.Replace("jsonp (", "");
-                            jsondata = jsondata.Replace(")", "");
-                            jsondata = jsondata.Replace("jsonp", ""); 
-
-
-                        SplitResponseVO remitaResponseSerialized = JsonConvert.DeserializeObject<SplitResponseVO>(jsondata);
-
-                        if (remitaResponseSerialized.statuscode == "025" && !string.IsNullOrEmpty(remitaResponseSerialized.RRR))
-                            {
-
-                                RemitaPaymentResponseModel remitaPaymentResponseModel = new RemitaPaymentResponseModel();
-
-
-                                //Update Remita payment with RRR code _remitaPaymentRepository.UpdatePAy
-                                remitaPaymentResponseModel.Hash = SHA512(merchantID + remitaResponseSerialized.RRR + apiKey);
-                                remitaPaymentResponseModel.MerchantId = merchantID;
-                                remitaPaymentResponseModel.RRR = remitaResponseSerialized.RRR;
-                                remitaPaymentResponseModel.status = remitaResponseSerialized.status;
-                                remitaPaymentResponseModel.statuscode = remitaResponseSerialized.statuscode;
-
-                                /// update the remita table with the response 
-
-                                var updateInfo = await _remitaPaymentRepository.FetchByOrderId(orderId);
-
-                            /// update all the payments request by order number
-                                foreach (var itemResult in updateInfo)
-                                {
-                                    itemResult.RRR = remitaResponseSerialized.RRR;
-                                    itemResult.RemitaPostPayLoad = ttry;
-                                    itemResult.RemitaResponsePayLoad = remitaResponse;
-
-                                // update all the requests
-                                   await  _remitaPaymentRepository.UpdateRemitaPayment(itemResult);
-                                 
-                                }
-
-
-                           
-                                return remitaPaymentResponseModel;
-                            }
-
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Error occured connecting to RRR", "");
-                            return null;
-                        }
-
-
-                    }
-
-                }
-                
-            errorresult.status = "No Fee Setup was found for the selected payment";
-            errorresult.statuscode = "x";
-            return errorresult;
-        }
-
-        [HttpPost("CompleteRemitaPayment")]
-        public async Task<IActionResult> VerifyPayment(RequeryRemitaModel requeryModel)
-        {
-            var paymentDetails = await _remitaPaymentRepository.FetchByRRRCode(requeryModel.RRR);
-
-
-            if (paymentDetails != null)
-            {
-                var singleRecord = paymentDetails.FirstOrDefault();
-                if (!string.IsNullOrEmpty(singleRecord.RRR) && singleRecord.RRR == requeryModel.RRR)
-                {
-                    var merchantID = _configuration.GetValue<string>("merchantID");
-                    var apiKey = _configuration.GetValue<string>("apiKey");
-
-                    var hash = SHA512(singleRecord.OrderId + apiKey + merchantID);
-
-                    WebClient webClient = new WebClient
-                    {
-                        UseDefaultCredentials = true,
-                        Headers =
-                        {
-                            ["Authorization"] = $"remitaConsumerKey={merchantID},remitaConsumerToken={hash}"
-                        }
-                    };
-
-                    try
-                    {
-
-                        
-                        var remitaResponseStr = (_configuration.GetValue<string>("RemitaPaymentVerificationURL") + "/" + merchantID + "/" + singleRecord.OrderId + "/" + hash + "/" + "orderstatus.reg");
-                       
-                       // var URL = _configuration.GetValue<string>("RemitaRRURL");
-
-                        webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-                        var remitaResponsek = webClient.UploadString(new Uri(remitaResponseStr), "POST");
-
-                        string jsondata = "";
-                        jsondata = remitaResponsek.Replace("jsonp (", "");
-                        jsondata = jsondata.Replace(")", "");
-                        jsondata = jsondata.Replace("jsonp", "");
-
-
-                        RemitaQueryResponseModel remitaResponseSerialized = JsonConvert.DeserializeObject<RemitaQueryResponseModel>(jsondata);
-
-                        // Update the table with the return results
-
-                        var updateInfo = await _remitaPaymentRepository.FetchByOrderId(singleRecord.OrderId);
-
-
-                        /// update all the payments request by order number
-                        foreach (var itemResult in updateInfo)
-                        {
-                            itemResult.Statuscode = remitaResponseSerialized.status;
-                            itemResult.Description = remitaResponseSerialized.message;
-                            itemResult.RemitaPostVerifyPayLoad = remitaResponseStr;
-                            itemResult.RemitaResponseVerifyPayLoad = jsondata;
-                            itemResult.Status = remitaResponseSerialized.status;
-                            itemResult.PaymentDate = DateTime.Now;
-
-                            if (remitaResponseSerialized.status == "01" && remitaResponseSerialized.message == WebApiMessage.ApprovedPaymentStatus)
-                            {
-                                itemResult.TransactionCompletedDate = DateTime.Now;
-                                itemResult.PaymentStatus = WebApiMessage.SuccessfullyPayment;
-                            }
-
-                                // update all the requests
-                                await _remitaPaymentRepository.UpdateRemitaPayment(itemResult);
-
-                        }
-
-
-
-                        if (remitaResponseSerialized.status == "01" && remitaResponseSerialized.message == WebApiMessage.ApprovedPaymentStatus)
-                        {   
-                            return PrepareResponse(HttpStatusCode.OK, "Payment has been completed successfully", false, remitaResponseSerialized);
-                        }
-                        else if (remitaResponseSerialized.status=="021"  && remitaResponseSerialized.message == WebApiMessage.TransactionPending)
-                        {
-                            return PrepareResponse(HttpStatusCode.Processing, "Payment has been completed but pending approval, please check back later ", true, remitaResponseSerialized);
-                        }
-                        else
-                        {
-                            return PrepareResponse(HttpStatusCode.InternalServerError, remitaResponseSerialized.message);
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        return PrepareResponse(HttpStatusCode.InternalServerError, "Error occured while connecting to Remita");
-                    }
-
-                }
-
-            }
-
-            return PrepareResponse(HttpStatusCode.NotFound, "Invalid Payment details");
-
-        }
-
-
-
-
-
-        // Post Remita Payment
+        // Generate Remita Payment RRR
 
         [HttpPost("InitiateRemitaPayment")]
         public async Task<IActionResult> InitiatePayment(RemitaPaymentModel remitaPaymentModelPost)
@@ -462,5 +176,409 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
+        //  Make Payment 
+
+
+        private async Task<RemitaPaymentResponseModel> GenerateRemitaRRRCode(int[] feeIds, string payerName, string payerEmail, string payerPhone)
+        {
+            var feeItems = await _feeRepository.GetFeeListById(feeIds);
+
+
+            decimal totalTechnologyFee = 0;
+            decimal totalMerchantFee = 0;
+            RemitaPaymentResponseModel errorresult = new RemitaPaymentResponseModel();
+
+            if (feeItems.Count == 0)
+            {
+                errorresult.status = "No Fee Setup was found for the selected payment";
+                errorresult.statuscode = "x";
+                return errorresult;
+            }
+
+            var remitaPaymentwithoutRRR = new RemitaPaymentPayLoad();
+
+            if (feeItems != null)
+            {
+                var orderId = "IPONMW" + DateTime.Now.Ticks;
+
+                // loop through all the fee list items
+
+                foreach (var item in feeItems)
+                {
+
+                    // insert each of the amount for the above filing
+                    await _remitaPaymentRepository.SaveRemitaPayment(new RemitaPayment
+                    {
+                        Amount = item.init_amt,
+                        TechFee = item.TechnologyFee,
+                        OrderId = orderId,
+                        PayerEmail = payerEmail,
+                        PayerName = payerName,
+                        PayerPhone = payerPhone,
+                        TotalAmount = (item.init_amt + item.TechnologyFee).ToString(),
+                        FeeItemName = item.ItemName,
+                        FeeId = item.Id,
+                        TransactionInitiatedDate= DateTime .Now
+
+
+                    });
+
+                    // get all the total cost to be pass to gateway later
+                    totalTechnologyFee = totalTechnologyFee + item.TechnologyFee;
+                    totalMerchantFee = totalMerchantFee + item.init_amt;
+
+                }
+
+                var remitaPayements = await _remitaPaymentRepository.FetchByOrderId(orderId);
+
+                if (remitaPayements != null)
+                {
+                    remitaPaymentwithoutRRR = new RemitaPaymentPayLoad
+                    {
+
+
+                        amount = remitaPayements.Sum(x => Convert.ToDecimal(x.TotalAmount)),
+
+                        orderId = orderId,
+                        payerEmail = payerEmail,
+                        payerPhone = payerPhone,
+                        payerName = payerName,
+                        description = "Payment For Service on IPO Nigeria",
+
+
+                        serviceTypeId = _configuration.GetValue<string>("ServiceTypeId")
+                    };
+
+
+                    List<RemitaLineItem> lineItems = new List<RemitaLineItem>();
+                    List<RemitaLineItem> lineItemsHolder = new List<RemitaLineItem>();
+
+                    var splitAccount = await _remitaSplitRepository.GetRemitaAccountSplits();
+
+                    int RowNumber = 0;
+                    foreach (var item in splitAccount)
+                    {
+                        RowNumber = RowNumber + 1;
+                        RemitaLineItem k = new RemitaLineItem();
+
+                        k.lineItemsId = RowNumber.ToString();
+                        k.bankCode = item.BeneficiaryBank;
+                        k.beneficiaryAccount = item.BeneficiaryAccount;
+
+
+                        if (item.DeductFee == "1")
+                        {
+                            k.beneficiaryAmount = totalMerchantFee.ToString();
+                        }
+                        else
+                        {
+                            k.beneficiaryAmount = totalTechnologyFee.ToString();
+                        }
+
+                        k.beneficiaryName = item.BeneficiaryName;
+                        k.orderId = orderId;
+                        k.deductFeeFrom = item.DeductFee;
+
+                        lineItems.Add(k);
+                    };
+
+
+
+                    remitaPaymentwithoutRRR.lineItems = lineItems;
+
+                    var merchantID = _configuration.GetValue<string>("merchantID");
+                    var apiKey = _configuration.GetValue<string>("apiKey");
+                    var hash = SHA512(merchantID + remitaPaymentwithoutRRR.serviceTypeId + remitaPaymentwithoutRRR.orderId + remitaPaymentwithoutRRR.amount + apiKey);
+                    var respModel = new RemitaPaymentResponseModel();
+
+                    WebClient webClient = new WebClient
+                    {
+                        UseDefaultCredentials = true,
+                        Headers =
+                        {
+                            ["Authorization"] = $"remitaConsumerKey={merchantID},remitaConsumerToken={hash}",
+
+                        }
+                    };
+
+                    try
+                    {
+                        var ttry = JsonConvert.SerializeObject(remitaPaymentwithoutRRR);
+                        var URL = _configuration.GetValue<string>("RemitaRRURL");
+
+                        webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                        var remitaResponse = webClient.UploadString(new Uri(URL), "POST", ttry);
+
+                        string jsondata = "";
+                        jsondata = remitaResponse.Replace("jsonp (", "");
+                        jsondata = jsondata.Replace(")", "");
+                        jsondata = jsondata.Replace("jsonp", "");
+
+
+                        SplitResponseVO remitaResponseSerialized = JsonConvert.DeserializeObject<SplitResponseVO>(jsondata);
+
+                        if (remitaResponseSerialized.statuscode == "025" && !string.IsNullOrEmpty(remitaResponseSerialized.RRR))
+                        {
+
+                            RemitaPaymentResponseModel remitaPaymentResponseModel = new RemitaPaymentResponseModel();
+
+
+                            //Update Remita payment with RRR code _remitaPaymentRepository.UpdatePAy
+                            remitaPaymentResponseModel.Hash = SHA512(merchantID + remitaResponseSerialized.RRR + apiKey);
+                            remitaPaymentResponseModel.MerchantId = merchantID;
+                            remitaPaymentResponseModel.RRR = remitaResponseSerialized.RRR;
+                            remitaPaymentResponseModel.status = remitaResponseSerialized.status;
+                            remitaPaymentResponseModel.statuscode = remitaResponseSerialized.statuscode;
+
+                            /// update the remita table with the response 
+
+                            var updateInfo = await _remitaPaymentRepository.FetchByOrderId(orderId);
+
+                            /// update all the payments request by order number
+                            foreach (var itemResult in updateInfo)
+                            {
+                                itemResult.RRR = remitaResponseSerialized.RRR;
+                                itemResult.RemitaPostPayLoad = ttry;
+                                itemResult.RemitaResponsePayLoad = remitaResponse;
+
+                                // update all the requests
+                                await _remitaPaymentRepository.UpdateRemitaPayment(itemResult);
+
+                            }
+
+
+
+                            return remitaPaymentResponseModel;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error occured connecting to RRR", "");
+                        return null;
+                    }
+
+
+                }
+
+            }
+
+            errorresult.status = "No Fee Setup was found for the selected payment";
+            errorresult.statuscode = "x";
+            return errorresult;
+        }
+
+
+
+        [HttpPost("RemitaTransactionRequeryPayment")]
+        public async Task<IActionResult> VerifyPayment(RequeryRemitaModel requeryModel)
+        {
+            var paymentDetails = await _remitaPaymentRepository.FetchByRRRCode(requeryModel.RRR);
+
+
+            if (paymentDetails != null)
+            {
+                var singleRecord = paymentDetails.FirstOrDefault();
+                if (!string.IsNullOrEmpty(singleRecord.RRR) && singleRecord.RRR == requeryModel.RRR)
+                {
+                    var merchantID = _configuration.GetValue<string>("merchantID");
+                    var apiKey = _configuration.GetValue<string>("apiKey");
+
+                    var hash = SHA512(singleRecord.OrderId + apiKey + merchantID);
+
+                    WebClient webClient = new WebClient
+                    {
+                        UseDefaultCredentials = true,
+                        Headers =
+                        {
+                            ["Authorization"] = $"remitaConsumerKey={merchantID},remitaConsumerToken={hash}"
+                        }
+                    };
+
+                    try
+                    {
+
+
+                        var remitaResponseStr = (_configuration.GetValue<string>("RemitaPaymentVerificationURL") + "/" + merchantID + "/" + singleRecord.OrderId + "/" + hash + "/" + "orderstatus.reg");
+
+                        // var URL = _configuration.GetValue<string>("RemitaRRURL");
+
+                        webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                        var remitaResponsek = webClient.UploadString(new Uri(remitaResponseStr), "POST");
+
+                        string jsondata = "";
+                        jsondata = remitaResponsek.Replace("jsonp (", "");
+                        jsondata = jsondata.Replace(")", "");
+                        jsondata = jsondata.Replace("jsonp", "");
+
+
+                        RemitaQueryResponseModel remitaResponseSerialized = JsonConvert.DeserializeObject<RemitaQueryResponseModel>(jsondata);
+
+                        // Update the table with the return results
+
+                        var updateInfo = await _remitaPaymentRepository.FetchByOrderId(singleRecord.OrderId);
+
+
+                        /// update all the payments request by order number
+                        foreach (var itemResult in updateInfo)
+                        {
+                            itemResult.Statuscode = remitaResponseSerialized.status;
+                            itemResult.Description = remitaResponseSerialized.message;
+                            itemResult.RemitaPostVerifyPayLoad = remitaResponseStr;
+                            itemResult.RemitaResponseVerifyPayLoad = jsondata;
+                            itemResult.Status = remitaResponseSerialized.status;
+                           
+                            itemResult.PaymentDate = DateTime.Now;
+
+                            if ((remitaResponseSerialized.status == "01"  || remitaResponseSerialized.status == "00" ) && remitaResponseSerialized.message == WebApiMessage.ApprovedPaymentStatus)
+                            {
+                                itemResult.TransactionCompletedDate = DateTime.Now;
+                                itemResult.PaymentStatus = WebApiMessage.SuccessfullyPayment;
+                            }
+
+                            // update all the requests
+                            await _remitaPaymentRepository.UpdateRemitaPayment(itemResult);
+
+                        }
+
+
+
+                        if (remitaResponseSerialized.status == "01" && remitaResponseSerialized.message == WebApiMessage.ApprovedPaymentStatusRemita)
+                        {
+                            return PrepareResponse(HttpStatusCode.OK, "Payment has been completed successfully", false, remitaResponseSerialized);
+                        }
+                        else if (remitaResponseSerialized.status == "021" && remitaResponseSerialized.message == WebApiMessage.TransactionPending)
+                        {
+                            return PrepareResponse(HttpStatusCode.Processing, "Payment has been completed but pending approval, please check back later ", true, remitaResponseSerialized);
+                        }
+                        else
+                        {
+                            return PrepareResponse(HttpStatusCode.InternalServerError, remitaResponseSerialized.message);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return PrepareResponse(HttpStatusCode.InternalServerError, "Error occured while connecting to Remita");
+                    }
+
+                }
+
+            }
+
+            return PrepareResponse(HttpStatusCode.NotFound, "Invalid Payment details");
+
+        }
+
+
+
+
+
+        //// post payment 
+        //[HttpPost("RemitaPay")]
+        //public async Task<RemitaPaymentResponsCodeModel> RemitaPay(string RRR)
+        //{
+
+        //    RemitaPaymentResponsCodeModel errorresult = new RemitaPaymentResponsCodeModel();
+
+        //    var paymentInfo = await _remitaPaymentRepository.FetchByRRRCode(RRR);
+
+        //    if (paymentInfo.Count == 0)
+        //    {
+        //        errorresult.status = WebApiMessage.RRRNotFound;
+        //        errorresult.statusmessage = WebApiMessage.FailedTransactionCodeStatus;
+        //        return errorresult;
+        //    }
+
+
+        //    var remitaPaymentwithoutRRR = paymentInfo.FirstOrDefault();
+
+        //    var merchantID = _configuration.GetValue<string>("merchantID");
+        //    var apiKey = _configuration.GetValue<string>("apiKey");
+        //    var hash = SHA512(merchantID + remitaPaymentwithoutRRR.RRR + apiKey);
+
+
+        //    RemitaPaymentPostModel remitaPaymentModel = new RemitaPaymentPostModel();
+        //    remitaPaymentModel.hash = hash;
+        //    remitaPaymentModel.merchantId = merchantID;
+        //    remitaPaymentModel.rrr = remitaPaymentwithoutRRR.RRR;
+        //    remitaPaymentModel.responseurl = _configuration.GetValue<string>("RemitaResponseURL");
+         
+
+
+        //    WebClient webClient = new WebClient
+        //    {
+        //        UseDefaultCredentials = true,
+        //        Headers =
+        //                {
+        //                    ["Authorization"] = $"remitaConsumerKey={merchantID},remitaConsumerToken={hash}",
+
+        //                }
+        //    };
+
+        //    try
+        //    {
+        //        var ttry = JsonConvert.SerializeObject(remitaPaymentModel);
+        //        var URL = _configuration.GetValue<string>("RemitaPaymentURL");
+
+        //        webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+        //        var remitaResponse = webClient.UploadString(new Uri(URL), "POST", ttry);
+
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error occured connecting to RRR", "");
+        //        return null;
+        //    }
+
+
+
+
+        //}
+
+
+
+
+
+
+
+        /// return url
+        /// 
+        //[HttpPost("remitaPaymentConfirmation")]
+        //private async Task<IActionResult> remitaPaymentConfirmation(RemitaPaymentResponsCodeModel remitaResponse)
+        //{
+
+        //    RemitaPaymentResponsCodeModel errorresult = new RemitaPaymentResponsCodeModel();
+
+        //    var paymentInfo = await _remitaPaymentRepository.FetchByRRRCode(remitaResponse.RRR);
+
+        //    if (paymentInfo.Count == 0)
+        //    {
+        //        errorresult.status = WebApiMessage.RRRNotFound;
+        //        errorresult.statusmessage = WebApiMessage.FailedTransactionCodeStatus;
+        //        return PrepareResponse(HttpStatusCode.InternalServerError, WebApiMessage.RRRNotFound, true, errorresult);
+        //    }
+
+
+         
+        //    try
+        //    {
+        //        RequeryRemitaModel requeryRemitaModel = new RequeryRemitaModel();
+        //        requeryRemitaModel.RRR = remitaResponse.RRR;
+        //        await VerifyPayment(requeryRemitaModel);
+
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error occured connecting to RRR", "");
+        //        return null;
+        //    }
+
+
+
+
+        //}
     }
 }

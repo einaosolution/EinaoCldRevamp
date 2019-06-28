@@ -71,6 +71,15 @@ namespace IPORevamp.Data.Entity.Interface.Entities.RemitaPayment
         public string MerchantId { get; set; }
     }
 
+    public class RemitaPaymentPostModel
+    {
+        public string merchantId { get; set; }
+        public string hash { get; set; }
+        public string rrr { get; set; }
+        public string responseurl { get; set; }
+      
+    }
+
     public class RemitaQueryResponseModel
     {
         public string message { get; set; }
@@ -80,11 +89,27 @@ namespace IPORevamp.Data.Entity.Interface.Entities.RemitaPayment
         public string transactiontime { get; set; }
         public string orderId { get; set; }
         public string amount { get; set; }
+        public string paymentDate { get; set; }
 
-     
-}
 
-    public class RemitaPayNotificationResponseModel
+
+    }
+
+
+    public class RemitaPaymentResponsCodeModel
+    {
+        public string statusmessage { get; set; }
+        public string RRR { get; set; }
+        public string status { get; set; }
+        public string merchantId { get; set; }
+        public string transactiontime { get; set; }
+        public string orderId { get; set; }
+
+
+
+    }
+
+public class RemitaPayNotificationResponseModel
     {
         public string channel { get; set; }
         public string rrr { get; set; }
@@ -125,6 +150,13 @@ namespace IPORevamp.Data.Entity.Interface.Entities.RemitaPayment
         public int UserId { get; set; }
         [Required(ErrorMessage = "Please supply fee ids")]
         public int[] FeeIds { get; set; }
+    }
+
+
+    public class RemitaMakePaymentViewModel
+    {
+        public string rrr { get; set; }
+        public int UserId { get; set; }
     }
 
     public class RemitaPaymentPayLoad
