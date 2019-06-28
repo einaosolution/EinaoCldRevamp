@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace IPORevamp.WebAPI.Controllers
 {
-    [Route("api/Sector")]
+    [Route("api/preliminary")]
     [ApiController]
     public class PrelimSearchController : BaseController
     {
@@ -102,6 +102,7 @@ namespace IPORevamp.WebAPI.Controllers
                 content.CreatedBy = user.FirstName;
                 content.last_name = preliminarySearch.last_name;
                 content.payment_reference = preliminarySearch.payment_reference;
+                content.type = preliminarySearch.type;
                 content.userid = preliminarySearch.userid;
                 content.status = "Submitted";
                 content.IsActive = true;
@@ -122,7 +123,7 @@ namespace IPORevamp.WebAPI.Controllers
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
                     Description = $"User {user.FirstName + ' ' + user.LastName} add a new   Prelim Search  successfully",
-                    Entity = "SectorAdded",
+                    Entity = "PreliminaryAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
                     IpAddress = ip,

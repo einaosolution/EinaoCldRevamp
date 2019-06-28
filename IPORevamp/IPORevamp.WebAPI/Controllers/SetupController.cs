@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using EmailEngine.Repository.FileUploadRepository;
 using IPORevamp.Data.SetupViewModel;
+using IPORevamp.Core.Utilities;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -41,8 +42,9 @@ namespace IPORevamp.WebAPI.Controllers
     {
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
+        private readonly IPOContext _contex;
 
-  
+
         private readonly IEmailSender _emailsender;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -62,6 +64,7 @@ namespace IPORevamp.WebAPI.Controllers
     
             IEmailSender emailsender,
             IHttpContextAccessor httpContextAccessor,
+            IPOContext contex,
             IHostingEnvironment hostingEnvironment,
             IAuditTrailManager<AuditTrail> auditTrailManager
 
@@ -82,6 +85,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailManager = emailManager;
          
             _emailsender = emailsender;
+            _contex = contex;
             _httpContextAccessor = httpContextAccessor;
 
 
@@ -96,7 +100,29 @@ namespace IPORevamp.WebAPI.Controllers
         /// 
 
 
+        [HttpGet("GetNationalClass")]
+        public async Task<IActionResult> GetNationalClass()
+        {
+            
 
+
+            try
+            {
+                var kk35 = (from c in _contex.National_Class where c.IsActive ==true && c.IsDeleted == false  select c).ToList();
+
+
+               
+
+                return PrepareResponse(HttpStatusCode.OK, "Country Returned Successfully", false, kk35);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select National Class", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
 
 
 
@@ -159,10 +185,10 @@ namespace IPORevamp.WebAPI.Controllers
         //        return PrepareResponse(HttpStatusCode.BadRequest, "Bad Request", false, "");
         //    }
         //}
-            
 
-           
-        
+
+
+
 
 
         //[Authorize]
@@ -266,9 +292,9 @@ namespace IPORevamp.WebAPI.Controllers
         //}
         #endregion
 
-      
 
-       
+
+
 
     }
 }

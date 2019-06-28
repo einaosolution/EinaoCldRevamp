@@ -35,6 +35,8 @@ using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
 using IPORevamp.Data.Entity.Interface.Entities.Comments;
 using IPORevamp.Data.Entity.Interface.Entities.MarkInfo;
 using IPORevamp.Data.Entity.Interface.PreliminarySearch;
+using IPORevamp.Data.Entity.Interface.Entities.National_Class;
+using Microsoft.Extensions.Configuration;
 
 namespace IPORevamp.Data
 {
@@ -73,6 +75,8 @@ namespace IPORevamp.Data
         public DbSet<Twallet> Twallet { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<ApplicationType> ApplicationType { get; set; }
+        public DbSet<National_Class> National_Class { get; set; }
+
 
         public DbSet<Pwallet> Pwallet { get; set; }
 
@@ -108,7 +112,8 @@ namespace IPORevamp.Data
         }
         public IPOContext(DbContextOptions<IPOContext> options) :base(options)
         {
-           // Database.Migrate();
+
+            // Database.Migrate();
             //this.Confi
             //options.Configuration.ProxyCreationEnabled = false;
 

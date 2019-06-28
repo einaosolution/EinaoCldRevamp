@@ -8,8 +8,9 @@ namespace IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory
 {
   public   class TrademarkApplicationHistory : EntityBase
     {
-        [ForeignKey("Id")]
-        public int trademarkcommentid { get; set; }
+       
+        public string  trademarkcomment { get; set; }
+        public string description{ get; set; }
 
         [ForeignKey("Id")]
         public int pwalletid { get; set; }
@@ -19,7 +20,11 @@ namespace IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory
         public string from_datastatus { get; set; }
         public string to_datastatus { get; set; }
 
-        public IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments TrademarkComments { get; set; }
+        public string UploadsPath1 { get; set; }
+        public int  userid { get; set; }
+        public string UploadsPath2 { get; set; }
+
+
         public IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet pwallet { get; set; }
     }
 }

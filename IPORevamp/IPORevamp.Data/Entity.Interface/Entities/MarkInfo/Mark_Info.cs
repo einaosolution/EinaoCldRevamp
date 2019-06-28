@@ -18,6 +18,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.MarkInfo
         public string nation_classID { get; set; }
 
         public string tm_typeID { get; set; }
+        public string userid { get; set; }
 
         public string product_title { get; set; }
 
@@ -29,7 +30,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.MarkInfo
         public string sup_doc1 { get; set; }
         public string sup_doc2 { get; set; }
 
-
+       
 
         public IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet pwallet { get; set; }
     }

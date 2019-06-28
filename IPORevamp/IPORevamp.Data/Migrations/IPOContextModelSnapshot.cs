@@ -780,9 +780,13 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<byte[]>("RowVersion");
 
-                    b.Property<int?>("TrademarkCommentsId");
-
                     b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("UploadsPath1");
+
+                    b.Property<string>("UploadsPath2");
+
+                    b.Property<string>("description");
 
                     b.Property<string>("from_datastatus");
 
@@ -790,13 +794,13 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("to_datastatus");
 
-                    b.Property<int>("trademarkcommentid");
+                    b.Property<string>("trademarkcomment");
 
                     b.Property<string>("transaction_id");
 
-                    b.HasKey("Id");
+                    b.Property<int>("userid");
 
-                    b.HasIndex("TrademarkCommentsId");
+                    b.HasKey("Id");
 
                     b.HasIndex("pwalletid");
 
@@ -952,6 +956,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("tm_typeID");
 
+                    b.Property<string>("userid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("pwalletid");
@@ -987,6 +993,37 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ministry");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.National_Class.National_Class", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("National_Class");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Payment.Payment", b =>
@@ -1705,10 +1742,6 @@ namespace IPORevamp.Data.Migrations
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", "TrademarkComments")
-                        .WithMany("TrademarkApplicationHistory")
-                        .HasForeignKey("TrademarkCommentsId");
-
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
                         .WithMany("TrademarkApplicationHistory")
                         .HasForeignKey("pwalletid")

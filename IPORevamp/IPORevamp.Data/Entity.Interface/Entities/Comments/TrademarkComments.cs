@@ -17,6 +17,6 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Comments
 
 
         public IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet pwallet { get; set; }
-        public List<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> TrademarkApplicationHistory { get; set; }
+       
     }
 }
