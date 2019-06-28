@@ -799,6 +799,113 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("TMApplicationStatus");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.ApplicationType.ApplicationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApplicationType");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<int?>("TrademarkCommentsId");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("from_datastatus");
+
+                    b.Property<int>("pwalletid");
+
+                    b.Property<string>("to_datastatus");
+
+                    b.Property<int>("trademarkcommentid");
+
+                    b.Property<string>("transaction_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrademarkCommentsId");
+
+                    b.HasIndex("pwalletid");
+
+                    b.ToTable("TrademarkApplicationHistory");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("pwalletid");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("pwalletid");
+
+                    b.ToTable("TrademarkComments");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Department.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -830,6 +937,96 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("Department");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.FeeDetail.FeeDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("feelistid");
+
+                    b.Property<double>("initial_amount");
+
+                    b.Property<double>("tech_amount");
+
+                    b.Property<double>("total_amount");
+
+                    b.Property<int>("twalletid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("feelistid");
+
+                    b.ToTable("FeeDetail");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.MarkInfo.Mark_Info", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("auth_doc");
+
+                    b.Property<string>("logo_descriptionID");
+
+                    b.Property<string>("logo_pic");
+
+                    b.Property<string>("nation_classID");
+
+                    b.Property<string>("nice_class");
+
+                    b.Property<string>("product_title");
+
+                    b.Property<int>("pwalletid");
+
+                    b.Property<string>("reg_number");
+
+                    b.Property<string>("sup_doc1");
+
+                    b.Property<string>("sup_doc2");
+
+                    b.Property<string>("tm_typeID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("pwalletid");
+
+                    b.ToTable("Mark_Info");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Ministry.Ministry", b =>
                 {
                     b.Property<int>("Id")
@@ -858,6 +1055,51 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ministry");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Payment.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Amount");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<double>("Quantity");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("pay_reference");
+
+                    b.Property<string>("payment_mode");
+
+                    b.Property<string>("payment_status");
+
+                    b.Property<int>("productid");
+
+                    b.Property<string>("transaction_reference");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("productid");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Product.Product", b =>
@@ -1149,6 +1391,49 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("SmsLog");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Twallet.Twallet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("feelistid");
+
+                    b.Property<string>("pay_ref");
+
+                    b.Property<int>("paymentid");
+
+                    b.Property<string>("transaction_status");
+
+                    b.Property<string>("transactionid");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("feelistid");
+
+                    b.HasIndex("paymentid");
+
+                    b.ToTable("Twallet");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Unit.Units", b =>
                 {
                     b.Property<int>("Id")
@@ -1181,6 +1466,47 @@ namespace IPORevamp.Data.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Units");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("description");
+
+                    b.Property<string>("first_name");
+
+                    b.Property<string>("last_name");
+
+                    b.Property<string>("payment_reference");
+
+                    b.Property<string>("status");
+
+                    b.Property<string>("type");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreliminarySearch");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.TempModel.UserVerificationTemp", b =>
@@ -1559,6 +1885,58 @@ namespace IPORevamp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", "TrademarkComments")
+                        .WithMany("TrademarkApplicationHistory")
+                        .HasForeignKey("TrademarkCommentsId");
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
+                        .WithMany("TrademarkApplicationHistory")
+                        .HasForeignKey("pwalletid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
+                        .WithMany("TrademarkComments")
+                        .HasForeignKey("pwalletid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.FeeDetail.FeeDetail", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Fee.FeeList", "FeeList")
+                        .WithMany("feedetail")
+                        .HasForeignKey("feelistid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.MarkInfo.Mark_Info", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
+                        .WithMany("Mark_Info")
+                        .HasForeignKey("pwalletid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Payment.Payment", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Product.Product", "Product")
+                        .WithMany("Payment")
+                        .HasForeignKey("productid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.ApplicationType.ApplicationType", "ApplicationType")
+                        .WithMany("pwallet")
+                        .HasForeignKey("Applicationtypeid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Role.LinkRolesMenus", b =>
                 {
                     b.HasOne("IPORevamp.Data.Entities.Menus.MenuManager", "Menus")
@@ -1569,6 +1947,19 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Role.RoleManager", "Roles")
                         .WithMany("LinkRolesMenus")
                         .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Twallet.Twallet", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Fee.FeeList", "FeeList")
+                        .WithMany("twallet")
+                        .HasForeignKey("feelistid")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Payment.Payment", "Payment")
+                        .WithMany("twallet")
+                        .HasForeignKey("paymentid")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

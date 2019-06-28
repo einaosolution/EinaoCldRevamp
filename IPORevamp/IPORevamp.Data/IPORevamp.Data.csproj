@@ -22,6 +22,9 @@
     <Compile Remove="Migrations\20190612132315_tempuser.cs" />
     <Compile Remove="Migrations\20190617145455_unittable.cs" />
     <Compile Remove="Migrations\20190618153455_appuser.cs" />
+    <Compile Remove="Migrations\20190624143308_Feedtail.cs" />
+    <Compile Remove="Migrations\20190624143759_Feedtail.cs" />
+    <Compile Remove="Migrations\20190624145655_applicationtype.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

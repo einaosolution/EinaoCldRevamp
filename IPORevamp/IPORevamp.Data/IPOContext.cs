@@ -27,6 +27,15 @@ using IPORevamp.Data.Entity.Interface.Entities.Ministry;
 using IPORevamp.Data.Entity.Interface.Entities.Unit;
 using IPORevamp.Data.Entity.Interface.Entities.Sms;
 using IPORevamp.Data.Entity.Interface.Entities.RemitaPayment;
+using IPORevamp.Data.Entity.Interface.Entities.FeeDetail;
+using IPORevamp.Data.Entity.Interface.Entities.Twallet;
+using IPORevamp.Data.Entity.Interface.Entities.Payment;
+using IPORevamp.Data.Entity.Interface.ApplicationType;
+using IPORevamp.Data.Entity.Interface.Entities.Pwallet;
+using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
+using IPORevamp.Data.Entity.Interface.Entities.Comments;
+using IPORevamp.Data.Entity.Interface.Entities.MarkInfo;
+using IPORevamp.Data.Entity.Interface.PreliminarySearch;
 
 namespace IPORevamp.Data
 {
@@ -55,8 +64,20 @@ namespace IPORevamp.Data
         public DbSet<Units> Units { get; set; }
 
         public DbSet<FeeList> FeeList { get; set; }
+        public DbSet<Mark_Info> Mark_Info { get; set; }
+        public DbSet<PreliminarySearch> PreliminarySearch { get; set; }
 
-        
+        public DbSet<FeeDetail> FeeDetail { get; set; }
+        public DbSet<TrademarkApplicationHistory> TrademarkApplicationHistory { get; set; }
+
+        public DbSet<TrademarkComments> TrademarkComments { get; set; }
+        public DbSet<Twallet> Twallet { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<ApplicationType> ApplicationType { get; set; }
+
+        public DbSet<Pwallet> Pwallet { get; set; }
+
+
         public DbSet<Data.Entities.Country.Country> Country { get; set; }
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
         
