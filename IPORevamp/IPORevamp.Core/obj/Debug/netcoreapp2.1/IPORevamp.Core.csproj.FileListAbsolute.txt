@@ -38,3 +38,17 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Cor
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.pdb
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csprojAssemblyReference.cache
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\IPORevamp.Core.deps.json
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\IPORevamp.Core.dll
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\IPORevamp.Core.pdb
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.dll
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Core.dll
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Mvc.Core.xml
+C:\IPOHub\IPORevamp\IPORevamp.Core\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csprojAssemblyReference.cache
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csproj.CoreCompileInputs.cache
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.AssemblyInfoInputs.cache
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.AssemblyInfo.cs
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.csproj.CopyComplete
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.dll
+C:\IPOHub\IPORevamp\IPORevamp.Core\obj\Debug\netcoreapp2.1\IPORevamp.Core.pdb

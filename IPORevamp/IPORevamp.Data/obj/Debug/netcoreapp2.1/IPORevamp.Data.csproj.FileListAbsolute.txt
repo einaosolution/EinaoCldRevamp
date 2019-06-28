@@ -42,3 +42,17 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Dat
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.pdb
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.deps.json
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.dll
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.pdb
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\EmailEngine.dll
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Core.dll
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\EmailEngine.pdb
+C:\IPOHub\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Core.pdb
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csprojAssemblyReference.cache
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CoreCompileInputs.cache
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.AssemblyInfoInputs.cache
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.AssemblyInfo.cs
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CopyComplete
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.dll
+C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.pdb
