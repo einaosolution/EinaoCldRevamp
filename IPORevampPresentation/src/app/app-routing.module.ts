@@ -40,7 +40,39 @@ import { PendingUserComponent } from './pending-user/pending-user.component';
 import { UnitsComponent } from './units/units.component';
 import { MinistryComponent } from './ministry/ministry.component';
 import { RemittaComponent } from './remitta/remitta.component';
+import { PremSearchComponent } from './prem-search/prem-search.component';
 
+import { ProductBillingComponent } from './product-billing/product-billing.component';
+
+import { InvoiceComponent } from './invoice/invoice.component';
+import { NewApplicationComponent } from './new-application/new-application.component';
+import { AcknowledgementComponent } from './acknowledgement/acknowledgement.component';
+import { SearchFreshAppComponent } from './search-fresh-app/search-fresh-app.component';
+import { SearchKivComponent } from './search-kiv/search-kiv.component';
+import { SearchPrelimComponent } from './search-prelim/search-prelim.component';
+import { SearchtreatedComponent } from './searchtreated/searchtreated.component';
+import { ExaminerFreshComponent } from './examiner-fresh/examiner-fresh.component';
+import { AcceptanceLetterComponent } from './acceptance-letter/acceptance-letter.component';
+import { RefusalLetterComponent } from './refusal-letter/refusal-letter.component';
+import { UserKivComponent } from './user-kiv/user-kiv.component';
+import { ExaminerKivComponent } from './examiner-kiv/examiner-kiv.component';
+import { ReConductSearchComponent } from './re-conduct-search/re-conduct-search.component';
+import { ExaminerTreatedComponent } from './examiner-treated/examiner-treated.component';
+import { PublicationNewComponent } from './publication-new/publication-new.component';
+import { PublicationBatchComponent } from './publication-batch/publication-batch.component';
+import { PublicationDetailComponent } from './publication-detail/publication-detail.component';
+import { RefuseApplicationComponent } from './refuse-application/refuse-application.component';
+import { AssignAppealComponent } from './assign-appeal/assign-appeal.component';
+import { AssignAppeal2Component } from './assign-appeal2/assign-appeal2.component';
+import { ReceiveAppealComponent } from './receive-appeal/receive-appeal.component';
+import { UserOppositionComponent } from './user-opposition/user-opposition.component';
+import { NoticeOfOppositionComponent } from './notice-of-opposition/notice-of-opposition.component';
+import { OppositionFreshComponent } from './opposition-fresh/opposition-fresh.component';
+import { UsercounterOppositionComponent } from './usercounter-opposition/usercounter-opposition.component';
+import { NoticeOfCounterOppositionComponent } from './notice-of-counter-opposition/notice-of-counter-opposition.component';
+import { UploadJudgementComponent } from './upload-judgement/upload-judgement.component';
+import { ViewJudgmentComponent } from './view-judgment/view-judgment.component';
+import { TrademarkReportComponent } from './trademark-report/trademark-report.component';
 
 
 const routes: Routes = [
@@ -56,7 +88,8 @@ const routes: Routes = [
   { path: 'info/?page', component: CorporateComponent ,   data: { animation: 'tiger7' } } ,
   { path: 'info2/:id', component: IndividualComponent ,   data: { animation: 'tiger7' } } ,
    { path: 'Forgetpassword', component: ForgetpasswordComponent ,   data: { animation: 'tiger10' } } ,
-   { path: 'Remitta', component: RemittaComponent ,   data: { animation: 'tiger11' } } ,
+   { path: 'Forgetpassword', component: ForgetpasswordComponent ,   data: { animation: 'tiger12' } } ,
+   { path: 'TrademarkReport', component: TrademarkReportComponent ,   data: { animation: 'tiger11' } } ,
 
 
   { path: 'Dashboard', component: HeaderComponent,   children: [
@@ -67,9 +100,107 @@ component:  DashboardComponent
 path:  'Country',
 component:  CountryComponent
 },{
+  path:  'Acknowledgement',
+  component:  AcknowledgementComponent
+  },{
+    path:  'AcceptanceLetter',
+    component:  AcceptanceLetterComponent
+    },{
+      path:  'ReceiveAppeal',
+      component:  ReceiveAppealComponent
+      },{
+      path:  'AssignAppeal',
+      component:  AssignAppealComponent
+      } ,{
+        path:  'AssignAppeal2',
+        component:  AssignAppeal2Component
+        },{
+      path:  'ExaminerTreated',
+      component:  ExaminerTreatedComponent
+      } ,{
+      path:  'ReConductSearch',
+      component:  ReConductSearchComponent
+      } ,{
+        path:  'PublicationNew',
+        component:  PublicationNewComponent
+        } ,{
+          path:  'UserOpposition',
+          component:  UserOppositionComponent
+          } ,{
+            path:  'UploadJudgement',
+            component:  UploadJudgementComponent
+            } ,{
+            path:  'NoticeOfCounterOpposition',
+            component:   NoticeOfCounterOppositionComponent
+            },{
+            path:  'NoticeOfOpposition',
+            component:  NoticeOfOppositionComponent
+            } ,{
+              path:  'ViewJudgment',
+              component: ViewJudgmentComponent
+              },{
+              path:  'OppositionFresh',
+              component:  OppositionFreshComponent
+              } ,{
+                path:  'UsercounterOpposition',
+                component:  UsercounterOppositionComponent
+                } ,{
+          path:  'PublicationDetail',
+          component:   PublicationDetailComponent
+          },{
+          path:  'PublicationBatch',
+          component:  PublicationBatchComponent
+          } ,{
+    path:  'SearchFreshApp',
+    component:  SearchFreshAppComponent
+    } ,{
+      path:  'UserKiv',
+      component:  UserKivComponent
+      } ,{
+        path:  'RefuseApplication',
+        component:  RefuseApplicationComponent
+        }  ,{
+      path:  'RefusalLetter',
+      component:  RefusalLetterComponent
+      } ,{
+        path:  'ExaminerKiv',
+        component:  ExaminerKivComponent
+        } ,{
+      path:  'SearchPrelim',
+      component:  SearchPrelimComponent
+      },{
+        path:  'ExaminerFresh',
+        component:  ExaminerFreshComponent
+        },{
   path:  'Staff',
   component:  BackEndUserComponent
-  } ,{
+  },{
+    path:  'PremSearch',
+    component:  PremSearchComponent
+    }
+    ,{
+      path:  'SearchKiv',
+      component:  SearchKivComponent
+      }
+      ,{
+        path:  'Searchtreated',
+        component:  SearchtreatedComponent
+        }
+
+    ,{
+      path:  'NewApplication',
+      component:  NewApplicationComponent
+      }
+
+    ,{
+      path:  'Invoice',
+      component:  InvoiceComponent
+      }
+
+    ,{
+      path:  'ProductBilling',
+      component:  ProductBillingComponent
+      },{
     path:  'Unit',
     component:  UnitsComponent
     },{

@@ -11,7 +11,11 @@ namespace IPORevamp.Data.Entity.Interface.PreliminarySearch
         public string userid { get; set; }
         public string type { get; set; }
         public string description { get; set; }
+
+        public string[] data { get; set; }
         public string payment_reference { get; set; }
+
+        public string UserEmail { get; set; }
 
         public int CreatedBy { get; set; }
 

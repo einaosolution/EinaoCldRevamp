@@ -108,7 +108,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             try
             {
-                var kk35 = (from c in _contex.National_Class where c.IsActive ==true && c.IsDeleted == false  select c).ToList();
+                var kk35 = (from c in _contex.NationalClass where c.IsActive ==true && c.IsDeleted == false  select c).ToList();
 
 
                

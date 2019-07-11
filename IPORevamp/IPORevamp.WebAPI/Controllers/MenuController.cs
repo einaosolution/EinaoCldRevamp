@@ -386,12 +386,12 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 // Check if Menu Exist 
-                var checkCount = await _menuRepository.CheckExistingMenu(menuViewModel.Name);
+              //  var checkCount = await _menuRepository.CheckExistingMenu(menuViewModel.Name);
 
-                if (checkCount != null)
-                {
-                    return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
-                }
+                //if (checkCount != null)
+                //{
+                 //   return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
+                //}
 
                 // attempt to save
                 MenuManager content = new MenuManager();

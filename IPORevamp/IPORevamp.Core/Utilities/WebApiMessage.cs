@@ -15,5 +15,13 @@ namespace IPORevamp.Core.Utilities
         public const string FailUpdateRequest = "An error occurred when saving your request";
         public const string FailDeletedRequest = "An error occurred when saving your request";
         public const string MissingUserInformation = "User Information not found";
+
+        public const string ApprovedPaymentStatus = "Transaction Approved";
+
+        public const string ApprovedPaymentStatusRemita= "Approved";
+        public const string TransactionPending = "Transaction Pending";
+        public const string RRRNotFound = "No RRR Information was found, please try again";
+        public const string FailedTransactionCodeStatus = "xxx";
+        public const int  SuccessfullyPayment = 1;
     }
 }

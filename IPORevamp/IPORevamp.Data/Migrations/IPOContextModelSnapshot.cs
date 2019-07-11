@@ -457,6 +457,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<int>("PaymentMethod");
 
+                    b.Property<string>("RRR");
+
                     b.Property<byte[]>("RowVersion");
 
                     b.Property<string>("UpdatedBy");
@@ -569,6 +571,72 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PTApplicationStatus");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.RemitaAccountSplit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BeneficiaryAccount");
+
+                    b.Property<string>("BeneficiaryBank");
+
+                    b.Property<string>("BeneficiaryName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeductFee");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RemitaAccountSplit");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entities.RemitaBankCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BankCode");
+
+                    b.Property<string>("BankName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RemitaBankCode");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entities.Sector", b =>
@@ -766,11 +834,19 @@ namespace IPORevamp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AcceptanceFilePath");
+
+                    b.Property<int>("ApplicationID");
+
                     b.Property<string>("CreatedBy");
 
                     b.Property<DateTime>("DateCreated");
 
                     b.Property<string>("DeletedBy");
+
+                    b.Property<string>("FromDataStatus");
+
+                    b.Property<string>("FromStatus");
 
                     b.Property<bool>("IsActive");
 
@@ -778,7 +854,15 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("LastUpdateDate");
 
+                    b.Property<string>("RefusalFilePath");
+
                     b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("ToDataStatus");
+
+                    b.Property<string>("ToStatus");
+
+                    b.Property<string>("TransactionID");
 
                     b.Property<string>("UpdatedBy");
 
@@ -788,32 +872,24 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("description");
 
-                    b.Property<string>("from_datastatus");
-
-                    b.Property<int>("pwalletid");
-
-                    b.Property<string>("to_datastatus");
-
                     b.Property<string>("trademarkcomment");
-
-                    b.Property<string>("transaction_id");
 
                     b.Property<int>("userid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("pwalletid");
+                    b.HasIndex("ApplicationID");
 
                     b.ToTable("TrademarkApplicationHistory");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Batch.PublicationBatch", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Comment");
+                    b.Property<int>("BatchNo");
 
                     b.Property<string>("CreatedBy");
 
@@ -827,19 +903,15 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("LastUpdateDate");
 
+                    b.Property<int>("NumberOfApplication");
+
                     b.Property<byte[]>("RowVersion");
 
                     b.Property<string>("UpdatedBy");
 
-                    b.Property<int>("pwalletid");
-
-                    b.Property<string>("userid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("pwalletid");
-
-                    b.ToTable("TrademarkComments");
+                    b.ToTable("PublicationBatch");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Department.Department", b =>
@@ -912,11 +984,13 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("FeeDetail");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.MarkInfo.Mark_Info", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApprovalDocument");
 
                     b.Property<string>("CreatedBy");
 
@@ -930,39 +1004,42 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("LastUpdateDate");
 
+                    b.Property<string>("LogoPicture");
+
+                    b.Property<string>("NationClassID");
+
+                    b.Property<string>("NiceClass");
+
+                    b.Property<string>("NiceClassDescription");
+
+                    b.Property<string>("ProductTitle")
+                        .IsRequired();
+
+                    b.Property<string>("RegistrationNumber");
+
                     b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("SupportDocument1");
+
+                    b.Property<string>("SupportDocument2");
+
+                    b.Property<int>("TradeMarkTypeID");
 
                     b.Property<string>("UpdatedBy");
 
-                    b.Property<string>("auth_doc");
+                    b.Property<int>("applicationid");
 
                     b.Property<string>("logo_descriptionID");
-
-                    b.Property<string>("logo_pic");
-
-                    b.Property<string>("nation_classID");
-
-                    b.Property<string>("nice_class");
-
-                    b.Property<string>("product_title");
-
-                    b.Property<int>("pwalletid");
-
-                    b.Property<string>("reg_number");
-
-                    b.Property<string>("sup_doc1");
-
-                    b.Property<string>("sup_doc2");
-
-                    b.Property<string>("tm_typeID");
 
                     b.Property<string>("userid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("pwalletid");
+                    b.HasIndex("TradeMarkTypeID");
 
-                    b.ToTable("Mark_Info");
+                    b.HasIndex("applicationid");
+
+                    b.ToTable("MarkInformation");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Ministry.Ministry", b =>
@@ -995,7 +1072,7 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("Ministry");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.National_Class.National_Class", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.National_Class.NationalClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1023,7 +1100,97 @@ namespace IPORevamp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("National_Class");
+                    b.ToTable("NationalClass");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Opposition.CounterOpposition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicantAddress");
+
+                    b.Property<string>("ApplicantName");
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("PaymentReference");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Upload");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("CounterOpposition");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Opposition.NoticeOfOpposition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("PaymentReference");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("Upload");
+
+                    b.Property<string>("opponentAddress");
+
+                    b.Property<string>("opponentName");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("NoticeOfOpposition");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Payment.Payment", b =>
@@ -1102,15 +1269,23 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationStatus");
+
                     b.Property<int>("Applicationtypeid");
 
+                    b.Property<string>("Batchno");
+
+                    b.Property<string>("CertificatePayReference");
+
                     b.Property<string>("CreatedBy");
+
+                    b.Property<string>("DataStatus");
 
                     b.Property<DateTime>("DateCreated");
 
@@ -1124,13 +1299,9 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<byte[]>("RowVersion");
 
+                    b.Property<string>("TransactionID");
+
                     b.Property<string>("UpdatedBy");
-
-                    b.Property<string>("application_status");
-
-                    b.Property<string>("data_status");
-
-                    b.Property<string>("transactionid");
 
                     b.Property<string>("userid");
 
@@ -1138,7 +1309,160 @@ namespace IPORevamp.Data.Migrations
 
                     b.HasIndex("Applicationtypeid");
 
-                    b.ToTable("Pwallet");
+                    b.ToTable("Application");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.CustomField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("orderId");
+
+                    b.Property<string>("type");
+
+                    b.Property<string>("value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomFields");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.LineItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BankCode");
+
+                    b.Property<string>("BeneficiaryAccount");
+
+                    b.Property<string>("BeneficiaryAmount");
+
+                    b.Property<string>("BeneficiaryName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeductFeeFrom");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("LineItemsId");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LineItems");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.RemitaPayment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal?>("Amount");
+
+                    b.Property<string>("Channel");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("FeeId");
+
+                    b.Property<string>("FeeItemName");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<string>("PayerEmail");
+
+                    b.Property<string>("PayerName");
+
+                    b.Property<string>("PayerPhone");
+
+                    b.Property<DateTime?>("PaymentDate");
+
+                    b.Property<int>("PaymentPurposeId");
+
+                    b.Property<int>("PaymentStatus");
+
+                    b.Property<string>("RRR");
+
+                    b.Property<string>("RRRCode");
+
+                    b.Property<string>("RemitaPostPayLoad");
+
+                    b.Property<string>("RemitaPostVerifyPayLoad");
+
+                    b.Property<string>("RemitaResponsePayLoad");
+
+                    b.Property<string>("RemitaResponseVerifyPayLoad");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("ServiceTypeId");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("Statuscode");
+
+                    b.Property<decimal?>("TechFee");
+
+                    b.Property<string>("TotalAmount");
+
+                    b.Property<DateTime>("TransactionCompletedDate");
+
+                    b.Property<DateTime>("TransactionInitiatedDate");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RemitaPayments");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Role.LinkRolesMenus", b =>
@@ -1246,6 +1570,64 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("SmsLog");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.TrademarkLogo.TrademarkLogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrademarkLogo");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.TrademarkType.TrademarkType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrademarkType");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Twallet.Twallet", b =>
                 {
                     b.Property<int>("Id")
@@ -1335,6 +1717,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("DeletedBy");
 
+                    b.Property<string>("Email");
+
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
@@ -1345,21 +1729,23 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("UpdatedBy");
 
-                    b.Property<string>("description");
-
                     b.Property<string>("first_name");
 
                     b.Property<string>("last_name");
 
                     b.Property<string>("payment_reference");
 
-                    b.Property<string>("status");
+                    b.Property<string>("product");
 
-                    b.Property<string>("type");
+                    b.Property<int>("sectorid");
+
+                    b.Property<string>("status");
 
                     b.Property<string>("userid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("sectorid");
 
                     b.ToTable("PreliminarySearch");
                 });
@@ -1742,17 +2128,9 @@ namespace IPORevamp.Data.Migrations
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "application")
                         .WithMany("TrademarkApplicationHistory")
-                        .HasForeignKey("pwalletid")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", b =>
-                {
-                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
-                        .WithMany("TrademarkComments")
-                        .HasForeignKey("pwalletid")
+                        .HasForeignKey("ApplicationID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1764,11 +2142,32 @@ namespace IPORevamp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.MarkInfo.Mark_Info", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", "pwallet")
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.TrademarkType.TrademarkType", "trademarktype")
+                        .WithMany("MarkInfo")
+                        .HasForeignKey("TradeMarkTypeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "application")
                         .WithMany("Mark_Info")
-                        .HasForeignKey("pwalletid")
+                        .HasForeignKey("applicationid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Opposition.CounterOpposition", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "Application")
+                        .WithMany("CounterOpposition")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Opposition.NoticeOfOpposition", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "Application")
+                        .WithMany("NoticeOfOpposition")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1780,7 +2179,7 @@ namespace IPORevamp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet", b =>
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", b =>
                 {
                     b.HasOne("IPORevamp.Data.Entity.Interface.ApplicationType.ApplicationType", "ApplicationType")
                         .WithMany("pwallet")
@@ -1819,6 +2218,14 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Department.Department", "Department")
                         .WithMany("Units")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Sector", "Sector")
+                        .WithMany("PreliminarySearch")
+                        .HasForeignKey("sectorid")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

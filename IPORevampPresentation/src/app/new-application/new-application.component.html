@@ -1,0 +1,371 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">New Trademark Application</h4>
+          <div class="d-flex align-items-center">
+
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">New Application</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- ============================================================== -->
+      <!-- Example -->
+      <!-- ============================================================== -->
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body wizard-content">
+
+                  <div [ngBusy]="busy"></div>
+
+                  <form action="#" class="validation-wizard wizard-circle m-t-40"  #f="ngForm">
+                      <!-- Step 1 -->
+                      <h6>Step 1</h6>
+                      <section>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wfirstName2"> Trademark Type : <span class="danger">*</span> </label>
+
+
+                                      <select    required  [(ngModel)]="account.trademarktype"  id="wfirstName2"   name="firstName"      class="custom-select form-control-lg "    id="Month">
+                                        <option  value= "">
+                                          --Select Trademark Type--
+                                          </option>
+                                        <option *ngFor="let country2 of row10" value= {{country2.id}}>
+                                          {{country2.description}}
+                                        </option>
+                                      </select>
+                              </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wlastName2"> Logo Description  : <span class="danger">*</span> </label>
+
+
+                                      <select    required  [(ngModel)]="account.trademarklogo"  (change)="onChange2($event.target.value)"   id="wlastName2" name="lastName"      class="custom-select form-control-lg "    >
+                                        <option  value= "">
+                                          --Select Logo Description--
+                                          </option>
+                                        <option *ngFor="let country2 of row11" value= {{country2.id}}>
+                                          {{country2.type}}
+                                        </option>
+                                      </select>
+                              </div>
+                          </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wemailAddress2"> Trademark Title : <span class="danger">*</span> </label>
+                                      <input type="text"  required  [(ngModel)]="account.trademarktitle" class="form-control " id="wemailAddress2" name="emailAddresss2">
+
+
+                                      </div>
+
+                                    </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wphoneNumber2">GENERAL GOODS/SERVICES IN THE CLASS :</label>
+
+
+                                      <select    required (change)="onChange($event)"   [(ngModel)]="account.trademarkclass"    id="wphoneNumber2" name="wphoneNumber"      class="custom-select form-control-lg "    >
+                                        <option  value= "">
+                                          --Class Of Goods--
+                                          </option>
+                                        <option *ngFor="let country2 of rows" value= {{country2.type}}>
+                                          {{country2.type}}
+                                        </option>
+                                      </select>
+                                    </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="wlocation2"> Description : <span class="danger">*</span> </label> <br/>
+                                      <textarea rows="4" disabled id="classdescription" name="classdescription2"  [(ngModel)]="account.trademarkdesc" cols="30" placeholder="Description">
+
+                                      </textarea>
+                                  </div>
+                              </div>
+                              <div class="col-md-6"  *ngIf=" vshow3">
+
+                                  <div class="form-group">
+                                      <label for="wlocation2"> POWER OF ATTORNEY  : <span class="danger">*</span> </label>
+                                      <input type="file" (change)="chng2()"  #fileInput2 class="form-control " id="uploadAddress22" name="uploadAddresss">
+                                      <a *ngIf="image2" target="_blank"  href="{{filepath}}Upload/{{ image2}}">View Upload</a>
+                                    </div>
+
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6"  *ngIf="vshow">
+                                  <div class="form-group">
+                                      <label for="wlocation2"> REPRESENTATION OR MARK : <span class="danger">*</span> </label>
+                                      <input type="file" (change)="chng()" #fileInput class="form-control "  accept="image/*" id="uploadAddress2" name="uploadAddress">
+                                      <a *ngIf="image1" target="_blank"  href="{{filepath}}Upload/{{ image1}}">View Upload</a>
+                                    </div>
+                              </div>
+                              <div class="col-md-6">
+                                      <div class="form-group">
+                                              <label for="wlocation2"> SUPPORTING DOCUMENT(S) [IF ANY]  : <span class="danger">*</span> </label>
+                                              <input type="file" (change)="chng3()" #fileInput3 class="form-control " id="uploadAddress2" name="uploadAddress" > <span > Supporting document 1</span>  <a *ngIf="image3" target="_blank"  href="{{filepath}}Upload/{{ image3}}">View Upload</a> <br/>
+                                              <input type="file" (change)="chng4()" #fileInput4 class="form-control " id="uploadAddress2" name="uploadAddress">  <span > Supporting document 2</span>  <a *ngIf="image4" target="_blank"  href="{{filepath}}Upload/{{ image4}}">View Upload</a>
+                                          </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col_md_6">
+                                  <div class="modal-footer">
+
+
+
+                                  </div>
+
+                              </div>
+
+
+                              <div class="col_md_6">
+                                  <div class="row">
+
+                                      <div class="col_md_6 col_md_offset_6">
+
+                                      <button type="button"  (click) ="onSubmit(f.form.valid)" class="btn btn-success"> Next</button>
+
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                            </div>
+                      </section>
+
+
+                         <!-- Step 2 -->
+                         <h6>Step 2</h6>
+                         <section>
+
+
+                            <table  class="table form"   width="100%" >
+
+
+                                <tr *ngIf="savemode">
+                                     <td width="22%" colspan="2" class="tbbg" align="center">
+                                         <strong>DATA PREVIEW</strong></td>
+                                 </tr>
+                                  <tr>
+                                     <td >
+                                         &nbsp;TRADEMARK TYPE :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{trademarktype}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                                <tr>
+                                     <td >
+                                         &nbsp;LOGO DESCRIPTION  :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{trademarklogo}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                          <tr>
+                                     <td >
+                                         &nbsp;TRADEMARK TITLE :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{account.trademarktitle}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                           <tr>
+                                     <td >
+                                         &nbsp;GENERAL GOODS/SERVICES IN THE CLASS :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{account.trademarkclass}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                         <tr>
+                                     <td >
+                                         &nbsp;CLASS DESCRIPTION :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{account.trademarkdesc}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                        <tr *ngIf="image2">
+                                     <td >
+                                         &nbsp;POWER OF ATTORNEY :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                        <a *ngIf="image2" target="_blank"  href="{{filepath}}Upload/{{ image2}}">View Upload</a>
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+       <tr *ngIf="image1">
+                                     <td >
+                                         &nbsp;REPRESENTATION OR MARK :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         <a *ngIf="image1" target="_blank"  href="{{filepath}}Upload/{{ image1}}">View Upload</a>
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+      <tr *ngIf="image1">
+                                     <td >
+                                         &nbsp;SUPPORTING DOCUMENT(S) [IF ANY]  :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         <a *ngIf="image3" target="_blank"  href="{{filepath}}Upload/{{ image3}}">View Upload</a>   <br/>
+                                         <a *ngIf="image4" target="_blank"  href="{{filepath}}Upload/{{ image4}}">View Upload</a>
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+     </table>
+
+                               <div class="row">
+                                 <div class="col_md_6">
+                                     <div class="modal-footer">
+
+
+
+                                     </div>
+
+                                 </div>
+
+
+                                 <div class="col_md_6">
+                                     <div class="row">
+
+                                         <div class="col_md_6 col_md_offset_6">
+                                          <button type="button"  (click) ="onSubmit2(f.form.valid)" class="btn btn-success"> Next</button> &nbsp;&nbsp;&nbsp;
+                                         <button type="button"   class="btn btn-success"><i class="ti-save"></i> Save And Continue</button>
+
+
+                                         </div>
+                                     </div>
+
+                                 </div>
+
+                               </div>
+                         </section>
+
+                      <!-- Step 3 -->
+                      <h6>Step 3</h6>
+                      <section>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="card">
+                                      <div class="card-body">
+                                          <h5 class="card-title">PRODUCT SUMMARY</h5>
+                                          <div class="table-responsive">
+                                              <table class="table table-bordered">
+                                                  <thead>
+                                                      <tr>
+
+                                                          <th>Product</th>
+                                                          <th>Quantity</th>
+                                                          <th>Price</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                      <tr>
+                                                          <td>{{row2.description}}</td>
+
+                                                          <td>1</td>
+                                                          <td class="font-500">&#8358;{{tot| number:'.2-2'}}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td colspan="3" class="font-500" align="right">Total Amount</td>
+                                                          <td class="font-500">&#8358;{{tot| number:'.2-2' }}</td>
+                                                      </tr>
+
+                                                      <tr>
+                                                        <td colspan="3" class="font-500" align="right">I Accept Amount</td>
+                                                        <td class="font-500"><input [(ngModel)]="checkboxFlag"  (change)="FieldsChange($event)" type="checkbox"/></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                      <td colspan="3" class="font-500" align="right"></td>
+                                                      <td class="font-500"><form ngNoForm action="https://remitademo.net/remita/ecomm/finalize.reg" name="SubmitRemitaForm"  method="POST">
+                                                        <input name="merchantId" value="{{row22.merchantId}}" type="hidden">
+                                                        <input name="hash" value="{{row22.hash}}" type="hidden">
+                                                        <input name="rrr" value="{{row22.rrr}}" type="hidden">
+                                                        <input name="responseurl" value="{{vfilepath}}Dashboard/NewApplication" type="hidden">
+
+                                                        <button *ngIf="checkboxFlag"    type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Pay with Remita</button>
+                                                        </form>
+    </td>
+                                                  </tr>
+
+                                                  </tbody>
+                                              </table>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </section>
+
+
+
+                                    </form>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+  <!-- ============================================================== -->
+  <!-- End PAge Content -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Right sidebar -->
+  <!-- ============================================================== -->
+  <!-- .right-sidebar -->
+  <!-- ============================================================== -->
+  <!-- End Right sidebar -->
+  <!-- ============================================================== -->
+</div>

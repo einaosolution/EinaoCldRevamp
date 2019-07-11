@@ -16,7 +16,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Comments
         public string Comment { get; set; }
 
 
-        public IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet pwallet { get; set; }
+       
        
     }
 }

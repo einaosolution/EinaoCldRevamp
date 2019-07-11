@@ -13,7 +13,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Search
         public string ApplicantAddress { get; set; }
         public string phonenumber { get; set; }
         public string email { get; set; }
-        public string trademarktype { get; set; }
+        public String trademarktype { get; set; }
         public string classdescription { get; set; }
         public string ProductTitle { get; set; }
         public string Applicationclass { get; set; }
@@ -22,12 +22,21 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Search
 
         public string logo_pic { get; set; }
 
+        public string comment { get; set; }
+        public string commentby { get; set; }
+
         public int  pwalletid { get; set; }
 
         public string auth_doc { get; set; }
         public string sup_doc1 { get; set; }
         public string sup_doc2 { get; set; }
 
+        public string attach_doc { get; set; }
+
+        public int  BatCount { get; set; }
+
+
         public string Transactionid { get; set; }
+        public string userid { get; set; }
     }
 }

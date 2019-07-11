@@ -11,5 +11,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Product
         public string Code { get; set; }
 
         public List<IPORevamp.Data.Entity.Interface.Entities.Payment.Payment> Payment { get; set; }
+
+       
     }
 }

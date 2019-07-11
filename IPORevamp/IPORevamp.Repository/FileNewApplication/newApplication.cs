@@ -6,19 +6,20 @@ using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
 using IPORevamp.Data.Entity.Interface.Entities.MarkInfo;
 using IPORevamp.Data.Entity.Interface.Entities.Pwallet;
 using IPORevamp.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace IPORevamp.Repository.FileNewApplication
 {
     class newApplication : InewApplication
     {
         private IRepository<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> _trademarkhistoryrepository;
-        private IRepository<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet> _pwalletrepository;
-        private IRepository<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.Mark_Info> _markinforepository;
+        private IRepository<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application> _Applicationrepository;
+        private IRepository<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation> _markinforepository;
 
-        public newApplication(IRepository<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> trademarkhistoryrepository , IRepository<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet> pwalletrepository , IRepository<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.Mark_Info> markinforepository)
+        public newApplication(IRepository<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> trademarkhistoryrepository , IRepository<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application> Applicationrepository, IRepository<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation> markinforepository)
         {
             _trademarkhistoryrepository = trademarkhistoryrepository;
-            _pwalletrepository = pwalletrepository;
+            _Applicationrepository = Applicationrepository;
             _markinforepository = markinforepository;
 
 
@@ -31,7 +32,7 @@ namespace IPORevamp.Repository.FileNewApplication
             return saveContent.Entity;
         }
 
-       public async Task<Mark_Info>  SaveMarkInfo(Mark_Info markinfo)
+       public async Task<MarkInformation>  SaveMarkInfo(MarkInformation markinfo)
         {
             var saveContent = await _markinforepository.InsertAsync(markinfo);
             await _markinforepository.SaveChangesAsync();
@@ -39,10 +40,49 @@ namespace IPORevamp.Repository.FileNewApplication
             return saveContent.Entity;
         }
 
-        public async Task<Pwallet> Savepwallet(Pwallet pwallet)
+
+        public async Task<MarkInformation> GetMarkInfo(int id)
         {
-            var saveContent = await _pwalletrepository.InsertAsync(pwallet);
-            await _pwalletrepository.SaveChangesAsync();
+
+            MarkInformation markinfo = new MarkInformation();
+            markinfo = await _markinforepository.GetAll().FirstOrDefaultAsync(x => x.applicationid == id);
+
+
+
+            return markinfo;
+        }
+
+        public async Task<Application> SaveApplication(Application application)
+        {
+            var saveContent = await _Applicationrepository.InsertAsync(application);
+            await _Applicationrepository.SaveChangesAsync();
+
+            return saveContent.Entity;
+        }
+
+        public async Task<Application> GetApplication(int id)
+        {
+
+            Application application  = new Application();
+            application = await _Applicationrepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+
+          
+
+            return application;
+        }
+
+        public async Task<Application> UpdateApplication(Application application)
+        {
+            var saveContent = await _Applicationrepository.UpdateAsync(application);
+            await _Applicationrepository.SaveChangesAsync();
+
+            return saveContent.Entity;
+        }
+
+        public async Task<MarkInformation> UpdateMarkInfo(MarkInformation markinfo)
+        {
+            var saveContent = await _markinforepository.UpdateAsync(markinfo);
+            await _markinforepository.SaveChangesAsync();
 
             return saveContent.Entity;
         }

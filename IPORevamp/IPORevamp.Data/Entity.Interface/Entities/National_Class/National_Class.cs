@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IPORevamp.Data.Entity.Interface.Entities.National_Class
 {
-  public   class National_Class : EntityBase
+  public   class NationalClass : EntityBase
     {
         public string Type { get; set; }
         public string Description { get; set; }

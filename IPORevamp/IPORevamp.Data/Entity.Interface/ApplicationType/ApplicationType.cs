@@ -9,6 +9,6 @@ namespace IPORevamp.Data.Entity.Interface.ApplicationType
     {
         public string name { get; set; }
 
-        public List<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Pwallet> pwallet { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application> pwallet { get; set; }
     }
 }

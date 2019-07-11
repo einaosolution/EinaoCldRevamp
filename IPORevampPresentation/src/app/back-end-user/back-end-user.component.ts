@@ -491,6 +491,7 @@ var self = this;
     $(".tab-wizard").steps({
       headerTag: "h6",
       bodyTag: "section",
+
       transitionEffect: "fade",
       enableFinishButton: false,
       onStepChanging: function (event, currentIndex, newIndex)
@@ -521,7 +522,7 @@ var self = this;
 
       onFinishing: function (event, currentIndex)
       {
-        alert("index =" + currentIndex)
+
         $(".tab-wizard").validate().settings.ignore = ":disabled";
           return $(".tab-wizard").valid();
       },

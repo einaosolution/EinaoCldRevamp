@@ -6,6 +6,7 @@ using IPORevamp.Repository.Interface;
 using IPORevamp.Data.Entities.AuditTrail;
 using IPORevamp.Repository.Fee;
 using IPORevamp.Data.Entities.Fee;
+using System.Linq;
 
 namespace IPORevamp.Repository.Fee
 {
@@ -22,8 +23,14 @@ namespace IPORevamp.Repository.Fee
             _auditTrailManager = auditTrailManager;
 
         }
-        
-        
+
+        public async Task<List<FeeList>> GetFeeListById(int[] FeeListId)
+        {
+            var fees = await _feelistrepository.GetAllListAsync(x => FeeListId.Contains(x.Id));
+            return fees;
+        }
+
+
 
         // Get Fee By Id
         public async Task<FeeList> GetFeeListById(int FeeListId)

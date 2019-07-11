@@ -12,7 +12,7 @@ namespace NACC.Web.AutoMapperProfile
     {
         public MapperProfile()
         {
-            CreateMap<QuoteModel, PriceQuote>().ReverseMap();
+         
             CreateMap<AuditTrail, AuditVm>()
                 
             .ReverseMap();

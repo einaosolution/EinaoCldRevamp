@@ -26,6 +26,7 @@ using IPORevamp.Data.Entity.Interface.Entities.Department;
 using IPORevamp.Data.Entity.Interface.Entities.Ministry;
 using IPORevamp.Data.Entity.Interface.Entities.Unit;
 using IPORevamp.Data.Entity.Interface.Entities.Sms;
+using IPORevamp.Data.Entity.Interface.Entities.RemitaPayment;
 using IPORevamp.Data.Entity.Interface.Entities.FeeDetail;
 using IPORevamp.Data.Entity.Interface.Entities.Twallet;
 using IPORevamp.Data.Entity.Interface.Entities.Payment;
@@ -37,6 +38,9 @@ using IPORevamp.Data.Entity.Interface.Entities.MarkInfo;
 using IPORevamp.Data.Entity.Interface.PreliminarySearch;
 using IPORevamp.Data.Entity.Interface.Entities.National_Class;
 using Microsoft.Extensions.Configuration;
+using IPORevamp.Data.Entity.Interface.Entities.TrademarkType;
+using IPORevamp.Data.Entity.Interface.Entities.TrademarkLogo;
+using IPORevamp.Data.Entity.Interface.Entities.Opposition;
 
 namespace IPORevamp.Data
 {
@@ -44,8 +48,8 @@ namespace IPORevamp.Data
     {
 
         #region MyDBSetRegion
-        
-         public DbSet<Sector> Sector { get; set; }
+
+        public DbSet<Sector> Sector { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
@@ -54,41 +58,47 @@ namespace IPORevamp.Data
         public DbSet<ApplicationUserLogin> ApplicationUserLogins { get; set; }
         public DbSet<EmailLog> EmailLog { get; set; }
         public DbSet<EmailTemplate> EmailTemplates { get; set; }
-     
+        public DbSet<TrademarkType> TrademarkType { get; set; }
+
         public DbSet<AuditTrail> AuditTrails { get; set; }
-         public DbSet<BillLog> BillLogs{ get; set; }
+        public DbSet<CounterOpposition> CounterOpposition { get; set; }
+        public DbSet<BillLog> BillLogs { get; set; }
         public DbSet<PaymentLog> PaymentLogs { get; set; }
 
-       
+
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<Ministry> Ministry { get; set; }
         public DbSet<Units> Units { get; set; }
 
         public DbSet<FeeList> FeeList { get; set; }
-        public DbSet<Mark_Info> Mark_Info { get; set; }
+        public DbSet<MarkInformation> MarkInformation{ get; set; }
         public DbSet<PreliminarySearch> PreliminarySearch { get; set; }
 
-        public DbSet<FeeDetail> FeeDetail { get; set; }
+      
         public DbSet<TrademarkApplicationHistory> TrademarkApplicationHistory { get; set; }
 
-        public DbSet<TrademarkComments> TrademarkComments { get; set; }
-        public DbSet<Twallet> Twallet { get; set; }
+      
+      
         public DbSet<Payment> Payment { get; set; }
         public DbSet<ApplicationType> ApplicationType { get; set; }
-        public DbSet<National_Class> National_Class { get; set; }
+        public DbSet<NationalClass> NationalClass { get; set; }
 
 
-        public DbSet<Pwallet> Pwallet { get; set; }
+        public DbSet<Application> Application { get; set; }
+
+        public DbSet<TrademarkLogo> TrademarkLogo { get; set; }
+        public DbSet<NoticeOfOpposition> NoticeOfOpposition { get; set; }
 
 
         public DbSet<Data.Entities.Country.Country> Country { get; set; }
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
-        
+
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Data.Entities.LGAs.LGA> LGAs { get; set; }
-        
+        public DbSet<IPORevamp.Data.Entity.Interface.Entities.Batch.PublicationBatch> PublicationBatch { get; set; }
+
         public DbSet<TMApplicationStatus> TMApplicationStatus { get; set; }
         public DbSet<State> States { get; set; }
 
@@ -96,13 +106,24 @@ namespace IPORevamp.Data
         public DbSet<PTApplicationStatus> PTApplicationStatus { get; set; }
 
 
-       
+
         public virtual DbSet<RoleManager> RoleManager { get; set; }
- 
-       
+
+
         public virtual DbSet<LinkRolesMenus> LinkRolesMenus { get; set; }
         public virtual DbSet<MenuManager> MenuManager { get; set; }
 
+
+
+        #endregion
+
+        #region Remitta Payment
+        public virtual DbSet<RemitaPayment> RemitaPayments { get; set; }
+        public virtual DbSet<LineItem> LineItems { get; set; }
+        public virtual DbSet<CustomField> CustomFields { get; set; }
+        public DbSet<RemitaBankCode> RemitaBankCode { get; set; }
+
+        public DbSet<RemitaAccountSplit> RemitaAccountSplit { get; set; }
 
         #endregion
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

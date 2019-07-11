@@ -9,5 +9,7 @@ namespace IPORevamp.Data.Entities
     {
         public string Type { get; set; }
         public string Description  { get; set; }
+
+        public List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch> PreliminarySearch { get; set; }
     }
 }

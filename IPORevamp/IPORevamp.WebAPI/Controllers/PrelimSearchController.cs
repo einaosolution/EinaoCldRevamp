@@ -27,7 +27,7 @@ namespace IPORevamp.WebAPI.Controllers
     [ApiController]
     public class PrelimSearchController : BaseController
     {
-        private readonly IpreliminarySearch  _prilimsearchRepository;
+        private readonly IpreliminarySearchRepository _prilimsearchRepository;
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
 
@@ -44,7 +44,7 @@ namespace IPORevamp.WebAPI.Controllers
     IMapper mapper, ILogger<UserController> logger,
     IEmailManager<EmailLog, EmailTemplate> emailManager,
 
-    IpreliminarySearch prelimsearchRepository,
+    IpreliminarySearchRepository prelimsearchRepository,
 
     IEmailSender emailsender,
     IHttpContextAccessor httpContextAccessor,
@@ -75,6 +75,111 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetPrelimSearch")]
+        public async Task<IActionResult> GetPrelimSearch([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var prelimsearch = await _prilimsearchRepository.GetPreliminarySearch();
+
+                if (prelimsearch != null)
+                {
+
+                    // get User Information
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                    // Added A New Country 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all ministry  successfully",
+                        Entity = "GetAllprelim",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "prelim Returned Successfully", false, prelimsearch);
+
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select prelimsearch", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+
+        [HttpPost("SendUserEmail")]
+        public async Task<IActionResult> SendUserEmail([FromForm] string RequestById , [FromForm] string userid, [FromForm] string EmailContent , [FromForm] string ID)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+              //  var user2 = await _userManager.FindByIdAsync(userid); ;
+
+               
+
+              
+                    await _emailsender.SendEmailAsync(userid, "Preliminary Search", EmailContent);
+
+                    var save = await _prilimsearchRepository.GetPrelimById(Convert.ToInt32(ID));
+                    save.status = "Treated";
+                    await _prilimsearchRepository.UpdatePreliminary(save);
+
+
+                    // get User Information
+                    //  user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                    // Added A New Country 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  processed preliminary search   successfully",
+                        Entity = "prelimSearch",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "prelim Returned Successfully", false, "Success");
+
+            
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select prelimsearch", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
 
 
         [HttpPost("SavePrelimSearch")]
@@ -96,21 +201,31 @@ namespace IPORevamp.WebAPI.Controllers
 
                 // attempt to save
                 PreliminarySearch content = new PreliminarySearch();
-                content.description = preliminarySearch.description;
+                try
+                {
+                    content.product = preliminarySearch.description ;
+                }
+
+                catch(Exception ee)
+                {
+
+                }
+               
                 content.DateCreated = DateTime.Now;
                 content.first_name = preliminarySearch.first_name;
                 content.CreatedBy = user.FirstName;
                 content.last_name = preliminarySearch.last_name;
                 content.payment_reference = preliminarySearch.payment_reference;
-                content.type = preliminarySearch.type;
+                content.sectorid = Convert.ToInt32(preliminarySearch.type);
                 content.userid = preliminarySearch.userid;
+                content.Email = preliminarySearch.UserEmail;
                 content.status = "Submitted";
                 content.IsActive = true;
 
                 content.IsDeleted = false;
 
 
-                var save = await _prilimsearchRepository.SaveUnit(content);
+                var save = await _prilimsearchRepository.SavePreliminary(content);
                 string json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
 
                 // get User Information

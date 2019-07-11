@@ -32,7 +32,7 @@ namespace IPORevamp.WebAPI.Controllers
     public class SearchController : BaseController
     {
 
-        private readonly  Isearch _searchRepository;
+        private readonly  IsearchRepository _searchRepository;
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly  IPOContext _contex;
@@ -53,7 +53,7 @@ namespace IPORevamp.WebAPI.Controllers
     IEmailManager<EmailLog, EmailTemplate> emailManager,
      IFileHandler fileUploadRespository,
 
-    Isearch  searchRepository,
+    IsearchRepository  searchRepository,
 
     IEmailSender emailsender,
     IHttpContextAccessor httpContextAccessor,
@@ -89,7 +89,7 @@ namespace IPORevamp.WebAPI.Controllers
         [Consumes("multipart/form-data")]
 
         public async Task<IActionResult> SaveFreshAppHistory([FromForm] string pwalletid,
-         [FromForm] string comment, [FromForm] string description, [FromForm] string status ,[FromForm] string userid)
+         [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid)
         {
             string ip = "";
 
@@ -109,18 +109,19 @@ namespace IPORevamp.WebAPI.Controllers
             // check for user information before processing the request
             int id = Convert.ToInt32(pwalletid);
 
-            var vpwallet = (from c in _contex.Pwallet where c.Id == id select c).FirstOrDefault();
+            var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
 
-            string transactionid = vpwallet.transactionid;
+            string transactionid = vpwallet.TransactionID;
 
 
 
             if (vpwallet != null)
             {
               
-                vpwallet.application_status = status;
+                vpwallet.ApplicationStatus = tostatus;
+                vpwallet.DataStatus= toDatastatus;
 
-                _contex.SaveChanges();
+               
 
                 // get User Information
 
@@ -158,14 +159,21 @@ namespace IPORevamp.WebAPI.Controllers
 
             await _contex.AddAsync(new TrademarkApplicationHistory
             {
-                pwalletid = id,
+                ApplicationID = id,
                 DateCreated = DateTime.Now,
-                transaction_id = transactionid,
-                from_datastatus = "Search",
-                to_datastatus = status,
+                TransactionID = transactionid,
+                FromDataStatus = fromDatastatus,
+                trademarkcomment = comment,
+                description = description ,
+
+                ToDataStatus = toDatastatus,
+                FromStatus = fromstatus ,
+                ToStatus = tostatus, 
                 UploadsPath1 = msg,
                 userid = Convert.ToInt32(userid)
             });
+
+            _contex.SaveChanges();
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
                    
@@ -178,16 +186,105 @@ namespace IPORevamp.WebAPI.Controllers
                         UserId = user.Id,
                         UserName = user.UserName,
                         IpAddress = ip,
-                        RecordBefore = "Search",
-                        RecordAfter = status
+                        RecordBefore = fromstatus,
+                        RecordAfter = tostatus
                     });
 
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
 
         }
 
-         
 
+        [HttpPost("SaveFreshAppHistory2")]
+        [Consumes("multipart/form-data")]
+
+        public async Task<IActionResult> SaveFreshAppHistory2([FromForm] string pwalletid,
+ [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid, [FromForm] string uploadpath)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            // check for user information before processing the request
+            int id = Convert.ToInt32(pwalletid);
+
+            var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
+
+            string transactionid = vpwallet.TransactionID;
+            string prevappstatus = vpwallet.ApplicationStatus;
+            string prevDatastatus = vpwallet.DataStatus;
+
+
+
+            if (vpwallet != null)
+            {
+
+                vpwallet.ApplicationStatus = tostatus;
+                vpwallet.DataStatus = toDatastatus;
+
+
+
+                // get User Information
+
+
+
+
+            }
+
+
+
+            // file upload
+            string msg = "";
+
+      
+
+            await _contex.AddAsync(new TrademarkApplicationHistory
+            {
+                ApplicationID = id,
+                DateCreated = DateTime.Now,
+                TransactionID = transactionid,
+                FromDataStatus = prevDatastatus,
+                trademarkcomment = comment,
+                description = description,
+
+                ToDataStatus = toDatastatus,
+                FromStatus = prevappstatus,
+                ToStatus = tostatus,
+                UploadsPath1 = uploadpath,
+                userid = Convert.ToInt32(userid)
+            });
+
+            _contex.SaveChanges();
+
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+            await _contex.AddAsync(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application  has been Updated  successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = fromstatus,
+                RecordAfter = tostatus
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+
+        }
 
         [HttpGet("GetFreshApplication")]
         public async Task<IActionResult> GetFreshApplication([FromQuery] string RequestById)
@@ -217,7 +314,7 @@ namespace IPORevamp.WebAPI.Controllers
                         ActionTaken = AuditAction.Create,
                         DateCreated = DateTime.Now,
                         Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Search Fresh Application   successfully",
-                        Entity = "GetAllProduct",
+                        Entity = "GetFreshAppliction",
                         UserId = user.Id,
                         UserName = user.UserName,
                         IpAddress = ip
@@ -229,7 +326,144 @@ namespace IPORevamp.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Select Product", "");
+                _logger.LogError(ex, "Select Fresh Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+        [HttpGet("GetKivApplication")]
+        public async Task<IActionResult> GetKivApplication([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _searchRepository.GetKivApplication();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Search Fresh Application   successfully",
+                    Entity = "GetFreshAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Fresh Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetTreatedApplication")]
+        public async Task<IActionResult> GetTreatedApplication([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _searchRepository.GetTreatedApplication();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Search Fresh Application   successfully",
+                    Entity = "GetFreshAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Fresh Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetTradeMarkType")]
+        public async Task<IActionResult> GetTradeMarkType([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _searchRepository.GetTradeMarkType();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Trademark Type    successfully",
+                    Entity = "GetTrademarkType",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select TrademarkType", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
             }
         }

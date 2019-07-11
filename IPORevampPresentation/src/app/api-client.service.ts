@@ -12,13 +12,24 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
-//serviceBase = 'http://localhost:5000/';
+// serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
+//serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient,private router: Router , private deviceService: DeviceDetectorService) {
     this.getIpAddress()
    }
+
+
+   GetFilepath() {
+		return this.serviceBase2;
+  }
+
+  GetFilepath2() {
+		return this.serviceBase;
+	}
 
   VChangeEvent(number) {
    // this.router.navigateByUrl('/home');
@@ -59,6 +70,17 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
     var dd = localStorage.getItem('access_tokenexpire')
    return dd ;
   }
+
+
+  GetTrademarkdata() {
+
+		return this.http
+			.get('http://5.77.54.44/DashBoard3/api/account/TestGetData')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+	}
 
   getPage() {
     return     this.vpage;
@@ -115,6 +137,68 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 
     }
 
+    SaveFreshAppHistory(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+       //var vip = localStorage.getItem('ip');
+      // const  headers = new  HttpHeaders().set("ip", vip);
+        return this.http.post( this.serviceBase + 'api/Search/SaveFreshAppHistory', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
+      SaveFreshAppHistory2(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+         //var vip = localStorage.getItem('ip');
+        // const  headers = new  HttpHeaders().set("ip", vip);
+          return this.http.post( this.serviceBase + 'api/Search/SaveFreshAppHistory2', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
+
+      SendAttachment(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+         //var vip = localStorage.getItem('ip');
+        // const  headers = new  HttpHeaders().set("ip", vip);
+          return this.http.post( this.serviceBase + 'api/Trademark/SendAttachment', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
+
+
+
+    SavePrelimSearch(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+       //var vip = localStorage.getItem('ip');
+      // const  headers = new  HttpHeaders().set("ip", vip);
+        return this.http.post( this.serviceBase + 'api/preliminary/SavePrelimSearch', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
     SaveUser(formData) {
 
       //  var token = localStorage.getItem('access_tokenexpire');
@@ -139,6 +223,48 @@ serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
                     .then(data => {  return data; });
 
       }
+
+
+       InitiateRemitaPayment(formData) {
+
+      //  var token = localStorage.getItem('access_tokenexpire');
+
+       // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+        return this.http.post( this.serviceBase + 'api/RemitaPayment/InitiateRemitaPayment', formData )
+                    .toPromise()
+
+                    .then(data => {  return data; });
+
+      }
+
+
+      SendUserEmail(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+          return this.http.post( this.serviceBase + 'api/preliminary/SendUserEmail', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
+
+      RemitaTransactionRequeryPayment(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+          return this.http.post( this.serviceBase + 'api/RemitaPayment/RemitaTransactionRequeryPayment', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
+
+
 
     SaveProduct(formData) {
 
@@ -860,7 +986,118 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetApplicationById(pp: string,pp2: string ) {
 
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/GetApplicationById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetOpposeFormById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/GetOpposeFormById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetCounterOpposeFormById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/GetCounterOpposeFormById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetOppositionByUserid(pp: string,pp2: string ) {
+
+      var data = {
+        userId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/GetOppositionByUserid', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetCounterOppositionByUserid(pp: string,pp2: string ) {
+
+      var data = {
+        userId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/GetCounterOppositionByUserid', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+
+
+    UpdateOpposeFormById2(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/UpdateOpposeFormById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+
+    UpdateCounterOpposeFormById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Opposition/UpdateCounterOpposeFormById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
 
 
 
@@ -896,6 +1133,37 @@ RejectUser(pp: string,pp2: string ) {
 
 
     return this.http.post( this.serviceBase + 'api/UserManagement/EmailVerification', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+  SavePwallet(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Trademark/SaveApplication', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  SaveOppositionForm(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Opposition/SaveOppositionForm', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  SaveCounterOppositionForm(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Opposition/SaveCounterOppositionForm', formData)
                 .toPromise()
 
                 .then(data => {  return data; });
@@ -939,6 +1207,19 @@ RejectUser(pp: string,pp2: string ) {
 
     //return this.http.post( this.serviceBase + 'api/UserManagement/UpdateIndividualRecord', formData)
     return this.http.post( this.serviceBase + 'api/UserManagement/UpdateUserInfo', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+  GetImage(formData) {
+
+
+
+    //return this.http.post( this.serviceBase + 'api/UserManagement/UpdateIndividualRecord', formData)
+    return this.http.post( this.serviceBase + 'api/Trademark/GetImage', formData)
                 .toPromise()
 
                 .then(data => {  return data; });
@@ -1042,6 +1323,57 @@ RejectUser(pp: string,pp2: string ) {
   }
 
 
+  GetAknwoledgment(pp: string) {
+
+		var data = {
+      pwalletid: pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Trademark/GetAknwoledgment', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetTrademarkLogo() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/Trademark/GetTrademarkLogo')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAknwoledgmentByUserid(pp: string) {
+
+		var data = {
+      userid: pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Trademark/GetAknwoledgmentByUserid', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+  UpDatePwalletById(pp: string ,pp2: string) {
+
+		var data = {
+      pwalletid: pp ,
+      transid: pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Trademark/UpDatePwalletById', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   all() {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -1066,6 +1398,512 @@ RejectUser(pp: string,pp2: string ) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Country/GetAllCountries', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPrelimSearch(pp : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/preliminary/GetPrelimSearch', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetFreshApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Search/GetFreshApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetOppositionFreshApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Opposition/GetFreshApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetNewJudgment(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Opposition/GetNewJudgment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+
+  GetUserAppeal(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Registra/GetUserAppeal', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetAppeal(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Registra/GetAppeal', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  TreatUserAppeal(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Registra/TreatUserAppeal', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  UpdateBatch(pp2:string ,pp:string[]) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      BatchData:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/UpdateBatch', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetUserKivApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetUserKivApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetExaminerReconductSearch(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetExaminerReconductSearch', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetExaminerKiv(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetExaminerKivApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+  GetRefuseApplicationById(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetRefuseApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  SendUserEmail2(pp2:string ,pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      userid:pp ,
+      Comment:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/SendUserEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  OppositionSendUserEmail2(pp2:string ,pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      userid:pp ,
+      Comment:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Opposition/SendUserEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  SendUserEmail3(pp2:string ,pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      userid:pp ,
+      Comment:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/SendUserEmail2', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetExaminerFreshApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetFreshApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetPublicationFreshApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/GetFreshApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  SendRegistraEmail(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Appid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/SendRegistraEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  SendAppealUnitEmail(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Appid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Registra/SendAppealUnitEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetRefuseApplicationByUserid(pp2:string ) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/GetRefuseApplicationByUserid', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetBatches(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/GetBatches', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPublicationById(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Id:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/GetPublicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPublicationByRegistrationId(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Id:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Publication/GetPublicationByRegistrationId', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetExaminerTreatedApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetTreatedApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPreviousComment(pp2:string[] ,pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      status:pp2,
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Examiner/GetPreviousComment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+  GetKivApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Search/GetKivApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetTreatedApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Search/GetTreatedApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+GetTradeMarkType(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Search/GetTradeMarkType', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetNationalClass() {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+
+		return this.http
+			.get(this.serviceBase + 'api/ParameterSetup/GetNationalClass')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetFeeListByName(pp : string,pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+      FeeListName:pp,
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/FeeList/GetFeeListByName', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -1374,6 +2212,9 @@ RejectUser(pp: string,pp2: string ) {
 				return data;
 			});
   }
+
+
+
 
 
   GetEmail2(pp: string) {
