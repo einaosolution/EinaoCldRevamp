@@ -71,7 +71,7 @@ namespace IPORevamp.Data
         public DbSet<TrademarkApplicationHistory> TrademarkApplicationHistory { get; set; }
 
         public DbSet<TrademarkComments> TrademarkComments { get; set; }
-        public DbSet<Twallet> Twallet { get; set; }
+        public DbSet<Twallet> TradeMarkwallet { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<ApplicationType> ApplicationType { get; set; }
 

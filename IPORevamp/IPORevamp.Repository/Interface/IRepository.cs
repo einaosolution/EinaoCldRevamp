@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using IPORevamp.Data.Entity.Interface;
+using System.Data;
 
 namespace IPORevamp.Repository.Interface
 {
@@ -381,7 +382,7 @@ namespace IPORevamp.Repository.Interface
 
         void ExecuteStoreprocedure(string storeprocedureName, params object[] parameters);
         void ExecuteRawSqlQuery(string storeprocedureName, object[] param);
-
+        
         #endregion
 
 

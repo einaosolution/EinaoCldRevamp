@@ -104,6 +104,7 @@ namespace NACC.Data.UserManagement.Model
             mMessage.Priority = MailPriority.High;
             mMessage.IsBodyHtml = true;
 
+
             using (SmtpClient smtpMail = new SmtpClient())
             {
                 smtpMail.Host = _smtpHost;

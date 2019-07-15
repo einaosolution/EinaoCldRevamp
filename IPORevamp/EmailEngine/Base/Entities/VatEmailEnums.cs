@@ -30,6 +30,7 @@ namespace EmailEngine.Base.Entities
         public const string FORGOT_PASSWORD_EMAIL_TEMPLATE = "AC005";
         public const string Admin_User = "AC006";
         public const string Send_Registra_Mail = "AC007";
+        public const string PAYMENT_NOTIFICATION = "PAY001";
         public const int Individual_Account = 1;
 
     }
