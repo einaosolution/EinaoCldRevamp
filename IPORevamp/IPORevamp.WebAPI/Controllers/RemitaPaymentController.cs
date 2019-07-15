@@ -588,7 +588,7 @@ namespace IPORevamp.WebAPI.Controllers
                 emaillog.Receiver = singleRecord.PayerEmail;
                 emaillog.Sender = emailTemplate.EmailSender;
                 emaillog.SendImmediately = true;
-                await _emailsender.SendEmailAsync("bolajiworld@gmail.com", emailTemplate.EmailSubject, mailContent);
+                await _emailsender.SendEmailAsync(singleRecord.PayerEmail, emailTemplate.EmailSubject, mailContent);
 
 
 

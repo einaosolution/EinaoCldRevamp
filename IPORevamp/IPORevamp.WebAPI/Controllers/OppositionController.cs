@@ -477,7 +477,7 @@ namespace IPORevamp.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Select Exminer", "");
+                _logger.LogError(ex, "Select Examiner", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
             }
         }
@@ -779,15 +779,6 @@ namespace IPORevamp.WebAPI.Controllers
 
             try
             {
-
-
-
-
-
-
-
-
-
 
 
                 if (Request.Form.Files.Count > 0)

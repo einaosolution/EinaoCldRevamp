@@ -358,7 +358,7 @@ namespace IPORevamp.WebAPI.Controllers
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  By Id   successfully",
+                    Description = $"User {user.FirstName + '  ' + user.LastName}  requested for all Publication  By Id   successfully",
                     Entity = "GetPublicationById",
                     UserId = user.Id,
                     UserName = user.UserName,
