@@ -337,6 +337,14 @@ namespace IPORevamp.WebAPI.Controllers
                         var ttry = JsonConvert.SerializeObject(remitaPaymentwithoutRRR);
                         var URL = _configuration.GetValue<string>("RemitaRRURL");
 
+                        System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate (object s,
+                System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                System.Security.Cryptography.X509Certificates.X509Chain chain,
+                System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                        {
+                            return true;
+                        };
+
                         webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
                         var remitaResponse = webClient.UploadString(new Uri(URL), "POST", ttry);
 

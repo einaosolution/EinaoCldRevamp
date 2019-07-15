@@ -391,8 +391,17 @@ namespace IPORevamp.WebAPI.Controllers
                 var kk = ee.Message;
             }
 
+            string[] result = new string[] { };
+            try
+            {
+                result = msg.Split("|");
 
-            string [] result = msg.Split("|");
+            }
+
+            catch(Exception ee)
+            {
+
+            }
 
             // check status before processing request 
 
@@ -415,7 +424,9 @@ namespace IPORevamp.WebAPI.Controllers
                     user.State = State;
                     user.PostalCode = PostCode;
                     user.CountryCode = Country;
-                    user.ProfilePicLoc = result[1].ToString();
+                  //  user.ProfilePicLoc = result[1].ToString();
+                    user.ProfilePicLoc = msg;
+
                     user.CompleteRegistration = true;
                     user.Rcno = CompanyRegistration;
                     user.MobileNumber = companytelephone;
@@ -655,7 +666,7 @@ namespace IPORevamp.WebAPI.Controllers
                 mailContent = mailContent.Replace("#Link", _configuration["ACTIVIATIONURL"] + "?code=" +
                                                             IPORevamp.Core.Utilities.Utilities.Encrypt(model.Email));
 
-
+               
 
                 //Email the verification to the registered email address 
                 await _emailsender.SendEmailAsync(model.Email, emailTemplate.EmailSubject, mailContent);

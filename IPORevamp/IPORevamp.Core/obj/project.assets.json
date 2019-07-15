@@ -688,23 +688,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JAMES\\.nuget\\packages\\": {},
+    "C:\\Users\\Einao2\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\IPOHub\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj",
+      "projectUniqueName": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj",
       "projectName": "IPORevamp.Core",
-      "projectPath": "C:\\IPOHub\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj",
-      "packagesPath": "C:\\Users\\JAMES\\.nuget\\packages\\",
-      "outputPath": "C:\\IPOHub\\IPORevamp\\IPORevamp.Core\\obj\\",
+      "projectPath": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj",
+      "packagesPath": "C:\\Users\\Einao2\\.nuget\\packages\\",
+      "outputPath": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\JAMES\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Einao2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

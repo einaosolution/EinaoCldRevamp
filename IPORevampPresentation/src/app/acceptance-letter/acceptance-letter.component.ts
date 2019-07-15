@@ -1,0 +1,207 @@
+import { Component, OnInit } from '@angular/core';
+import {ApiClientService} from '../api-client.service';
+declare var $ :any;
+
+
+import * as jspdf from 'jspdf';
+
+import html2canvas from 'html2canvas';
+
+import Swal from 'sweetalert2' ;
+
+
+@Component({
+  selector: 'app-acceptance-letter',
+  templateUrl: './acceptance-letter.component.html',
+  styleUrls: ['./acceptance-letter.component.css']
+})
+export class AcceptanceLetterComponent implements OnInit {
+  row2:any;
+  elementType = 'url';
+  value = 'Techiediaries';
+  vshow :boolean = false;
+  vimage
+  constructor(private registerapi :ApiClientService) { }
+
+
+  senddata (dd:FormData) {
+
+    $(document).scrollTop(0);
+this.registerapi.SendAttachment(dd)
+  .then((response: any) => {
+
+    alert("success")
+
+
+  //   this.msgs = [];
+  //  this.msgs2 = [];
+  //    this.msgs2.push({severity:'success', summary:'Success', detail:'Registered  Successfully,Confirmation email sent to you email '});
+
+     // this.router.navigateByUrl('/');
+  })
+           .catch((response: any) => {
+  console.log(response)
+  var  ppr = response.json() ;
+
+  $(document).scrollTop(0);
+  //  alert("error")
+   }
+   );
+  }
+
+  onSubmit8(){
+
+
+     var doc = new jspdf('p', 'mm', "a4");
+     var data2 = new FormData();
+
+    // alert( pfile +  " 1")
+    var userid =localStorage.getItem('UserId');
+
+    data2.append('userid' , userid);
+    var d = new Date()
+    data2.append('message' ,"A copy of Acceptance Letter Generated on " + d);
+     var AgentsData = {
+
+       email: userid
+
+
+   };
+
+   //console.log(AgentsData)
+
+   data2.append("RegisterBindingModel", JSON.stringify(AgentsData));
+   var self = this;
+
+
+
+     html2canvas(document.getElementById('report')).then(function(canvas) {
+      // alert(self)
+
+       var img = canvas.toDataURL("image/png");
+
+    //  var doc = new jsPDF();
+
+
+    //  var doc = new jsPDF('p', 'mm', "a4");
+
+    doc.setFont("courier");
+
+    var width = doc.internal.pageSize.width;
+    var height = doc.internal.pageSize.height;
+
+
+    // doc.addImage(img,'PNG',15,10);
+    doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+
+
+     var pdf = doc.output('blob');
+     console.log(pdf)
+
+
+   data2.append('FileUpload' , pdf);
+
+   //formData.append("FileUpload", fileToUpload);
+
+   self.senddata(data2)
+
+
+
+   });
+   }
+
+   generatePdf() {
+    var doc = new jspdf('p', 'mm', "a4");
+    html2canvas(document.getElementById('report')).then(function(canvas) {
+
+      var img = canvas.toDataURL("image/png");
+
+
+   doc.setFont("courier");
+
+
+
+    var width = doc.internal.pageSize.width;
+    var height = doc.internal.pageSize.height;
+    doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+    doc.save('Output.pdf');
+
+  });
+  }
+  ngOnInit() {
+
+    var pwallet =   localStorage.getItem('Pwallet');
+
+    this.registerapi
+    .GetAknwoledgment(pwallet)
+    .then((response: any) => {
+
+
+      this.row2 = response.content;
+
+      this.vshow = true;
+      this.vimage  ="http://5.77.54.44/EinaoCldRevamp2/Upload/" +this.row2.markinfo.logoPicture
+
+     // alert("Generating")
+
+     // this. generatePdf()
+
+
+
+      console.log("ack")
+
+      console.log(response)
+
+
+
+      var self = this;
+
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false,
+      })
+
+          swalWithBootstrapButtons.fire({
+            title: 'A Copy Will be sent to your email ',
+            text: "",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Proceed!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.value) {
+
+              self.onSubmit8();
+        } else if (
+              // Read more about handling dismissals
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+
+            }
+          })
+
+
+
+
+
+
+
+
+
+    })
+             .catch((response: any) => {
+
+               console.log(response)
+
+
+       alert("error")
+  })
+  }
+
+}

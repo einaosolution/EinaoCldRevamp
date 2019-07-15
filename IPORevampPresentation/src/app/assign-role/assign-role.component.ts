@@ -89,10 +89,17 @@ var vcount = 0;
 
 
 var varray = response.content
+
+console.log("varray ")
+console.log(varray)
 this.row6=[]
 for (var i=0; i< varray.length; i++){
 
-  this.row6.push(varray[i].name)
+ // this.row6.push(varray[i].name)
+
+ this.row6.push(varray[i].url)
+
+
 
 
 
@@ -110,9 +117,13 @@ for (var i=0; i<this.row3 .length; i++){
  var  objIndex =this.row6.findIndex((obj =>
 
 
-  obj== this.row3[i].name
+ // obj== this.row3[i].name
+
+  obj== this.row3[i].url
 
    ));
+
+
 
    if (objIndex >=0 ) {
 

@@ -100,7 +100,7 @@ namespace EmailEngine.Repository
 
                    
 
-                    msg = "OK|" + fileName;
+                    msg = fileName;
 
                     return msg;
                 }

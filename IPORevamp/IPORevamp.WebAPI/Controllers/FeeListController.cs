@@ -152,8 +152,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        [HttpPost("GetFeeListByName/{FeeListName}")]
-        public async Task<IActionResult> GetSingleFeeListByName(string  FeeListName, string RequestById)
+        [HttpGet("GetFeeListByName")]
+        public async Task<IActionResult> GetSingleFeeListByName([FromQuery]string  FeeListName, [FromQuery] string RequestById)
         {
             try
             {

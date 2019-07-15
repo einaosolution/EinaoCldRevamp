@@ -77,7 +77,15 @@ namespace NACC.Data.UserManagement.Model
             mMessage.Body = message;
             mMessage.Priority = MailPriority.High;
             mMessage.IsBodyHtml = true;
-            
+
+            System.Net.Mail.Attachment attachment;
+            foreach (var kk in attachments)
+            {
+                attachment = new System.Net.Mail.Attachment(kk);
+                mMessage.Attachments.Add(attachment);
+
+            }
+
             using (SmtpClient smtpMail = new SmtpClient())
             {
                 smtpMail.Host = _smtpHost;

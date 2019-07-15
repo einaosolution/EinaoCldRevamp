@@ -1,0 +1,76 @@
+<div class="container-fluid">
+<div class="align-items-center justify-content-center row" >
+
+
+<br/>
+<br/>
+
+    <button type="submit"  (click) ="generatePdf()"  class="btn btn-success"> Download Pdf </button>
+    <div [ngBusy]="busy"></div>
+
+</div>
+
+
+
+
+  <div id="report"    class="pp report" >
+<hr/>
+        <div  *ngFor="let emp of rows  let i = index">
+
+            <div>
+                <strong> {{emp.filenumber}} </strong>  {{emp.filingDate|date}}   ({{emp.applicationclass}})
+
+            </div>
+
+            <div *ngIf="emp.logo_pic">
+
+                <img alt="" src="data:image/gif;base64,{{emp.logo_pic}}"  height="25%" width="25%"/>
+
+            </div>
+
+            <div>
+                <strong> {{emp.productTitle}}  </strong>
+            </div>
+
+            <div>
+                Class {{emp.applicationclass}}
+            </div>
+
+            <div>
+                {{emp.classdescription}}
+            </div>
+
+
+            <div>
+                <strong>{{emp.applicantName}} </strong>
+            </div>
+
+
+            <div>
+                <strong>Email:</strong> {{emp.email}}  , {{emp.applicantAddress}}
+            </div>
+
+            <hr/>
+
+          </div>
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+

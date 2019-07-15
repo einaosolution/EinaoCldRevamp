@@ -25,6 +25,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { EmailverificationComponent } from './emailverification/emailverification.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Home2Component } from './home2/home2.component';
 import { CorporateComponent } from './corporate/corporate.component';
@@ -70,6 +71,42 @@ import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { RemittaComponent } from './remitta/remitta.component';
+import { PremSearchComponent } from './prem-search/prem-search.component';
+import { ProductBillingComponent } from './product-billing/product-billing.component';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { NewApplicationComponent } from './new-application/new-application.component';
+import { AcknowledgementComponent } from './acknowledgement/acknowledgement.component';
+import { SearchFreshAppComponent } from './search-fresh-app/search-fresh-app.component';
+import { SearchKivComponent } from './search-kiv/search-kiv.component';
+import { SearchPrelimComponent } from './search-prelim/search-prelim.component';
+import { SearchtreatedComponent } from './searchtreated/searchtreated.component';
+import { ExaminerFreshComponent } from './examiner-fresh/examiner-fresh.component';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { CommentsComponent } from './comments/comments.component';
+import { AcceptanceLetterComponent } from './acceptance-letter/acceptance-letter.component';
+import { RefusalLetterComponent } from './refusal-letter/refusal-letter.component';
+import { UserKivComponent } from './user-kiv/user-kiv.component';
+import { ExaminerKivComponent } from './examiner-kiv/examiner-kiv.component';
+import { ReConductSearchComponent } from './re-conduct-search/re-conduct-search.component';
+import { ExaminerTreatedComponent } from './examiner-treated/examiner-treated.component';
+import { PublicationNewComponent } from './publication-new/publication-new.component';
+import { PublicationBatchComponent } from './publication-batch/publication-batch.component';
+import { PublicationDetailComponent } from './publication-detail/publication-detail.component';
+import { RefuseApplicationComponent } from './refuse-application/refuse-application.component';
+import { AssignAppealComponent } from './assign-appeal/assign-appeal.component';
+import { AssignAppeal2Component } from './assign-appeal2/assign-appeal2.component';
+import { ReceiveAppealComponent } from './receive-appeal/receive-appeal.component';
+import { UserOppositionComponent } from './user-opposition/user-opposition.component';
+import { NoticeOfOppositionComponent } from './notice-of-opposition/notice-of-opposition.component';
+
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { OppositionFreshComponent } from './opposition-fresh/opposition-fresh.component';
+import { UsercounterOppositionComponent } from './usercounter-opposition/usercounter-opposition.component';
+import { NoticeOfCounterOppositionComponent } from './notice-of-counter-opposition/notice-of-counter-opposition.component';
+import { UploadJudgementComponent } from './upload-judgement/upload-judgement.component';
+import { ViewJudgmentComponent } from './view-judgment/view-judgment.component';
+import { TrademarkReportComponent } from './trademark-report/trademark-report.component';
+
 
 
 
@@ -125,10 +162,44 @@ import { RemittaComponent } from './remitta/remitta.component';
     PendingUserComponent,
     UnitsComponent,
     MinistryComponent,
-    RemittaComponent
+    RemittaComponent,
+    PremSearchComponent,
+    ProductBillingComponent,
+    InvoiceComponent,
+    NewApplicationComponent,
+    AcknowledgementComponent,
+    SearchFreshAppComponent,
+    SearchKivComponent,
+    SearchPrelimComponent,
+    SearchtreatedComponent,
+    ExaminerFreshComponent,
+    CommentsComponent,
+    AcceptanceLetterComponent,
+    RefusalLetterComponent,
+    UserKivComponent,
+    ExaminerKivComponent,
+    ReConductSearchComponent,
+    ExaminerTreatedComponent,
+    PublicationNewComponent,
+    PublicationBatchComponent,
+    PublicationDetailComponent,
+    RefuseApplicationComponent,
+    AssignAppealComponent,
+    AssignAppeal2Component,
+    ReceiveAppealComponent,
+    UserOppositionComponent,
+    NoticeOfOppositionComponent,
+    OppositionFreshComponent,
+    UsercounterOppositionComponent,
+    NoticeOfCounterOppositionComponent,
+    UploadJudgementComponent,
+    ViewJudgmentComponent,
+    TrademarkReportComponent
   ],
   imports: [
     BrowserModule,
+    NgxQRCodeModule,
+    NgMultiSelectDropDownModule.forRoot() ,
     ModalModule.forRoot() ,
     InternationalPhoneNumberModule ,
     PasswordStrengthBarModule,

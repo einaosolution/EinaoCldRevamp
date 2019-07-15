@@ -4528,23 +4528,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JAMES\\.nuget\\packages\\": {},
+    "C:\\Users\\Einao2\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\IPOHub\\IPORevamp\\IPORevamp.Data\\IPORevamp.Data.csproj",
+      "projectUniqueName": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Data\\IPORevamp.Data.csproj",
       "projectName": "IPORevamp.Data",
-      "projectPath": "C:\\IPOHub\\IPORevamp\\IPORevamp.Data\\IPORevamp.Data.csproj",
-      "packagesPath": "C:\\Users\\JAMES\\.nuget\\packages\\",
-      "outputPath": "C:\\IPOHub\\IPORevamp\\IPORevamp.Data\\obj\\",
+      "projectPath": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Data\\IPORevamp.Data.csproj",
+      "packagesPath": "C:\\Users\\Einao2\\.nuget\\packages\\",
+      "outputPath": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\JAMES\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Einao2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4557,11 +4557,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\IPOHub\\IPORevamp\\EmailEngine\\EmailEngine.csproj": {
-              "projectPath": "C:\\IPOHub\\IPORevamp\\EmailEngine\\EmailEngine.csproj"
+            "C:\\EinaoCldRevamp\\IPORevamp\\EmailEngine\\EmailEngine.csproj": {
+              "projectPath": "C:\\EinaoCldRevamp\\IPORevamp\\EmailEngine\\EmailEngine.csproj"
             },
-            "C:\\IPOHub\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj": {
-              "projectPath": "C:\\IPOHub\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj"
+            "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj": {
+              "projectPath": "C:\\EinaoCldRevamp\\IPORevamp\\IPORevamp.Core\\IPORevamp.Core.csproj"
             }
           }
         }

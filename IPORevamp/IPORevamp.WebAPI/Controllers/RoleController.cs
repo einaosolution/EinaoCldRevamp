@@ -401,8 +401,18 @@ namespace IPORevamp.WebAPI.Controllers
                 // Check if Role Exist 
 
                 var record = await _roleRepository.GetRoleManagerById(ReceiveRoles.CurrentRole);
-                string json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
+                string json = "";
 
+                try
+                {
+
+                    json = JsonConvert.SerializeObject(record, Newtonsoft.Json.Formatting.Indented);
+
+                }
+                catch(Exception  ee)
+                {
+
+                }
                 if (record == null)
                 {
                     return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
@@ -412,7 +422,20 @@ namespace IPORevamp.WebAPI.Controllers
                 var msg = await _roleRepository.UpdateRole(record.Id, ReceiveRoles.AssignedRoles, ReceiveRoles.CurrentRole);
 
                 var record2 = await _roleRepository.GetRoleManagerById(ReceiveRoles.CurrentRole);
-                string json2 = JsonConvert.SerializeObject(record2, Newtonsoft.Json.Formatting.Indented);
+
+                string json2 = "";
+
+                try
+                {
+
+                    json2 = JsonConvert.SerializeObject(record2, Newtonsoft.Json.Formatting.Indented);
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
                 // get User Information
                 user = await _userManager.FindByIdAsync(ReceiveRoles.UserId.ToString());
 

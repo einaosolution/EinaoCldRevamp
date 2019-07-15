@@ -174,19 +174,18 @@ this.userform.value.parent="0";
 }
 
 valuechange(een ) {
-  //  alert(this.userform.value.email);
-   // this.userform.value.email ="aa@ya.com";
-   let obj = this.row2.find(o => o.name.toUpperCase() === this.userform.value.Code.toUpperCase());
 
-   if (obj) {
-    (<FormControl> this.userform.controls['Code']).setValue("");
+  // let obj = this.row2.find(o => o.name.toUpperCase() === this.userform.value.Code.toUpperCase());
 
-    Swal.fire(
-      "Name Already Exist",
-      '',
-      'error'
-    )
-   }
+  // if (obj) {
+  //  (<FormControl> this.userform.controls['Code']).setValue("");
+
+   // Swal.fire(
+   //   "Name Already Exist",
+   //   '',
+   //   'error'
+   // )
+   //}
 
 
 
