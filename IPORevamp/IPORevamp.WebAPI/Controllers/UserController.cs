@@ -182,6 +182,21 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetAllTempUser2")]
+        public async Task<IActionResult> GetAllTempUser2([FromQuery] string EmailAddress)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == EmailAddress);
+
+            var tempuser = _userProfilingRepository.GetAll2(user.department);
+
+
+
+            return Ok(tempuser);
+
+
+        }
+
+
 
         [HttpPost("AssignUser")]
        
@@ -227,7 +242,8 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpPost("UpdateUser")]
 
         public async Task<IActionResult> UpdateUser([FromForm] string UserId,
-      [FromForm] string RoleId, [FromForm] string RequestedBy , [FromForm] string Firstname, [FromForm] string Lastname, [FromForm] string PhoneNumber, [FromForm] string Occupation)
+      [FromForm] string RoleId, [FromForm] string RequestedBy , [FromForm] string Firstname, [FromForm] string Lastname, [FromForm] string PhoneNumber, [FromForm] string Occupation , [FromForm] string StaffId , [FromForm] string Gender 
+            , [FromForm] string  Street , [FromForm] string City, [FromForm] string Postal , [FromForm] string  Country, [FromForm] string State , [FromForm] string Ministry , [FromForm] string Department , [FromForm] string Unit)
         {
             var user = await _userManager.FindByIdAsync(UserId); ;
             string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
@@ -241,10 +257,32 @@ namespace IPORevamp.WebAPI.Controllers
             }
 
             user.RolesId = Convert.ToInt32(RoleId);
+            if (Convert.ToInt32(RoleId) == 18)
+            {
+                user.CategoryId = 1;
+            }
+
+            if (Convert.ToInt32(RoleId) == 3)
+            {
+                user.CategoryId = 2;
+            }
+
+
+
             user.FirstName = Firstname;
             user.LastName = Lastname;
             user.PhoneNumber = PhoneNumber;
+            user.PostalCode = Postal;
             user.Occupation = Occupation;
+            user.ministry = Ministry;
+            user.department = Department;
+            user.unit = Unit;
+            user.State = State;
+            user.staffid = StaffId;
+            user.Street = Street;
+            user.City = City;
+            user.CountryCode = Country;
+            user.Gender = Gender == "0" ? Data.UserManagement.Model.Gender.Male : Data.UserManagement.Model.Gender.Female ;
 
             await _userManager.UpdateAsync(user);
             var user3 = await _userManager.FindByIdAsync(UserId); ;
@@ -424,12 +462,22 @@ namespace IPORevamp.WebAPI.Controllers
                     user.State = State;
                     user.PostalCode = PostCode;
                     user.CountryCode = Country;
+                    user.Street = Street;
+                    if (user.CategoryId ==1)
+                    {
+                        user.RolesId = 18;
+                    }
+
+                    else
+                    {
+                        user.RolesId = 19;
+                    }
                   //  user.ProfilePicLoc = result[1].ToString();
                     user.ProfilePicLoc = msg;
 
                     user.CompleteRegistration = true;
                     user.Rcno = CompanyRegistration;
-                    user.MobileNumber = companytelephone;
+                    user.PhoneNumber = companytelephone;
                     user.MeansOfIdentification_value = meanofidentification_value;
                     user.Lga_Id = lgaid;
 
@@ -829,7 +877,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                     else
                     {
-                        return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing", true, null);
+                        return PrepareResponse(HttpStatusCode.NotFound, userCreated.Errors.FirstOrDefault().Description, true, null);
 
                     }
                 }
@@ -960,7 +1008,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                         else
                         {
-                            return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful reason " + resetPassword.Errors.ToArray().ToString(), true, null);
+                            return PrepareResponse(HttpStatusCode.NotFound, "The operation was not successful reason " + resetPassword.Errors.FirstOrDefault().Description, true, null);
 
                         }
 
@@ -1099,6 +1147,8 @@ namespace IPORevamp.WebAPI.Controllers
                 ministry = ExistingAccount.ministry,
                 department = ExistingAccount.department,
                 staffid = ExistingAccount.staffid ,
+                Street = ExistingAccount.Street ,
+                unit = ExistingAccount.Unit ,
 
                 RolesId = Convert.ToInt32(Roleid),
                 EmailConfirmed = true,
@@ -1160,7 +1210,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             else
             {
-                return PrepareResponse(HttpStatusCode.PreconditionFailed, "Error", false);
+                return PrepareResponse(HttpStatusCode.PreconditionFailed, userCreated.Errors.FirstOrDefault().Description, false);
 
             }
 
@@ -1233,13 +1283,16 @@ namespace IPORevamp.WebAPI.Controllers
             ip = Request.Headers["ip"];
 
             String Department = "";
+            var record = await _departmentRepository.GetDepartmentById(Convert.ToInt32(model.department));
+            
             if (emailtemplate != null)
             {
 
-                var user = _userManager.Users.Where(x => x.RolesId == 8).ToList();
+                var user = _userManager.Users.Where(x => x.RolesId == 8 && x.department == model.department).ToList();
+           
              if (user.Count() ==0 )
                 {
-                    return PrepareResponse(HttpStatusCode.PreconditionFailed, "No user with registra role found", true, null);
+                    return PrepareResponse(HttpStatusCode.PreconditionFailed, "No user with registra role found for " + record.Name, true, null);
                 }
 
                 //var user = new ApplicationUser
@@ -1296,7 +1349,7 @@ namespace IPORevamp.WebAPI.Controllers
                 List<IPORevamp.Data.Entities.Setting.Setting> Setting = null;
                 List<IPORevamp.Data.Entities.Setting.Setting> Setting2 = null;
 
-                var record = await _departmentRepository.GetDepartmentById(Convert.ToInt32(model.department));
+               
                 if (record != null)
                 {
                     Department = record.Name;

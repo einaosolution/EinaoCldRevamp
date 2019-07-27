@@ -49,6 +49,7 @@ export class SearchKivComponent implements OnInit {
   public rows = [];
   public row2
   public row3 = [];
+  public row4 = [];
   vshow :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
@@ -282,10 +283,36 @@ showcountry2() {
     this.updatemode = true;
 this.row2 = kk;
 this.vshow = true;
+var userid = localStorage.getItem('UserId');
 this.pwalletid = kk.pwalletid
     $("#createmodel").modal('show');
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );
+
+
+   this.busy =   this.registerapi
+.GetPreviousComment([],userid,this.pwalletid)
+.then((response: any) => {
+
+ console.log("Sector Response")
+ this.row4 = response.content;
+ console.log(response)
+
+
+
+})
+        .catch((response: any) => {
+         this.spinner.hide();
+          console.log(response)
+
+
+         Swal.fire(
+           response.error.message,
+           '',
+           'error'
+         )
+
+})
   }
 
   ngOnInit() {

@@ -53,7 +53,7 @@ export class IndividualComponent implements OnInit {
 
    // this.maxDate.setDate(this.maxDate.getDate() );
 
-    this.maxDate.setFullYear( this.maxDate.getFullYear() - 10 );
+   // this.maxDate.setFullYear( this.maxDate.getFullYear() - 10 );
     this.getIpAddress()
 
    }
@@ -159,6 +159,8 @@ export class IndividualComponent implements OnInit {
    this.submitted= true;
    let fi = this.fileInput.nativeElement;
 
+
+
    var regexp = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
 
 
@@ -202,6 +204,7 @@ export class IndividualComponent implements OnInit {
    formData.append("Gender",this.userform.value.Gender);
    formData.append("DateofBirth",formatDate(this.userform.value.DateofBirth, 'MM/dd/yyyy', 'en'));
    formData.append("Identification",this.userform.value.MeansofIdentification);
+  // formData.append("MobileNumber",this.userform.value.MobileNumber);
    formData.append("MobileNumber",this.userform.value.MobileNumber);
    formData.append("Street",this.userform.value.Street);
    formData.append("City",this.userform.value.City);

@@ -16,6 +16,7 @@ using IPORevamp.Repository.Search_Unit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -108,6 +109,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             // check for user information before processing the request
             int id = Convert.ToInt32(pwalletid);
+            var userrole = Convert.ToString(user.RolesId);
 
             var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
 
@@ -170,7 +172,8 @@ namespace IPORevamp.WebAPI.Controllers
                 FromStatus = fromstatus ,
                 ToStatus = tostatus, 
                 UploadsPath1 = msg,
-                userid = Convert.ToInt32(userid)
+                userid = Convert.ToInt32(userid) ,
+                Role= userrole
             });
 
             _contex.SaveChanges();
@@ -195,6 +198,34 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+
+
+        [HttpGet("GetExactSearch")]
+        public async Task<IActionResult> GetExactSearch([FromQuery] string title)
+        {
+
+            var name = "\" " + title + "\"";
+            var results = _contex.MarkInformation
+                      .FromSql($"uspGetMarkByTitle {name}")
+                      .ToList();
+
+
+            return Ok(results);
+        }
+
+        [HttpGet("GetMeaningSearch")]
+        public async Task<IActionResult> GetMeaningSearch([FromQuery] string title)
+        {
+
+            var name = "\" " + title + "\"";
+            var results = _contex.MarkInformation
+                      .FromSql($"uspGetMarkByTitle2 {name}")
+                      .ToList();
+
+
+            return Ok(results);
+        }
+
         [HttpPost("SaveFreshAppHistory2")]
         [Consumes("multipart/form-data")]
 
@@ -207,6 +238,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
             var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            var userrole = Convert.ToString(user.RolesId);
+
             string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
 
             if (user == null)
@@ -262,7 +295,8 @@ namespace IPORevamp.WebAPI.Controllers
                 FromStatus = prevappstatus,
                 ToStatus = tostatus,
                 UploadsPath1 = uploadpath,
-                userid = Convert.ToInt32(userid)
+                userid = Convert.ToInt32(userid) ,
+                Role = userrole
             });
 
             _contex.SaveChanges();
@@ -285,6 +319,105 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
 
         }
+
+
+        [HttpPost("SaveFreshAppHistory3")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> SaveFreshAppHistory3([FromForm] string pwalletid,
+         [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid, [FromForm] string uploadpath , [FromForm] string Batch)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            var userrole = Convert.ToString(user.RolesId);
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            // check for user information before processing the request
+           // int id = Convert.ToInt32(pwalletid);
+
+            var vpwallet = (from c in _contex.Application where c.Batchno == Batch select c).ToList();
+
+            foreach (var Application in vpwallet)
+            {
+
+                string transactionid = Application.TransactionID;
+                string prevappstatus = Application.ApplicationStatus;
+                string prevDatastatus = Application.DataStatus;
+
+
+
+                if (Application != null)
+                {
+
+                    Application.ApplicationStatus = tostatus;
+                    Application.DataStatus = toDatastatus;
+
+
+
+                    // get User Information
+
+
+
+
+                }
+
+
+
+                // file upload
+                string msg = "";
+
+
+
+                await _contex.AddAsync(new TrademarkApplicationHistory
+                {
+                    ApplicationID = Application.Id,
+                    DateCreated = DateTime.Now,
+                    TransactionID = transactionid,
+                    FromDataStatus = prevDatastatus,
+                    trademarkcomment = comment,
+                    description = description,
+
+                    ToDataStatus = toDatastatus,
+                    FromStatus = prevappstatus,
+                    ToStatus = tostatus,
+                    UploadsPath1 = uploadpath,
+                    userid = Convert.ToInt32(userid) ,
+                    Role = userrole
+                });
+
+                _contex.SaveChanges();
+
+            }
+
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+            await _contex.AddAsync(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application  has been Updated  successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = fromstatus,
+                RecordAfter = tostatus
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+
+        }
+
 
         [HttpGet("GetFreshApplication")]
         public async Task<IActionResult> GetFreshApplication([FromQuery] string RequestById)

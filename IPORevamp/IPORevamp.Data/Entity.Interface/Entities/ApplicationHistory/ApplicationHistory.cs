@@ -29,6 +29,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory
         public string AcceptanceFilePath { get; set; }
 
         public string RefusalFilePath { get; set; }
+        public string Role { get; set; }
 
 
         public IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application application { get; set; }

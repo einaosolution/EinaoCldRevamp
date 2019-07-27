@@ -42,25 +42,37 @@ export class BackEndUserComponent implements OnDestroy ,OnInit {
   Firstname: FormControl;
   Firstname2: FormControl;
   Role2: FormControl;
+  Role: FormControl;
   Lastname: FormControl;
   Lastname2: FormControl;
   MobileNumber: FormControl;
   Gender: FormControl;
+  Gender2: FormControl;
+
   Email: FormControl;
   Email2: FormControl;
   Unit: FormControl;
+  Unit2: FormControl;
   Street: FormControl;
+  Street2: FormControl;
   City: FormControl;
+  City2: FormControl;
   State: FormControl;
+  State2: FormControl;
   Postal: FormControl;
+  Postal2: FormControl;
   Country: FormControl;
+  Country2: FormControl;
   Occupation2: FormControl;
   MobileNumber2: FormControl;
   id:string;
   Description: FormControl;
   Ministry: FormControl;
+  Ministry2: FormControl;
   StaffId: FormControl;
+  StaffId2: FormControl;
   Department: FormControl;
+  Department2: FormControl;
   vshow :boolean = false
   public rows = [];
   public row2 = [];
@@ -278,6 +290,8 @@ valuechange(een ) {
 
 
 
+
+
       formData.append("UserId",this.id);
       formData.append("RoleId",this.userform2.value.Role2);
       formData.append("Firstname",this.userform2.value.Firstname2);
@@ -285,6 +299,16 @@ valuechange(een ) {
       formData.append("Lastname",this.userform2.value.Lastname2);
       formData.append("PhoneNumber",this.userform2.value.MobileNumber2);
       formData.append("Occupation",this.userform2.value.Occupation2);
+      formData.append("StaffId",this.userform2.value.StaffId2);
+      formData.append("Gender",this.userform2.value.Gender2);
+      formData.append("Street",this.userform2.value.Street2);
+      formData.append("City",this.userform2.value.City2);
+      formData.append("Postal",this.userform2.value.Postal2);
+      formData.append("Country",this.userform2.value.Country2);
+      formData.append("State",this.userform2.value.State2);
+      formData.append("Ministry",this.userform2.value.Ministry2);
+      formData.append("Department",this.userform2.value.Department2);
+      formData.append("Unit",this.userform2.value.Unit2);
 
 
 
@@ -322,6 +346,13 @@ valuechange(een ) {
                   )
 
     })
+  }
+
+  else {
+
+
+
+   // alert("Form Not Valid")
   }
 
   }
@@ -403,10 +434,20 @@ showcountry(kk) {
   (<FormControl> this.userform2.controls['Firstname2']).setValue(kk.firstName);
 
   (<FormControl> this.userform2.controls['Lastname2']).setValue(kk.lastName);
-  (<FormControl> this.userform2.controls['Email2']).setValue(kk.email);
+
   (<FormControl> this.userform2.controls['Role2']).setValue(kk.rolesId);
   (<FormControl> this.userform2.controls['Occupation2']).setValue(kk.occupation);
   (<FormControl> this.userform2.controls['MobileNumber2']).setValue(kk.mobileNumber);
+  (<FormControl> this.userform2.controls['StaffId2']).setValue(kk.staffid);
+  (<FormControl> this.userform2.controls['Gender2']).setValue(kk.gender);
+  (<FormControl> this.userform2.controls['Street2']).setValue(kk.street);
+  (<FormControl> this.userform2.controls['City2']).setValue(kk.city);
+  (<FormControl> this.userform2.controls['Postal2']).setValue(kk.postalCode);
+  (<FormControl> this.userform2.controls['Country2']).setValue(kk.countryCode);
+  (<FormControl> this.userform2.controls['State2']).setValue(kk.state);
+  (<FormControl> this.userform2.controls['Ministry2']).setValue(kk.ministry);
+  (<FormControl> this.userform2.controls['Department2']).setValue(kk.department);
+  (<FormControl> this.userform2.controls['Unit2']).setValue(kk.unit);
   $("#createmodel2").modal('show');
   //document.getElementById("openModalButton").click();
  // this.modalRef = this.modalService.show(ref );
@@ -567,6 +608,48 @@ var self = this;
     this.StaffId = new FormControl('', [
       Validators.required
     ]);
+    this.StaffId2 = new FormControl('', [
+
+    ]);
+
+    this.Street2 = new FormControl('', [
+      Validators.required
+    ]);
+
+    this.Gender2 = new FormControl('', [
+      Validators.required
+    ]);
+    this.City2= new FormControl('', [
+      Validators.required
+    ]);
+
+    this.Postal2= new FormControl('', [
+      Validators.required
+    ]);
+
+    this.Country2= new FormControl('', [
+      Validators.required
+    ]);
+
+    this.State2= new FormControl('', [
+      Validators.required
+    ]);
+
+    this.Ministry2= new FormControl('', [
+
+    ]);
+
+    this.Department2= new FormControl('', [
+
+    ]);
+
+    this.Unit2= new FormControl('', [
+
+    ]);
+
+
+
+
 
     this.Lastname2 = new FormControl('', [
       Validators.required
@@ -575,6 +658,7 @@ var self = this;
     this.Role2 = new FormControl('', [
       Validators.required
     ]);
+
 
 
 
@@ -590,7 +674,7 @@ var self = this;
     ]);
 
     this.Email2 = new FormControl('', [
-      Validators.required
+
     ]);
 
     this.Unit = new FormControl('', [
@@ -667,10 +751,20 @@ var self = this;
       Firstname2: this.Firstname2,
       Lastname2: this.Lastname2 ,
 
-      Email2: this.Email2 ,
+
       Role2:this.Role2 ,
       Occupation2: this.Occupation2,
       MobileNumber2: this.MobileNumber2,
+      StaffId2: this.StaffId2,
+      Street2: this.Street2,
+      Gender2: this.Gender2,
+      City2: this.City2,
+      Postal2: this.Postal2,
+      Country2: this.Country2,
+      State2: this.State2,
+      Ministry2: this.Ministry2,
+      Department2: this.Department2,
+      Unit2: this.Unit2,
 
 
     });
@@ -781,7 +875,7 @@ this.busy =   this.registerapi
           )
 
 })
-
+//
 this.busy =   this.registerapi
 .GetAllUnit(userid)
 .then((response: any) => {

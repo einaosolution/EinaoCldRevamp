@@ -28,6 +28,7 @@
     <Compile Remove="Migrations\20190629215305_droptables.cs" />
     <Compile Remove="Migrations\20190629231823_MarkInformation.cs" />
     <Compile Remove="Migrations\20190629232324_ChangesToTable2.cs" />
+    <Compile Remove="Migrations\20190712111746_PayCertificate.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

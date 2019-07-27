@@ -1,1 +1,26 @@
 bs-datepicker-container { z-index: 9999 !important; }
+
+select {
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  -webkit-appearance: menulist;
+  box-sizing: border-box;
+  align-items: center;
+  white-space: pre;
+  -webkit-rtl-ordering: logical;
+  background-color: white;
+  cursor: default;
+  margin: 0em;
+
+  border-radius: 0px;
+
+  border-image: initial;
+}

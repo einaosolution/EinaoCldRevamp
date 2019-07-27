@@ -1,10 +1,6 @@
-<div class="page-breadcrumb">
 
-
-</div>
-
-<div class="container-fluid">
-
+<div class="container">
+  <div [ngBusy]="busy"></div>
   <div id="report" class="pp" >
 
     <table class="form">
@@ -24,6 +20,23 @@
                 <img alt="" src="assets/coat_of_arms.png" style="width: 80px; height: 80px" /></td>
         </tr>
     </table>
+
+    <div class="row p-2">
+        <div class="col-md-6">
+            <ngx-qrcode
+            [qrc-element-type]="elementType"
+            [qrc-value] = "value"
+            qrc-class = "aclass"
+            qrc-errorCorrectionLevel = "L">
+      </ngx-qrcode>
+        </div>
+
+        <div class="col-md-6 text-right">
+
+            <p >Transaction Date: {{vdate| date}}</p>
+            <p >Remitta Retrival Number(RRR) : {{row.paymentref}}</p>
+        </div>
+    </div>
 
     <h4>Order Status Notification</h4>
 
@@ -69,7 +82,7 @@
         <tr>
             <td>
                 <p>
-                    <strong>Payment Ref:</strong>
+                    <strong>Remitta RRR:</strong>
                 </p>
             </td>
             <td>
@@ -94,17 +107,7 @@
         </tr>
 
 
-        <tr>
-          <td  align="center" colspan="2">
 
-              <ngx-qrcode
-              [qrc-element-type]="elementType"
-              [qrc-value] = "value"
-              qrc-class = "aclass"
-              qrc-errorCorrectionLevel = "L">
-        </ngx-qrcode>
-            </td>
-      </tr>
 
 
 
@@ -112,6 +115,14 @@
 
     </tbody>
 </table>
+<br/>
+
+</div>
+
+<br/>
+<div class="align-items-center justify-content-center row" >
+
+  <button type="submit"  (click) ="print()"  class="btn btn-info">Print </button>
 
 </div>
 </div>

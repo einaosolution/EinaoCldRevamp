@@ -72,39 +72,7 @@ this.getIpAddress()
 
        try {
 
-        var vdate = localStorage.getItem('ExpiryTime')
-        if (vdate) {
 
-          var vdate3 = new Date(vdate);
-
-
-        }
-        else {
-
-    this.registerapi.settoken("");
-
-    localStorage.setItem('username', "");
-          this.router.navigateByUrl('/login');
-        }
-
-        var vdate2 = new Date(vdate);
-
-
-
-        var d1 = new Date();
-
-
-
-        if (vdate2 > d1) {
-
-
-        }
-
-        else {
-          this.router.navigateByUrl('/login');
-
-
-        }
 
            }
 

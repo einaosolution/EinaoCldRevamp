@@ -1,1 +1,9 @@
-﻿
+﻿1>------ Build started: Project: IPORevamp.Data, Configuration: Debug Any CPU ------
+1>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3245: Could not resolve this reference. Could not locate the assembly "EntityFramework". Check to make sure the assembly exists on disk. If this reference is required by your code, you may get compilation errors.
+1>Entity.Interface\Entities\Role\LinkRolesMenus.cs(12,20,12,22): warning CS0108: 'LinkRolesMenus.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+1>Entity.Interface\Entities\Role\RoleManager.cs(18,20,18,22): warning CS0108: 'RoleManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+1>Entity.Interface\Entities\Menus\MenuManager.cs(17,20,17,22): warning CS0108: 'MenuManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+1>Entity.Interface\Entities\Auth\UserRoleManager.cs(18,20,18,22): warning CS0108: 'UserRoleManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+1>UserManagement.Model\ApplicationUser.cs(38,23,38,34): warning CS0114: 'ApplicationUser.PhoneNumber' hides inherited member 'IdentityUser<int>.PhoneNumber'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
+1>PaginatedList.cs(71,52,71,63): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+1>UserManagement.Model\EmailService.cs(94,29,94,31): warning CS0168: The variable 'ee' is declared but never used

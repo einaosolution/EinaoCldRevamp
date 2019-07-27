@@ -73,7 +73,7 @@ onSubmit2() {
   var  formData = new FormData();
   var table = $('#myTable').DataTable();
 
-  alert(this.userform.value.Code)
+ // alert(this.userform.value.Code)
 
   formData.append("RequestById",userid );
   formData.append("userid",this.row4.email);

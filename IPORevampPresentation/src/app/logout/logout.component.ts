@@ -28,6 +28,12 @@ this.registerapi.settoken("");
 
 localStorage.setItem('username', "");
 
+localStorage.removeItem('username')
+
+localStorage.removeItem('access_tokenexpire');
+
+//localStorage.removeItem('firstLoad')
+
 
     this.router.navigateByUrl('/login');
   }

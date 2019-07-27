@@ -184,6 +184,8 @@ namespace IPORevamp.WebAPI.Controllers
             var feeItems = await _feeRepository.GetFeeListById(feeIds);
 
 
+           
+
             decimal totalTechnologyFee = 0;
             decimal totalMerchantFee = 0;
             RemitaPaymentResponseModel errorresult = new RemitaPaymentResponseModel();
@@ -202,30 +204,37 @@ namespace IPORevamp.WebAPI.Controllers
                 var orderId = "IPONMW" + DateTime.Now.Ticks;
 
                 // loop through all the fee list items
-
+               // feeIds
                 foreach (var item in feeItems)
-                {
-
-                    // insert each of the amount for the above filing
-                    await _remitaPaymentRepository.SaveRemitaPayment(new RemitaPayment
+              
                     {
-                        Amount = item.init_amt,
-                        TechFee = item.TechnologyFee,
-                        OrderId = orderId,
-                        PayerEmail = payerEmail,
-                        PayerName = payerName,
-                        PayerPhone = payerPhone,
-                        TotalAmount = (item.init_amt + item.TechnologyFee).ToString(),
-                        FeeItemName = item.ItemName,
-                        FeeId = item.Id,
-                        TransactionInitiatedDate= DateTime .Now
+
+                 var feeIdResult =   feeIds.Where(c => c == item.Id).ToArray();
+                    // insert each of the amount for the above filing
+
+                    for (int i = 0; i < feeIdResult.Length; i++)
+                    {
+                        await _remitaPaymentRepository.SaveRemitaPayment(new RemitaPayment
+                        {
+                            Amount = item.init_amt,
+                            TechFee = item.TechnologyFee,
+                            OrderId = orderId,
+                            PayerEmail = payerEmail,
+                            PayerName = payerName,
+                            PayerPhone = payerPhone,
+                            TotalAmount = (item.init_amt + item.TechnologyFee).ToString(),
+                            FeeItemName = item.ItemName,
+                            FeeId = item.Id,
+                            TransactionInitiatedDate = DateTime.Now
 
 
-                    });
+                        });
 
-                    // get all the total cost to be pass to gateway later
-                    totalTechnologyFee = totalTechnologyFee + item.TechnologyFee;
-                    totalMerchantFee = totalMerchantFee + item.init_amt;
+                        // get all the total cost to be pass to gateway later
+                        totalTechnologyFee = totalTechnologyFee + item.TechnologyFee;
+                        totalMerchantFee = totalMerchantFee + item.init_amt;
+
+                    }
 
                 }
 
@@ -457,7 +466,9 @@ namespace IPORevamp.WebAPI.Controllers
                         }
                         else if (remitaResponseSerialized.status == "021" && remitaResponseSerialized.message == WebApiMessage.TransactionPending)
                         {
-                            return PrepareResponse(HttpStatusCode.Processing, "Payment has been completed but pending approval, please check back later ", true, remitaResponseSerialized);
+                           // return PrepareResponse(HttpStatusCode.Processing, "Payment has been completed but pending approval, please check back later ", true, remitaResponseSerialized.message);
+
+                            return PrepareResponse(HttpStatusCode.NotFound, "Payment has been completed but pending approval, please check back later ", true, "Payment has been completed but pending approval, please check back later ");
                         }
                         else
                         {

@@ -18,5 +18,7 @@ namespace IPORevamp.Repository.PreliminarySearch
 
         Task<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch> UpdatePreliminary(IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch prelim);
 
+        Task<List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch>> GetPreliminaryByUserid(string userid);
+
     }
 }

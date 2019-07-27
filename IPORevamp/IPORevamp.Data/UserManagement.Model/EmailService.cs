@@ -79,10 +79,20 @@ namespace NACC.Data.UserManagement.Model
             mMessage.IsBodyHtml = true;
 
             System.Net.Mail.Attachment attachment;
-            foreach (var kk in attachments)
+
+            try
             {
-                attachment = new System.Net.Mail.Attachment(kk);
-                mMessage.Attachments.Add(attachment);
+                foreach (var kk in attachments)
+                {
+                    attachment = new System.Net.Mail.Attachment(kk);
+                    mMessage.Attachments.Add(attachment);
+
+                }
+
+            }
+
+            catch(Exception ee)
+            {
 
             }
 

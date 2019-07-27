@@ -465,8 +465,9 @@ showcountry2() {
   getCountry() {
 
    var userid = localStorage.getItem('UserId');
+   var users = localStorage.getItem('username');
    this.busy =   this.registerapi
-   .GetAllTempUser()
+   .GetAllTempUser2(users)
    .then((response: any) => {
      this.spinner.hide();
      console.log("Response")
@@ -814,9 +815,9 @@ this.busy =   this.registerapi
  })
 
 
-
+ var users = localStorage.getItem('username');
  this.busy =   this.registerapi
- .GetAllTempUser()
+ .GetAllTempUser2(users)
  .then((response: any) => {
    this.spinner.hide();
    console.log("Response")

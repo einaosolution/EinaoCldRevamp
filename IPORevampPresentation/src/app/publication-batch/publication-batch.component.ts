@@ -200,35 +200,27 @@ this.busy =   this.registerapi
 
 
 
-onSubmit44() {
-  if (this.appcomment3 =="") {
-    Swal.fire(
-      "Enter Comment",
-      '',
-      'error'
-    )
+onSubmit44(emp) {
 
-    return;
-   }
 
 
    var  formData = new FormData();
     var userid = localStorage.getItem('UserId');
 
     var table = $('#myTable').DataTable();
-
+    formData.append("Batch",emp.batchNo);
     formData.append("pwalletid",this.pwalletid);
-   formData.append("comment",this.appcomment3);
+   formData.append("comment","Batch Move To Certificate");
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","ApplicantKiv");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","ApplicantKiv");
+   formData.append("fromstatus","");
+   formData.append("tostatus","Fresh");
+   formData.append("fromDatastatus","");
+   formData.append("toDatastatus","Certificate");
    formData.append("userid",userid);
 
 
    this.busy =  this.registerapi
-   .SaveFreshAppHistory(formData)
+   .SaveFreshAppHistory3(formData)
    .then((response: any) => {
 
      this.submitted=false;
@@ -243,19 +235,7 @@ onSubmit44() {
   this. getallApplication()
 
 
-  this.busy =   this.registerapi
-  . SendUserEmail2(userid,this.userid,this.appcomment3)
-  .then((response: any) => {
 
-
-
-  })
-           .catch((response: any) => {
-
-             console.log(response)
-
-
-           })
 
 
 

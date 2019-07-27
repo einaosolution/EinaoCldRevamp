@@ -73,6 +73,23 @@ import { NoticeOfCounterOppositionComponent } from './notice-of-counter-oppositi
 import { UploadJudgementComponent } from './upload-judgement/upload-judgement.component';
 import { ViewJudgmentComponent } from './view-judgment/view-judgment.component';
 import { TrademarkReportComponent } from './trademark-report/trademark-report.component';
+import { PayCertificateComponent } from './pay-certificate/pay-certificate.component';
+import { NoticeCertificatePaymentComponent } from './notice-certificate-payment/notice-certificate-payment.component';
+import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
+import { CertificateComponent } from './certificate/certificate.component';
+import { RenewTrademarkComponent } from './renew-trademark/renew-trademark.component';
+import { PayRenewalComponent } from './pay-renewal/pay-renewal.component';
+import { GenerateIssuedCertificateComponent } from './generate-issued-certificate/generate-issued-certificate.component';
+import { GenRecordalRenewComponent } from './gen-recordal-renew/gen-recordal-renew.component';
+import { Invoice2Component } from './invoice2/invoice2.component';
+import { MergerTrademarkComponent } from './merger-trademark/merger-trademark.component';
+import { SearchDbComponent } from './search-db/search-db.component';
+import { CanActivateChild } from '@angular/router';
+import {AuthGuard} from './auth.guard';
+import { NoticeofmergerComponent } from './noticeofmerger/noticeofmerger.component';
+import { TrademarkApplicationComponent } from './trademark-application/trademark-application.component';
+import { ViewPreliminarySearchComponent } from './view-preliminary-search/view-preliminary-search.component';
+
 
 
 const routes: Routes = [
@@ -92,7 +109,7 @@ const routes: Routes = [
    { path: 'TrademarkReport', component: TrademarkReportComponent ,   data: { animation: 'tiger11' } } ,
 
 
-  { path: 'Dashboard', component: HeaderComponent,   children: [
+  { path: 'Dashboard', component: HeaderComponent,canActivateChild: [AuthGuard] ,   children: [
 {
 path:  'Dashboard2',
 component:  DashboardComponent
@@ -105,13 +122,36 @@ component:  CountryComponent
   },{
     path:  'AcceptanceLetter',
     component:  AcceptanceLetterComponent
-    },{
+    } ,{
+      path:  'TrademarkApplication',
+      component:  TrademarkApplicationComponent
+      } ,{
+        path:  'ViewPreliminarySearch',
+        component:  ViewPreliminarySearchComponent
+        },{
+      path:  'SearchDb',
+      component:  SearchDbComponent
+      },{
       path:  'ReceiveAppeal',
       component:  ReceiveAppealComponent
       },{
       path:  'AssignAppeal',
       component:  AssignAppealComponent
       } ,{
+        path:  'PayRenewal',
+        component:  PayRenewalComponent
+        } ,{
+          path:  'MergerTrademark',
+          component:  MergerTrademarkComponent
+          } ,
+        {
+          path:  'Invoice2',
+          component:  Invoice2Component
+          } ,
+        {
+          path:  'GenRecordalRenew',
+          component:  GenRecordalRenewComponent
+          } ,{
         path:  'AssignAppeal2',
         component:  AssignAppeal2Component
         },{
@@ -121,9 +161,24 @@ component:  CountryComponent
       path:  'ReConductSearch',
       component:  ReConductSearchComponent
       } ,{
+        path:  'GenerateCertificate',
+        component:  GenerateCertificateComponent
+        } ,{
+          path:  'GenerateIssuedCertificate',
+          component:  GenerateIssuedCertificateComponent
+          }  ,{
+          path:  'Certificate',
+          component:  CertificateComponent
+          },{
         path:  'PublicationNew',
         component:  PublicationNewComponent
-        } ,{
+        },{
+          path:  'RenewTrademark',
+          component:  RenewTrademarkComponent
+          },{
+          path:  'PayCertificate',
+          component:  PayCertificateComponent
+          } ,{
           path:  'UserOpposition',
           component:  UserOppositionComponent
           } ,{
@@ -132,10 +187,16 @@ component:  CountryComponent
             } ,{
             path:  'NoticeOfCounterOpposition',
             component:   NoticeOfCounterOppositionComponent
+            } ,{
+            path:  'Noticeofmerger',
+            component:   NoticeofmergerComponent
             },{
             path:  'NoticeOfOpposition',
             component:  NoticeOfOppositionComponent
-            } ,{
+            }  ,{
+              path:  'NoticeCertificatePayment',
+              component:  NoticeCertificatePaymentComponent
+              } ,{
               path:  'ViewJudgment',
               component: ViewJudgmentComponent
               },{

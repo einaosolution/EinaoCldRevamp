@@ -110,7 +110,7 @@
                               </button>
                           </div>
 
-                          <table  class="table table-bordered table-striped table-hover"   width="100%" class="form">
+                          <table  class="table form"   width="100%" >
 
 
                            <tr>
@@ -198,28 +198,25 @@
                                     {{row2.classdescription}}</td>
                             </tr>
 
+
                             <tr>
-                              <td class="tbbg" colspan="2" align="center">
-                                  --- Comment ---</td>
+                                <td class="tbbg" colspan="2" align="center">
+                                    ---Previous Comments ---</td>
+                            </tr>
+
+
+                            <tr>
+
+                              <td colspan="2"  align="center" >
+                                <table>
+
+
+                                    <app-comments [vrow2]=row4></app-comments>
+
+                                </table>
+
+                              </td>
                           </tr>
-
-                          <tr>
-                            <td >
-                              Comment By :
-                            </td>
-                            <td  >
-                                {{row2.commentby}}
-                            </td>
-                        </tr>
-
-                          <tr>
-                            <td >
-                              Comment :
-                            </td>
-                            <td  >
-                                {{row2.comment}}
-                            </td>
-                        </tr>
 
                             <tr>
                                 <td class="tbbg" colspan="2" align="center">

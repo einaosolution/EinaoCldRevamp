@@ -3,21 +3,118 @@
 
 
 <div id="report" class="pp" >
+
+    <table class="form">
+
+        <tr>
+            <td colspan="2" align="center" width="1100px">
+              <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
+      COMMERCIAL LAW DEPARTMENT,
+      INDUSTRIAL PROPERTY OFFICE REGISTRY
+      </strong>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td width="1100px" colspan="2" align="center" bgcolor="#006600">
+                <img alt="" src="assets/coat_of_arms.png" style="width: 80px; height: 80px" /></td>
+        </tr>
+    </table>
+
+    <h4>Order Status Notification</h4>
+
+    <p>
+        <br />
+        Your {{row.description}} ₦{{row.amount| number:'.2-2'}} order  was successful.
+        <br />
+        Your transaction id is {{row.transactionid}}. The details of the order are shown below:
+        <br />
+        <br />
+    </p>
+
+    <table border="0" cellpadding="0"  class="form">
+        <tbody>
+          <tr>
+            <td>
+                <p>
+                    <strong>Order :</strong>
+                </p>
+            </td>
+            <td>
+                <p>
+                    {{row.description}}
+                </p>
+            </td>
+        </tr>
+
+
+            <tr>
+                <td>
+                    <p>
+                        <strong>Order Date:</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        {{vdate| date}}
+                    </p>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <p>
+                        <strong>Payment Ref:</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        {{row.paymentref}}
+                    </p>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <p>
+                        <strong>RRR Number:</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        {{rrr}}
+                    </p>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    <p>
+                        <strong>Transaction Amount:</strong>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        {{row.amount| number:'.2-2'}}
+                    </p>
+                </td>
+            </tr>
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+
 <table   class="form" *ngIf="vshow" >
-  <tr>
-      <td colspan="2" align="center" width="1100px">
-        <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
-COMMERCIAL LAW DEPARTMENT,
-INDUSTRIAL PROPERTY OFFICE REGISTRY
-</strong>
-      </td>
-  </tr>
 
-
-  <tr>
-      <td width="1100px" colspan="2" align="center" bgcolor="#006600">
-          <img alt="" src="assets/coat_of_arms.png" style="width: 80px; height: 80px" /></td>
-  </tr>
 
 
     <tr>

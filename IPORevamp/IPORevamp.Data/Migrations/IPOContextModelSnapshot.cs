@@ -856,6 +856,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("RefusalFilePath");
 
+                    b.Property<string>("Role");
+
                     b.Property<byte[]>("RowVersion");
 
                     b.Property<string>("ToDataStatus");
@@ -912,6 +914,47 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PublicationBatch");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicantAddress");
+
+                    b.Property<string>("ApplicantName");
+
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("PaymentReference");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("quantity");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PayCertificate");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Department.Department", b =>
@@ -1297,7 +1340,11 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<DateTime?>("LastUpdateDate");
 
+                    b.Property<DateTime?>("NextRenewalDate");
+
                     b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("RtNumber");
 
                     b.Property<string>("TransactionID");
 
@@ -1310,6 +1357,128 @@ namespace IPORevamp.Data.Migrations
                     b.HasIndex("Applicationtypeid");
 
                     b.ToTable("Application");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssigneeAddress");
+
+                    b.Property<string>("AssigneeName");
+
+                    b.Property<int>("AssigneeNationality");
+
+                    b.Property<string>("AssignorAddress");
+
+                    b.Property<string>("AssignorName");
+
+                    b.Property<string>("Certificate");
+
+                    b.Property<int?>("CountryId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DateOfAssignment");
+
+                    b.Property<string>("DeedOfAssigment");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("DetailOfRequest");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("PaymentReference");
+
+                    b.Property<string>("PowerOfAttorney");
+
+                    b.Property<string>("PreviousApplicationStatus");
+
+                    b.Property<string>("PreviousDataStatus");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("applicationid");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("applicationid");
+
+                    b.ToTable("RecordalMerger");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalRenewal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicantAddress");
+
+                    b.Property<string>("ApplicantName");
+
+                    b.Property<string>("CertificateOfTrademark");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("DetailOfRequest");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("PaymentReference");
+
+                    b.Property<string>("PowerOfAttorney");
+
+                    b.Property<string>("PreviousApplicationStatus");
+
+                    b.Property<string>("PreviousDataStatus");
+
+                    b.Property<DateTime>("RenewalDueDate");
+
+                    b.Property<string>("RenewalType");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("TrademarkTitle");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("applicationid");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("applicationid");
+
+                    b.ToTable("RecordalRenewal");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.CustomField", b =>
@@ -1950,6 +2119,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("State");
 
+                    b.Property<string>("Street");
+
                     b.Property<int>("Title");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -2184,6 +2355,26 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entity.Interface.ApplicationType.ApplicationType", "ApplicationType")
                         .WithMany("pwallet")
                         .HasForeignKey("Applicationtypeid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "Country")
+                        .WithMany("RecordalMerger")
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "application")
+                        .WithMany("RecordalMerger")
+                        .HasForeignKey("applicationid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalRenewal", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "application")
+                        .WithMany("RecordalRenewal")
+                        .HasForeignKey("applicationid")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

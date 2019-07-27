@@ -19,6 +19,8 @@ export class RefusalLetterComponent implements OnInit {
   elementType = 'url';
   value = 'Techiediaries';
   vshow :boolean = false;
+  busy: Promise<any>;
+  appuser:any
   vimage
   constructor(private registerapi :ApiClientService) { }
 
@@ -26,10 +28,10 @@ export class RefusalLetterComponent implements OnInit {
   senddata (dd:FormData) {
 
     $(document).scrollTop(0);
-this.registerapi.SendAttachment(dd)
+     this.registerapi.SendAttachmentRefusal(dd)
   .then((response: any) => {
 
-    alert("success")
+
 
 
   //   this.msgs = [];
@@ -51,18 +53,18 @@ this.registerapi.SendAttachment(dd)
   onSubmit8(){
 
 
-     var doc = new jspdf('p', 'mm', "a4");
+    // var doc = new jspdf('p', 'mm', "a4");
      var data2 = new FormData();
 
     // alert( pfile +  " 1")
     var userid =localStorage.getItem('UserId');
 
-    data2.append('userid' , userid);
+    data2.append('userid' , this.appuser);
     var d = new Date()
     data2.append('message' ,"A copy of Refusal Letter  Generated on " + d);
      var AgentsData = {
 
-       email: userid
+       email: this.appuser
 
 
    };
@@ -77,21 +79,33 @@ this.registerapi.SendAttachment(dd)
      html2canvas(document.getElementById('report')).then(function(canvas) {
       // alert(self)
 
-       var img = canvas.toDataURL("image/png");
+      const context = canvas.getContext('2d');
+      context.scale(2, 2);
+      context['dpi'] = 144;
+      context['imageSmoothingEnabled'] = false;
+      context['mozImageSmoothingEnabled'] = false;
+      context['oImageSmoothingEnabled'] = false;
+      context['webkitImageSmoothingEnabled'] = false;
+      context['msImageSmoothingEnabled'] = false;
+      var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+      // var img = canvas.toDataURL("image/png");
+      var img = canvas.toDataURL("image/png", 1.0);
 
     //  var doc = new jsPDF();
 
 
     //  var doc = new jsPDF('p', 'mm', "a4");
 
-    doc.setFont("courier");
+    //doc.setFont("courier");
 
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
 
 
-    // doc.addImage(img,'PNG',15,10);
-    doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+    //doc.addImage(img, 'JPEG', 0, 0, width, height);
+    doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+
 
 
 
@@ -121,6 +135,8 @@ this.registerapi.SendAttachment(dd)
 
       this.row2 = response.content;
 
+      this.appuser =response.content.applicationUser.id
+
       this.vshow = true;
       this.vimage  ="http://5.77.54.44/EinaoCldRevamp2/Upload/" +this.row2.markinfo.logoPicture
 
@@ -129,44 +145,8 @@ this.registerapi.SendAttachment(dd)
       console.log(response)
 
 
-      var self = this;
-
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false,
-      })
-
-          swalWithBootstrapButtons.fire({
-            title: 'A Copy Will be sent to your email ',
-            text: "",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, Proceed!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.value) {
-
-              self.onSubmit8();
-        } else if (
-              // Read more about handling dismissals
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-
-            }
-          })
-
-    })
-             .catch((response: any) => {
-
-               console.log(response)
 
 
-       alert("error")
-  })
 
 
 
@@ -183,6 +163,14 @@ this.registerapi.SendAttachment(dd)
 
     console.log(response)
 
+    var self = this;
+
+    $( document ).ready(function() {
+
+      self.onSubmit8();
+
+  });
+
   })
            .catch((response: any) => {
 
@@ -191,7 +179,16 @@ this.registerapi.SendAttachment(dd)
 
      alert("error")
 })
-  }
+  })
+  .catch((response: any) => {
+
+    console.log(response)
 
 
+alert("error")
+})
+
+
+
+}
 }

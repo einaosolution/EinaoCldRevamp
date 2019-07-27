@@ -106,8 +106,7 @@
                                                 <div class="form-group has-danger"  >
                                                     <label class="control-label" >Mobile Number</label>
 
-                                                    <international-phone-number   [ngClass]="{ 'is-invalid': submitted && MobileNumber.errors }" formControlName="MobileNumber"  placeholder="Enter phone number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number   name="phone_number" ></international-phone-number>
-
+                                                    <international-phone-number formControlName="MobileNumber" placeholder="Enter Mobile  number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number   name="phone_number" ></international-phone-number>
 
 
                                                   </div>

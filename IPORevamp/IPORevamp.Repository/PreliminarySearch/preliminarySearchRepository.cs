@@ -45,7 +45,18 @@ namespace IPORevamp.Repository.PreliminarySearch
             List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch> prelimSearch = new List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch>();
             //  prelimSearch = await _preliminarySearch.Include(a => a.LGA).GetAllListAsync(x => x.status == "Submitted"); ;
 
-            prelimSearch = await _preliminarySearch.GetAll().Include(a => a.Sector).Where(x => x.status == "Submitted").ToListAsync();
+            prelimSearch = await _preliminarySearch.GetAll().Include(a => a.Sector).Where(x => x.status == "Submitted").OrderBy(c => c.Id).ToListAsync();
+            return prelimSearch;
+        }
+
+        public async Task<List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch>> GetPreliminaryByUserid(string userid)
+        {
+
+
+            List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch> prelimSearch = new List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch>();
+            //  prelimSearch = await _preliminarySearch.Include(a => a.LGA).GetAllListAsync(x => x.status == "Submitted"); ;
+
+            prelimSearch = await _preliminarySearch.GetAll().Include(a => a.Sector).Where(x => x.userid == userid).OrderBy(c => c.Id).ToListAsync();
             return prelimSearch;
         }
 

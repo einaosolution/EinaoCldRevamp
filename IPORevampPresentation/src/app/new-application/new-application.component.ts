@@ -19,6 +19,14 @@ import 'datatables.net-dt'
 
 
 declare var $;
+
+
+
+
+import * as jspdf from 'jspdf';
+
+import html2canvas from 'html2canvas';
+
 declare var RmPaymentEngine:any;
 
 @Component({
@@ -64,6 +72,9 @@ export class NewApplicationComponent implements OnInit {
   public pwalletid ="" ;
   vshow :boolean = true
 
+  elementType = 'url';
+  value = '';
+
   transactionid
   paymentreference
   transactionid2
@@ -78,6 +89,7 @@ export class NewApplicationComponent implements OnInit {
   public row8 = [];
   public row9 = [];
   public row10 = [];
+  public rrr ="";
   public row11 = [];
   public row12 :any;
   public fee_description =""
@@ -119,7 +131,14 @@ varray4 = [{ YearName: 'Local', YearCode: 'Local' }, { YearName: 'Foreign', Year
 varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK', YearCode: 'WORD MARK' } , { YearName: 'WORD AND DEVICE', YearCode: 'WORD AND DEVICE' } ]
   constructor(private registerapi :ApiClientService ,private router: Router ,private route: ActivatedRoute) { }
 
+  getlogo(vid) {
+    return this.trademarklogo
+  }
   onChange2(deviceValue) {
+
+   // let obj =  this.row11.find(o => o.id === deviceValue);
+    //this.trademarklogo =obj.type
+
     if (deviceValue =="2") {
       this.vshow = false;
 
@@ -129,6 +148,7 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
       this.vshow = true;
     }
   }
+
 
   generateInvoice() {
  let  pwallet =  localStorage.getItem('Pwallet');
@@ -158,14 +178,18 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
   FieldsChange(values:any){
 
    if (values.currentTarget.checked) {
+
     this.checkboxFlag =true
 
-    alert("Click Pay with remitta button to proceed")
+    Swal.fire('Click make payment button to proceed')
+
+   // alert("Click Make Button button to proceed")
    }
 
    else {
     this.checkboxFlag =false
-    alert("Ok")
+    Swal.fire('Terms And Condition Unchecked', 'error')
+   //alert("Terms And Condition Unchecked")
    }
 
     }
@@ -383,6 +407,30 @@ return true;
 
     }
 
+
+    onSubmit8(){
+
+
+
+        html2canvas(document.getElementById('report')).then(function(canvas) {
+        var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+        //  var img = canvas.toDataURL("image/png");
+        var img = canvas.toDataURL("image/png", 1.0);
+
+
+       var width = doc.internal.pageSize.width;
+       var height = doc.internal.pageSize.height;
+
+       doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+
+     doc.save('Output.pdf');
+
+     alert("success")
+
+
+      });
+      }
+
   onSubmit(f) {
 
 
@@ -397,7 +445,7 @@ if (this.categoryid =="2") {
   let f2 = this.fileInput2.nativeElement;
  // let f22 = this.fileInput22.nativeElement;
 
-  if (f2.files[0]) {
+  if (f2.files[0]  ||this.image2) {
 
 
    }
@@ -416,6 +464,31 @@ if (this.categoryid =="2") {
 
   }
 
+  if (this.account.trademarklogo =="1" || this.account.trademarklogo =="3" ) {
+
+
+    let f2 = this.fileInput.nativeElement;
+    // let f22 = this.fileInput22.nativeElement;
+
+     if (f2.files[0] ||this.image1 ) {
+
+
+      }
+
+      else {
+
+       Swal.fire(
+        "Please Upload REPRESENTATION OR MARK",
+         '',
+         'error'
+       )
+
+       return;
+
+  }
+
+}
+
 
 
 
@@ -426,19 +499,28 @@ if (this.categoryid =="2") {
 
 if (f) {
 
-  let fi = this.fileInput.nativeElement;
+
  // let f1 = this.fileInput1.nativeElement;
-  let f2 = this.fileInput2.nativeElement;
+
   //let f22 = this.fileInput22.nativeElement;
-  let f3 = this.fileInput3.nativeElement;
+
  // let f33 = this.fileInput33.nativeElement;
-  let f4 = this.fileInput4.nativeElement;
+
  // let f44 = this.fileInput44.nativeElement;
+
+ try {
+  let fi = this.fileInput.nativeElement;
   if (fi.files && fi.files[0]) {
     let fileToUpload = fi.files[0];
    formData.append("FileUpload", fileToUpload);
 
    }
+
+  }
+  catch(err) {
+
+
+  }
 
   // if (f1.files && f1.files[0]) {
   //  let fileToUpload = f1.files[0];
@@ -446,12 +528,19 @@ if (f) {
 
   // }
 
-
+  try {
+    let f2 = this.fileInput2.nativeElement;
    if (f2.files && f2.files[0]) {
     let fileToUpload = f2.files[0];
    formData.append("FileUpload2", fileToUpload);
 
    }
+
+  }
+  catch(err) {
+
+
+  }
 
   // if (f22.files && f22.files[0]) {
   //  let fileToUpload = f22.files[0];
@@ -459,11 +548,19 @@ if (f) {
 
  //  }
 
+ try {
+  let f3 = this.fileInput3.nativeElement;
    if (f3.files && f3.files[0]) {
     let fileToUpload = f3.files[0];
    formData.append("FileUpload3", fileToUpload);
 
    }
+
+  }
+  catch(err) {
+
+
+  }
 
  //  if (f33.files && f33.files[0]) {
   //  let fileToUpload = f33.files[0];
@@ -471,12 +568,19 @@ if (f) {
 
   // }
 
+  try {
+    let f4 = this.fileInput4.nativeElement;
    if (f4.files && f4.files[0]) {
     let fileToUpload = f4.files[0];
    formData.append("FileUpload4", fileToUpload);
 
    }
 
+  }
+  catch(err) {
+
+
+  }
 
  //  if (f44.files && f44.files[0]) {
   //  let fileToUpload = f44.files[0];
@@ -512,6 +616,9 @@ if (f) {
 
 
 
+
+
+
     localStorage.setItem('Pwallet',this.pwalletid);
 
 
@@ -528,8 +635,11 @@ this.trademarktype=response.content.markinfo.trademarktype.description
   this.image3  = response.content.markinfo.supportDocument1
   this.image4  = response.content.markinfo.supportDocument2
 
-  let obj =  response.content.trademarkLogo.find(o => o.id === response.content.markinfo.tradeMarkTypeID);
-this.trademarklogo =obj.type
+ // let obj =  response.content.trademarkLogo.find(o => o.id === response.content.markinfo.logo_descriptionID);
+//this.trademarklogo =obj.type
+this.trademarklogo =this.row11[parseInt(response.content.markinfo.logo_descriptionID)-1].type
+
+
 
 })
          .catch((response: any) => {
@@ -539,7 +649,23 @@ this.trademarklogo =obj.type
 
          })
 
-   // alert("succcess")
+
+
+
+         this.row.push(8)
+
+
+    var kk = {
+      FeeIds:this.row ,
+      UserId:userid ,
+
+
+
+    }
+
+
+
+
 
   })
            .catch((response: any) => {
@@ -555,15 +681,112 @@ this.trademarklogo =obj.type
 }
 
 else {
-  alert("Form  Not Valid")
+ // alert("Form  Not Valid")
+
+ Swal.fire(
+  "Some Required Field are Missing",
+  '',
+  'error'
+)
 }
 
 //$(this).steps("next");
 
   }
 
+  onSubmit3a() {
+    $(".validation-wizard").steps("next");
+    $(".validation-wizard").steps("next");
+
+
+
+
+  }
+
+  onSubmit4a() {
+    $(".validation-wizard").steps("next");
+
+
+  }
+
+  onSubmit5a() {
+    $(".validation-wizard").steps("previous");
+
+
+  }
+
+
   onSubmit3() {
-    this.makePayment()
+   // this.makePayment()
+   this.row = []
+   this.row.push(8)
+   var userid = localStorage.getItem('UserId');
+
+   var kk = {
+     FeeIds:this.row ,
+     UserId:userid ,
+
+
+
+   }
+   this.busy =  this.registerapi
+   . InitiateRemitaPayment(kk)
+   .then((response: any) => {
+
+     console.log("RemittaResponse")
+   //  this.rows = response.content;
+     console.log(response.content)
+
+     this.row22 =response.content
+
+    // this.rrr =this.row22.rrr
+    localStorage.removeItem('row22');
+
+     localStorage.setItem('row22',JSON.stringify( this.row22));
+
+    this.value = this.row22.rrr
+
+
+     this.vshow2 = true;
+
+
+     var Payment= {
+
+      description: this.row2.description,
+      quatity: "1",
+      amount: this.tot ,
+      paymentref:this.row22.rrr,
+      transactionid:''
+
+
+
+  };
+
+ localStorage.setItem('Payment',JSON.stringify( Payment));
+
+ localStorage.setItem('PaymentType',"FileT002");
+   //  $(".validation-wizard").steps("next");
+
+   this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+
+   })
+            .catch((response: any) => {
+
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
+
+
+
   }
 
 
@@ -625,8 +848,8 @@ else {
 
           };
 
-        //  localStorage.setItem('Payment',JSON.stringify( Payment));
-        alert("Payment Sucessful")
+         localStorage.setItem('Payment',JSON.stringify( Payment));
+      //  alert("Payment Sucessful")
         self.generateInvoice()
 
 
@@ -679,6 +902,9 @@ else {
     this.registerapi.setPage("PrelimSearch")
 
     this.registerapi.VChangeEvent("PrelimSearch");
+
+
+
 
 
     var form = $(".validation-wizard").show();
@@ -747,7 +973,7 @@ else {
       }
 
       this.registerapi
-      . RemitaTransactionRequeryPayment(kk2)
+      .RemitaTransactionRequeryPayment(kk2)
       .then((response: any) => {
 
         console.log("RemittaResponse")
@@ -880,46 +1106,7 @@ else {
              })
 
 
-      this.row.push(8)
 
-
-    var kk = {
-      FeeIds:this.row ,
-      UserId:userid ,
-
-
-
-    }
-
-     this.registerapi
-   . InitiateRemitaPayment(kk)
-   .then((response: any) => {
-
-     console.log("RemittaResponse")
-   //  this.rows = response.content;
-     console.log(response)
-
-     this.row22 =response.content
-
-     this.vshow2 = true;
-
-
-
-
-
-   })
-            .catch((response: any) => {
-
-              console.log(response)
-
-
-             Swal.fire(
-               response.error.message,
-               '',
-               'error'
-             )
-
-})
 
 this.busy =   this.registerapi
 .GetFeeListByName("APPLICATION FOR REGISTRATION OF TRADE/SERVICE MARK" ,userid)

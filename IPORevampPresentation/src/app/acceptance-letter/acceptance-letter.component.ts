@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 import Swal from 'sweetalert2' ;
 
 
+
 @Component({
   selector: 'app-acceptance-letter',
   templateUrl: './acceptance-letter.component.html',
@@ -18,8 +19,10 @@ import Swal from 'sweetalert2' ;
 export class AcceptanceLetterComponent implements OnInit {
   row2:any;
   elementType = 'url';
-  value = 'Techiediaries';
+  value = 'Federal Ministry Of Trade Nigeria';
   vshow :boolean = false;
+  busy: Promise<any>;
+  appuser
   vimage
   constructor(private registerapi :ApiClientService) { }
 
@@ -27,10 +30,11 @@ export class AcceptanceLetterComponent implements OnInit {
   senddata (dd:FormData) {
 
     $(document).scrollTop(0);
-this.registerapi.SendAttachment(dd)
+   this.registerapi.SendAttachmentAcceptance(dd)
   .then((response: any) => {
 
-    alert("success")
+
+  //  alert("success")
 
 
   //   this.msgs = [];
@@ -52,18 +56,18 @@ this.registerapi.SendAttachment(dd)
   onSubmit8(){
 
 
-     var doc = new jspdf('p', 'mm', "a4");
+    // var doc = new jspdf('p', 'mm', "a4");
      var data2 = new FormData();
 
     // alert( pfile +  " 1")
     var userid =localStorage.getItem('UserId');
 
-    data2.append('userid' , userid);
+    data2.append('userid' , this.appuser);
     var d = new Date()
     data2.append('message' ,"A copy of Acceptance Letter Generated on " + d);
      var AgentsData = {
 
-       email: userid
+       email: this.appuser
 
 
    };
@@ -78,21 +82,33 @@ this.registerapi.SendAttachment(dd)
      html2canvas(document.getElementById('report')).then(function(canvas) {
       // alert(self)
 
-       var img = canvas.toDataURL("image/png");
+      const context = canvas.getContext('2d');
+      context.scale(2, 2);
+      context['dpi'] = 144;
+      context['imageSmoothingEnabled'] = false;
+      context['mozImageSmoothingEnabled'] = false;
+      context['oImageSmoothingEnabled'] = false;
+      context['webkitImageSmoothingEnabled'] = false;
+      context['msImageSmoothingEnabled'] = false;
+
+      var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+      // var img = canvas.toDataURL("image/png");
+      var img = canvas.toDataURL("image/png", 1.0);
 
     //  var doc = new jsPDF();
 
 
     //  var doc = new jsPDF('p', 'mm', "a4");
 
-    doc.setFont("courier");
+   // doc.setFont("courier");
 
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
 
 
-    // doc.addImage(img,'PNG',15,10);
-    doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+   // doc.addImage(img, 'JPEG', 0, 0, width, height);
+   doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
 
 
 
@@ -138,6 +154,9 @@ this.registerapi.SendAttachment(dd)
     .GetAknwoledgment(pwallet)
     .then((response: any) => {
 
+console.log("Aknowlegement")
+console.log(response.content)
+this.appuser =response.content.applicationUser.id
 
       this.row2 = response.content;
 
@@ -158,50 +177,22 @@ this.registerapi.SendAttachment(dd)
 
       var self = this;
 
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false,
-      })
+      $( document ).ready(function() {
 
-          swalWithBootstrapButtons.fire({
-            title: 'A Copy Will be sent to your email ',
-            text: "",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, Proceed!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.value) {
+        self.onSubmit8();
 
-              self.onSubmit8();
-        } else if (
-              // Read more about handling dismissals
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
+    });
 
-            }
-          })
-
-
-
-
-
-
-
-
-
-    })
-             .catch((response: any) => {
-
-               console.log(response)
-
-
-       alert("error")
   })
-  }
+  .catch((response: any) => {
+
+    console.log(response)
+
+
+alert("error")
+})
+
+
+}
 
 }

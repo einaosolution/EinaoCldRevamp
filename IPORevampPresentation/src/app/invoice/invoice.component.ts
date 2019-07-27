@@ -18,8 +18,11 @@ export class InvoiceComponent implements OnInit {
   vdate:any
   row2:any;
   elementType = 'url';
-  value = 'Federal Ministry Of Trade Nigeria';
+  value = '';
   vshow:boolean =false;
+  busy: Promise<any>;
+  description :any;
+  amount :any;
   constructor(private registerapi :ApiClientService) { }
 
 
@@ -27,10 +30,11 @@ export class InvoiceComponent implements OnInit {
   senddata (dd:FormData) {
 
     $(document).scrollTop(0);
-this.registerapi.SendAttachment(dd)
+     this.registerapi.SendAttachment(dd)
   .then((response: any) => {
 
-    alert("success")
+   // alert("Email Sent")
+
 
 
   //   this.msgs = [];
@@ -49,18 +53,39 @@ this.registerapi.SendAttachment(dd)
    );
   }
 
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('report').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+}
   onSubmit8(){
 
 
-     var doc = new jspdf('p', 'mm', "a4");
+    // var doc = new jspdf('p', 'mm', "a4");
      var data2 = new FormData();
 
     // alert( pfile +  " 1")
     var userid =localStorage.getItem('UserId');
 
     data2.append('userid' , userid);
+    data2.append('transactionnumber' , this.row.transactionid);
+    data2.append('amount' , this.row.amount);
+    data2.append('transactiondescription' , this.row.description);
     var d = new Date()
-    data2.append('message' ,"A copy of Invoice Generated on " + d);
+    data2.append('message' ,"A copy of Receipt Generated on " + d);
      var AgentsData = {
 
        email: userid
@@ -76,36 +101,50 @@ this.registerapi.SendAttachment(dd)
 
 
      html2canvas(document.getElementById('report')).then(function(canvas) {
-      // alert(self)
 
-       var img = canvas.toDataURL("image/png");
+      const context = canvas.getContext('2d');
+      context.scale(2, 2);
+      context['dpi'] = 144;
+      context['imageSmoothingEnabled'] = false;
+      context['mozImageSmoothingEnabled'] = false;
+      context['oImageSmoothingEnabled'] = false;
+      context['webkitImageSmoothingEnabled'] = false;
+      context['msImageSmoothingEnabled'] = false;
+
+      // alert(self)
+      var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+     //  var img = canvas.toDataURL("image/png");
+       var img = canvas.toDataURL("image/png", 1.0);
 
     //  var doc = new jsPDF();
 
 
     //  var doc = new jsPDF('p', 'mm', "a4");
 
-    doc.setFont("courier");
+   // doc.setFont("courier");
 
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
 
 
-    // doc.addImage(img,'PNG',15,10);
-    doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+  //  doc.addImage(img, 'JPEG', 0, 0, width, height);
+    doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+
+  //  doc.addImage(img,0,0,canvas.width, canvas.height);
 
 
 
-     var pdf = doc.output('blob');
+    var pdf = doc.output('blob');
      console.log(pdf)
 
 
    data2.append('FileUpload' , pdf);
 
-   //formData.append("FileUpload", fileToUpload);
+
 
    self.senddata(data2)
-
+  //doc.save('converteddoc.pdf');
 
 
    });
@@ -113,39 +152,19 @@ this.registerapi.SendAttachment(dd)
 
   ngOnInit() {
     var vpayment= localStorage.getItem('Payment')
+    var self = this;
 
     this.row= JSON.parse(vpayment);
     this.vdate =new Date();
+    this.value = this.row.paymentref;
 
-    var self = this;
 
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false,
-    })
+    $( document ).ready(function() {
 
-        swalWithBootstrapButtons.fire({
-          title: 'A Copy Will be sent to your email ',
-          text: "",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, Proceed!',
-          cancelButtonText: 'No, cancel!',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.value) {
+      self.onSubmit8()
 
-            self.onSubmit8();
-      } else if (
-            // Read more about handling dismissals
-            result.dismiss === Swal.DismissReason.cancel
-          ) {
+  });
 
-          }
-        })
 
 
 

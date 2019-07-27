@@ -39,11 +39,18 @@ export class CorporateComponent implements OnInit {
    UserEmail:string ="";
    public row2 = [];
    public row = [];
+   public row4 = [];
+   minDate: Date;
+  maxDate: Date;
+   busy: Promise<any>;
+     lga: FormControl;
 
   varray4 = [{ YearName: 'Argentina', YearCode: 'AR' }, {  YearName: 'Austria', YearCode: 'AT' }  ,{  YearName: 'Cameroon', YearCode: 'CM' },{  YearName: 'China', YearCode: 'CN' } ,{  YearName: 'Nigeria', YearCode: 'NG' } ]
   varray44 = [{ YearName: 'Driver License', YearCode: 'Driver License' }, {  YearName: 'International Passport', YearCode: 'International Passport' }  ,{  YearName: 'National Identity Card', YearCode: 'National Identity Card' },{  YearName: 'Voters Registration Card', YearCode: 'Voters Registration Card' }  ]
   constructor(private fb: FormBuilder ,private route: ActivatedRoute ,private registerapi :ApiClientService ,private router: Router ,private spinner: NgxSpinnerService) {
     this.getIpAddress()
+    this.maxDate = new Date();
+    this.minDate = new Date();
    }
 
 
@@ -131,6 +138,7 @@ export class CorporateComponent implements OnInit {
    formData.append("PostCode",this.userform.value.PostCode);
    formData.append("Country",this.userform.value.Country);
    formData.append("meanofidentification_value",this.userform.value.IdentificationValue);
+   formData.append("lgaid",this.userform.value.lga);
 
 
 
@@ -158,6 +166,68 @@ export class CorporateComponent implements OnInit {
   }
 
    }
+
+
+
+     onChange($event) {
+
+      // if (this.userform.value.Country =="" ) {
+
+
+       this.busy =   this.registerapi
+       .GetStateByCountry(this.userform.value.Country)
+       .then((response: any) => {
+         console.log("row2")
+         console.log(response)
+         this.row2 = response.content;
+
+
+
+       })
+                .catch((response: any) => {
+                  this.submitted= false;
+                  this.spinner.hide();
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
+        })
+
+
+
+       }
+
+
+   onChange2($event) {
+
+    // if (this.userform.value.Country =="" ) {
+
+
+     this.busy =   this.registerapi
+     .GetLGAByState(this.userform.value.State)
+     .then((response: any) => {
+       console.log("row3")
+       console.log(response)
+       this.row4 = response.content;
+
+
+
+     })
+              .catch((response: any) => {
+                this.submitted= false;
+                this.spinner.hide();
+                Swal.fire(
+                  response.error.message,
+                  '',
+                  'error'
+                )
+      })
+
+
+
+     }
+
   ngOnInit() {
 
     var firstname = "";
@@ -192,6 +262,12 @@ export class CorporateComponent implements OnInit {
       Validators.required
 
     ]);
+
+    this.lga = new FormControl('', [
+      Validators.required
+
+    ]);
+
 
     this.DateofBirth = new FormControl('', [
       Validators.required
@@ -277,6 +353,7 @@ export class CorporateComponent implements OnInit {
       MobileNumber: this.MobileNumber ,
       Street: this.Street ,
       City: this.City ,
+      lga:this.lga ,
       State: this.State ,
       PostCode: this.PostCode ,
       Country: this.Country ,
@@ -304,29 +381,7 @@ export class CorporateComponent implements OnInit {
 
 
 
-  this.registerapi
-  .GetAllStates(userid)
-  .then((response: any) => {
 
-
-    this.row2 = response.content;
-
-    console.log(response)
-
-
-
-  })
-           .catch((response: any) => {
-
-             console.log(response)
-
-
-            Swal.fire(
-              response.error.message,
-              '',
-              'error'
-            )
-})
 
 this.registerapi
 .GetCountry("true",userid)

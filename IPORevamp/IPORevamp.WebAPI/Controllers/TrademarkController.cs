@@ -40,6 +40,7 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly InewApplication _newApplicationRepository;
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
+        private readonly Repository.Email.IEmailTemplateRepository _EmailTemplateRepository;
         private IFileHandler _fileUploadRespository;
         private readonly IPOContext _contex;
 
@@ -59,7 +60,8 @@ namespace IPORevamp.WebAPI.Controllers
     IMapper mapper, ILogger<UserController> logger,
     IPOContext contex,
     IEmailManager<EmailLog, EmailTemplate> emailManager,
-     
+      Repository.Email.IEmailTemplateRepository EmailTemplateRepository,
+
 
     InewApplication newApplicationRepository,
 
@@ -90,13 +92,14 @@ namespace IPORevamp.WebAPI.Controllers
             _newApplicationRepository = newApplicationRepository;
             _contex = contex;
             _fileUploadRespository = fileUploadRespository;
+            _EmailTemplateRepository = EmailTemplateRepository;
 
 
         }
 
-
+        
         [HttpPost("SendAttachment")]
-        public async Task<IActionResult> SendAttachment( [FromForm] string userid , [FromForm] string message)
+        public async Task<IActionResult> SendAttachment( [FromForm] string userid , [FromForm] string message , [FromForm] string amount, [FromForm] string transactiondate, [FromForm] string transactiondescription , [FromForm] string transactionnumber)
         {
             string ip = "";
 
@@ -104,7 +107,8 @@ namespace IPORevamp.WebAPI.Controllers
 
 
             var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
-          
+            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Receipt);
+
 
             if (user == null)
             {
@@ -113,12 +117,21 @@ namespace IPORevamp.WebAPI.Controllers
 
             }
 
-            var username = user.FirstName + "" + user.LastName;
+            var username = user.FirstName + " " + user.LastName;
 
-            String ss2 = "Dear " + username + " <br/> Find Attached <br/><br/> Regards";
+            string mailContent = emailtemplate.EmailBody;
+
+            mailContent = mailContent.Replace("#Name", username);
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+            mailContent = mailContent.Replace("#tran", transactionnumber);
+
+            mailContent = mailContent.Replace("#description", transactiondescription);
+            mailContent = mailContent.Replace("#amount", string.Format("{0:0.#}", amount));
+            mailContent = mailContent.Replace("#date", DateTime.Now.ToString("MM/dd/yyyy"));
+            //  String ss2 = "Dear " + username + " <br/> Find Attached <br/><br/> Regards";
 
 
-            String ss = "<html>  <head> </head> <body style=\"color: grey; font - size:15px; \"> <font face=\"Helvetica, Arial, sans - serif \">  <div style=\"position: absolute; height: 100px;width: 600px; background - color:0d1d36; padding: 30px; \"> " + ss2 + "</div></body> </html>";
+            //  String ss = "<html>  <head> </head> <body style=\"color: grey; font - size:15px; \"> <font face=\"Helvetica, Arial, sans - serif \">  <div style=\"position: absolute; height: 100px;width: 600px; background - color:0d1d36; padding: 30px; \"> " + ss2 + "</div></body> </html>";
 
 
 
@@ -159,7 +172,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                    
 
-                    await _emailsender.SendEmailAsync(user.Email, message, ss,true, vlist);
+                    await _emailsender.SendEmailAsync(user.Email, message, mailContent, true, vlist);
 
 
 
@@ -194,7 +207,330 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
-      
+
+        [HttpPost("SendAttachmentReceipt")]
+        public async Task<IActionResult> SendAttachmentReceipt([FromForm] string userid, [FromForm] string message  , [FromForm] string amount , [FromForm] string transactiondate , [FromForm] string transactiondescription)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Invoice);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            var username = user.FirstName + " " + user.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+            mailContent = mailContent.Replace("#Name", username);
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+          
+            mailContent = mailContent.Replace("#description", transactiondescription);
+            mailContent = mailContent.Replace("#amount", string.Format("{0:0.#}", amount));
+            mailContent = mailContent.Replace("#date", DateTime.Now.ToString("MM/dd/yyyy"));
+
+          //  String ss2 = "Dear " + username + " <br/> Find Attached <br/><br/> Regards";
+
+
+          //  String ss = "<html>  <head> </head> <body style=\"color: grey; font - size:15px; \"> <font face=\"Helvetica, Arial, sans - serif \">  <div style=\"position: absolute; height: 100px;width: 600px; background - color:0d1d36; padding: 30px; \"> " + ss2 + "</div></body> </html>";
+
+
+
+
+
+
+            // file upload
+            string msg = "";
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    var postedFile = Request.Form.Files[0];
+                    var vfile = postedFile.FileName.Replace("\"", string.Empty).Replace("'", string.Empty);
+
+                    vfile = vfile + Guid.NewGuid().ToString();
+
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["MemberPassportFolder"], vfile + ".pdf");
+
+                    using (var fileSrteam = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await postedFile.CopyToAsync(fileSrteam);
+                    }
+                    // postedFile.sa.SaveAs(fullPath);
+
+                    //  msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                    //    result2);
+
+
+                    List<string> vlist = new List<string>();
+                    vlist.Add(fullPath);
+
+
+
+                    await _emailsender.SendEmailAsync(user.Email, message, mailContent, true, vlist);
+
+
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+
+
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+            await _contex.AddAsync(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application File Sent successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = "",
+                RecordAfter = ""
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Mail Sent", false);
+
+        }
+
+
+        [HttpPost("SendAttachmentAcceptance")]
+        public async Task<IActionResult> SendAttachmentAcceptance([FromForm] string userid, [FromForm] string message)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Acceptance);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            var username = user.FirstName + " " + user.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+           
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+            mailContent = mailContent.Replace("#Name", username);
+
+
+
+            //  String ss2 = "Dear " + username + " <br/> Find Attached <br/><br/> Regards";
+
+
+            //  String ss = "<html>  <head> </head> <body style=\"color: grey; font - size:15px; \"> <font face=\"Helvetica, Arial, sans - serif \">  <div style=\"position: absolute; height: 100px;width: 600px; background - color:0d1d36; padding: 30px; \"> " + ss2 + "</div></body> </html>";
+
+
+
+
+
+
+            // file upload
+            string msg = "";
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    var postedFile = Request.Form.Files[0];
+                    var vfile = postedFile.FileName.Replace("\"", string.Empty).Replace("'", string.Empty);
+
+                    vfile = vfile + Guid.NewGuid().ToString();
+
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["MemberPassportFolder"], vfile + ".pdf");
+
+                    using (var fileSrteam = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await postedFile.CopyToAsync(fileSrteam);
+                    }
+                    // postedFile.sa.SaveAs(fullPath);
+
+                    //  msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                    //    result2);
+
+
+                    List<string> vlist = new List<string>();
+                    vlist.Add(fullPath);
+
+
+
+                    await _emailsender.SendEmailAsync(user.Email, message, mailContent, true, vlist);
+
+
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+
+
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+            await _contex.AddAsync(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application File Sent successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = "",
+                RecordAfter = ""
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Mail Sent", false);
+
+        }
+
+        [HttpPost("SendAttachmentRefusal")]
+        public async Task<IActionResult> SendAttachmentRefusal([FromForm] string userid, [FromForm] string message)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.Refusal);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            var username = user.FirstName + " " + user.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+            mailContent = mailContent.Replace("#Name", username);
+
+
+
+            //  String ss2 = "Dear " + username + " <br/> Find Attached <br/><br/> Regards";
+
+
+            //  String ss = "<html>  <head> </head> <body style=\"color: grey; font - size:15px; \"> <font face=\"Helvetica, Arial, sans - serif \">  <div style=\"position: absolute; height: 100px;width: 600px; background - color:0d1d36; padding: 30px; \"> " + ss2 + "</div></body> </html>";
+
+
+
+
+
+
+            // file upload
+            string msg = "";
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    var postedFile = Request.Form.Files[0];
+                    var vfile = postedFile.FileName.Replace("\"", string.Empty).Replace("'", string.Empty);
+
+                    vfile = vfile + Guid.NewGuid().ToString();
+
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["MemberPassportFolder"], vfile + ".pdf");
+
+                    using (var fileSrteam = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await postedFile.CopyToAsync(fileSrteam);
+                    }
+                    // postedFile.sa.SaveAs(fullPath);
+
+                    //  msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                    //    result2);
+
+
+                    List<string> vlist = new List<string>();
+                    vlist.Add(fullPath);
+
+
+
+                    await _emailsender.SendEmailAsync(user.Email, message, mailContent, true, vlist);
+
+
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+
+
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+            await _contex.AddAsync(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application File Sent successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = "",
+                RecordAfter = ""
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Mail Sent", false);
+
+        }
+
         [HttpPost("SaveApplication")]
         public async Task<IActionResult> SaveApplication([FromForm] string userId,
       [FromForm] string Applicationtypeid, [FromForm] string transactionid, [FromForm] string logo_descriptionID, [FromForm] string nation_classID, [FromForm] string tm_typeID, [FromForm] string product_title, [FromForm] string nice_class , [FromForm] string pwalletid, [FromForm] string nice_class_description)
@@ -574,6 +910,7 @@ namespace IPORevamp.WebAPI.Controllers
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
             }
         }
+
 
 
         [HttpGet("GetTrademarkLogo")]

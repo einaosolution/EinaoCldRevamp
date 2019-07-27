@@ -167,6 +167,7 @@ onSubmit3() {
     //Do something
 }
 
+if ( this.row10.length > 0) {
 
 this.busy =   this.registerapi
 .UpdateBatch(userid,this.row10)
@@ -186,7 +187,11 @@ this.busy =   this.registerapi
 
          })
 
+        }
 
+        else {
+          alert("No Row Selected")
+        }
 
 
 // console.log("this.rows")

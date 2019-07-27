@@ -106,6 +106,22 @@ import { NoticeOfCounterOppositionComponent } from './notice-of-counter-oppositi
 import { UploadJudgementComponent } from './upload-judgement/upload-judgement.component';
 import { ViewJudgmentComponent } from './view-judgment/view-judgment.component';
 import { TrademarkReportComponent } from './trademark-report/trademark-report.component';
+import { PayCertificateComponent } from './pay-certificate/pay-certificate.component';
+import { NoticeCertificatePaymentComponent } from './notice-certificate-payment/notice-certificate-payment.component';
+import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
+import { CertificateComponent } from './certificate/certificate.component';
+import { RenewTrademarkComponent } from './renew-trademark/renew-trademark.component';
+import { PayRenewalComponent } from './pay-renewal/pay-renewal.component';
+import { GenerateIssuedCertificateComponent } from './generate-issued-certificate/generate-issued-certificate.component';
+import { ViewrenewalComponent } from './viewrenewal/viewrenewal.component';
+import { GenRecordalRenewComponent } from './gen-recordal-renew/gen-recordal-renew.component';
+import { Invoice2Component } from './invoice2/invoice2.component';
+import { MergerTrademarkComponent } from './merger-trademark/merger-trademark.component';
+import { NoticeofmergerComponent } from './noticeofmerger/noticeofmerger.component';
+import { SearchDbComponent } from './search-db/search-db.component';
+import {AuthGuard} from './auth.guard';
+import { TrademarkApplicationComponent } from './trademark-application/trademark-application.component';
+import { ViewPreliminarySearchComponent } from './view-preliminary-search/view-preliminary-search.component';
 
 
 
@@ -194,7 +210,22 @@ import { TrademarkReportComponent } from './trademark-report/trademark-report.co
     NoticeOfCounterOppositionComponent,
     UploadJudgementComponent,
     ViewJudgmentComponent,
-    TrademarkReportComponent
+    TrademarkReportComponent,
+    PayCertificateComponent,
+    NoticeCertificatePaymentComponent,
+    GenerateCertificateComponent,
+    CertificateComponent,
+    RenewTrademarkComponent,
+    PayRenewalComponent,
+    GenerateIssuedCertificateComponent,
+    ViewrenewalComponent,
+    GenRecordalRenewComponent,
+    Invoice2Component,
+    MergerTrademarkComponent,
+    NoticeofmergerComponent,
+    SearchDbComponent,
+    TrademarkApplicationComponent,
+    ViewPreliminarySearchComponent
   ],
   imports: [
     BrowserModule,
@@ -223,7 +254,7 @@ import { TrademarkReportComponent } from './trademark-report/trademark-report.co
 
     BrowserAnimationsModule
   ],
-  providers: [ApiClientService ,	{ provide: LocationStrategy, useClass: HashLocationStrategy },{provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true},],
+  providers: [ApiClientService ,	{ provide: LocationStrategy, useClass: HashLocationStrategy },{provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptorService, multi: true},AuthGuard,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -141,14 +141,11 @@
                                     <div class="form-group">
                                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                            <input type="text" name="name"  formControlName="Firstname2" [ngClass]="{ 'is-invalid': submitted && Firstname2.errors }"   class="form-control" id="name"
+                                            <input type="text" name="firstname2"  formControlName="Firstname2" [ngClass]="{ 'is-invalid': submitted2 && Firstname2.errors }"   class="form-control" id="firstname"
                                                    placeholder="First Name" required autofocus>
 
 
-                                                   <div *ngIf="submitted && Firstname2.errors" class="invalid-feedback">
-                                                    <div *ngIf="submitted && Firstname2.errors.required">First Name is required</div>
 
-                                                  </div>
 
                                         </div>
                                     </div>
@@ -163,14 +160,9 @@
                                       <div class="form-group">
                                           <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                              <input type="text" name="name"   formControlName="Lastname2" [ngClass]="{ 'is-invalid': submitted && Lastname2.errors }"     class="form-control" id="name"
+                                              <input type="text" name="Lastname2"   formControlName="Lastname2" [ngClass]="{ 'is-invalid': submitted2 && Lastname2.errors }"     class="form-control" id="name"
                                                      placeholder="Last Name"  autofocus>
 
-
-                                                     <div *ngIf="submitted && Lastname2.errors" class="invalid-feedback">
-                                                      <div *ngIf="submitted && Lastname2.errors.required">Last Name is required</div>
-
-                                                    </div>
 
 
                                           </div>
@@ -180,29 +172,7 @@
                               </div>
 
 
-                              <div class="row">
-                                <div class="col-md-3 field-label-responsive d-flex justify-content-end">
-                                    <label for="email">Email </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                            <input type="text" name="name"   formControlName="Email2" [ngClass]="{ 'is-invalid': submitted && Email2.errors }"     class="form-control" id="name"
-                                                   placeholder="Email"  autofocus>
-
-
-                                                   <div *ngIf="submitted &&Email2.errors" class="invalid-feedback">
-                                                    <div *ngIf="submitted && Email2.errors.required">Email is required</div>
-
-                                                  </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
 
                             <div class="row">
                               <div class="col-md-3 field-label-responsive d-flex justify-content-end">
@@ -212,14 +182,11 @@
                                   <div class="form-group">
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                          <input type="text" name="name"   formControlName="MobileNumber2" [ngClass]="{ 'is-invalid': submitted && MobileNumber2.errors }"     class="form-control" id="name"
+                                          <input type="text" name="phonenumber2"   formControlName="MobileNumber2" [ngClass]="{ 'is-invalid': submitted2 && MobileNumber2.errors }"     class="form-control" id="name"
                                                  placeholder="Phone Number "  autofocus>
 
 
-                                                 <div *ngIf="submitted &&MobileNumber2.errors" class="invalid-feedback">
-                                                  <div *ngIf="submitted && MobileNumber2.errors.required">Phone Number  is required</div>
 
-                                                </div>
 
 
                                       </div>
@@ -236,14 +203,11 @@
                                 <div class="form-group">
                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
-                                        <input type="text" name="name"   formControlName="Occupation2" [ngClass]="{ 'is-invalid': submitted && Occupation2.errors }"     class="form-control" id="name"
+                                        <input type="text" name="occupation2"   formControlName="Occupation2" [ngClass]="{ 'is-invalid': submitted2 && Occupation2.errors }"     class="form-control" id="name"
                                                placeholder="Occupation "  autofocus>
 
 
-                                               <div *ngIf="submitted &&Occupation2.errors" class="invalid-feedback">
-                                                <div *ngIf="submitted && Occupation2.errors.required">Occupation  is required</div>
 
-                                              </div>
 
 
                                     </div>
@@ -251,6 +215,253 @@
                             </div>
 
                         </div>
+
+
+
+                        <div class="row">
+                          <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                              <label for="email">Staff ID</label>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                      <input type="text" name="staff2"   formControlName="StaffId2" [ngClass]="{ 'is-invalid': submitted2 && StaffId2.errors }"     class="form-control" id="name"
+                                             placeholder="Staff ID"  autofocus>
+
+
+
+
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+
+
+                        <div class="row">
+                          <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                              <label for="email">Gender </label>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                    <select name="Gender2" formControlName="Gender2" [ngClass]="{ 'is-invalid': submitted2 && Gender2.errors }"     class="form-control">
+                                      <option value=""> --Select Gender--</option>
+                                      <option value="0">Male</option>
+                                        <option value="1">Female</option>
+                                    </select>
+
+
+
+
+
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                            <label for="email">Street</label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                    <input type="text" name="street2"   formControlName="Street2" [ngClass]="{ 'is-invalid': submitted2 && Street2.errors }"     class="form-control" id="street"
+                                           placeholder="Street"  autofocus>
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                          <label for="email">City</label>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                  <input type="text" name="city2"   formControlName="City2" [ngClass]="{ 'is-invalid': submitted2 && City2.errors }"     class="form-control" id="city"
+                                         placeholder="City"  autofocus>
+
+
+
+
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                        <label for="email">Post Code</label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                <input type="text" name="postcode2"   formControlName="Postal2" [ngClass]="{ 'is-invalid': submitted2 && Postal2.errors }"     class="form-control" id="name"
+                                       placeholder="Post Code"  autofocus>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                        <div class="row">
+                          <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                              <label for="email">Country </label>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                    <select   name="Country2"  formControlName="Country2"  [ngClass]="{ 'is-invalid': submitted2 && Country2.errors }"       class="custom-select form-control-lg "    id="country">
+                                      <option  value= "">
+                                        --Select Country--
+                                        </option>
+                                      <option *ngFor="let country2 of rows" value= {{country2.id}}>
+                                        {{country2.name}}
+                                      </option>
+                                    </select>
+
+
+
+
+
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+
+
+
+                      <div class="row">
+                        <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                            <label for="email">State </label>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                  <select   name="state2"  formControlName="State2"  [ngClass]="{ 'is-invalid': submitted2 && State2.errors }"      class="custom-select form-control-lg "    id="state">
+                                    <option  value= "">
+                                      --Select State--
+                                      </option>
+                                    <option *ngFor="let country2 of row2" value= {{country2.id}}>
+                                      {{country2.stateName}}
+                                    </option>
+                                  </select>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                          <label for="email">Ministry </label>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                <select   name="ministry2"  formControlName="Ministry2"   [ngClass]="{ 'is-invalid': submitted2 && Ministry2.errors }"    class="custom-select form-control-lg "    id="state">
+                                  <option  value= "">
+                                    --Select Ministry--
+                                    </option>
+                                  <option *ngFor="let country2 of row8" value= {{country2.id}}>
+                                    {{country2.description}}
+                                  </option>
+                                </select>
+
+
+
+
+
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                        <label for="email">Department </label>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                              <select   name="department2"  formControlName="Department2"  [ngClass]="{ 'is-invalid': submitted2 && Department2.errors }"     class="custom-select form-control-lg "    id="department">
+                                <option  value= "">
+                                  --Select Department--
+                                  </option>
+                                <option *ngFor="let country2 of row9" value= {{country2.id}}>
+                                  {{country2.name}}
+                                </option>
+                              </select>
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                      <label for="email">Unit </label>
+                  </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                            <select   name="unit2"  formControlName="Unit2"  [ngClass]="{ 'is-invalid': submitted2 && Unit2.errors }" class="custom-select form-control-lg "    >
+                              <option  value= "">
+                                --Select Unit--
+                                </option>
+                              <option *ngFor="let country2 of row7" value= {{country2.id}}>
+                                {{country2.description}}
+                              </option>
+                            </select>
+
+
+
+
+
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
 
 
 
@@ -265,7 +476,7 @@
                                       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
 
 
-                                          <select class="form-control"   formControlName="Role2"  [ngClass]="{ 'is-invalid': submitted && Role2.errors }"     id="sel1">
+                                          <select class="form-control" name ="role2"   formControlName="Role2"  [ngClass]="{ 'is-invalid': submitted2 && Role2.errors }"     >
                                               <option value="">---- --Select Role-----</option>
 
 

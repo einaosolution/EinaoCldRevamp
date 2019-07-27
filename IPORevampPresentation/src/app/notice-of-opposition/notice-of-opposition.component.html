@@ -190,8 +190,9 @@
                                      <div class="row">
 
                                          <div class="col_md_6 col_md_offset_6">
+                                            <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
                                           <button type="button"  (click) ="onSubmit2(f.form.valid)" class="btn btn-success"> Next</button> &nbsp;&nbsp;&nbsp;
-                                         <button type="button"   class="btn btn-success"><i class="ti-save"></i> Save And Continue</button>
+                                         <button type="button" (click) ="onSubmit3a()"   class="btn btn-success"><i class="ti-save"></i> Save And Continue Later</button>
 
 
                                          </div>
@@ -205,59 +206,48 @@
                       <!-- Step 3 -->
                       <h6>Step 3</h6>
                       <section>
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <div class="card">
-                                      <div class="card-body">
-                                          <h5 class="card-title">PRODUCT SUMMARY</h5>
-                                          <div class="table-responsive">
-                                              <table class="table table-bordered">
-                                                  <thead>
-                                                      <tr>
+                        <div class="align-items-center justify-content-center row" >
+                          <table class="table" >
 
-                                                          <th>Product</th>
-                                                          <th>Quantity</th>
-                                                          <th>Price</th>
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                      <tr>
-                                                          <td>{{row2.description}}</td>
+                           <tr>
+                             <td colspan="2">
+                                 <p>Terms and conditions of use</p>
+                                 <ol>
+                                 <li>Introduction</li>
+                                 </ol>
+                                 <p>1.1&nbsp;&nbsp;&nbsp; These terms and conditions shall govern your use of our website.</p>
+                                 <p>1.2&nbsp;&nbsp;&nbsp; By using our website, you accept these terms and conditions in full; accordingly, if you disagree with these terms and conditions or any part of these terms and conditions, you must not use our website.</p>
+                                 <p>1.3&nbsp;&nbsp;&nbsp; If you [register with our website, submit any material to our website or use any of our website services], we will ask you to expressly agree to these terms and conditions.</p>
+                                 <p>1.4&nbsp;&nbsp;&nbsp; You must be at least [18] years of age to use our website; by using our website or agreeing to these terms and conditions, you warrant and represent to us that you are at least [18] years of age.</p>
 
-                                                          <td>1</td>
-                                                          <td class="font-500">&#8358;{{tot| number:'.2-2'}}</td>
-                                                      </tr>
-                                                      <tr>
-                                                          <td colspan="3" class="font-500" align="right">Total Amount</td>
-                                                          <td class="font-500">&#8358;{{tot| number:'.2-2' }}</td>
-                                                      </tr>
+                                 <p>&nbsp;</p>
+                             </td>
 
-                                                      <tr>
-                                                        <td colspan="3" class="font-500" align="right">I Accept Amount</td>
-                                                        <td class="font-500"><input [(ngModel)]="checkboxFlag"  (change)="FieldsChange($event)" type="checkbox"/></td>
-                                                    </tr>
+                           </tr>
 
-                                                    <tr>
-                                                      <td colspan="3" class="font-500" align="right"></td>
-                                                      <td class="font-500"><form ngNoForm action="https://remitademo.net/remita/ecomm/finalize.reg" name="SubmitRemitaForm"  method="POST">
-                                                        <input name="merchantId" value="{{row22.merchantId}}" type="hidden">
-                                                        <input name="hash" value="{{row22.hash}}" type="hidden">
-                                                        <input name="rrr" value="{{row22.rrr}}" type="hidden">
-                                                        <input name="responseurl" value="{{vfilepath}}Dashboard/NoticeOfOpposition" type="hidden">
+                             <tr >
+                               <td colspan="2"> <span> Do You  Accept Our Terms And Condition </span> <span> <input [(ngModel)]="checkboxFlag"  (change)="FieldsChange($event)" type="checkbox"/> </span> </td>
 
-                                                        <button *ngIf="checkboxFlag"    type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Pay with Remita</button>
-                                                        </form>
-    </td>
-                                                  </tr>
 
-                                                  </tbody>
-                                              </table>
-                                          </div>
+                             </tr>
 
-                                      </div>
-                                  </div>
-                              </div>
+                             <tr>
+                              <td>
+                                 <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
+                              </td>
+
+                             </tr>
+
+
+                          </table>
+
                           </div>
+                      </section>
+
+                      <h6>Step 4</h6>
+                      <section>
+                        <p>Thank You </p>
+
                       </section>
 
 

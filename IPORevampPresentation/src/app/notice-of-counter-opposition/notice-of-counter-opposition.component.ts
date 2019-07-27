@@ -202,13 +202,14 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
 
    if (values.currentTarget.checked) {
     this.checkboxFlag =true
-
-    alert("Click Pay with remitta button to proceed")
+    Swal.fire('Click make payment button to proceed')
+    //alert("Click Pay with remitta button to proceed")
    }
 
    else {
     this.checkboxFlag =false
-    alert("Ok")
+  //  alert("Ok")
+  Swal.fire('Terms And Condition Unchecked', 'error')
    }
 
     }
@@ -228,6 +229,13 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
 
 
   }
+
+  onSubmit5a() {
+    $(".validation-wizard").steps("previous");
+
+
+  }
+
 
    onSubmit2(f) {
     localStorage.setItem('NoticeAppID' ,this.NoticeAppID);
@@ -528,16 +536,99 @@ if (f) {
 }
 
 else {
-  alert("Form  Not Valid")
+ // alert("Form  Not Valid")
+ Swal.fire(
+  "Some Required Field are Missing",
+  '',
+  'error'
+)
 }
 
 //$(this).steps("next");
 
   }
 
-  onSubmit3() {
-  //  this.makePayment()
+  onSubmit3a() {
+    $(".validation-wizard").steps("next");
+    $(".validation-wizard").steps("next");
+
+
+
+
   }
+  onSubmit3() {
+    // this.makePayment()
+    this.row = []
+    this.row.push(11)
+    var userid = localStorage.getItem('UserId');
+
+    var kk = {
+      FeeIds:this.row ,
+      UserId:userid ,
+
+
+
+    }
+    this.busy =  this.registerapi
+    . InitiateRemitaPayment(kk)
+    .then((response: any) => {
+
+      console.log("RemittaResponse")
+    //  this.rows = response.content;
+      console.log(response.content)
+
+      this.row22 =response.content
+
+     // this.rrr =this.row22.rrr
+     localStorage.removeItem('row22');
+
+      localStorage.setItem('row22',JSON.stringify( this.row22));
+
+     //this.value = this.row22.rrr
+
+
+      this.vshow2 = true;
+
+
+      var Payment= {
+
+       description: this.row2.description,
+       quatity: "1",
+       amount: this.tot ,
+       paymentref:this.row22.rrr,
+       transactionid:''
+
+
+
+   };
+
+  localStorage.setItem('Payment',JSON.stringify( Payment));
+
+  localStorage.setItem('PaymentType',"CounterStatement");
+    //  $(".validation-wizard").steps("next");
+
+    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+
+    })
+             .catch((response: any) => {
+
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+
+ })
+
+
+
+   }
+
 
 
 
@@ -696,7 +787,7 @@ else {
         console.log("Applicationbyid response")
 
        this.account.name = response.content.firstName + " " +  response.content.lastName
-      this.account.address= response.content.residentialAddress
+      this.account.address= response.content.street
         console.log(response)
 
 
@@ -716,46 +807,7 @@ else {
       })
 
 
-      this.row.push(11)
 
-
-      var kk = {
-        FeeIds:this.row ,
-        UserId:userid ,
-
-
-
-      }
-
-       this.registerapi
-     . InitiateRemitaPayment(kk)
-     .then((response: any) => {
-
-       console.log("RemittaResponse")
-     //  this.rows = response.content;
-       console.log(response)
-
-       this.row22 =response.content
-
-       this.vshow2 = true;
-
-
-
-
-
-     })
-              .catch((response: any) => {
-
-                console.log(response)
-
-
-               Swal.fire(
-                 response.error.message,
-                 '',
-                 'error'
-               )
-
-  })
 
 
   this.busy =   this.registerapi

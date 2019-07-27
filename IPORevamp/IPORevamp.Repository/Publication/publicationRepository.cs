@@ -142,7 +142,7 @@ namespace IPORevamp.Repository.Publication
                                      phonenumber = d.MobileNumber,
                                      email = d.UserName,
                                      userid = p.userid,
-                                     logo_pic = c.LogoPicture == null ?c.LogoPicture: GetBaseImage(c.LogoPicture),
+                                     logo_pic = c.LogoPicture == null ?c.LogoPicture: GetBaseImage(c.LogoPicture) ,
                                      auth_doc = c.ApprovalDocument,
                                      sup_doc1 = c.SupportDocument1,
                                      sup_doc2 = c.SupportDocument2,
@@ -274,7 +274,12 @@ namespace IPORevamp.Repository.Publication
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Batch.PublicationBatch>> SelectBatches()
         {
-            var App = await (from p in _contex.PublicationBatch   select p).ToListAsync();
+            var App = await (from p in _contex.PublicationBatch
+                             join c in _contex.Application
+                              on p.BatchNo equals Convert.ToInt32(c.Batchno)
+                             where c.DataStatus == "Publication"
+
+                             select p).ToListAsync();
 
 
 

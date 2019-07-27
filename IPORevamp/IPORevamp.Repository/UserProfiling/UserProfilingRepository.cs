@@ -83,7 +83,14 @@ namespace IPORevamp.Repository.UserProfiling
             var model =  _userProfilingRepository.GetAll().Where(a =>a.Status == "Pending").ToList();
 
             return model;
-        } 
+        }
+
+        public List<UserVerificationTemp> GetAll2(string dept)
+        {
+            var model = _userProfilingRepository.GetAll().Where(a => a.Status == "Pending" && a.department ==dept).ToList();
+
+            return model;
+        }
 
 
     }

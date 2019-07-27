@@ -39,6 +39,7 @@
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.1.1",
     "jszip": "^3.2.1",
+    "jwt-decode": "^2.2.0",
     "mongoose": "^5.4.20",
     "ng-busy": "^7.0.0",
     "ng-multiselect-dropdown": "^0.2.3",

@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import '../../assets/js/perfect-scrollbar.jquery.min.js';
 declare var jquery:any;
 declare var $ :any;
+import * as jwt_decode from  "jwt-decode"
 
 import {
   trigger,
@@ -106,11 +107,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
     if (this.islogged()) {
+//testing
 
-    //  this.router.navigateByUrl('/Dashboard/Dashboard2');
      }
 
-     else {
+  else {
       this.router.navigateByUrl('/logout');
       return;
 

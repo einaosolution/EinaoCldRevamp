@@ -16,6 +16,7 @@ namespace IPORevamp.Data.Entities.Country
         public List<State> States { get; set; }
 
         public List<Data.Entities.LGAs.LGA> LGA { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger> RecordalMerger { get; set; }
 
     }
 }

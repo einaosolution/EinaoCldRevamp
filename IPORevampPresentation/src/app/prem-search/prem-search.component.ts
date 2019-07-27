@@ -41,10 +41,13 @@ export class PremSearchComponent implements OnInit {
   industry: FormControl;
   UserEmail: FormControl;
   description: FormControl;
+  row:any[] =[]
   rows:[] ;
   row2:any =[] ;
   row4:any =[] ;
   row5:any
+  row22:any
+  tot:any;
   exampleData
   row3:any ;
   busy: Promise<any>;
@@ -112,7 +115,74 @@ if (  vcount > 0) {
 
     localStorage.setItem('PrelimData',JSON.stringify( PrelimData));
 
-    this.router.navigateByUrl('/Dashboard/ProductBilling');
+    //this.router.navigateByUrl('/Dashboard/ProductBilling');
+    this.row = []
+    this.row.push(1)
+   // var userid = localStorage.getItem('UserId');
+
+    var kk = {
+      FeeIds:this.row ,
+      UserId:userid ,
+
+
+
+    }
+
+    this.busy =  this.registerapi
+    . InitiateRemitaPayment(kk)
+    .then((response: any) => {
+
+      console.log("RemittaResponse")
+    //  this.rows = response.content;
+      console.log(response.content)
+
+      this.row22 =response.content
+
+     // this.rrr =this.row22.rrr
+     localStorage.removeItem('row22');
+
+      localStorage.setItem('row22',JSON.stringify( this.row22));
+
+    // this.value = this.row22.rrr
+
+
+     // this.vshow2 = true;
+
+
+      var Payment= {
+
+       description: this.row5.description,
+       quatity: "1",
+       amount: this.tot,
+       paymentref:this.row22.rrr,
+       transactionid:''
+
+
+
+   };
+
+  localStorage.setItem('Payment',JSON.stringify( Payment));
+
+  localStorage.setItem('PaymentType',"PrelimSearch");
+    //  $(".validation-wizard").steps("next");
+
+    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+
+    })
+             .catch((response: any) => {
+
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+
+ })
 
 
     }
@@ -231,6 +301,35 @@ this.busy =   this.registerapi
 
 
 
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
+
+
+this.busy =   this.registerapi
+.GetFeeListByName("PRELIMINARY SEARCH REPORT" ,userid)
+.then((response: any) => {
+
+  console.log("fee  Response")
+  this.row5 = response.content;
+  localStorage.setItem('description',this.row5.description);
+  this.tot = parseInt(this.row5.init_amt ) +  parseInt(this.row5.technologyFee )
+
+
+  console.log(response)
 
 
 

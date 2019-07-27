@@ -54,6 +54,7 @@
                                 <th>SN</th>
                                 <th>Batch</th>
                                   <th>Application Count</th>
+                                  <th>Push To Certificate</th>
 
 
 
@@ -67,7 +68,7 @@
 
                                      <td><a target="_blank" href="#/Dashboard/PublicationDetail?bno={{emp.batchNo}}"><strong>Batch Number : {{emp.batchNo}} </strong></a></td>
                                      <td><a target="_blank" href="#/Dashboard/PublicationDetail?bno={{emp.batchNo}}"><strong> {{emp.numberOfApplication}} </strong></a></td>
-
+                                    <td>  <button type="submit"  (click) ="onSubmit44(emp)"  class="btn btn-success">Push To Certificate </button></td>
 
 
 
@@ -457,7 +458,7 @@
 
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit"  (click) ="onSubmit44()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="submit"    class="btn btn-success"><i class="ti-save"></i> Save</button>
 
               </div>
           </form>

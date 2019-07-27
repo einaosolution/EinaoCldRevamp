@@ -41,6 +41,8 @@ using Microsoft.Extensions.Configuration;
 using IPORevamp.Data.Entity.Interface.Entities.TrademarkType;
 using IPORevamp.Data.Entity.Interface.Entities.TrademarkLogo;
 using IPORevamp.Data.Entity.Interface.Entities.Opposition;
+using IPORevamp.Data.Entity.Interface.Entities.Certificate;
+using IPORevamp.Data.Entity.Interface.Entities.Recordal;
 
 namespace IPORevamp.Data
 {
@@ -67,6 +69,7 @@ namespace IPORevamp.Data
 
 
         public DbSet<AccountType> AccountTypes { get; set; }
+        public DbSet<RecordalMerger> RecordalMerger { get; set; }
         public DbSet<Ministry> Ministry { get; set; }
         public DbSet<Units> Units { get; set; }
 
@@ -80,6 +83,7 @@ namespace IPORevamp.Data
       
       
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<PayCertificate> PayCertificate { get; set; }
         public DbSet<ApplicationType> ApplicationType { get; set; }
         public DbSet<NationalClass> NationalClass { get; set; }
 
@@ -87,6 +91,7 @@ namespace IPORevamp.Data
         public DbSet<Application> Application { get; set; }
 
         public DbSet<TrademarkLogo> TrademarkLogo { get; set; }
+        public DbSet<RecordalRenewal> RecordalRenewal { get; set; }
         public DbSet<NoticeOfOpposition> NoticeOfOpposition { get; set; }
 
 

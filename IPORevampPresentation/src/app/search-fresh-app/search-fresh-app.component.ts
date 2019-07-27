@@ -192,7 +192,7 @@ onChange( deviceValue) {
 
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment3);
-   formData.append("description",this.appdescription);
+   formData.append("description","");
    formData.append("fromstatus","Fresh");
    formData.append("tostatus","Kiv");
    formData.append("fromDatastatus","Search");

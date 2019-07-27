@@ -154,16 +154,19 @@ doc.save ('Visiometria_'+this.id+ '_'+date.getTime()+'.pdf')
 
 
   generatePdf() {
-   var doc = new jspdf('p', 'mm', "a4");
+  // var doc = new jspdf('p', 'mm', "a4");
   // var doc = new jspdf();
-  // var doc = new jspdf('p', 'pt', [this.PDF_Width, this.PDF_Height]);
-  var  self = this;
-    html2canvas(document.getElementById('report')).then(function(canvas) {
 
-      var img = canvas.toDataURL("image/png");
+  var  self = this;
+
+    html2canvas(document.getElementById('report')).then(function(canvas) {
+      var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+
+     // var img = canvas.toDataURL("image/png");
+     var img = canvas.toDataURL("image/png", 1.0);
      // doc.addPage(self.PDF_Width, self.PDF_Height);
 
-   doc.setFont("courier");
+  // doc.setFont("courier");
 
 
 
@@ -178,7 +181,9 @@ var height = doc.internal.pageSize.getHeight();
   //doc.addImage(img, 'JPEG',5,20);
     //doc.addImage(img, 'JPEG', 0, 0);
 
-    doc.addImage(img, 'JPEG', 0, 0, width, height);
+  //  doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+  doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
 
 
 

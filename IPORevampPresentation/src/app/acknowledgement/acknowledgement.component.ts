@@ -15,6 +15,9 @@ import html2canvas from 'html2canvas';
 })
 export class AcknowledgementComponent implements OnInit {
   row2:any;
+  row:any;
+  rrr:any
+  vdate:any;
   elementType = 'url';
   value = 'Federal Ministry Of Trade Nigeria';
   vshow:boolean =false;
@@ -49,7 +52,7 @@ this.registerapi.SendAttachment(dd)
   onSubmit8(){
 
 
-     var doc = new jspdf('p', 'mm', "a4");
+   //  var doc = new jspdf('p', 'mm', "a4");
      var data2 = new FormData();
 
     // alert( pfile +  " 1")
@@ -74,22 +77,25 @@ this.registerapi.SendAttachment(dd)
 
      html2canvas(document.getElementById('report')).then(function(canvas) {
       // alert(self)
-
-       var img = canvas.toDataURL("image/png");
+      var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+     //  var img = canvas.toDataURL("image/png");
+     var img = canvas.toDataURL("image/png", 1.0);
 
     //  var doc = new jsPDF();
 
 
     //  var doc = new jsPDF('p', 'mm', "a4");
 
-    doc.setFont("courier");
+   //doc.setFont("courier");
 
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
 
 
-    // doc.addImage(img,'PNG',15,10);
-    doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+    //doc.addImage(img, 'JPEG', 0, 0, width, height);
+
+    doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
 
 
 
@@ -132,7 +138,10 @@ this.registerapi.SendAttachment(dd)
   }
   ngOnInit() {
     var pwallet =   localStorage.getItem('Pwallet');
+    var vpayment= localStorage.getItem('Payment')
 
+    this.row= JSON.parse(vpayment);
+    this.vdate =new Date();
 
 
     this.registerapi
@@ -141,6 +150,7 @@ this.registerapi.SendAttachment(dd)
 
 
       this.row2 = response.content;
+      this.rrr=localStorage.getItem('rrr');
 
       this.vshow =true;
 

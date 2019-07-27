@@ -18,6 +18,9 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Search
         public string ProductTitle { get; set; }
         public string Applicationclass { get; set; }
         public string status { get; set; }
+        public string datastatus { get; set; }
+
+        public DateTime NextrenewalDate { get; set; }
 
 
         public string logo_pic { get; set; }
@@ -30,8 +33,12 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Search
         public string auth_doc { get; set; }
         public string sup_doc1 { get; set; }
         public string sup_doc2 { get; set; }
+        public string renewalstatus { get; set; }
+
+        public int renewalid { get; set; }
 
         public string attach_doc { get; set; }
+        public string certificatePaymentReference { get; set; }
 
         public int  BatCount { get; set; }
 

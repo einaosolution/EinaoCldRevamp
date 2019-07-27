@@ -37,6 +37,7 @@ namespace IPORevamp.Data.UserManagement.Model
         public string ResidentialAddress { get; set; }
         public string PhoneNumber { get; set; }
         public string City { get; set; }
+        public string Street { get; set; }
         public string State { get; set; }
         public string CountryCode { get; set; }
         public string ProfilePicLoc { get; set; }

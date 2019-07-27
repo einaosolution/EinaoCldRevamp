@@ -1,0 +1,61 @@
+
+
+<span  *ngIf="row2">
+  <tr *ngFor="let emp of row2 " >
+
+    <table class="table ">
+
+        <tr>
+
+            <td> Renewal Type</td>
+
+            <td> {{emp.renewalType }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td> Renewal Due Date</td>
+
+                <td> {{emp.renewalDueDate|date  }}</td>
+
+                </tr>
+
+                <tr *ngIf="emp.certificateOfTrademark                ">
+                    <td> Trademark Certificate </td>
+                    <td>  <a  target="_blank" href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{emp.certificateOfTrademark}}">View</a></td>
+
+
+
+                    </tr>
+
+                    <tr *ngIf="emp.powerOfAttorney                ">
+                        <td> Power Of Attorney </td>
+                        <td>  <a  target="_blank" href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{emp.powerOfAttorney}}">View</a></td>
+
+
+
+                        </tr>
+
+
+    <tr>
+
+    <td> Detail Of Request</td>
+
+    <td> {{emp.detailOfRequest}}</td>
+
+    </tr>
+
+
+
+
+
+    </table>
+
+
+
+
+
+
+  </tr>
+</span>

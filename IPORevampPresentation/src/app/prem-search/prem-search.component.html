@@ -47,14 +47,14 @@
                                       <div class="col-md-6">
                                           <div class="form-group">
                                               <label class="control-label">First Name</label>
-                                              <input type="text" id="firstName"  formControlName="Firstname"  [ngClass]="{ 'is-invalid': submitted && Firstname.errors }" class="form-control" placeholder="John doe">
+                                              <input type="text" id="firstName"  disabled  formControlName="Firstname"  [ngClass]="{ 'is-invalid': submitted && Firstname.errors }" class="form-control" placeholder="John doe">
                                               </div>
                                       </div>
                                       <!--/span-->
                                       <div class="col-md-6">
                                           <div class="form-group has-danger">
                                               <label class="control-label">Last Name</label>
-                                              <input type="text"  formControlName="Lastname"  [ngClass]="{ 'is-invalid': submitted && Lastname.errors }" id="lastName" class="form-control form-control-danger" placeholder="LastName">
+                                              <input type="text" disabled  formControlName="Lastname"  [ngClass]="{ 'is-invalid': submitted && Lastname.errors }" id="lastName" class="form-control form-control-danger" placeholder="LastName">
                                               </div>
                                       </div>
                                       <!--/span-->
@@ -64,7 +64,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
-                                            <input type="email" id="firstName"  formControlName="UserEmail"  [ngClass]="{ 'is-invalid': submitted && UserEmail.errors }" class="form-control" placeholder="John doe">
+                                            <input type="email" disabled id="firstName"  formControlName="UserEmail"  [ngClass]="{ 'is-invalid': submitted && UserEmail.errors }" class="form-control" placeholder="John doe">
                                             </div>
                                     </div>
                                     <!--/span-->

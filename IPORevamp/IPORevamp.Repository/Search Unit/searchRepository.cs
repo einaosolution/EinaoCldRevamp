@@ -55,7 +55,7 @@ namespace IPORevamp.Repository.Search_Unit
                                sup_doc1 = c.SupportDocument1,
                                sup_doc2 = c.SupportDocument2,
                                pwalletid = p.Id
-                           }).ToListAsync();
+                           }).OrderBy(c => c.pwalletid).ToListAsync();
             return details;
            // return null;
         }
