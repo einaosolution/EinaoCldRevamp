@@ -27,16 +27,18 @@ using System.Net;
 using System.Threading.Tasks;
 using IPORevamp.Repository.Publication;
 using IPORevamp.Repository.Registra;
+using IPORevamp.Repository.Email;
 
 namespace IPORevamp.WebAPI.Controllers
 {
     [Route("api/Registra")]
     [ApiController]
-    public class RegistraController : BaseController
+    public class RegistrarController : BaseController
     {
         private readonly IregistraRepository _registraRepository;
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly IPOContext _contex;
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
 
 
         private readonly IEmailSender _emailsender;
@@ -44,7 +46,7 @@ namespace IPORevamp.WebAPI.Controllers
         private IFileHandler _fileUploadRespository;
 
 
-        public RegistraController(
+        public RegistrarController(
     UserManager<ApplicationUser> userManager,
     RoleManager<ApplicationRole> roleManager,
     SignInManager<ApplicationUser> signInManager,
@@ -53,6 +55,8 @@ namespace IPORevamp.WebAPI.Controllers
     IMapper mapper, ILogger<UserController> logger,
     IEmailManager<EmailLog, EmailTemplate> emailManager,
      IFileHandler fileUploadRespository,
+       IEmailTemplateRepository EmailTemplateRepository,
+
 
    IregistraRepository registraRepository,
    IPOContext contex,
@@ -86,6 +90,7 @@ namespace IPORevamp.WebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
             _registraRepository = registraRepository;
             _fileUploadRespository = fileUploadRespository;
+            _EmailTemplateRepository = EmailTemplateRepository;
 
 
         }
@@ -96,6 +101,7 @@ namespace IPORevamp.WebAPI.Controllers
             try
             {
                 string ip = "";
+                EmailTemplate emailTemplate;
 
                 ip = Request.Headers["ip"];
 
@@ -106,14 +112,19 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var App = (from p in _contex.Application where p.Id == Convert.ToInt32(Appid) select p).FirstOrDefault();
-
-                var user2 = _userManager.Users.Where(x => x.RolesId == 8).ToList();
-
+                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                var departmentid = Convert.ToString(IPODepartment.Trademark);
+                var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.RegistrartoAppealUnit);
                 foreach (var users in user2)
                 {
-                    var vname = users.FirstName + " " + users.LastName;
-                    var mailContent = "Dear " + vname + "<br> Sent an    appeal on  application with transactionID   " + App.TransactionID;
-                    await _emailsender.SendEmailAsync(users.Email, "Registra to  Appeal Unit", mailContent);
+                    string mailContent = emailTemplate.EmailBody;
+                    var username = users.FirstName + " " + users.LastName;
+                    mailContent = mailContent.Replace("#Name", username);
+                    mailContent = mailContent.Replace("#transid", App.TransactionID);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+                    //  var mailContent = "Dear " + vname + "<br> Sent an    appeal on  application with transactionID   " + App.TransactionID;
+                    await _emailsender.SendEmailAsync(users.Email, "Registrar to  Appeal Unit", mailContent);
 
                 }
 

@@ -7,139 +7,60 @@ using System.Threading.Tasks;
 using System.Linq;
 using IPORevamp.Data.Entity.Interface.Entities.Search;
 using Microsoft.EntityFrameworkCore;
+using EmailEngine.Repository.FileUploadRepository;
+using Microsoft.AspNetCore.Http;
+using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
+using Microsoft.Extensions.Configuration;
+using IPORevamp.Data.Entities.AuditTrail;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.Search_Unit
 {
     public  class searchRepository : IsearchRepository
     {
         private readonly IPOContext _contex;
+        private IFileHandler _fileUploadRespository;
+        protected readonly IConfiguration _configuration;
+        
 
-        public searchRepository(IPOContext contex)
+        public searchRepository(IPOContext contex, IFileHandler fileUploadRespository , IConfiguration configuration)
         {
             _contex = contex;
-           
+            _fileUploadRespository = fileUploadRespository;
+            _configuration = configuration;
+
 
         }
 
         public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetFreshApplication()
         {
-            var details = await  (from p in _contex.Application
-                           join c in _contex.MarkInformation
-                            on p.Id equals c.applicationid
-                           join d in _contex.ApplicationUsers
-                            on Convert.ToInt32(p.userid) equals d.Id
+            var details = _contex.DataResult
+                 .FromSql($"GetFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Search , STATUS.Fresh  })
+                .ToList();
 
-                           join e in _contex.TrademarkType
-                           on  c.TradeMarkTypeID equals e.Id
-
-                          
-
-                                  where
-                                   p.ApplicationStatus == "Fresh" && p.DataStatus == "Search"
-
-                                  select new DataResult
-                           {
-                               FilingDate = p.DateCreated,
-                               Filenumber = c.RegistrationNumber,
-                               ApplicantName = d.FirstName + " " + d.LastName,
-                               ProductTitle = c.ProductTitle,
-                               Applicationclass = c.NiceClass,
-                               status = p.ApplicationStatus,
-                               Transactionid = p.TransactionID,
-                               trademarktype = e.Description,
-                               classdescription = c.NiceClassDescription,
-                               phonenumber = d.MobileNumber,
-                               email = d.UserName,
-                               logo_pic = c.LogoPicture,
-                               auth_doc = c.ApprovalDocument,
-                               sup_doc1 = c.SupportDocument1,
-                               sup_doc2 = c.SupportDocument2,
-                               pwalletid = p.Id
-                           }).OrderBy(c => c.pwalletid).ToListAsync();
             return details;
            // return null;
         }
 
         public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetKivApplication()
         {
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
+            var details = _contex.DataResult
+                .FromSql($"GetKivApplication   @p0, @p1", parameters: new[] { DATASTATUS.Search, STATUS.Kiv  })
+               .ToList();
 
-                                 join f in _contex.TrademarkApplicationHistory
-                                  on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus == "Kiv" && p.DataStatus == "Search" && f.ToStatus == "Kiv"
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     pwalletid = p.Id ,
-                                     comment = f.trademarkcomment ,
-                                     commentby = d.FirstName + " " + d.LastName
-                                 }).ToListAsync();
+   
             return details;
             // return null;
         }
 
         public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetTreatedApplication()
         {
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
+            var details = _contex.DataResult
+               .FromSql($"GetTreatedApplication   @p0, @p1", parameters: new[] { DATASTATUS.Search , DATASTATUS.Examiner  })
+              .ToList();
 
-                                 join f in _contex.TrademarkApplicationHistory
-                                  on p.Id equals f.ApplicationID
-
-
-                                 where f.FromDataStatus == "Search" && f.ToDataStatus == "Examiner" 
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     pwalletid = p.Id,
-                                     comment = f.trademarkcomment,
-                                     commentby = d.FirstName + " " + d.LastName
-                                 }).ToListAsync();
             return details;
             // return null;
         }
@@ -150,6 +71,150 @@ namespace IPORevamp.Repository.Search_Unit
 
           
             return details;
+            // return null;
+        }
+
+
+        public async void  SaveApplicationHistory(int id ,string userrole , HttpRequest request ,string tostatus ,string toDatastatus ,string fromDatastatus ,string fromstatus ,string comment ,string description ,string userid)
+        {
+
+            var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
+
+            string transactionid = vpwallet.TransactionID;
+            string prevappstatus = vpwallet.ApplicationStatus;
+            string prevDatastatus = vpwallet.DataStatus;
+
+
+
+            if (vpwallet != null)
+            {
+
+                vpwallet.ApplicationStatus = tostatus;
+                vpwallet.DataStatus = toDatastatus;
+
+
+
+                // get User Information
+
+
+
+
+            }
+
+
+
+            // file upload
+            string msg = "";
+
+            if (request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    msg = await _fileUploadRespository.UploadFile(request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                      result2);
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+          
+
+
+            await _contex.AddAsync(new TrademarkApplicationHistory
+            {
+                ApplicationID = id,
+                DateCreated = DateTime.Now,
+                TransactionID = transactionid,
+                FromDataStatus = prevDatastatus,
+                trademarkcomment = comment,
+                description = description,
+
+                ToDataStatus = toDatastatus,
+                FromStatus = prevappstatus,
+                ToStatus = tostatus,
+                UploadsPath1 = msg,
+                userid = Convert.ToInt32(userid),
+                Role = userrole
+            });
+
+
+
+          //  _contex.SaveChanges();
+
+
+
+            // return null;
+        }
+
+
+        public async void SaveApplicationHistoryMultiple( string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid,string Batch)
+        {
+
+            var vpwallet = (from c in _contex.Application where c.Batchno == Batch select c).ToList();
+
+            foreach (var Application in vpwallet)
+            {
+
+                string transactionid = Application.TransactionID;
+                string prevappstatus = Application.ApplicationStatus;
+                string prevDatastatus = Application.DataStatus;
+
+
+
+                if (Application != null)
+                {
+
+                    Application.ApplicationStatus = tostatus;
+                    Application.DataStatus = toDatastatus;
+
+
+
+                    // get User Information
+
+
+
+
+                }
+
+
+
+                // file upload
+                string msg = "";
+
+
+
+                await _contex.AddAsync(new TrademarkApplicationHistory
+                {
+                    ApplicationID = Application.Id,
+                    DateCreated = DateTime.Now,
+                    TransactionID = transactionid,
+                    FromDataStatus = prevDatastatus,
+                    trademarkcomment = comment,
+                    description = description,
+
+                    ToDataStatus = toDatastatus,
+                    FromStatus = prevappstatus,
+                    ToStatus = tostatus,
+                    UploadsPath1 = "",
+                    userid = Convert.ToInt32(userid),
+                    Role = userrole
+                });
+
+
+            }
+
+
             // return null;
         }
 

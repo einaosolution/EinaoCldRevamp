@@ -20,7 +20,90 @@ namespace EmailEngine.Base.Entities
         Failed
     }
 
-    public class IPOCONSTANT
+    public enum IPODepartment
+    {
+        Trademark = 3
+    }
+
+    public enum IPOCategory
+    {
+       Individual = 1 ,
+       Agent = 2
+    }
+
+    public enum IPORoles
+    {
+        SuperAdministrator = 1,
+        Administrator =2,
+        CorporateAgent_Trade_Mark  =3,
+        Search_Officer_Trade_Mark = 5,
+        Examination_Officer_Trade_Mark = 6,
+        Publication_Officer_Trade_Mark =7,
+        Certificate_Officer_Trade_Mark =9,
+        Appeal_Officer_Trade_Mark = 10,
+        Opposition_Officer_Trade_Mark =17,
+        Recordals_Officers_Trade_Mark = 12  ,
+        Individual =13,
+        Registrar =8
+
+
+    }
+
+    public class DATASTATUS
+    {
+        
+        public const string Certificate = "Certificate";
+        public const string Opposition = "Opposition";
+        public const string Search = "Search";
+        public const string Examiner = "Examiner";
+        public const string Publication = "Publication";
+        public const string Kiv = "Kiv";
+        public const string ReconductSearch = "Reconduct-Search";
+        public const string ApplicantKiv = "ApplicantKiv";
+
+        
+
+
+    }
+
+
+    public class STATUS
+    {
+        public const string Fresh = "Fresh";
+        public const string Paid = "Paid";
+        public const string Batch = "Batch";
+        public const string Kiv = "Kiv";
+        public const string ReconductSearch = "Reconduct-Search";
+        public const string Counter = "Counter";
+        public const string Submitted = "Submitted";
+        public const string ApplicantKiv = "ApplicantKiv";
+        public const string Refused = "Refused";
+        public const string Judgement = "Judgement";
+        public const string Applicant = "Applicant";
+        public const string Registra = "Registra";
+        public const string Appeal = "Appeal";
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+        public class IPOCONSTANT
     {
         public const string ACTIVATIONCODE = "ACTIVATIONEMAIL";
         public const string Individual_Account_Verification = "IV001";
@@ -35,6 +118,13 @@ namespace EmailEngine.Base.Entities
         public const string Receipt = "RECPT002";
         public const string Acceptance = "ACP001";
         public const string Refusal = "ACP002";
+        public const string NoticeOfOpposition = "ACP003";
+        public const string RegistrartoAppealUnit = "ACP004";
+        public const string ApplicationSentToOpposition = "ACP005";
+        public const string AppealReply = "ACP006";
+
+
+        public const string PublicationMaxDay = "Pub";
         public const int Individual_Account = 1;
 
     }

@@ -47,9 +47,12 @@ using IPORevamp.Repository.Base;
 using IPORevamp.Data.Entity.Interface;
 using NACC.Data.UserManagement.Model;
 using IPORevamp.Repository.Department;
+using IPORevamp.Repository.Publication;
 
 namespace IPORevamp.WebAPI
 {
+
+   
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -161,8 +164,11 @@ namespace IPORevamp.WebAPI
             services.AddTransient<IAuditTrailManager<AuditTrail>, AuditTrailManager<AuditTrail>>();
             services.AddTransient<IBilling<BillLog, PaymentLog, ApplicationUser, int>, Billing<BillLog, PaymentLog, ApplicationUser, int>>();
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
-            services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();   
+            services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();
             services.AddTransient<IEmailSender, EmailService>();
+
+            services.AddScoped<IPublicationJob, PublicationJob>();
+           
            
 
 
@@ -181,7 +187,7 @@ namespace IPORevamp.WebAPI
             services.AddDataProtection();
 
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
-           
+          
 
             services.Configure<ApiBehaviorOptions>(options => {
                 options.SuppressModelStateInvalidFilter = true;
@@ -250,24 +256,31 @@ namespace IPORevamp.WebAPI
                 c.SwaggerEndpoint(Configuration["swaggerjson"], "IPORevamp WebAPI V1");
             });
 
-            GlobalConfiguration.Configuration
-                                .UseActivator(new HangfireActivator(serviceProvider));
-            //Make sure you're adding required authentication 
-         //  app.UseHangfireDashboard();
-         //   backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
-            // app.UseHangfireServer();
-            app.UseElmah();
+         //   GlobalConfiguration.Configuration
+                        //        .UseActivator(new HangfireActivator(serviceProvider));
+       
+
+          
 
             
 
 
-            var cronsetting = Cron.Minutely();
 
-            //RecurringJob.AddOrUpdate<IEmailManager<EmailLog, EmailTemplate>>(j => j.SendBatchMailAsync(), cronsetting);
+
 
             app.UseAuthentication();
             app.UseHangfireDashboard();
-         //   backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+
+            var cronsetting = Cron.Hourly();
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+
+            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronsetting);
+
+           
+            app.UseElmah();
+
 
             app.UseMvc(routes =>
             {

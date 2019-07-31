@@ -95,9 +95,10 @@ namespace IPORevamp.WebAPI.Controllers
             string ip = "";
 
             ip = Request.Headers["ip"];
-
-
             var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+           
+
+              
             string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
 
             if (user == null)
@@ -110,88 +111,29 @@ namespace IPORevamp.WebAPI.Controllers
             // check for user information before processing the request
             int id = Convert.ToInt32(pwalletid);
             var userrole = Convert.ToString(user.RolesId);
+           
+                _searchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid);
 
-            var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
-
-            string transactionid = vpwallet.TransactionID;
-
-
-
-            if (vpwallet != null)
-            {
-              
-                vpwallet.ApplicationStatus = tostatus;
-                vpwallet.DataStatus= toDatastatus;
-
-               
-
-                // get User Information
+ 
 
 
-
-
-            }
-
-
-
-            // file upload
-            string msg = "";
-
-            if (Request.Form.Files.Count > 0)
-            {
-                try
-                {
-                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
-                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
-                    int result1 = Convert.ToInt32(oneMegaByte[0]);
-                    int result2 = Convert.ToInt32(fileMaxSize[0]);
-
-                    msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
-                      result2);
-
-                }
-
-                catch (Exception ee)
-                {
-                    var kk = ee.Message;
-                }
-
-
-            }
-
-            await _contex.AddAsync(new TrademarkApplicationHistory
-            {
-                ApplicationID = id,
-                DateCreated = DateTime.Now,
-                TransactionID = transactionid,
-                FromDataStatus = fromDatastatus,
-                trademarkcomment = comment,
-                description = description ,
-
-                ToDataStatus = toDatastatus,
-                FromStatus = fromstatus ,
-                ToStatus = tostatus, 
-                UploadsPath1 = msg,
-                userid = Convert.ToInt32(userid) ,
-                Role= userrole
-            });
-
-            _contex.SaveChanges();
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
-                   
-                    await _contex.AddAsync(new AuditTrail
-                    {
-                        ActionTaken = AuditAction.Update,
-                        DateCreated = DateTime.Now,
-                        Description = $"Application  has been Updated  successfully",
-                        Entity = "Pwallet",
-                        UserId = user.Id,
-                        UserName = user.UserName,
-                        IpAddress = ip,
-                        RecordBefore = fromstatus,
-                        RecordAfter = tostatus
-                    });
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application  has been Updated  successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = fromstatus,
+                RecordAfter = tostatus
+            });
+
+
 
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
 
@@ -204,32 +146,36 @@ namespace IPORevamp.WebAPI.Controllers
         public async Task<IActionResult> GetExactSearch([FromQuery] string title)
         {
 
-            var name = "\" " + title + "\"";
+            var producttitle = "\" " + title + "\"";
             var results = _contex.MarkInformation
-                      .FromSql($"uspGetMarkByTitle {name}")
+                      .FromSql($"uspGetMarkByTitle {producttitle}")
                       .ToList();
 
 
             return Ok(results);
         }
+
 
         [HttpGet("GetMeaningSearch")]
         public async Task<IActionResult> GetMeaningSearch([FromQuery] string title)
         {
 
-            var name = "\" " + title + "\"";
+            var producttitle = "\" " + title + "\"";
             var results = _contex.MarkInformation
-                      .FromSql($"uspGetMarkByTitle2 {name}")
+                      .FromSql($"uspGetMarkByTitle2 {producttitle}")
                       .ToList();
 
 
             return Ok(results);
         }
 
-        [HttpPost("SaveFreshAppHistory2")]
+
+       
+
+        [HttpPost("SaveFreshAppHistoryAttachment")]
         [Consumes("multipart/form-data")]
 
-        public async Task<IActionResult> SaveFreshAppHistory2([FromForm] string pwalletid,
+        public async Task<IActionResult> SaveFreshAppHistoryAttachment([FromForm] string pwalletid,
  [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid, [FromForm] string uploadpath)
         {
             string ip = "";
@@ -252,58 +198,13 @@ namespace IPORevamp.WebAPI.Controllers
             // check for user information before processing the request
             int id = Convert.ToInt32(pwalletid);
 
-            var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
+            _searchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid);
 
-            string transactionid = vpwallet.TransactionID;
-            string prevappstatus = vpwallet.ApplicationStatus;
-            string prevDatastatus = vpwallet.DataStatus;
-
-
-
-            if (vpwallet != null)
-            {
-
-                vpwallet.ApplicationStatus = tostatus;
-                vpwallet.DataStatus = toDatastatus;
-
-
-
-                // get User Information
-
-
-
-
-            }
-
-
-
-            // file upload
-            string msg = "";
-
-      
-
-            await _contex.AddAsync(new TrademarkApplicationHistory
-            {
-                ApplicationID = id,
-                DateCreated = DateTime.Now,
-                TransactionID = transactionid,
-                FromDataStatus = prevDatastatus,
-                trademarkcomment = comment,
-                description = description,
-
-                ToDataStatus = toDatastatus,
-                FromStatus = prevappstatus,
-                ToStatus = tostatus,
-                UploadsPath1 = uploadpath,
-                userid = Convert.ToInt32(userid) ,
-                Role = userrole
-            });
-
-            _contex.SaveChanges();
+           
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
 
-            await _contex.AddAsync(new AuditTrail
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
                 ActionTaken = AuditAction.Update,
                 DateCreated = DateTime.Now,
@@ -321,9 +222,9 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpPost("SaveFreshAppHistory3")]
+        [HttpPost("SaveFreshAppHistoryMultiple")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> SaveFreshAppHistory3([FromForm] string pwalletid,
+        public async Task<IActionResult> SaveFreshAppHistoryMultiple([FromForm] string pwalletid,
          [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid, [FromForm] string uploadpath , [FromForm] string Batch)
         {
             string ip = "";
@@ -343,65 +244,15 @@ namespace IPORevamp.WebAPI.Controllers
             }
 
             // check for user information before processing the request
-           // int id = Convert.ToInt32(pwalletid);
+            // int id = Convert.ToInt32(pwalletid);
 
-            var vpwallet = (from c in _contex.Application where c.Batchno == Batch select c).ToList();
+            _searchRepository.SaveApplicationHistoryMultiple( userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, Batch);
 
-            foreach (var Application in vpwallet)
-            {
-
-                string transactionid = Application.TransactionID;
-                string prevappstatus = Application.ApplicationStatus;
-                string prevDatastatus = Application.DataStatus;
-
-
-
-                if (Application != null)
-                {
-
-                    Application.ApplicationStatus = tostatus;
-                    Application.DataStatus = toDatastatus;
-
-
-
-                    // get User Information
-
-
-
-
-                }
-
-
-
-                // file upload
-                string msg = "";
-
-
-
-                await _contex.AddAsync(new TrademarkApplicationHistory
-                {
-                    ApplicationID = Application.Id,
-                    DateCreated = DateTime.Now,
-                    TransactionID = transactionid,
-                    FromDataStatus = prevDatastatus,
-                    trademarkcomment = comment,
-                    description = description,
-
-                    ToDataStatus = toDatastatus,
-                    FromStatus = prevappstatus,
-                    ToStatus = tostatus,
-                    UploadsPath1 = uploadpath,
-                    userid = Convert.ToInt32(userid) ,
-                    Role = userrole
-                });
-
-                _contex.SaveChanges();
-
-            }
+          
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
 
-            await _contex.AddAsync(new AuditTrail
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
                 ActionTaken = AuditAction.Update,
                 DateCreated = DateTime.Now,
@@ -442,7 +293,7 @@ namespace IPORevamp.WebAPI.Controllers
                     user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                     // Added A New Country 
-                    await _contex.AddAsync(new AuditTrail
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
                     {
                         ActionTaken = AuditAction.Create,
                         DateCreated = DateTime.Now,
@@ -487,7 +338,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -533,7 +384,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -579,7 +430,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,

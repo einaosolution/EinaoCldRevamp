@@ -44,6 +44,7 @@ namespace IPORevamp.Repository.CoreRepository
       
         public override TEntity GetById(int id)
         {
+           
             return Table.Find(id);
         }
 

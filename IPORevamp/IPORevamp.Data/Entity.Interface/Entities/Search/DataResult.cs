@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace IPORevamp.Data.Entity.Interface.Entities.Search
 {
   public   class DataResult
     {
+        [Key]
         public string sn { get; set; }
         public DateTime FilingDate { get; set; }
         public string Filenumber { get; set; }
@@ -20,7 +22,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Search
         public string status { get; set; }
         public string datastatus { get; set; }
 
-        public DateTime NextrenewalDate { get; set; }
+        public String  NextrenewalDate { get; set; }
 
 
         public string logo_pic { get; set; }
@@ -35,12 +37,12 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Search
         public string sup_doc2 { get; set; }
         public string renewalstatus { get; set; }
 
-        public int renewalid { get; set; }
+        public string  renewalid { get; set; }
 
         public string attach_doc { get; set; }
         public string certificatePaymentReference { get; set; }
 
-        public int  BatCount { get; set; }
+        public string   BatCount { get; set; }
 
 
         public string Transactionid { get; set; }

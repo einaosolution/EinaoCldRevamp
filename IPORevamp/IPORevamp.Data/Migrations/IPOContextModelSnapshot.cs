@@ -1700,6 +1700,88 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("RoleManager");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Search.DataResult", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ApplicantAddress");
+
+                    b.Property<string>("ApplicantName");
+
+                    b.Property<string>("Applicationclass");
+
+                    b.Property<string>("BatCount");
+
+                    b.Property<string>("Filenumber");
+
+                    b.Property<DateTime>("FilingDate");
+
+                    b.Property<string>("NextrenewalDate");
+
+                    b.Property<string>("ProductTitle");
+
+                    b.Property<string>("Transactionid");
+
+                    b.Property<string>("attach_doc");
+
+                    b.Property<string>("auth_doc");
+
+                    b.Property<string>("certificatePaymentReference");
+
+                    b.Property<string>("classdescription");
+
+                    b.Property<string>("comment");
+
+                    b.Property<string>("commentby");
+
+                    b.Property<string>("datastatus");
+
+                    b.Property<string>("email");
+
+                    b.Property<string>("logo_pic");
+
+                    b.Property<string>("phonenumber");
+
+                    b.Property<int>("pwalletid");
+
+                    b.Property<string>("renewalid");
+
+                    b.Property<string>("renewalstatus");
+
+                    b.Property<string>("status");
+
+                    b.Property<string>("sup_doc1");
+
+                    b.Property<string>("sup_doc2");
+
+                    b.Property<string>("trademarktype");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("DataResult");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Search.PreviousComments", b =>
+                {
+                    b.Property<string>("Sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Comments");
+
+                    b.Property<string>("Role");
+
+                    b.Property<string>("UploadPath");
+
+                    b.Property<string>("users");
+
+                    b.HasKey("Sn");
+
+                    b.ToTable("PreviousComments");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Sms.SmsLog", b =>
                 {
                     b.Property<int>("Id")

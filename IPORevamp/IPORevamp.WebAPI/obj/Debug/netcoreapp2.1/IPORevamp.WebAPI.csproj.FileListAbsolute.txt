@@ -137,6 +137,13 @@ C:\IPOHub\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.Vi
 C:\IPOHub\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.csproj.CopyComplete
 C:\IPOHub\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.dll
 C:\IPOHub\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.pdb
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.csproj.CoreCompileInputs.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.RazorAssemblyInfo.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.RazorAssemblyInfo.cs
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.AssemblyInfoInputs.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.AssemblyInfo.cs
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.csprojAssemblyReference.cache
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.deps.json
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.runtimeconfig.json
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.runtimeconfig.dev.json
@@ -152,13 +159,6 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.D
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.Repository.pdb
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\EmailEngine.pdb
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.Core.pdb
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.csprojAssemblyReference.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.csproj.CoreCompileInputs.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.RazorAssemblyInfo.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.RazorAssemblyInfo.cs
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.AssemblyInfoInputs.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.AssemblyInfo.cs
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.TagHelpers.input.cache
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.TagHelpers.output.cache
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\obj\Debug\netcoreapp2.1\IPORevamp.WebAPI.RazorCoreGenerate.cache

@@ -43,6 +43,7 @@ using IPORevamp.Data.Entity.Interface.Entities.TrademarkLogo;
 using IPORevamp.Data.Entity.Interface.Entities.Opposition;
 using IPORevamp.Data.Entity.Interface.Entities.Certificate;
 using IPORevamp.Data.Entity.Interface.Entities.Recordal;
+using IPORevamp.Data.Entity.Interface.Entities.Search;
 
 namespace IPORevamp.Data
 {
@@ -71,6 +72,7 @@ namespace IPORevamp.Data
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<RecordalMerger> RecordalMerger { get; set; }
         public DbSet<Ministry> Ministry { get; set; }
+        public DbSet<PreviousComments> PreviousComments { get; set; }
         public DbSet<Units> Units { get; set; }
 
         public DbSet<FeeList> FeeList { get; set; }
@@ -93,8 +95,7 @@ namespace IPORevamp.Data
         public DbSet<TrademarkLogo> TrademarkLogo { get; set; }
         public DbSet<RecordalRenewal> RecordalRenewal { get; set; }
         public DbSet<NoticeOfOpposition> NoticeOfOpposition { get; set; }
-
-
+        public DbSet<DataResult> DataResult { get; set; }
         public DbSet<Data.Entities.Country.Country> Country { get; set; }
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
 

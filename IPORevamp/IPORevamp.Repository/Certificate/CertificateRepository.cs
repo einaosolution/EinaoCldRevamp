@@ -227,7 +227,7 @@ namespace IPORevamp.Repository.Certificate
                                      sup_doc2 = c.SupportDocument2,
                                      
                                      certificatePaymentReference = p.CertificatePayReference,
-                                     NextrenewalDate = Convert.ToDateTime(p.NextRenewalDate) ,
+                                     NextrenewalDate =p.NextRenewalDate.ToString() ,
                                      pwalletid = p.Id
 
                                  }).ToListAsync();

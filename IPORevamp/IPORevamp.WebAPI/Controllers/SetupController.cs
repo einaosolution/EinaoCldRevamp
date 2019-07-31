@@ -43,6 +43,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly IPOContext _contex;
+        private readonly IPORevamp.Repository.NationalClass.INationalClassRepository _nationalClassRepository;
 
 
         private readonly IEmailSender _emailsender;
@@ -61,7 +62,9 @@ namespace IPORevamp.WebAPI.Controllers
             IConfiguration configuration,
             IMapper mapper, ILogger<UserController> logger,
             IEmailManager<EmailLog, EmailTemplate> emailManager,
-    
+            IPORevamp.Repository.NationalClass.INationalClassRepository nationalClassRepository ,
+
+
             IEmailSender emailsender,
             IHttpContextAccessor httpContextAccessor,
             IPOContext contex,
@@ -87,6 +90,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailsender = emailsender;
             _contex = contex;
             _httpContextAccessor = httpContextAccessor;
+            _nationalClassRepository = nationalClassRepository;
 
 
 
@@ -103,17 +107,21 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("GetNationalClass")]
         public async Task<IActionResult> GetNationalClass()
         {
-            
 
+
+           
 
             try
             {
-                var kk35 = (from c in _contex.NationalClass where c.IsActive ==true && c.IsDeleted == false  select c).ToList();
 
 
-               
+                //   var kk35 = (from c in _contex.NationalClass where c.IsActive ==true && c.IsDeleted == false  select c).ToList();
 
-                return PrepareResponse(HttpStatusCode.OK, "Country Returned Successfully", false, kk35);
+                var nationalclass = await _nationalClassRepository.GetNationalClass();
+
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Country Returned Successfully", false, nationalclass);
 
 
             }

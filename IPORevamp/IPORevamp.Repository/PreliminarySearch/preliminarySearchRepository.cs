@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.PreliminarySearch
 {
@@ -45,7 +46,7 @@ namespace IPORevamp.Repository.PreliminarySearch
             List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch> prelimSearch = new List<IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch>();
             //  prelimSearch = await _preliminarySearch.Include(a => a.LGA).GetAllListAsync(x => x.status == "Submitted"); ;
 
-            prelimSearch = await _preliminarySearch.GetAll().Include(a => a.Sector).Where(x => x.status == "Submitted").OrderBy(c => c.Id).ToListAsync();
+            prelimSearch = await _preliminarySearch.GetAll().Include(a => a.Sector).Where(x => x.status == STATUS.Submitted).OrderBy(c => c.Id).ToListAsync();
             return prelimSearch;
         }
 

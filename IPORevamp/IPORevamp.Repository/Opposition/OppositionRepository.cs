@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
 using IPORevamp.Data.Entity.Interface.Entities.Search;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.Opposition
 {
@@ -51,7 +52,7 @@ namespace IPORevamp.Repository.Opposition
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Fresh" && p.DataStatus == "Opposition" && f.ToDataStatus == "Opposition" 
+                                 where p.ApplicationStatus == STATUS.Fresh && p.DataStatus == DATASTATUS.Opposition  && f.ToDataStatus == DATASTATUS.Opposition
 
                                  select new DataResult
                                  {
@@ -73,7 +74,7 @@ namespace IPORevamp.Repository.Opposition
                                      sup_doc2 = c.SupportDocument2,
                                      attach_doc = f.UploadsPath1,
                                      pwalletid = p.Id,
-                                     BatCount = BatchCount
+                                     BatCount = BatchCount.ToString()
                                  }).ToListAsync();
             return details;
             // return null;
@@ -95,7 +96,7 @@ namespace IPORevamp.Repository.Opposition
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Judgement" && p.DataStatus == "Opposition" && f.ToDataStatus == "Opposition" && f.ToStatus == "Judgement"
+                                 where p.ApplicationStatus == STATUS.Judgement  && p.DataStatus ==DATASTATUS.Opposition  && f.ToDataStatus == DATASTATUS.Opposition && f.ToStatus == STATUS.Judgement
 
                                  select new DataResult
                                  {
@@ -139,7 +140,7 @@ namespace IPORevamp.Repository.Opposition
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.DataStatus == "Opposition" && p.ApplicationStatus == "Applicant" && f.ToDataStatus == "Publication" &&  p.userid == id
+                                 where p.DataStatus ==DATASTATUS.Opposition  &&  p.ApplicationStatus == STATUS.Applicant  && f.ToDataStatus == DATASTATUS.Publication  &&  p.userid == id
 
                                  select new DataResult
                                  {
@@ -183,7 +184,7 @@ namespace IPORevamp.Repository.Opposition
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.DataStatus == "Opposition" && p.ApplicationStatus == "Counter" && f.ToDataStatus == "Opposition" && f.ToStatus == "Counter" && p.userid == id
+                                 where p.DataStatus == DATASTATUS.Opposition  && p.ApplicationStatus ==STATUS.Counter  && f.ToDataStatus == DATASTATUS.Opposition  && f.ToStatus == STATUS.Counter  && p.userid == id
 
                                  select new DataResult
                                  {

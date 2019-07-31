@@ -14,5 +14,7 @@ namespace IPORevamp.Repository.Publication
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPublicationByRegistrationId(String id);
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Batch.PublicationBatch>> SelectBatches();
         Task<String> UpdateBatch(String[] ss);
+
+        
     }
 }

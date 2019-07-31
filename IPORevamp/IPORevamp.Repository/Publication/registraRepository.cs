@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using IPORevamp.Data.Entity.Interface.Entities.Search;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.Publication
 {
@@ -35,7 +36,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Registra" && p.DataStatus == "Examiner" && f.ToStatus == "Registra" 
+                                 where p.ApplicationStatus ==STATUS.Registra  && p.DataStatus ==DATASTATUS.Examiner  && f.ToStatus == STATUS.Registra 
 
                                  select new DataResult
                                  {
@@ -79,7 +80,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Registra" && p.DataStatus == "Examiner" && f.ToStatus == "Registra" && f.FromStatus == "Appeal"
+                                 where p.ApplicationStatus == STATUS.Registra  && p.DataStatus ==DATASTATUS.Examiner  && f.ToStatus == STATUS.Registra  && f.FromStatus == STATUS.Appeal 
 
                                  select new DataResult
                                  {
@@ -123,7 +124,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Appeal" && p.DataStatus == "Examiner" && f.ToStatus == "Appeal"
+                                 where p.ApplicationStatus == STATUS.Appeal  && p.DataStatus == DATASTATUS.Examiner  && f.ToStatus == STATUS.Appeal
 
                                  select new DataResult
                                  {

@@ -149,7 +149,7 @@ namespace IPORevamp.Repository.Recordal
                                      auth_doc = c.ApprovalDocument,
                                      sup_doc1 = c.SupportDocument1,
                                      sup_doc2 = c.SupportDocument2,
-                                     NextrenewalDate = Convert.ToDateTime(p.NextRenewalDate),
+                                     NextrenewalDate = p.NextRenewalDate.ToString(),
 
                                      pwalletid = p.Id
 
@@ -265,7 +265,7 @@ namespace IPORevamp.Repository.Recordal
                                      sup_doc2 = c.SupportDocument2,
 
                                      certificatePaymentReference = p.CertificatePayReference,
-                                     NextrenewalDate = Convert.ToDateTime(p.NextRenewalDate),
+                                     NextrenewalDate = p.NextRenewalDate.ToString(),
                                      pwalletid = p.Id
 
                                  }).ToListAsync();
@@ -318,9 +318,9 @@ namespace IPORevamp.Repository.Recordal
                                      sup_doc2 = c.SupportDocument2,
 
                                      certificatePaymentReference = p.CertificatePayReference,
-                                     NextrenewalDate = Convert.ToDateTime(p.NextRenewalDate),
+                                     NextrenewalDate = p.NextRenewalDate.ToString(),
                                      pwalletid = p.Id ,
-                                     renewalid= f.Id
+                                     renewalid= Convert.ToString(f.Id)
 
                                  }).ToListAsync();
             return details;

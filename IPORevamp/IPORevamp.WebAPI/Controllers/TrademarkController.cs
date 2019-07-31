@@ -39,6 +39,7 @@ namespace IPORevamp.WebAPI.Controllers
     {
         private readonly InewApplication _newApplicationRepository;
 
+
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly Repository.Email.IEmailTemplateRepository _EmailTemplateRepository;
         private IFileHandler _fileUploadRespository;
@@ -90,6 +91,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailsender = emailsender;
             _httpContextAccessor = httpContextAccessor;
             _newApplicationRepository = newApplicationRepository;
+           
             _contex = contex;
             _fileUploadRespository = fileUploadRespository;
             _EmailTemplateRepository = EmailTemplateRepository;
@@ -190,7 +192,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
 
-            await _contex.AddAsync(new AuditTrail
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
                 ActionTaken = AuditAction.Update,
                 DateCreated = DateTime.Now,
@@ -299,7 +301,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
 
-            await _contex.AddAsync(new AuditTrail
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
                 ActionTaken = AuditAction.Update,
                 DateCreated = DateTime.Now,
@@ -407,7 +409,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
 
-            await _contex.AddAsync(new AuditTrail
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
                 ActionTaken = AuditAction.Update,
                 DateCreated = DateTime.Now,
@@ -514,7 +516,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
 
-            await _contex.AddAsync(new AuditTrail
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
             {
                 ActionTaken = AuditAction.Update,
                 DateCreated = DateTime.Now,
@@ -732,6 +734,8 @@ namespace IPORevamp.WebAPI.Controllers
                      json2 = JsonConvert.SerializeObject(save, Newtonsoft.Json.Formatting.Indented);
                     SaveMarkInfo(markinfoview);
 
+  
+
                 }
 
                 else
@@ -766,8 +770,25 @@ namespace IPORevamp.WebAPI.Controllers
 
                     var markInfo = await _newApplicationRepository.UpdateMarkInfo(mark);
 
+     
+
 
                 }
+
+
+
+
+
+
+
+
+
+
+                // get User Information
+                //  user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
+
+
+                // Added A New Sector 
 
                 await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
@@ -781,15 +802,8 @@ namespace IPORevamp.WebAPI.Controllers
                     RecordAfter = json2
                 });
 
-              
-               
-
-                // get User Information
-                //  user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
 
 
-                // Added A New Sector 
-              
 
                 return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, pwalletid2);
             }
@@ -802,38 +816,22 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+      
+
         [HttpGet("UpDatePwalletById")]
         public async Task<IActionResult> UpDatePwalletById([FromQuery] string pwalletid , [FromQuery] string transid)
         {
             try
             {
                 // check for user information before processing the request
-                int id = Convert.ToInt32(pwalletid);
-
-                var vpwallet = (from c in _contex.Application where c.Id == id  select c).FirstOrDefault();
-
-               
-
-                if (vpwallet != null)
-                {
-                    vpwallet.TransactionID = transid;
-                    vpwallet.ApplicationStatus = "Fresh";
-
-                    _contex.SaveChanges();
-
-                    // get User Information
-
-
-
-
-                }
+                _newApplicationRepository.updateTransactionById(pwalletid, transid);
 
                 return Ok();
                
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Select State", "");
+                _logger.LogError(ex, "Error Occured", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
             }
         }
@@ -944,9 +942,11 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-        public  void UpdateMarkInfo(int id )
+        public async  void UpdateMarkInfo(int id )
+
         {
-            var vmark_info = (from c in _contex.MarkInformation where c.Id ==id select c).FirstOrDefault();
+           MarkInformation  vmark_info = await _newApplicationRepository.GetMarkInfo(id);
+         //  var vmark_info = (from c in _contex.MarkInformation where c.Id ==id select c).FirstOrDefault();
             
             if (vmark_info.TradeMarkTypeID ==1)
             {
@@ -958,7 +958,10 @@ namespace IPORevamp.WebAPI.Controllers
                 vmark_info.RegistrationNumber = "F/TM/O/" + DateTime.Today.Date.ToString("yyyy") + "/" + id;
             }
 
-            _contex.SaveChanges();
+            await  _newApplicationRepository.UpdateMarkInfo(vmark_info);
+
+
+
         }
 
         public async void  SaveMarkInfo(IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInfo_View markInfo_View)
@@ -1004,29 +1007,24 @@ namespace IPORevamp.WebAPI.Controllers
                 content.IsActive = true;
 
                 content.IsDeleted = false;
-                string json2 = JsonConvert.SerializeObject(markInfo_View, Newtonsoft.Json.Formatting.Indented);
+               // string json2 = JsonConvert.SerializeObject(markInfo_View, Newtonsoft.Json.Formatting.Indented);
 
-                _contex.MarkInformation.Add(content);
-
-                _contex.AuditTrails.Add(new AuditTrail
-                {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Mark   successfully",
-                    Entity = "MarkAdded",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip,
-                    RecordAfter = json2
-                }
-                );
-                _contex.SaveChanges();
+                MarkInformation  save = await  _newApplicationRepository.SaveMarkInfo(content);
+                await _newApplicationRepository.UpdateMarkInfo(save.Id);
+                //  UpdateMarkInfo(saveContent.Entity.Id);
+                //  UpdateMarkInfo(save.applicationid);
+                // _contex.MarkInformation.Add(content);
 
 
-               //   var save = await _newApplicationRepository.SaveMarkInfo(content);
-            
 
-              this.UpdateMarkInfo(content.Id);
+
+                //   _contex.SaveChanges();
+
+
+                //   var save = await _newApplicationRepository.SaveMarkInfo(content);
+
+
+
 
 
 

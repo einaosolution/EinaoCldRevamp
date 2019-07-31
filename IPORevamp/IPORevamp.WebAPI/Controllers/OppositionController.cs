@@ -27,6 +27,7 @@ using System.Net;
 using System.Threading.Tasks;
 using IPORevamp.Repository.Opposition;
 using IPORevamp.Data.Entity.Interface.Entities.Opposition;
+using IPORevamp.Repository.Email;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -37,6 +38,7 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IOppositionRepository _oppositionRepository;
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly IPOContext _contex;
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
 
 
         private readonly IEmailSender _emailsender;
@@ -53,8 +55,9 @@ namespace IPORevamp.WebAPI.Controllers
     IMapper mapper, ILogger<UserController> logger,
     IEmailManager<EmailLog, EmailTemplate> emailManager,
      IFileHandler fileUploadRespository,
+     IEmailTemplateRepository EmailTemplateRepository,
 
-   IOppositionRepository oppositionRepository,
+        IOppositionRepository oppositionRepository,
    IPOContext contex,
 
     IEmailSender emailsender,
@@ -86,6 +89,7 @@ namespace IPORevamp.WebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
             _oppositionRepository = oppositionRepository;
             _fileUploadRespository = fileUploadRespository;
+            _EmailTemplateRepository = EmailTemplateRepository;
 
 
         }
@@ -584,19 +588,26 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        public void SendOppositionOfficerEmail(string Appid)
+        public async void SendOppositionOfficerEmail(string Appid)
         {
+            EmailTemplate emailTemplate;
             try
             {
 
                 var App = (from p in _contex.Application where p.Id == Convert.ToInt32(Appid) select p).FirstOrDefault();
-
-                var user2 = _userManager.Users.Where(x => x.RolesId == 11).ToList();
-
+                var roleid = Convert.ToInt32(IPORoles.Opposition_Officer_Trade_Mark);
+                var user2 = _userManager.Users.Where(x => x.RolesId == roleid).ToList();
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.NoticeOfOpposition);
                 foreach (var users in user2)
                 {
-                    var vname = users.FirstName + " " + users.LastName;
-                    var mailContent = "Dear " + vname + "<br> a user opposed an  application with transactionID   " + App.TransactionID;
+                    string mailContent = emailTemplate.EmailBody;
+                    var username = users.FirstName + " " + users.LastName;
+                    mailContent = mailContent.Replace("#Name", username);
+                    mailContent = mailContent.Replace("#transid", App.TransactionID);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+                  
+                   
+                   // var mailContent = "Dear " + vname + "<br> a user opposed an  application with transactionID   " + App.TransactionID;
                     _emailsender.SendEmailAsync(users.Email, "Notice Of Opposition", mailContent);
 
                 }

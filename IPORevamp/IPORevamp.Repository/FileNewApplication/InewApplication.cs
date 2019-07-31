@@ -16,5 +16,7 @@ namespace IPORevamp.Repository.FileNewApplication
         Task<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation> UpdateMarkInfo(IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation markinfo);
         Task<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> SaveAppHistory(IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory apphistory);
         Task<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation> SaveMarkInfo(IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation markinfo);
+        Task<IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInformation>  UpdateMarkInfo(int id);
+        Task<String> updateTransactionById(string transactionid, string paymentid);
     }
 }

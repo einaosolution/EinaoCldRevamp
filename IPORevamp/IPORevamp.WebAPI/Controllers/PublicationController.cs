@@ -26,6 +26,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using IPORevamp.Repository.Publication;
+using IPORevamp.Repository.Email;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -35,6 +36,7 @@ namespace IPORevamp.WebAPI.Controllers
     {
         private readonly IpublicationRepository _publicationRepository;
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
         private readonly IPOContext _contex;
 
 
@@ -47,6 +49,7 @@ namespace IPORevamp.WebAPI.Controllers
     UserManager<ApplicationUser> userManager,
     RoleManager<ApplicationRole> roleManager,
     SignInManager<ApplicationUser> signInManager,
+      IEmailTemplateRepository EmailTemplateRepository,
 
     IConfiguration configuration,
     IMapper mapper, ILogger<UserController> logger,
@@ -85,6 +88,7 @@ namespace IPORevamp.WebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
             _publicationRepository = publicationRepository;
             _fileUploadRespository = fileUploadRespository;
+            _EmailTemplateRepository = EmailTemplateRepository;
 
 
         }
@@ -197,13 +201,22 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var App = (from p in _contex.Application where p.Id == Convert.ToInt32(Appid)  select p).FirstOrDefault();
-
-                var user2 = _userManager.Users.Where(x => x.RolesId == 8).ToList();
+                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                var departmentid = Convert.ToString(IPODepartment.Trademark);
+                var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.AppealReply);
 
                 foreach (var users in user2)
                 {
+                   
+                    string mailContent = emailTemplate.EmailBody;
+
                     var vname = users.FirstName + " " + users.LastName;
-                    var mailContent = "Dear " + vname + "<br> a user just replied appeal on  application with transactionID   " + App.TransactionID;
+                    mailContent = mailContent.Replace("#Name", vname);
+                    mailContent = mailContent.Replace("#transid", App.TransactionID);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+                   
                     await _emailsender.SendEmailAsync(users.Email, "User Replies Appeal", mailContent);
 
                 }

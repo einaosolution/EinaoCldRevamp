@@ -25,6 +25,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using IPORevamp.Repository.Email;
+
 namespace IPORevamp.WebAPI.Controllers
 {
     [Route("api/Examiner")]
@@ -34,6 +36,7 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IExaminerRepository _examinerRepository;
         private readonly IEmailManager<EmailLog, EmailTemplate> _emailManager;
         private readonly IPOContext _contex;
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
 
 
         private readonly IEmailSender _emailsender;
@@ -48,6 +51,7 @@ namespace IPORevamp.WebAPI.Controllers
    
     IConfiguration configuration,
     IMapper mapper, ILogger<UserController> logger,
+      IEmailTemplateRepository EmailTemplateRepository,
     IEmailManager<EmailLog, EmailTemplate> emailManager,
      IFileHandler fileUploadRespository,
 
@@ -83,6 +87,7 @@ namespace IPORevamp.WebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
             _examinerRepository = examinerRepository;
             _fileUploadRespository = fileUploadRespository;
+            _EmailTemplateRepository = EmailTemplateRepository;
 
 
         }
@@ -465,14 +470,15 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        [HttpGet("SendUserEmail2")]
-        public async Task<IActionResult> SendUserEmail2([FromQuery] string RequestById, [FromQuery] string userid, [FromQuery] string Comment)
+        [HttpGet("MailToReconductSearch")]
+        public async Task<IActionResult> MailToReconductSearch([FromQuery] string RequestById, [FromQuery] string userid, [FromQuery] string Comment)
         {
             try
             {
                 string ip = "";
 
                 ip = Request.Headers["ip"];
+                EmailTemplate emailTemplate;
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
@@ -480,19 +486,22 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
                 var user2 = await _userManager.FindByIdAsync(userid); ;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.ApplicationSentToOpposition);
 
-                var message = "Dear " + user2.FirstName + " " + user2.LastName + ",Application has been sent to   Reconduct Search folder , Please login to treat the application  . ";
-
-
+              //  var message = "Dear " + user2.FirstName + " " + user2.LastName + ",Application has been sent to   Reconduct Search folder , Please login to treat the application  . ";
+                string mailContent = emailTemplate.EmailBody;
+                mailContent = mailContent.Replace("#Name", user2.FirstName + " " + user2.LastName);
+             
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
 
                 if (user2 != null)
                 {
-
-                    var user3 = _userManager.Users.Where(x => x.RolesId == 16).ToList();
+                    var roleid = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                    var user3 = _userManager.Users.Where(x => x.RolesId == roleid).ToList();
 
                     foreach (var users in user3)
                     {
-                        await _emailsender.SendEmailAsync(users.Email, "Application Sent to Reconduct Search ", message);
+                        await _emailsender.SendEmailAsync(users.Email, "Application Sent to Reconduct Search", mailContent);
 
 
                     }

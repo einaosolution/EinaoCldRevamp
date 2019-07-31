@@ -8,17 +8,23 @@ using IPORevamp.Data.Entity.Interface.Entities.Search;
 using IPORevamp.Data.Entity.Interface.Entities.Batch;
 using System.IO;
 using System.Net;
+using Microsoft.Extensions.Configuration;
+using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.Publication
 {
-    class publicationRepository : IpublicationRepository
+  public   class publicationRepository : IpublicationRepository
     {
 
         private readonly IPOContext _contex;
+        protected readonly IConfiguration _configuration;
 
-        public publicationRepository(IPOContext contex)
+
+        public publicationRepository(IPOContext contex, IConfiguration configuration)
         {
             _contex = contex;
+            _configuration = configuration;
 
 
         }
@@ -38,7 +44,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Fresh" && p.DataStatus == "Publication" && f.ToDataStatus== "Publication"  && p.Batchno==null
+                                 where p.ApplicationStatus ==STATUS.Fresh && p.DataStatus ==DATASTATUS.Publication  && f.ToDataStatus== DATASTATUS.Publication && p.Batchno==null
 
                                  select new DataResult
                                  {
@@ -60,7 +66,7 @@ namespace IPORevamp.Repository.Publication
                                      sup_doc2 = c.SupportDocument2,
                                      attach_doc = f.UploadsPath1,
                                      pwalletid = p.Id ,
-                                     BatCount= BatchCount
+                                     BatCount= BatchCount.ToString()
                                  }).ToListAsync();
             return details;
             // return null;
@@ -82,7 +88,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.ApplicationStatus == "Refused"  && p.userid ==userid &&  f.ToStatus == "Refused"
+                                 where p.ApplicationStatus ==STATUS.Refused   && p.userid ==userid &&  f.ToStatus == STATUS.Refused
 
                                  select new DataResult
                                  {
@@ -104,7 +110,7 @@ namespace IPORevamp.Repository.Publication
                                      sup_doc2 = c.SupportDocument2,
                                      attach_doc = f.UploadsPath1,
                                      pwalletid = p.Id,
-                                     BatCount = BatchCount
+                                     BatCount = BatchCount.ToString()
                                  }).ToListAsync();
             return details;
             // return null;
@@ -126,7 +132,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where  p.DataStatus == "Publication" && f.ToDataStatus == "Publication" && p.Batchno == id
+                                 where  p.DataStatus ==DATASTATUS.Publication  && f.ToDataStatus == DATASTATUS.Publication && p.Batchno == id
 
                                  select new DataResult
                                  {
@@ -148,7 +154,7 @@ namespace IPORevamp.Repository.Publication
                                      sup_doc2 = c.SupportDocument2,
                                      attach_doc = f.UploadsPath1,
                                      pwalletid = p.Id,
-                                     BatCount = BatchCount
+                                     BatCount = BatchCount.ToString()
                                  }).ToListAsync();
             return details;
             // return null;
@@ -170,7 +176,7 @@ namespace IPORevamp.Repository.Publication
                                  on p.Id equals f.ApplicationID
 
 
-                                 where p.DataStatus == "Publication" && f.ToDataStatus == "Publication" && c.RegistrationNumber == id
+                                 where p.DataStatus == DATASTATUS.Publication  && f.ToDataStatus == DATASTATUS.Publication && c.RegistrationNumber == id
 
                                  select new DataResult
                                  {
@@ -192,7 +198,7 @@ namespace IPORevamp.Repository.Publication
                                      sup_doc2 = c.SupportDocument2,
                                      attach_doc = f.UploadsPath1,
                                      pwalletid = p.Id,
-                                     BatCount = BatchCount
+                                     BatCount = BatchCount.ToString()
                                  }).ToListAsync();
             return details;
             // return null;
@@ -244,30 +250,31 @@ namespace IPORevamp.Repository.Publication
 
         public async System.Threading.Tasks.Task<String> UpdateBatch(String[] ss)
         {
-            foreach(var val in ss)
+            foreach (var val in ss)
             {
                 var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
                 var intval = Convert.ToInt32(val);
-                var App = (from p in _contex.Application where  p.Id == intval select p).FirstOrDefault();
-                App.Batchno =Convert.ToString( BatchCount);
+                var App = (from p in _contex.Application where p.Id == intval select p).FirstOrDefault();
+                App.Batchno = Convert.ToString(BatchCount);
                 _contex.SaveChanges();
 
                 PublicationBatch bb = new PublicationBatch();
                 bb.DateCreated = DateTime.Now;
-                bb.BatchNo =BatchCount;
+                bb.BatchNo = BatchCount;
                 bb.IsActive = true;
                 bb.IsDeleted = false;
                 bb.NumberOfApplication = ss.Length;
-             await   _contex.AddAsync(bb);
+                await _contex.AddAsync(bb);
                 _contex.SaveChanges();
 
             }
 
-       
+
             return "success";
             // return null;
         }
 
+      
 
        
 
@@ -277,7 +284,7 @@ namespace IPORevamp.Repository.Publication
             var App = await (from p in _contex.PublicationBatch
                              join c in _contex.Application
                               on p.BatchNo equals Convert.ToInt32(c.Batchno)
-                             where c.DataStatus == "Publication"
+                             where c.DataStatus ==DATASTATUS.Publication 
 
                              select p).ToListAsync();
 

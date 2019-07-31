@@ -255,16 +255,16 @@ namespace IPORevamp.WebAPI.Controllers
             {
                 return PrepareResponse(HttpStatusCode.OK, "User Does not  Exist", true, null); ;
             }
-
+           
             user.RolesId = Convert.ToInt32(RoleId);
-            if (Convert.ToInt32(RoleId) == 18)
+            if (Convert.ToInt32(RoleId) == Convert.ToInt32(IPORoles.Individual))
             {
-                user.CategoryId = 1;
+                user.CategoryId = Convert.ToInt32(IPOCategory.Individual);
             }
 
-            if (Convert.ToInt32(RoleId) == 3)
+            if (Convert.ToInt32(RoleId) == Convert.ToInt32(IPORoles.CorporateAgent_Trade_Mark))
             {
-                user.CategoryId = 2;
+                user.CategoryId = Convert.ToInt32(IPOCategory.Agent); ;
             }
 
 
@@ -465,12 +465,12 @@ namespace IPORevamp.WebAPI.Controllers
                     user.Street = Street;
                     if (user.CategoryId ==1)
                     {
-                        user.RolesId = 18;
+                        user.RolesId = Convert.ToInt32(IPORoles.Individual);
                     }
 
                     else
                     {
-                        user.RolesId = 19;
+                        user.RolesId = Convert.ToInt32(IPORoles.CorporateAgent_Trade_Mark); ;
                     }
                   //  user.ProfilePicLoc = result[1].ToString();
                     user.ProfilePicLoc = msg;
@@ -508,74 +508,7 @@ namespace IPORevamp.WebAPI.Controllers
             return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
         }
 
-        // This method is used for verification of account 
-        [HttpPost("UpdateCorporateRecord")]
-        public async Task<IActionResult> UpdateCorporateRecord( [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite, [FromForm] string FirstName, [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber, [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode, [FromForm] string Country)
-        {
-            var context = _httpContextAccessor.HttpContext;
 
-            var user = _userManager.Users.FirstOrDefault(x => x.Email == Email);
-
-            var file = Request.Form.Files[0];
-            string folderName = "Upload";
-            string filename = "";
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string newPath = Path.Combine(webRootPath, folderName);
-
-            if (file.Length > 0)
-            {
-                string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                filename = "Upload/" + fileName;
-                string fullPath = Path.Combine(newPath, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-            }
-
-
-
-
-
-
-            if (user != null)
-            {
-                user.Rcno = CompanyRegistration;
-                user.MobileNumber = companytelephone;
-                user.Email = companyemail;
-                user.Website = companywebsite;
-                user.FirstName = FirstName;
-                user.LastName = LastName;
-                user.Gender = Gender == "Male" ? Data.UserManagement.Model.Gender.Male : Data.UserManagement.Model.Gender.Female;
-                user.DateOfBirth = Convert.ToDateTime(DateofBirth);
-                user.Bio = Identification;
-                user.MobileNumber = MobileNumber;
-                user.City = City;
-                user.State = State;
-                user.PostalCode = PostCode;
-                user.CountryCode = Country;
-                user.ProfilePicLoc = filename;
-                user.CompleteRegistration = true;
-
-                await _userManager.UpdateAsync(user);
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
-                {
-                    ActionTaken = AuditAction.Update,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.UserName} has been Updated  successfully",
-                    Entity = "User",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                });
-
-            }
-
-
-
-            //  var kk =    context.Items["firstname"].ToString();
-
-            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
-        }
         [HttpPost("ChangePassword")]
         [Authorize]
         public async Task<IActionResult> ChangePassword(ChangePasswordModel   model)
@@ -1288,7 +1221,8 @@ namespace IPORevamp.WebAPI.Controllers
             if (emailtemplate != null)
             {
 
-                var user = _userManager.Users.Where(x => x.RolesId == 8 && x.department == model.department).ToList();
+                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                var user = _userManager.Users.Where(x => x.RolesId == roleid && x.department == model.department).ToList();
            
              if (user.Count() ==0 )
                 {
