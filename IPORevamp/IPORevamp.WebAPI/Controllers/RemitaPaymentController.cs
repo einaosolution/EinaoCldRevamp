@@ -42,6 +42,11 @@ using IPORevamp.Data.Entity.Interface.Entities.RemitaPayment;
 using IPORevamp.Repository.Fee;
 using System.Net.Http;
 using IPORevamp.Repository.RemitaAccountSplit;
+using IPORevamp.Repository.Email;
+using IPORevamp.Repository.RemitaLineItem;
+using System.Text;
+using IPORevamp.WebAPI.Utilities;
+using System.Globalization;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -58,6 +63,8 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IRemitaPaymentRepository _remitaPaymentRepository;
         private readonly IFeeListRepository _feeRepository;
         private readonly IRemitaAccountSplitRepository _remitaSplitRepository;
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
+        private readonly IRemitaLineItemRepository _RemitaLineItemRepository;
 
         public RemitaPaymentController(
             UserManager<ApplicationUser> userManager,
@@ -70,7 +77,8 @@ namespace IPORevamp.WebAPI.Controllers
             IRemitaPaymentRepository remitaPaymentRepository,
             IFeeListRepository feeRepository,
 
-
+              IEmailTemplateRepository EmailTemplateRepository,
+              IRemitaLineItemRepository RemitaLineItemRepository,
 
             IEmailSender emailsender,
             IHttpContextAccessor httpContextAccessor,
@@ -98,7 +106,8 @@ namespace IPORevamp.WebAPI.Controllers
             _remitaPaymentRepository = remitaPaymentRepository;
             _feeRepository = feeRepository;
             _remitaSplitRepository = remitaSplitRepository;
-
+            _EmailTemplateRepository = EmailTemplateRepository;
+            _RemitaLineItemRepository = RemitaLineItemRepository;
         }
 
 
@@ -135,7 +144,7 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
-                
+
 
                 var user = _userManager.Users.FirstOrDefault(x => x.Id == remitaPaymentModelPost.UserId);
 
@@ -154,14 +163,17 @@ namespace IPORevamp.WebAPI.Controllers
                     }
 
                     string fullname = user.FirstName + "  " + user.LastName;
-                    var rrr = await GenerateRemitaRRRCode(remitaPaymentModelPost.FeeIds,fullname, user.Email, user.PhoneNumber);
+                    var rrr = await GenerateRemitaRRRCode(remitaPaymentModelPost.FeeIds, fullname, user.Email, user.PhoneNumber);
 
-                    if (rrr != null   && rrr.statuscode != "x")
+                    if (rrr != null && rrr.statuscode != "x")
                     {
+
+
+
                         return PrepareResponse(HttpStatusCode.OK, "RRR has been generated successfully", false, rrr);
                     }
 
-                    return PrepareResponse(HttpStatusCode.InternalServerError, "Error occured while generating RRR",true, rrr);
+                    return PrepareResponse(HttpStatusCode.InternalServerError, "Error occured while generating RRR", true, rrr);
 
                 }
 
@@ -169,7 +181,7 @@ namespace IPORevamp.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Save Country", "");
+                _logger.LogError(ex, "Save InitiateRemitaPayment", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.FailSaveRequest);
             }
         }
@@ -214,6 +226,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                     for (int i = 0; i < feeIdResult.Length; i++)
                     {
+
                         await _remitaPaymentRepository.SaveRemitaPayment(new RemitaPayment
                         {
                             Amount = item.init_amt,
@@ -225,7 +238,10 @@ namespace IPORevamp.WebAPI.Controllers
                             TotalAmount = (item.init_amt + item.TechnologyFee).ToString(),
                             FeeItemName = item.ItemName,
                             FeeId = item.Id,
-                            TransactionInitiatedDate = DateTime.Now
+                            TransactionInitiatedDate = DateTime.Now,
+
+
+     
 
 
                         });
@@ -291,7 +307,26 @@ namespace IPORevamp.WebAPI.Controllers
                         lineItems.Add(k);
                     };
 
+                    // insert the line items 
 
+
+                    foreach (var item in lineItems)
+                    {
+
+                        LineItem line = new LineItem();
+                        line.BankCode = item.bankCode;
+                        line.BeneficiaryAccount = item.beneficiaryAccount;
+                        line.BeneficiaryAmount = item.beneficiaryAmount;
+                        line.BeneficiaryName = item.beneficiaryName;
+                        line.CreatedBy = payerName;
+                        line.DateCreated = DateTime.Now;
+                        line.DeductFeeFrom = item.deductFeeFrom;
+                        line.IsActive = true;
+                        line.OrderId = item.orderId;
+
+                        await _RemitaLineItemRepository.SaveLineItem(line);
+
+                    }
 
                     remitaPaymentwithoutRRR.lineItems = lineItems;
 
@@ -363,7 +398,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                             }
 
-
+                            SendPaymentNotification(remitaResponseSerialized.RRR);
 
                             return remitaPaymentResponseModel;
                         }
@@ -444,10 +479,10 @@ namespace IPORevamp.WebAPI.Controllers
                             itemResult.RemitaPostVerifyPayLoad = remitaResponseStr;
                             itemResult.RemitaResponseVerifyPayLoad = jsondata;
                             itemResult.Status = remitaResponseSerialized.status;
-                           
+
                             itemResult.PaymentDate = DateTime.Now;
 
-                            if ((remitaResponseSerialized.status == "01"  || remitaResponseSerialized.status == "00" ) && remitaResponseSerialized.message == WebApiMessage.ApprovedPaymentStatus)
+                            if ((remitaResponseSerialized.status == "01" || remitaResponseSerialized.status == "00") && remitaResponseSerialized.message == WebApiMessage.ApprovedPaymentStatus)
                             {
                                 itemResult.TransactionCompletedDate = DateTime.Now;
                                 itemResult.PaymentStatus = WebApiMessage.SuccessfullyPayment;
@@ -489,115 +524,95 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [HttpPost("SendPaymentNotification")]
+        public async Task SendPaymentNotification(string rrr)
+        {
+            try
+            {
+
+                GenerateBarCodeEngine GenerateBarCode = new GenerateBarCodeEngine();
+              
+               
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.PAYMENT_NOTIFICATION);
 
 
 
+                var getPaymentDetails = await _remitaPaymentRepository.FetchByRRRCode(rrr);
 
-        //// post payment 
-        //[HttpPost("RemitaPay")]
-        //public async Task<RemitaPaymentResponsCodeModel> RemitaPay(string RRR)
-        //{
-
-        //    RemitaPaymentResponsCodeModel errorresult = new RemitaPaymentResponsCodeModel();
-
-        //    var paymentInfo = await _remitaPaymentRepository.FetchByRRRCode(RRR);
-
-        //    if (paymentInfo.Count == 0)
-        //    {
-        //        errorresult.status = WebApiMessage.RRRNotFound;
-        //        errorresult.statusmessage = WebApiMessage.FailedTransactionCodeStatus;
-        //        return errorresult;
-        //    }
-
-
-        //    var remitaPaymentwithoutRRR = paymentInfo.FirstOrDefault();
-
-        //    var merchantID = _configuration.GetValue<string>("merchantID");
-        //    var apiKey = _configuration.GetValue<string>("apiKey");
-        //    var hash = SHA512(merchantID + remitaPaymentwithoutRRR.RRR + apiKey);
-
-
-        //    RemitaPaymentPostModel remitaPaymentModel = new RemitaPaymentPostModel();
-        //    remitaPaymentModel.hash = hash;
-        //    remitaPaymentModel.merchantId = merchantID;
-        //    remitaPaymentModel.rrr = remitaPaymentwithoutRRR.RRR;
-        //    remitaPaymentModel.responseurl = _configuration.GetValue<string>("RemitaResponseURL");
-         
-
-
-        //    WebClient webClient = new WebClient
-        //    {
-        //        UseDefaultCredentials = true,
-        //        Headers =
-        //                {
-        //                    ["Authorization"] = $"remitaConsumerKey={merchantID},remitaConsumerToken={hash}",
-
-        //                }
-        //    };
-
-        //    try
-        //    {
-        //        var ttry = JsonConvert.SerializeObject(remitaPaymentModel);
-        //        var URL = _configuration.GetValue<string>("RemitaPaymentURL");
-
-        //        webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-        //        var remitaResponse = webClient.UploadString(new Uri(URL), "POST", ttry);
-
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Error occured connecting to RRR", "");
-        //        return null;
-        //    }
+                var singleRecord = getPaymentDetails.FirstOrDefault();
 
 
 
+               
+                string mailContent = emailTemplate.EmailBody;
+                mailContent = mailContent.Replace("{order}", singleRecord.OrderId);
+                mailContent = mailContent.Replace("{rrr}", rrr.ToString());
+                mailContent = mailContent.Replace("{channel}", singleRecord.Channel);
+                mailContent = mailContent.Replace("{paymentDate}", singleRecord.TransactionCompletedDate.ToString());
+                mailContent = mailContent.Replace("{name}", singleRecord.PayerName);
+                mailContent = mailContent.Replace("{email}", singleRecord.PayerEmail.ToString());
+                mailContent = mailContent.Replace("{phonenumber}", singleRecord.PayerPhone.ToString());
 
-        //}
+                if (singleRecord.PaymentStatus != WebApiMessage.SuccessfullyPayment)
+                {
+                    mailContent = mailContent.Replace("{paymentstatus}", "Awaiting  Paid");
+                }
+                else
+                {
+                    mailContent = mailContent.Replace("{paymentstatus}", "Approved Payment");
+                }
 
+                // get order details 
+                var orderdetails = await _RemitaLineItemRepository.GetAllTransactionLineItems(singleRecord.OrderId);
 
-
-
-
-
-
-        /// return url
-        /// 
-        //[HttpPost("remitaPaymentConfirmation")]
-        //private async Task<IActionResult> remitaPaymentConfirmation(RemitaPaymentResponsCodeModel remitaResponse)
-        //{
-
-        //    RemitaPaymentResponsCodeModel errorresult = new RemitaPaymentResponsCodeModel();
-
-        //    var paymentInfo = await _remitaPaymentRepository.FetchByRRRCode(remitaResponse.RRR);
-
-        //    if (paymentInfo.Count == 0)
-        //    {
-        //        errorresult.status = WebApiMessage.RRRNotFound;
-        //        errorresult.statusmessage = WebApiMessage.FailedTransactionCodeStatus;
-        //        return PrepareResponse(HttpStatusCode.InternalServerError, WebApiMessage.RRRNotFound, true, errorresult);
-        //    }
-
-
-         
-        //    try
-        //    {
-        //        RequeryRemitaModel requeryRemitaModel = new RequeryRemitaModel();
-        //        requeryRemitaModel.RRR = remitaResponse.RRR;
-        //        await VerifyPayment(requeryRemitaModel);
-
-        //        return null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Error occured connecting to RRR", "");
-        //        return null;
-        //    }
+                //  string Message = "<tr> <td>{paydate}</td>    <td>{orderId}</td>    <td>{paymentfor}</td>	 <td>{amount}</td>    <td>{techfee}</td>    <td>{pertotal}</td>  </tr>";
+                StringBuilder sb = new StringBuilder();
+                string msg = ""; 
+                decimal getTotalAmount = 0;
+                foreach (var item in getPaymentDetails)
+                {
+                    //string Message = "<tr> <td>{paydate}</td>    <td>{orderId}</td>    <td>{paymentfor}</td>	 <td>{amount}</td>    <td>{techfee}</td>    <td>{pertotal}</td>  </tr>";
 
 
+                    decimal totalAmt = +Convert.ToDecimal(item.TechFee) + Convert.ToDecimal(item.Amount);
+                    getTotalAmount = getTotalAmount + totalAmt;
+                    string amt = item.Amount.ToString();
+                    var paymentList = String.Format("<tr> <td>{0}</td>    <td>{1}</td>    <td>{2}</td>	 <td>{3}</td>    <td>{4}</td>    <td>{5}</td>  </tr> ", item.PaymentDate, singleRecord.OrderId, item.FeeItemName, IPORevamp.Core.Utilities.Utilities.FormatAmount(item.Amount.ToString()), IPORevamp.Core.Utilities.Utilities.FormatAmount(item.TechFee.ToString()), IPORevamp.Core.Utilities.Utilities.FormatAmount(item.TotalAmount.ToString()));
+                    msg = msg + paymentList;
+
+                    sb.Append(paymentList);
+                     
+                }
+
+                mailContent = mailContent.Replace("{record}", msg.ToString());
+                mailContent = mailContent.Replace("{total}", IPORevamp.Core.Utilities.Utilities.FormatAmount(getTotalAmount.ToString()));
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                string valueInBarCode = rrr + "/" + singleRecord.PayerName + "/" + singleRecord.PayerEmail + "/" + singleRecord.PayerPhone + "/" + getTotalAmount;
+                var generateBarCode = GenerateBarCode.GenerateBarCode(valueInBarCode);
+
+                mailContent = mailContent.Replace("{barcode}", generateBarCode);
 
 
-        //}
+                EmailLog emaillog = new EmailLog();
+                emaillog.MailBody = mailContent;
+                emaillog.Status = IPOEmailStatus.Fresh;
+                emaillog.Subject = emailTemplate.EmailSubject;
+                emaillog.DateCreated = DateTime.Now;
+                emaillog.Receiver = singleRecord.PayerEmail;
+                emaillog.Sender = emailTemplate.EmailSender;
+                emaillog.SendImmediately = true;
+                await _emailsender.SendEmailAsync(singleRecord.PayerEmail, emailTemplate.EmailSubject, mailContent);
+
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while building payment notification", "");
+
+            }
+        }
     }
 }

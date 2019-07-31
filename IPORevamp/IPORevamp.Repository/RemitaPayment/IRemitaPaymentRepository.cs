@@ -8,7 +8,7 @@ namespace IPORevamp.Repository.RemittaPayment
 {
     public interface IRemitaPaymentRepository : IAutoDependencyRegister
     {
-        #region Sector Respository
+        #region RemittaPayment Respository
 
         Task<RemitaPayment> SaveRemitaPayment(RemitaPayment model);
         void SaveRemitalineitemPayment(LineItem model);
@@ -17,6 +17,7 @@ namespace IPORevamp.Repository.RemittaPayment
         Task<List<RemitaPayment>> FetchByRRRCode(string RRR);
         Task<RemitaPayment> UpdateRemitaPayment(RemitaPayment model);
 
+        
 
 
 

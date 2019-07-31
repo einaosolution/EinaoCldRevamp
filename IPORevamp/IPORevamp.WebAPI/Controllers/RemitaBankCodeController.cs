@@ -39,6 +39,7 @@ using IPORevamp.Core.Utilities;
 using IPORevamp.Data.Entities;
 using Newtonsoft.Json;
 using IPORevamp.Data.Entity.Interface.Entities.RemitaBankCode;
+using IPORevamp.Repository.Email;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -53,11 +54,7 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IEmailSender _emailsender;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRemitaBankCodeRepository _RemitaBankCodeRepository;
-
-
-
-
-
+        private readonly IEmailTemplateRepository _EmailTemplateRepository;
 
         public RemitaBankCodeController(
             UserManager<ApplicationUser> userManager,
@@ -72,6 +69,7 @@ namespace IPORevamp.WebAPI.Controllers
             IEmailSender emailsender,
             IHttpContextAccessor httpContextAccessor,
             IHostingEnvironment hostingEnvironment,
+              IEmailTemplateRepository EmailTemplateRepository,
             IAuditTrailManager<AuditTrail> auditTrailManager
 
 
@@ -93,7 +91,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailsender = emailsender;
             _httpContextAccessor = httpContextAccessor;
             _RemitaBankCodeRepository = RemitaBankCodeRepository;
-
+            _EmailTemplateRepository = EmailTemplateRepository;
 
         }
 
@@ -157,6 +155,9 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
      
+
+       
+        
 
 
 

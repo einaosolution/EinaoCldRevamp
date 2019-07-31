@@ -327,6 +327,13 @@ namespace IPORevamp.Core.Utilities
         }
 
 
+        public static string  FormatAmount(string numericValue)
+        {
+            decimal con = Convert.ToDecimal(numericValue);
+            string formatted = con.ToString("#,##0.00");
+            return formatted;
+
+        }
 
         public static string Tokenize(string amount)
         {

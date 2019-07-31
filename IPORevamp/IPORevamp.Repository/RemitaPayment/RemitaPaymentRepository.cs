@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using static IPORevamp.Data.Entity.Interface.Entities.RemitaPayment.RemitaPayment;
 
@@ -69,7 +70,8 @@ namespace IPORevamp.Repository.RemitaPaymentRepository
             return saveContent.Entity;
         }
 
-      
+
+    
 
         public async Task<RemitaPayment> UpdateRemitaPayment(RemitaPayment model)
         {

@@ -204,7 +204,7 @@ namespace IPORevamp.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Select RemitaAccountSplit", "");
+                _logger.LogError(ex, "Select Remita Account Split", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound );
             }
         }
@@ -241,14 +241,14 @@ namespace IPORevamp.WebAPI.Controllers
                     {
                         ActionTaken = AuditAction.Create,
                         DateCreated = DateTime.Now,
-                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all countries  successfully",
-                        Entity = "GetAllCountries",
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Remita Account Split  successfully",
+                        Entity = "GetAllRemitaAccountSplit",
                         UserId = user.Id,
                         UserName = user.UserName,
                         IpAddress = ip
                     });
 
-                    return PrepareResponse(HttpStatusCode.OK, "RemitaAccountSplit Returned Successfully", false, RemitaAccountSplit);
+                    return PrepareResponse(HttpStatusCode.OK, "Remita Account Split Returned Successfully", false, RemitaAccountSplit);
 
                 }
                 else
@@ -315,7 +315,7 @@ namespace IPORevamp.WebAPI.Controllers
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new {content.BeneficiaryName}  RemitaAccountSplit  successfully",
+                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new {content.BeneficiaryName}  Remita Account Split  successfully",
                     Entity = "RemitaAccountSplitAdded",
                     UserId = user.Id,
                     UserName = user.UserName,
@@ -328,7 +328,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Save RemitaAccountSplit", "");
+                _logger.LogError(ex, "Save Remita Account Split", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.FailSaveRequest);
             }
         }
@@ -386,7 +386,7 @@ namespace IPORevamp.WebAPI.Controllers
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} update RemitaAccountSplit {record}  RemitaAccountSplit  successfully",
+                    Description = $"User {user.FirstName + ' ' + user.LastName} update Remita Account Split {record}  Remita Account Split  successfully",
                     Entity = "RemitaAccountSplitUpdate",
                     UserId = user.Id,
                     UserName = user.UserName,
@@ -400,7 +400,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Update RemitaAccountSplit", "");
+                _logger.LogError(ex, "Update Remita Account Split", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.FailSaveRequest);
             }
         }
@@ -451,7 +451,7 @@ namespace IPORevamp.WebAPI.Controllers
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} deleted RemitaAccountSplit {record}  RemitaAccountSplit  successfully",
+                    Description = $"User {user.FirstName + ' ' + user.LastName} deleted Remita Account Split {record}  Remita Account Split  successfully",
                     Entity = "RemitaAccountSplitDelete",
                     UserId = user.Id,
                     UserName = user.UserName,
@@ -465,7 +465,7 @@ namespace IPORevamp.WebAPI.Controllers
 
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Delete RemitaAccountSplit", "");
+                _logger.LogError(ex, "Delete Remita Account Split", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.FailDeletedRequest);
             }
         }
