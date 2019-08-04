@@ -91,8 +91,8 @@ namespace IPORevamp.WebAPI.Controllers
         /// <param name="RequestById"></param>
         /// <returns></returns>
        
-        [HttpPost("GetSettingById/{SettingId}")]
-        public async Task<IActionResult> GetSingleSettingById(int SettingId,string RequestById)
+        [HttpGet("GetSettingById")]
+        public async Task<IActionResult> GetSingleSettingById(string  SettingId,string RequestById)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-                var Setting = await _settings.GetSettingById(SettingId);
+                var Setting = await _settings.GetSettingById(Convert.ToInt32(SettingId));
 
             if (Setting != null)
             {

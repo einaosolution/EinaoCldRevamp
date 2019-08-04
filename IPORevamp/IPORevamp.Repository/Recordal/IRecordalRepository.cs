@@ -18,5 +18,12 @@ namespace IPORevamp.Repository.Recordal
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetRecordalRenewalCertificate();
         Task<IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger> GetMergerApplicationById(int applicationid);
         Task<IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger> GetMergerApplicationByAppId(int applicationid);
+        Task<Int32> Saveform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalRenewal RecordalRenewal);
+        Task<Int32> Saveform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger RecordalMerger);
+        Task<Int32> Updateform(string Name, string Address, string Comment, string filepath, string filepath2, string Type, int NoticeAppID);
+        Task<Int32> Updateform(string Name, string Address, string Name2, string Address2, string Comment, string filepath, string filepath2, string filepath3, string MergerDate, int Nationality, int NoticeAppID);
+        Task<Int32> UpdateRecord(string roleid, string TransactionId, int NoticeAppID, int userid);
+        Task<Int32> UpdateMergerRecord(string roleid, string TransactionId, int NoticeAppID, int userid);
+        Task<Int32> UpdateRennewalRecord(int NoticeAppID, int userid);
     }
 }

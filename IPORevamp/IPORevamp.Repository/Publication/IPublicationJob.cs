@@ -8,6 +8,7 @@ namespace IPORevamp.Repository.Publication
     {
         void PrintTime();
         void CheckPublicationStatus();
-      //  void CheckPublicationStatus();
+        void CheckPublicationCount();
+        //  void CheckPublicationStatus();
     }
 }

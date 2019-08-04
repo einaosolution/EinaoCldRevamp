@@ -56,7 +56,7 @@ namespace IPORevamp.WebAPI.Controllers
      IFileHandler fileUploadRespository,
 
    IExaminerRepository examinerRepository,
-   IPOContext contex ,
+  // IPOContext contex ,
 
     IEmailSender emailsender,
     IHttpContextAccessor httpContextAccessor,
@@ -82,7 +82,7 @@ namespace IPORevamp.WebAPI.Controllers
             _emailsender = emailsender;
             
 
-            _contex = contex;
+         //   _contex = contex;
 
             _httpContextAccessor = httpContextAccessor;
             _examinerRepository = examinerRepository;
@@ -116,7 +116,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -161,7 +161,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -206,7 +206,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -251,7 +251,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -297,7 +297,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -343,7 +343,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -389,7 +389,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -563,7 +563,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,

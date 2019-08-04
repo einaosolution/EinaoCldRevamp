@@ -72,7 +72,8 @@ export class NoticeOfCounterOppositionComponent implements OnInit {
   public row2 ;
   public tot ;
   public row3 = [];
-
+  settingoff:boolean =false
+  settingcode
   public row5 = [];
   public row6 = [];
   public row7 = [];
@@ -556,6 +557,46 @@ else {
 
 
   }
+
+  onSubmit33() {
+    // this.makePayment()
+    this.row = []
+    this.row.push(8)
+    var userid = localStorage.getItem('UserId');
+
+
+
+    var Payment= {
+
+      description: this.row2.description,
+      quatity: "1",
+      amount: this.tot ,
+      paymentref:"x13389996777",
+      transactionid:''
+
+
+
+  };
+  localStorage.setItem('Payment',JSON.stringify( Payment));
+
+  localStorage.setItem('PaymentType',"CounterStatement");
+  localStorage.setItem('settings',this.settingcode);
+
+
+
+    //  $(".validation-wizard").steps("next");
+
+    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+
+
+
+
+
+
+   }
+
   onSubmit3() {
     // this.makePayment()
     this.row = []
@@ -605,6 +646,7 @@ else {
   localStorage.setItem('Payment',JSON.stringify( Payment));
 
   localStorage.setItem('PaymentType',"CounterStatement");
+  localStorage.setItem('settings',this.settingcode);
     //  $(".validation-wizard").steps("next");
 
     this.router.navigateByUrl('/Dashboard/Invoice2');
@@ -808,7 +850,37 @@ else {
 
 
 
+      this.busy =   this.registerapi
+      .GetSettingsById("34",userid)
+      .then((response: any) => {
 
+      var Settings = response.content;
+      console.log("Settins Value")
+        console.log(response.content)
+      this.settingcode =Settings.itemValue
+      if (Settings.itemValue =="0"    ) {
+        // alert("off")
+        this.settingoff =true;
+       }
+
+       else {
+         this.settingoff =false;
+
+       }
+
+      })
+               .catch((response: any) => {
+
+                 console.log(response)
+
+
+                Swal.fire(
+                  response.error.message,
+                  '',
+                  'error'
+                )
+
+      })
 
   this.busy =   this.registerapi
 .GetFeeListByName("Counter-Statement" ,userid)

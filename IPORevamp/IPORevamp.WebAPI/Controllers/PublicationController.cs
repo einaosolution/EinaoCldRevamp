@@ -117,7 +117,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -162,16 +162,24 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application   successfully",
-                    Entity = "GetFreshAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application   successfully",
+                        Entity = "GetFreshAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -202,7 +210,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var App = (from p in _contex.Application where p.Id == Convert.ToInt32(Appid)  select p).FirstOrDefault();
                 var roleid = Convert.ToInt32(IPORoles.Registrar);
-                var departmentid = Convert.ToString(IPODepartment.Trademark);
+                var departmentid = DEPARTMENT.Trademark;
                 var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
                 EmailTemplate emailTemplate;
                 emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.AppealReply);
@@ -228,7 +236,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -275,7 +283,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -321,7 +329,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -359,7 +367,7 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
-
+               
                 var result = await _publicationRepository.GetPublicationById(Id);
 
 
@@ -367,16 +375,25 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + "" + user.LastName}  requested for all Publication  By Id   successfully",
-                    Entity = "GetPublicationById",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + "" + user.LastName}  requested for all Publication  By Id   successfully",
+                        Entity = "GetPublicationById",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -413,16 +430,26 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  By Id   successfully",
-                    Entity = "GetPublicationById",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  By Id   successfully",
+                        Entity = "GetPublicationById",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 

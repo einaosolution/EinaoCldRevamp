@@ -1,5 +1,10 @@
 import { Component, OnInit ,AfterViewInit } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
+import {DataStatus} from '../DataStatus';
+
+
+
+
 import '../../assets/js/perfect-scrollbar.jquery.min.js';
 import {Router} from '@angular/router';
 
@@ -21,6 +26,7 @@ export class HomeComponent implements OnInit,AfterViewInit {
   title = 'Test';
   pagerefreshed:boolean =false;
   subscription: any;
+  DataStatus:DataStatus;
 
   constructor(private registerapi :ApiClientService ,private router: Router) {
 
@@ -69,6 +75,8 @@ this.getIpAddress()
     this.router.navigateByUrl('/Dashboard');
   }
   ngOnInit() {
+
+
 
        try {
 

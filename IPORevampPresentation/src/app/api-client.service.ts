@@ -10,13 +10,15 @@ import * as jwt_decode from  "jwt-decode"
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
- serviceBase = 'http://localhost:5000/';
-//serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
-//serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
-serviceBase2 = 'http://localhost:4200/#/';
+ //serviceBase = 'http://localhost:5000/';
+serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
+//serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient,private router: Router , private deviceService: DeviceDetectorService) {
@@ -197,7 +199,7 @@ serviceBase2 = 'http://localhost:4200/#/';
          // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
          //var vip = localStorage.getItem('ip');
         // const  headers = new  HttpHeaders().set("ip", vip);
-          return this.http.post( this.serviceBase + 'api/Search/SaveFreshAppHistory2', formData )
+          return this.http.post( this.serviceBase + 'api/Search/SaveFreshAppHistoryAttachment', formData )
                       .toPromise()
 
                       .then(data => {  return data; });
@@ -211,7 +213,7 @@ serviceBase2 = 'http://localhost:4200/#/';
            // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
            //var vip = localStorage.getItem('ip');
           // const  headers = new  HttpHeaders().set("ip", vip);
-            return this.http.post( this.serviceBase + 'api/Search/SaveFreshAppHistory3', formData )
+            return this.http.post( this.serviceBase + 'api/Search/SaveFreshAppHistoryMultiple', formData )
                         .toPromise()
 
                         .then(data => {  return data; });
@@ -738,6 +740,23 @@ serviceBase2 = 'http://localhost:4200/#/';
       };
       return this.http
         .get(this.serviceBase + 'api/UserManagement/ApproveUser', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetSettingsById(pp: string,pp2: string ) {
+
+      var data = {
+        SettingId: pp ,
+        RequestById: pp2
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/SystemSetup/GetSettingById', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2157,7 +2176,7 @@ RejectUser(pp: string,pp2: string ) {
       Comment:pp3
 		};
 		return this.http
-			.get(this.serviceBase + 'api/Examiner/SendUserEmail2', { params: data,headers })
+			.get(this.serviceBase + 'api/Examiner/MailToReconductSearch', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -2843,3 +2862,5 @@ GetTradeMarkType(pp2:string) {
 
   }
 }
+
+

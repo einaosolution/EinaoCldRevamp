@@ -20,10 +20,7 @@ namespace EmailEngine.Base.Entities
         Failed
     }
 
-    public enum IPODepartment
-    {
-        Trademark = 3
-    }
+   
 
     public enum IPOCategory
     {
@@ -49,13 +46,20 @@ namespace EmailEngine.Base.Entities
 
     }
 
-    public class DATASTATUS
+    public class DEPARTMENT
+    {
+        public const string Trademark = "3";
+
+    }
+
+        public class DATASTATUS
     {
         
         public const string Certificate = "Certificate";
         public const string Opposition = "Opposition";
         public const string Search = "Search";
         public const string Examiner = "Examiner";
+       
         public const string Publication = "Publication";
         public const string Kiv = "Kiv";
         public const string ReconductSearch = "Reconduct-Search";
@@ -82,8 +86,11 @@ namespace EmailEngine.Base.Entities
         public const string Applicant = "Applicant";
         public const string Registra = "Registra";
         public const string Appeal = "Appeal";
+        public const string Approved = "Approved";
 
         
+
+
 
 
 
@@ -113,6 +120,11 @@ namespace EmailEngine.Base.Entities
         public const string FORGOT_PASSWORD_EMAIL_TEMPLATE = "AC005";
         public const string Admin_User = "AC006";
         public const string Send_Registra_Mail = "AC007";
+        public const string PublicationDue_Mail = "ACP007";
+        public const string CertificatePayment = "ACP008";
+        public const string NotifyUserOfOpposition = "ACP009";
+
+        
 
         public const string Preliminary_Search = "PRELIM001";
         public const string Invoice = "RECPT001";
@@ -126,6 +138,9 @@ namespace EmailEngine.Base.Entities
 
 
         public const string PublicationMaxDay = "Pub";
+        public const string PublicationCount = "PubCount";
+
+        
 
         public const string PAYMENT_NOTIFICATION = "PAY001";
 

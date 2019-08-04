@@ -38,176 +38,144 @@ namespace IPORevamp.Repository.Opposition
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetFreshApplication()
         {
-            var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
-
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus == STATUS.Fresh && p.DataStatus == DATASTATUS.Opposition  && f.ToDataStatus == DATASTATUS.Opposition
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id,
-                                     BatCount = BatchCount.ToString()
-                                 }).ToListAsync();
+            // var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+            var details = _contex.DataResult
+                 .FromSql($"GetOppositionFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Opposition, STATUS.Fresh })
+                .ToList();
+           
             return details;
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetNewJudgment()
         {
+            var details = _contex.DataResult
+                .FromSql($"GetOppositionJudgement   @p0, @p1", parameters: new[] { DATASTATUS.Opposition, STATUS.Judgement })
+               .ToList();
+
            
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
-
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus == STATUS.Judgement  && p.DataStatus ==DATASTATUS.Opposition  && f.ToDataStatus == DATASTATUS.Opposition && f.ToStatus == STATUS.Judgement
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id
-                                  
-                                 }).ToListAsync();
             return details;
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetOppositionByUserId(String id)
         {
-           
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
+            var details = _contex.DataResult
+               .FromSql($"GetOppositionByUserid    @p0, @p1 , @p2", parameters: new[] { DATASTATUS.Opposition, STATUS.Applicant, id })
+              .ToList();
 
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.DataStatus ==DATASTATUS.Opposition  &&  p.ApplicationStatus == STATUS.Applicant  && f.ToDataStatus == DATASTATUS.Publication  &&  p.userid == id
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture ,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id
-                                    
-                                 }).ToListAsync();
             return details;
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetCounterOppositionByUserId(String id)
         {
+            var details = _contex.DataResult
+             .FromSql($"GetCounterOppositionByUserId    @p0, @p1 , @p2", parameters: new[] { DATASTATUS.Opposition, STATUS.Counter, id })
+            .ToList();
 
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
+           
+            return details;
+            // return null;
+        }
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
+        
 
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
+            public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Opposition.NoticeOfOpposition> GetNoticeApplicationByTransactionid(int applicationid,string transactionid)
+        {
+
+            var details = await (from p in _contex.NoticeOfOpposition
 
 
-                                 where p.DataStatus == DATASTATUS.Opposition  && p.ApplicationStatus ==STATUS.Counter  && f.ToDataStatus == DATASTATUS.Opposition  && f.ToStatus == STATUS.Counter  && p.userid == id
 
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id
 
-                                 }).ToListAsync();
+                                 where p.Id == applicationid
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.PaymentReference = transactionid;
+            details.Status = "Paid";
+            _contex.SaveChanges();
+            return details;
+            // return null;
+        }
+
+
+        
+
+         public async System.Threading.Tasks.Task<Int32> SaveForm(IPORevamp.Data.Entity.Interface.Entities.Opposition.CounterOpposition CounterOpposition)
+        {
+
+            _contex.CounterOpposition.Add(CounterOpposition);
+            _contex.SaveChanges();
+
+            return CounterOpposition.Id;
+
+
+
+            
+        }
+
+        public async System.Threading.Tasks.Task<Int32> SaveForm(IPORevamp.Data.Entity.Interface.Entities.Opposition.NoticeOfOpposition NoticeOfOpposition)
+        {
+
+            _contex.NoticeOfOpposition.Add(NoticeOfOpposition);
+            _contex.SaveChanges();
+
+
+     
+            return NoticeOfOpposition.Id;
+            // return null;
+        }
+
+
+        public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Opposition.NoticeOfOpposition> UpdateForm(string opponentName, string opponentAddress, string Comment, string filepath,int  NoticeAppID)
+        {
+
+            var details = await (from p in _contex.NoticeOfOpposition
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.opponentName = opponentName;
+            details.opponentAddress = opponentAddress;
+            details.Comment = Comment;
+            details.Upload = filepath;
+
+            _contex.SaveChanges();
+
+
+
+            return details;
+            // return null;
+        }
+
+        public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Opposition.CounterOpposition> UpdateCounterForm(string opponentName, string opponentAddress, string Comment, string filepath, int NoticeAppID)
+        {
+
+            var details = await (from p in _contex.CounterOpposition
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.ApplicantName = opponentName;
+            details.ApplicantAddress = opponentAddress;
+            details.Comment = Comment;
+            details.Upload = filepath;
+
+            _contex.SaveChanges();
+
+
+
             return details;
             // return null;
         }
@@ -223,6 +191,8 @@ namespace IPORevamp.Repository.Opposition
                                  where p.Id == applicationid
 
                                  select p).FirstOrDefaultAsync();
+
+           
             return details;
             // return null;
         }
@@ -238,6 +208,25 @@ namespace IPORevamp.Repository.Opposition
                                  where p.Id == applicationid
 
                                  select p).FirstOrDefaultAsync();
+            return details;
+            // return null;
+        }
+
+        public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Opposition.CounterOpposition> GetCounterOppostionApplicationByTransactionid(int applicationid,string transactionid)
+        {
+
+            var details = await (from p in _contex.CounterOpposition
+
+
+
+
+                                 where p.Id == applicationid
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.PaymentReference = transactionid;
+            details.Status = "Paid";
+            _contex.SaveChanges();
             return details;
             // return null;
         }

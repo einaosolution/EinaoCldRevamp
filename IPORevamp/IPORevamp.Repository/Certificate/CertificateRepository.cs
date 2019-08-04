@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
 using IPORevamp.Data.Entity.Interface.Entities.Search;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.Certificate
 {
@@ -13,6 +14,7 @@ namespace IPORevamp.Repository.Certificate
     {
 
         private readonly IPOContext _contex;
+        private static readonly object _syncRoot = new object();
 
         public CertificateRepository(IPOContext contex)
         {
@@ -60,43 +62,10 @@ namespace IPORevamp.Repository.Certificate
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetFreshApplicationByUserid(string userid)
         {
 
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
+            var details = _contex.DataResult
+        .FromSql($"GetCertificateFreshApplication    @p0, @p1 , @p2  ", parameters: new[] { DATASTATUS.Certificate,  STATUS.Batch, userid })
+       .ToList();
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus == "Fresh" && p.DataStatus == "Certificate" && f.ToDataStatus == "Certificate" && f.ToDataStatus == "Certificate" && p.userid == userid
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id
-                                    
-                                 }).ToListAsync();
             return details;
             // return null;
         }
@@ -104,133 +73,119 @@ namespace IPORevamp.Repository.Certificate
 
         public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult> GetApplicationById(int id)
         {
+            string val = Convert.ToString(id);
+            var details = _contex.DataResult
+             
+       .FromSql($"GetApplicationById    @p0", parameters: new[] { val })
+      .FirstOrDefault();
 
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
-
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                               
-
-
-                                 where  p.Id ==id 
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     ApplicantAddress =d.Street + " " + d.City ,
-                                     
-                                     pwalletid = p.Id
-
-                                 }).FirstOrDefaultAsync();
+           
             return details;
             // return null;
         }
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPaidCertificate()
         {
+            var details = _contex.DataResult
+       .FromSql($"GetPaidCertificate    @p0, @p1  ", parameters: new[] { DATASTATUS.Certificate, STATUS.Paid})
+      .ToList();
 
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
-
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus == "Paid" && p.DataStatus == "Certificate" && f.ToDataStatus == "Certificate" && f.ToStatus == "Paid" && p.NextRenewalDate ==null
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     certificatePaymentReference = p.CertificatePayReference ,
-                                     pwalletid = p.Id
-
-                                 }).ToListAsync();
+      
             return details;
+            // return null;
+        }
+
+        public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate> UpdateForm(string opponentName, string opponentAddress, int NoticeAppID)
+        {
+
+            var details = await (from p in _contex.PayCertificate
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.ApplicantName = opponentName;
+            details.ApplicantAddress = opponentAddress;
+           
+
+            _contex.SaveChanges();
+
+
+
+            return details;
+            // return null;
+        }
+
+        public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate> ProcessCertificatePayment( int NoticeAppID,string TransactionId)
+        {
+
+            var details = await (from p in _contex.PayCertificate
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+
+
+            var appid = details.ApplicationId.Split(',');
+            details.PaymentReference = TransactionId;
+            details.Status = "Paid";
+
+            _contex.SaveChanges();
+
+            foreach (var kk in appid)
+            {
+                var App = (from p in _contex.Application where p.Id == Convert.ToInt32(kk) select p).FirstOrDefault();
+
+                App.CertificatePayReference = TransactionId;
+                App.RtNumber = Convert.ToString(getMaxRtNo() + 1);
+                _contex.SaveChanges();
+            }
+
+
+
+
+            return details;
+            // return null;
+        }
+
+        public long getMaxRtNo()
+        {
+            long MaxRt;
+            lock (_syncRoot)
+            {
+                return MaxRt = _contex.Application.ToList().Max(e => Convert.ToInt64(e.RtNumber));
+                //Body function
+            }
+
+
+        }
+
+        public async System.Threading.Tasks.Task<Int32> SaveForm(IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate PayCertificate)
+        {
+
+            _contex.PayCertificate.Add(PayCertificate);
+            _contex.SaveChanges();
+
+
+
+            return PayCertificate.Id;
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetIssuedCertificate()
         {
 
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
+            var details = _contex.DataResult
+     .FromSql($"GetIssuedCertificate    @p0, @p1  ", parameters: new[] { DATASTATUS.Certificate, STATUS.Paid })
+    .ToList();
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                
-
-
-                                 where   p.DataStatus == "Certificate" && p.ApplicationStatus == "Paid" &&  p.NextRenewalDate != null
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     
-                                     certificatePaymentReference = p.CertificatePayReference,
-                                     NextrenewalDate =p.NextRenewalDate.ToString() ,
-                                     pwalletid = p.Id
-
-                                 }).ToListAsync();
+          
             return details;
             // return null;
         }

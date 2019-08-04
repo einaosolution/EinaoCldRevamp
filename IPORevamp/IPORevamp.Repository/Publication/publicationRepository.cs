@@ -30,177 +30,76 @@ namespace IPORevamp.Repository.Publication
         }
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetFreshApplication()
         {
+            
             var BatchCount =  (from p in _contex.PublicationBatch select p).Count() + 1;
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
+            List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult> DataResult = new List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>();
+            var details = _contex.DataResult
+           .FromSql($"GetPublicationFreshApplication    @p0, @p1 ", parameters: new[] { DATASTATUS.Publication, STATUS.Fresh })
+          .ToList();
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus ==STATUS.Fresh && p.DataStatus ==DATASTATUS.Publication  && f.ToDataStatus== DATASTATUS.Publication && p.Batchno==null
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id ,
-                                     BatCount= BatchCount.ToString()
-                                 }).ToListAsync();
-            return details;
+            foreach(var detail in details )
+            {
+                detail.BatCount =Convert.ToString(BatchCount);
+                DataResult.Add(detail);
+            }
+           
+            
+            return DataResult;
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetRefuseApplicationByUserid(string userid)
         {
-            var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
-
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
-
-
-                                 where p.ApplicationStatus ==STATUS.Refused   && p.userid ==userid &&  f.ToStatus == STATUS.Refused
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id,
-                                     BatCount = BatchCount.ToString()
-                                 }).ToListAsync();
+            //  var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+            var details = _contex.DataResult
+            .FromSql($"GetRefuseApplicationByUserid    @p0, @p1 ", parameters: new[] { STATUS.Refused, userid })
+           .ToList();
+           
             return details;
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPublicationById(String id)
         {
+            List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult> DataResult = new List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>();
             var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
+            var details = _contex.DataResult
+          .FromSql($"GetPublicationByBatchNumber    @p0, @p1 , @p2 ", parameters: new[] { DATASTATUS.Publication,STATUS.Batch , id })
+         .ToList();
 
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
+            foreach (var detail in details)
+            {
+                detail.BatCount = Convert.ToString(BatchCount);
+
+                detail.logo_pic = detail.logo_pic == null ? detail.logo_pic : GetBaseImage(detail.logo_pic);
+                DataResult.Add(detail);
+
+            }
 
 
-                                 where  p.DataStatus ==DATASTATUS.Publication  && f.ToDataStatus == DATASTATUS.Publication && p.Batchno == id
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture == null ?c.LogoPicture: GetBaseImage(c.LogoPicture) ,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id,
-                                     BatCount = BatchCount.ToString()
-                                 }).ToListAsync();
-            return details;
+              return DataResult;
+           
             // return null;
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPublicationByRegistrationId(String id)
         {
+            List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult> DataResult = new List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>();
             var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
+            var details = _contex.DataResult
+        .FromSql($"GetPublicationByRegistrationId    @p0, @p1 ,@p2 ", parameters: new[] { DATASTATUS.Publication,STATUS.Batch, id })
+       .ToList();
 
-                                 join f in _contex.TrademarkApplicationHistory
-                                 on p.Id equals f.ApplicationID
+            foreach (var detail in details)
+            {
+                detail.BatCount = Convert.ToString(BatchCount);
+                DataResult.Add(detail);
+            }
 
 
-                                 where p.DataStatus == DATASTATUS.Publication  && f.ToDataStatus == DATASTATUS.Publication && c.RegistrationNumber == id
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     userid = p.userid,
-                                     logo_pic = c.LogoPicture == null ? c.LogoPicture : GetBaseImage(c.LogoPicture),
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     attach_doc = f.UploadsPath1,
-                                     pwalletid = p.Id,
-                                     BatCount = BatchCount.ToString()
-                                 }).ToListAsync();
-            return details;
+            return DataResult;
             // return null;
         }
 

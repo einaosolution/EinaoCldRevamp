@@ -113,7 +113,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var App = (from p in _contex.Application where p.Id == Convert.ToInt32(Appid) select p).FirstOrDefault();
                 var roleid = Convert.ToInt32(IPORoles.Registrar);
-                var departmentid = Convert.ToString(IPODepartment.Trademark);
+                var departmentid = DEPARTMENT.Trademark;
                 var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
                 emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.RegistrartoAppealUnit);
                 foreach (var users in user2)
@@ -135,7 +135,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -181,7 +181,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -226,7 +226,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -271,7 +271,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,

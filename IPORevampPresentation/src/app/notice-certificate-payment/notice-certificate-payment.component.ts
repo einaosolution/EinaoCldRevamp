@@ -92,7 +92,8 @@ export class NoticeCertificatePaymentComponent implements OnInit {
   public filepath
  public  elementType = 'url';
   public value = '';
-
+  settingoff:boolean =false
+  settingcode
 
 
   row:any[] =[]
@@ -453,7 +454,7 @@ var userid = localStorage.getItem('UserId');
 
 
 
-if (f) {
+
 
   //let fi = this.fileInput.nativeElement;
  // let f1 = this.fileInput1.nativeElement;
@@ -540,16 +541,9 @@ if (f) {
              )
    })
 
-}
 
-else {
-//  alert("Form  Not Valid")
-Swal.fire(
-  "Some Required Field are Missing",
-  '',
-  'error'
-)
-}
+
+
 
 //$(this).steps("next");
 
@@ -563,6 +557,49 @@ Swal.fire(
 
 
   }
+
+  onSubmit33() {
+    // this.makePayment()
+    this.row = []
+    this.row.push(8)
+    var userid = localStorage.getItem('UserId');
+
+    let qty =   parseInt( localStorage.getItem('quantity'));
+    this.account.quantity = qty;
+
+
+
+    var Payment= {
+
+      description: this.row2.description,
+      quatity: this.account.quantity,
+      amount: this.tot ,
+      paymentref:"x13389996777",
+      transactionid:''
+
+
+
+  };
+
+  localStorage.setItem('Payment',JSON.stringify( Payment));
+
+  localStorage.setItem('PaymentType',"CertPayment");
+  localStorage.setItem('settings',this.settingcode);
+
+
+
+    //  $(".validation-wizard").steps("next");
+
+    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+
+
+
+
+
+
+   }
 
   onSubmit3() {
     // this.makePayment()
@@ -622,6 +659,7 @@ Swal.fire(
 
   localStorage.setItem('Payment',JSON.stringify( Payment));
   localStorage.setItem('PaymentType',"CertPayment");
+  localStorage.setItem('settings',this.settingcode);
     //  $(".validation-wizard").steps("next");
 
     this.router.navigateByUrl('/Dashboard/Invoice2');
@@ -813,6 +851,39 @@ Swal.fire(
         console.log(response)
 
 
+
+      })
+               .catch((response: any) => {
+
+                 console.log(response)
+
+
+                Swal.fire(
+                  response.error.message,
+                  '',
+                  'error'
+                )
+
+      })
+
+
+      this.busy =   this.registerapi
+      .GetSettingsById("34",userid)
+      .then((response: any) => {
+
+      var Settings = response.content;
+      console.log("Settins Value")
+        console.log(response.content)
+      this.settingcode =Settings.itemValue
+      if (Settings.itemValue =="0"    ) {
+        // alert("off")
+        this.settingoff =true;
+       }
+
+       else {
+         this.settingoff =false;
+
+       }
 
       })
                .catch((response: any) => {

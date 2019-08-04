@@ -120,7 +120,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -167,16 +167,26 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Examiner  Fresh Application   successfully",
-                    Entity = "GetFreshAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Examiner  Fresh Application   successfully",
+                        Entity = "GetFreshAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -213,16 +223,24 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Judgement on  Application   successfully",
-                    Entity = "GetOppositionAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Judgement on  Application   successfully",
+                        Entity = "GetOppositionAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -260,16 +278,24 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Refused  Application By Id   successfully",
-                    Entity = "GetOpposeAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Refused  Application By Id   successfully",
+                        Entity = "GetOpposeAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -306,16 +332,25 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Refused  Application By Id   successfully",
-                    Entity = "GetOpposeAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Refused  Application By Id   successfully",
+                        Entity = "GetOpposeAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -352,16 +387,27 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for oppose  Application By Id   successfully",
-                    Entity = "GetOpposeAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+
+
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for oppose  Application By Id   successfully",
+                        Entity = "GetOpposeAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -399,16 +445,25 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for oppose  Application By Id   successfully",
-                    Entity = "GetOpposeAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for oppose  Application By Id   successfully",
+                        Entity = "GetOpposeAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -438,7 +493,16 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 var user2 = await _userManager.FindByIdAsync(userid); ;
 
-                var message = "Dear " + user2.FirstName + " " + user2.LastName + ",Your Application was opposed,please login to counter the opposition. ";
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.NotifyUserOfOpposition);
+                string mailContent = emailTemplate.EmailBody;
+
+                var vname = user2.FirstName + " " + user2.LastName;
+                mailContent = mailContent.Replace("#Name", vname);
+               
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+               // var message = "Dear " + user2.FirstName + " " + user2.LastName + ",Your Application was opposed,please login to counter the opposition. ";
 
 
 
@@ -448,10 +512,10 @@ namespace IPORevamp.WebAPI.Controllers
                   
 
                   
-                        await _emailsender.SendEmailAsync(user2.Email, "Notice Of Opposition", message);
+                        await _emailsender.SendEmailAsync(user2.Email, "Notice Of Opposition", mailContent);
 
 
-                    
+
 
 
 
@@ -460,16 +524,24 @@ namespace IPORevamp.WebAPI.Controllers
                     //  user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                     // Added A New Country 
-                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    try
                     {
-                        ActionTaken = AuditAction.Create,
-                        DateCreated = DateTime.Now,
-                        Description = $"User {user.FirstName + ' ' + user.LastName}  sent user email   successfully",
-                        Entity = "Examiner",
-                        UserId = user.Id,
-                        UserName = user.UserName,
-                        IpAddress = ip
-                    });
+                        await _auditTrailManager.AddAuditTrail(new AuditTrail
+                        {
+                            ActionTaken = AuditAction.Create,
+                            DateCreated = DateTime.Now,
+                            Description = $"User {user.FirstName + ' ' + user.LastName}  sent user email   successfully",
+                            Entity = "Examiner",
+                            UserId = user.Id,
+                            UserName = user.UserName,
+                            IpAddress = ip
+                        });
+
+                    }
+                    catch(Exception ee)
+                    {
+
+                    }
 
                     return PrepareResponse(HttpStatusCode.OK, "Examiner Returned Successfully", false, user2);
 
@@ -503,11 +575,9 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
 
-                var result = await _oppositionRepository.GetNoticeApplicationById(Convert.ToInt32(ApplicationId));
+                var result = await _oppositionRepository.GetNoticeApplicationByTransactionid(Convert.ToInt32(ApplicationId) , TransactionId);
 
-                result.PaymentReference = TransactionId;
-                result.Status = "Paid";
-                _contex.SaveChanges();
+              
 
                 SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
 
@@ -515,16 +585,25 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Opposed  Application By Id   successfully",
-                    Entity = "GetOpposeAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Opposed  Application By Id   successfully",
+                        Entity = "GetOpposeAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -553,28 +632,34 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
 
-                var result = await _oppositionRepository.GetCounterOppostionApplicationById(Convert.ToInt32(ApplicationId));
+                var result = await _oppositionRepository.GetCounterOppostionApplicationByTransactionid(Convert.ToInt32(ApplicationId), TransactionId);
 
-                result.PaymentReference = TransactionId;
-                result.Status = "Paid";
-                _contex.SaveChanges();
-
+             
               //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
 
                 // get User Information
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Opposed  Application By Id   successfully",
-                    Entity = "GetOpposeAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Opposed  Application By Id   successfully",
+                        Entity = "GetOpposeAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -720,10 +805,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                     content.IsDeleted = false;
 
-                    _contex.NoticeOfOpposition.Add(content);
-                    _contex.SaveChanges();
+                 var Noticeid =  _oppositionRepository.SaveForm(content);
 
-                    NoticeAppID = Convert.ToString(content.Id);
+                 
+
+                    NoticeAppID = Convert.ToString(Noticeid.Result);
 
 
                 }
@@ -731,32 +817,34 @@ namespace IPORevamp.WebAPI.Controllers
                 else
                 {
 
-                    var NoticeApplication = await _oppositionRepository.GetNoticeApplicationById(Convert.ToInt32(NoticeAppID));
+                   
 
+                    _oppositionRepository.UpdateForm(opponentName, opponentAddress, Comment, filepath, Convert.ToInt32(NoticeAppID));
 
-
-                    NoticeApplication.opponentName = opponentName;
-                    NoticeApplication.opponentAddress = opponentAddress;
-                    NoticeApplication.Comment = Comment;
-                    NoticeApplication.Upload = filepath;
-
-                    _contex.SaveChanges();
+                   
 
                 }
 
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Opposition   Application   successfully",
-                    Entity = "Opposition",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip,
-                    RecordAfter = json2
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Opposition   Application   successfully",
+                        Entity = "Opposition",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip,
+                        RecordAfter = json2
+                    });
 
+                }
 
+                catch (Exception ee)
+                {
+
+                }
 
 
                 // get User Information
@@ -863,10 +951,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                     content.IsDeleted = false;
 
-                    _contex.CounterOpposition.Add(content);
-                    _contex.SaveChanges();
+                 var save = _oppositionRepository.SaveForm(content);
 
-                    NoticeAppID = Convert.ToString(content.Id);
+                   
+
+                    NoticeAppID = Convert.ToString(save.Result);
 
 
                 }
@@ -874,32 +963,35 @@ namespace IPORevamp.WebAPI.Controllers
                 else
                 {
 
-                    var CounterApplication = await _oppositionRepository.GetCounterOppostionApplicationById(Convert.ToInt32(NoticeAppID));
+
+                    _oppositionRepository.UpdateCounterForm(opponentName, opponentAddress, Comment, filepath, (Convert.ToInt32(NoticeAppID))) ;
 
 
 
-                    CounterApplication.ApplicantName = opponentName;
-                    CounterApplication.ApplicantAddress = opponentAddress;
-                    CounterApplication.Comment = Comment;
-                    CounterApplication.Upload = filepath;
 
-                    _contex.SaveChanges();
+                  
+
+                }
+                try
+                {
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Opposition   Application   successfully",
+                        Entity = "Opposition",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip,
+                        RecordAfter = json2
+                    });
 
                 }
 
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                catch(Exception ee)
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Opposition   Application   successfully",
-                    Entity = "Opposition",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip,
-                    RecordAfter = json2
-                });
 
-
+                }
 
 
                 // get User Information

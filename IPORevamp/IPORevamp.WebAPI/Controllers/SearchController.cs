@@ -361,6 +361,40 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+
+        [HttpGet("TestApp")]
+        public async Task<IActionResult> TestApp()
+        {
+
+            var settings = (from c in _contex.Settings where c.SettingCode == IPOCONSTANT.PublicationMaxDay select c).FirstOrDefault();
+
+
+
+
+            //  settings.ItemValue
+            var result = (from p in _contex.Application
+                          join f in _contex.TrademarkApplicationHistory
+                               on p.Id equals f.ApplicationID
+
+                          where f.ToDataStatus == "Publication" && f.ToStatus == "Batch" && p.DataStatus == "Publication" && p.ApplicationStatus == "Batch"
+                          select f).ToList();
+
+            // System.Console.Write("result count = " + result.Count);
+            foreach (var results in result)
+            {
+                if ((results.DateCreated.AddDays(Convert.ToInt32(settings.ItemValue))) < DateTime.Now)
+                {
+                    string ss = "";
+
+                }
+
+
+                }
+
+                return Ok();
+        }
+
+
         [HttpGet("GetTreatedApplication")]
         public async Task<IActionResult> GetTreatedApplication([FromQuery] string RequestById)
         {

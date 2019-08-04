@@ -117,7 +117,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -164,16 +164,24 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application by id   successfully",
-                    Entity = "GetFreshApplictionNy Id",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application by id   successfully",
+                        Entity = "GetFreshApplictionNy Id",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 
@@ -212,12 +220,12 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
                     Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application by id   successfully",
-                    Entity = "GetFreshApplictionNy Id",
+                    Entity = "GetFreshApplictionById",
                     UserId = user.Id,
                     UserName = user.UserName,
                     IpAddress = ip
@@ -258,7 +266,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -303,7 +311,7 @@ namespace IPORevamp.WebAPI.Controllers
                 user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -380,42 +388,43 @@ namespace IPORevamp.WebAPI.Controllers
 
                     content.IsDeleted = false;
 
-                    _contex.PayCertificate.Add(content);
-                    _contex.SaveChanges();
+                 
 
-                    NoticeAppID = Convert.ToString(content.Id);
+                var save =    _certificateRepository.SaveForm(content);
+
+                    NoticeAppID = Convert.ToString(save.Result);
 
 
                 }
 
                 else
                 {
+                    _certificateRepository.UpdateForm(opponentName, opponentAddress, Convert.ToInt32(NoticeAppID));
 
-                    var CertPayment = await _certificateRepository.GetCertificatePaymentById(Convert.ToInt32(NoticeAppID));
-
-
-
-                    CertPayment.ApplicantName = opponentName;
-                    CertPayment.ApplicantAddress = opponentAddress;
-                 
-
-                    _contex.SaveChanges();
+                   
 
                 }
 
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Certificate Payment  successfully",
-                    Entity = "Certificate",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip,
-                    RecordAfter = json2
-                });
 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName} add a new  Certificate Payment  successfully",
+                        Entity = "Certificate",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip,
+                        RecordAfter = json2
+                    });
 
+                }
+                catch(Exception ee)
+                {
+
+                }
 
 
                 // get User Information
@@ -450,22 +459,9 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
+           var result =     _certificateRepository.ProcessCertificatePayment(Convert.ToInt32(ApplicationId), TransactionId);
 
-                var result = await _certificateRepository.GetCertificatePaymentById(Convert.ToInt32(ApplicationId));
-                var appid = result.ApplicationId.Split(',');
-                result.PaymentReference = TransactionId;
-                result.Status = "Paid";
-
-                _contex.SaveChanges();
-
-                foreach(var kk in appid)
-                {
-                    var App = (from p in _contex.Application where p.Id == Convert.ToInt32(kk) select p).FirstOrDefault();
-
-                     App.CertificatePayReference = TransactionId;
-                    App.RtNumber = Convert.ToString(getMaxRtNo() + 1);
-                    _contex.SaveChanges();
-                }
+               
 
                     //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
 
@@ -473,16 +469,25 @@ namespace IPORevamp.WebAPI.Controllers
                     user = await _userManager.FindByIdAsync(RequestById.ToString());
 
                 // Added A New Country 
-                await _contex.AddAsync(new AuditTrail
+                try
                 {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Certificate   Application By Id   successfully",
-                    Entity = "GetCertificateAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Certificate   Application By Id   successfully",
+                        Entity = "GetCertificateAppliction",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+
+                catch(Exception ee)
+                {
+
+                }
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 

@@ -153,6 +153,42 @@ onSubmit2() {
 }
 
 
+SaveAppHistory(pid) {
+
+  var  formData = new FormData();
+  var userid = localStorage.getItem('UserId');
+
+
+ formData.append("pwalletid",pid);
+ formData.append("comment","Application Batched");
+ formData.append("description","");
+ formData.append("fromstatus","");
+ formData.append("tostatus","Batch");
+ formData.append("fromDatastatus","");
+ formData.append("toDatastatus","Publication");
+ formData.append("userid",userid);
+
+
+ this.busy =  this.registerapi
+ .SaveFreshAppHistory2(formData)
+ .then((response: any) => {
+
+
+ })
+          .catch((response: any) => {
+           this.spinner.hide();
+            console.log(response)
+
+
+           Swal.fire(
+             response.error.message,
+             '',
+             'error'
+           )
+
+})
+}
+
 onSubmit3() {
   let vcount = 0;
 
@@ -175,6 +211,15 @@ this.busy =   this.registerapi
 
   var table = $('#myTable').DataTable();
   table.destroy();
+
+  for (var i = 0; i < this.row10.length; i++) {
+
+
+    this.SaveAppHistory(this.row10[i])
+
+
+    }
+
 
   this.getallApplication()
 

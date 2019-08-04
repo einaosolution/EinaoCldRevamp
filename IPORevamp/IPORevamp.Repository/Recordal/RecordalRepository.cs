@@ -8,6 +8,8 @@ using IPORevamp.Data.Entity.Interface.Entities.Search;
 using IPORevamp.Data.Entity.Interface.Entities.Batch;
 using System.IO;
 using System.Net;
+using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
+using EmailEngine.Base.Entities;
 
 namespace IPORevamp.Repository.Recordal
 {
@@ -219,6 +221,282 @@ namespace IPORevamp.Repository.Recordal
                                  select p).ToListAsync();
             return details;
             // return null;
+        }
+
+
+        public async System.Threading.Tasks.Task<Int32> Saveform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalRenewal RecordalRenewal)
+        {
+
+            _contex.RecordalRenewal.Add(RecordalRenewal);
+
+            _contex.SaveChanges();
+
+
+            return RecordalRenewal.Id;
+           
+        }
+
+        public async System.Threading.Tasks.Task<Int32> Saveform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger RecordalMerger)
+        {
+
+            _contex.RecordalMerger.Add(RecordalMerger);
+
+            _contex.SaveChanges();
+
+
+            return RecordalMerger.Id;
+
+        }
+
+        public async System.Threading.Tasks.Task<Int32> Updateform(string Name , string Address, string Comment, string filepath,  string filepath2, string Type ,int NoticeAppID)
+        {
+
+
+            var details = await (from p in _contex.RecordalRenewal
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.ApplicantName = Name;
+            details.ApplicantAddress = Address;
+            details.DetailOfRequest = Comment;
+            details.PowerOfAttorney = filepath;
+            details.CertificateOfTrademark = filepath2;
+            details.RenewalType = Type;
+
+            _contex.SaveChanges();
+
+
+            return details.Id;
+
+        }
+
+        public async System.Threading.Tasks.Task<Int32> Updateform(string Name, string Address, string Name2, string Address2, string Comment, string filepath, string filepath2, string filepath3, string MergerDate,int Nationality, int NoticeAppID)
+        {
+
+
+            var details = await (from p in _contex.RecordalMerger
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.AssignorName = Name;
+            details.AssignorAddress = Address;
+            details.AssigneeName = Name2;
+            details.AssigneeAddress = Address2;
+            details.DetailOfRequest = Comment;
+            details.DateOfAssignment = MergerDate;
+            details.AssigneeNationality = Convert.ToInt32(Nationality);
+            if (filepath != "")
+            {
+                details.PowerOfAttorney = filepath;
+
+            }
+
+            if (filepath3 != "")
+            {
+                details.Certificate = filepath3;
+
+            }
+
+            if (filepath2 != "")
+            {
+                details.DeedOfAssigment = filepath2;
+
+            }
+
+
+            _contex.SaveChanges();
+
+
+            return details.Id;
+
+        }
+
+
+        public async System.Threading.Tasks.Task<Int32> UpdateRecord(string roleid, string TransactionId,int NoticeAppID,int userid)
+        {
+
+
+            var details = await (from p in _contex.RecordalRenewal
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.PaymentReference = TransactionId;
+            details.Status = "Paid";
+
+            var appid = details.applicationid;
+
+            var vpwallet = (from c in _contex.Application where c.Id == appid select c).FirstOrDefault();
+
+
+            string prevappstatus = vpwallet.ApplicationStatus;
+            string prevDatastatus = vpwallet.DataStatus;
+
+
+
+            if (vpwallet != null)
+            {
+
+                vpwallet.ApplicationStatus = "Renewal";
+                vpwallet.DataStatus = "Recordal";
+
+
+
+                // get User Information
+
+
+
+
+            }
+
+
+
+            // file upload
+            string msg = "";
+
+
+
+            await _contex.AddAsync(new TrademarkApplicationHistory
+            {
+                ApplicationID = appid,
+                DateCreated = DateTime.Now,
+                TransactionID = TransactionId,
+                FromDataStatus = prevDatastatus,
+                trademarkcomment = "Recordal Renewal",
+                description = "",
+
+                ToDataStatus = "Recordal",
+                FromStatus = prevappstatus,
+                ToStatus = "Renewal",
+                UploadsPath1 = "",
+                userid = userid,
+                Role = Convert.ToString(roleid)
+            });
+            _contex.SaveChanges();
+
+            return details.Id;
+
+        }
+
+        public async System.Threading.Tasks.Task<Int32> UpdateMergerRecord(string roleid, string TransactionId, int NoticeAppID, int userid)
+        {
+
+
+            var details = await (from p in _contex.RecordalMerger
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.PaymentReference = TransactionId;
+            details.Status = "Paid";
+            var appid = details.applicationid;
+
+            var vpwallet = (from c in _contex.Application where c.Id == appid select c).FirstOrDefault();
+
+
+            string prevappstatus = vpwallet.ApplicationStatus;
+            string prevDatastatus = vpwallet.DataStatus;
+
+
+
+            if (vpwallet != null)
+            {
+
+                vpwallet.ApplicationStatus = "Merger";
+                vpwallet.DataStatus = "Recordal";
+
+
+
+                // get User Information
+
+
+
+
+            }
+
+
+
+            // file upload
+            string msg = "";
+
+
+
+            await _contex.AddAsync(new TrademarkApplicationHistory
+            {
+                ApplicationID = appid,
+                DateCreated = DateTime.Now,
+                TransactionID = TransactionId,
+                FromDataStatus = prevDatastatus,
+                trademarkcomment = "Recordal Merger",
+                description = "",
+
+                ToDataStatus = "Recordal",
+                FromStatus = prevappstatus,
+                ToStatus = "Merger",
+                UploadsPath1 = "",
+                userid = userid,
+                Role = Convert.ToString(roleid)
+            });
+
+            _contex.SaveChanges();
+
+
+            return details.Id;
+
+        }
+
+        public async System.Threading.Tasks.Task<Int32> UpdateRennewalRecord( int NoticeAppID, int userid)
+        {
+
+            var details = await (from p in _contex.RecordalMerger
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+            var pid = details.applicationid;
+            details.Status = STATUS.Approved;
+
+            _contex.SaveChanges();
+
+            var detail = await (from p in _contex.Application
+
+                                 where p.Id == pid
+
+                                 select p).FirstOrDefaultAsync();
+
+            detail.NextRenewalDate = Convert.ToDateTime(detail.NextRenewalDate).AddYears(5);
+            _contex.SaveChanges();
+            //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
+
+            // get User Information
+       
+
+          
+
+
+            return details.Id;
+
         }
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetIssuedCertificate()

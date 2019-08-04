@@ -452,10 +452,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                     content.IsDeleted = false;
 
-                    _contex.RecordalRenewal.Add(content);
-                    _contex.SaveChanges();
+                    var save = _recordalRepository.Saveform(content);
 
-                    NoticeAppID = Convert.ToString(content.Id);
+                  
+
+                    NoticeAppID = Convert.ToString(save.Result);
 
 
                 }
@@ -463,22 +464,15 @@ namespace IPORevamp.WebAPI.Controllers
                 else
                 {
 
-                    var RenewalApplication = await _recordalRepository.GetRenewalApplicationById(Convert.ToInt32(NoticeAppID));
+                  //  var RenewalApplication = await _recordalRepository.GetRenewalApplicationById(Convert.ToInt32(NoticeAppID));
 
+                    _recordalRepository.Updateform(Name, Address, Comment, filepath, filepath2, Type, Convert.ToInt32(NoticeAppID));
 
-
-                    RenewalApplication.ApplicantName = Name;
-                    RenewalApplication.ApplicantAddress = Address;
-                    RenewalApplication.DetailOfRequest = Comment;
-                    RenewalApplication.PowerOfAttorney = filepath;
-                    RenewalApplication.CertificateOfTrademark = filepath2;
-                    RenewalApplication.RenewalType = Type;
-
-                    _contex.SaveChanges();
+                   
 
                 }
 
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                await _contex.AddAsync(new AuditTrail
                 {
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
@@ -681,10 +675,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                     content.IsDeleted = false;
 
-                    _contex.RecordalMerger.Add(content);
-                    _contex.SaveChanges();
+                 var save =   _recordalRepository.Saveform(content);
 
-                    NoticeAppID = Convert.ToString(content.Id);
+                   
+
+                    NoticeAppID = Convert.ToString(save.Result);
 
 
                 }
@@ -692,39 +687,8 @@ namespace IPORevamp.WebAPI.Controllers
                 else
                 {
 
-                    var MergerApplication = await _recordalRepository.GetMergerApplicationById(Convert.ToInt32(NoticeAppID));
+                    _recordalRepository.Updateform(Name, Address, Name2, Address2, Comment, filepath, filepath2, filepath3, MergerDate, Convert.ToInt32(Nationality), Convert.ToInt32(NoticeAppID));
 
-
-
-                    MergerApplication.AssignorName = Name;
-                    MergerApplication.AssignorAddress = Address;
-                    MergerApplication.AssigneeName = Name2;
-                    MergerApplication.AssigneeAddress = Address2;
-                    MergerApplication.DetailOfRequest = Comment;
-                    MergerApplication.DateOfAssignment = MergerDate;
-                    MergerApplication.AssigneeNationality = Convert.ToInt32(Nationality);
-                    if (filepath != "")
-                    {
-                        MergerApplication.PowerOfAttorney = filepath;
-
-                    }
-
-                    if (filepath3 != "")
-                    {
-                        MergerApplication.Certificate = filepath3;
-
-                    }
-
-                    if (filepath2 != "")
-                    {
-                        MergerApplication.DeedOfAssigment = filepath2;
-
-                    }
-
-
-                   
-
-                    _contex.SaveChanges();
 
                 }
 
@@ -776,62 +740,9 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
+             var save=   _recordalRepository.UpdateRecord(Convert.ToString(roleid), TransactionId, Convert.ToInt32(ApplicationId), user.Id);
 
-                var result = await _recordalRepository.GetRenewalApplicationById(Convert.ToInt32(ApplicationId));
-
-                result.PaymentReference = TransactionId;
-                result.Status = "Paid";
-
-                var appid = result.applicationid;
-
-                var vpwallet = (from c in _contex.Application where c.Id == appid select c).FirstOrDefault();
-
-
-                string prevappstatus = vpwallet.ApplicationStatus;
-                string prevDatastatus = vpwallet.DataStatus;
-
-
-
-                if (vpwallet != null)
-                {
-
-                    vpwallet.ApplicationStatus = "Renewal";
-                    vpwallet.DataStatus = "Recordal";
-
-
-
-                    // get User Information
-
-
-
-
-                }
-
-
-
-                // file upload
-                string msg = "";
-
-
-
-                await _contex.AddAsync(new TrademarkApplicationHistory
-                {
-                    ApplicationID = appid,
-                    DateCreated = DateTime.Now,
-                    TransactionID = TransactionId,
-                    FromDataStatus = prevDatastatus,
-                    trademarkcomment = "Recordal Renewal",
-                    description = "",
-
-                    ToDataStatus = "Recordal",
-                    FromStatus = prevappstatus,
-                    ToStatus = "Renewal",
-                    UploadsPath1 = "",
-                    userid = user.Id,
-                    Role = Convert.ToString(roleid)
-                });
-
-                _contex.SaveChanges();
+               
               
 
                 //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
@@ -851,7 +762,7 @@ namespace IPORevamp.WebAPI.Controllers
                     IpAddress = ip
                 });
 
-                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, save);
 
 
             }
@@ -880,62 +791,9 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
+              var save =  _recordalRepository.UpdateMergerRecord(Convert.ToString( roleid), TransactionId, Convert.ToInt32(ApplicationId), user.Id);
+               
 
-                var result = await _recordalRepository.GetMergerApplicationById(Convert.ToInt32(ApplicationId));
-
-               result.PaymentReference = TransactionId;
-                result.Status = "Paid";
-                var appid = result.applicationid;
-
-                var vpwallet = (from c in _contex.Application where c.Id == appid select c).FirstOrDefault();
-
-              
-                string prevappstatus = vpwallet.ApplicationStatus;
-                string prevDatastatus = vpwallet.DataStatus;
-
-
-
-                if (vpwallet != null)
-                {
-
-                    vpwallet.ApplicationStatus = "Merger";
-                    vpwallet.DataStatus = "Recordal";
-
-
-
-                    // get User Information
-
-
-
-
-                }
-
-
-
-                // file upload
-                string msg = "";
-
-
-
-                await _contex.AddAsync(new TrademarkApplicationHistory
-                {
-                    ApplicationID = appid,
-                    DateCreated = DateTime.Now,
-                    TransactionID = TransactionId,
-                    FromDataStatus = prevDatastatus,
-                    trademarkcomment = "Recordal Merger",
-                    description = "",
-
-                    ToDataStatus = "Recordal",
-                    FromStatus = prevappstatus,
-                    ToStatus = "Merger",
-                    UploadsPath1 = "",
-                    userid = user.Id,
-                    Role = Convert.ToString(roleid)
-                });
-
-                _contex.SaveChanges();
-              
 
                 //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
 
@@ -954,7 +812,7 @@ namespace IPORevamp.WebAPI.Controllers
                     IpAddress = ip
                 });
 
-                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, save);
 
 
             }
@@ -981,22 +839,9 @@ namespace IPORevamp.WebAPI.Controllers
                     return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
                 }
 
+               var save = _recordalRepository.UpdateRennewalRecord( Convert.ToInt32(ApplicationId), user.Id);
 
-                var result = await _recordalRepository.GetRenewalApplicationById(Convert.ToInt32(ApplicationId));
-
-                var pid = result.applicationid;
-                result.Status = "Approved";
-              
-                _contex.SaveChanges();
-
-                var details = await (from p in _contex.Application
-
-                                     where p.Id == pid
-
-                                     select p).FirstOrDefaultAsync();
-
-                details.NextRenewalDate =Convert.ToDateTime( details.NextRenewalDate).AddYears(5);
-                _contex.SaveChanges();
+               
                 //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
 
                 // get User Information
@@ -1014,7 +859,7 @@ namespace IPORevamp.WebAPI.Controllers
                     IpAddress = ip
                 });
 
-                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, save);
 
 
             }

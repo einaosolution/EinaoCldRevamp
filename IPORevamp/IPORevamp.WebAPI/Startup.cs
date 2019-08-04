@@ -166,6 +166,7 @@ namespace IPORevamp.WebAPI
             services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IAuthorizationHandler, AttendeeAuthorizer>();
             services.AddTransient<IEmailSender, EmailService>();
+            services.AddSingleton(Configuration);
 
             services.AddScoped<IPublicationJob, PublicationJob>();
            
@@ -272,13 +273,15 @@ namespace IPORevamp.WebAPI
             app.UseHangfireDashboard();
 
             var cronsetting = Cron.Hourly();
+           
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronsetting);
+            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationCount(), cronsetting);
 
-           
+
             app.UseElmah();
 
 

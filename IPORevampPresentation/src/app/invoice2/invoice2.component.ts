@@ -532,59 +532,64 @@ context['msImageSmoothingEnabled'] = false;
    }
 
    setpaytype() {
-    const firstParam: string = this.route.snapshot.queryParamMap.get('RRR');
-    const secondparam: string = this.route.snapshot.queryParamMap.get('orderID');
-    var userid = localStorage.getItem('UserId');
-  var vdesc =  localStorage.getItem('description');
-  this.description = localStorage.getItem('description');
 
+    var vdesc =  localStorage.getItem('description');
     var Payment= {
 
-      description: vdesc ,
-      quatity: "1",
-      amount: this.row.amount ,
-      paymentref:firstParam ,
-      transactionid:secondparam
+               description: vdesc ,
+               quatity: "1",
+               amount: this.row.amount ,
+               paymentref:this.row.paymentref,
+               transactionid:"1111166777"
 
 
 
-  };
+           };
 
-  localStorage.setItem('Payment',JSON.stringify( Payment));
+   this.transactionid ="1111166777" ;
 
-  var paytype = localStorage.getItem('PaymentType');
+           localStorage.setItem('Payment',JSON.stringify( Payment));
 
-  if (paytype =="FileT002") {
-    this.generateInvoice()
-  }
+           var paytype = localStorage.getItem('PaymentType');
 
-  if (paytype =="CertPayment") {
-    this.generateInvoice2()
-  }
+           if (paytype =="FileT002") {
+             this.generateInvoice()
+           }
 
-
-  if (paytype =="CounterStatement") {
-    this.generateInvoice3()
-  }
-
-  if (paytype =="opposeApplication") {
-    this.generateInvoice4()
-  }
+           if (paytype =="CertPayment") {
+             this.generateInvoice2()
+           }
 
 
-  if (paytype =="PayRenewal") {
-    this.generateInvoice5()
-  }
+           if (paytype =="CounterStatement") {
+             this.generateInvoice3()
+           }
+
+           if (paytype =="opposeApplication") {
+             this.generateInvoice4()
+           }
 
 
-  if (paytype =="PrelimSearch") {
-    this.generateInvoice6()
-  }
+           if (paytype =="PayRenewal") {
+             this.generateInvoice5()
+           }
 
 
-  if (paytype =="MergeApplication") {
-    this.generateInvoice7()
-  }
+           if (paytype =="PrelimSearch") {
+             this.generateInvoice6()
+           }
+
+
+           if (paytype =="MergeApplication") {
+             this.generateInvoice7()
+           }
+
+
+
+
+
+
+
 
 
    }
@@ -611,12 +616,22 @@ context['msImageSmoothingEnabled'] = false;
 
    this.vshow = true;
 
+   var settings = localStorage.getItem('settings');
+
     this.value = this.row.paymentref
     this.vdate =new Date();
 
     var self = this;
 
 
+
+    if (settings =="0") {
+
+      this. setpaytype()
+
+    }
+
+    else {
 
 
 
@@ -734,7 +749,7 @@ context['msImageSmoothingEnabled'] = false;
                   'error'
                 )
 
-               // this. setpaytype()
+             //  this. setpaytype()
 
    })
 
@@ -750,7 +765,7 @@ context['msImageSmoothingEnabled'] = false;
   });
     }
 
-
+  }
 
 
   }

@@ -214,13 +214,16 @@
 
 
                           </tr>
-
                           <tr>
-                           <td>
-                              <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
-                           </td>
+                            <td *ngIf="!settingoff">
+                               <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
+                            </td>
 
-                          </tr>
+                            <td *ngIf="settingoff">
+                             <button *ngIf="checkboxFlag"  (click) ="onSubmit33()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Offline Payment</button>
+                          </td>
+
+                           </tr>
 
 
                        </table>
