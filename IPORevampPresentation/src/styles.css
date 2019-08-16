@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/perfect-scrollbar/css/perfect-scrollbar.css';
 
+
+@import 'https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.6.10/css/perfect-scrollbar.min.css' ;
 
 @import './assets/css/chartist.min.css';
 @import './assets/css/c3.min.css';

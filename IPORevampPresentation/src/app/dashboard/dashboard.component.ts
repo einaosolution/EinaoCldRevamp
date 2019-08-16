@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ export class DashboardComponent implements OnInit {
   subscription: any;
   vdate:any =new Date()
   profilepic;
-  constructor(private registerapi :ApiClientService) {
+  constructor(private registerapi :ApiClientService ,private router: Router) {
 
   }
 
@@ -36,8 +37,22 @@ export class DashboardComponent implements OnInit {
         }
       }
 
+      islogged() {
+        var vpassord = localStorage.getItem('ChangePassword');
+         if (this.registerapi.gettoken() && vpassord =="True" ) {
+
+           return true ;
+         }
+
+         else {
+
+           return false;
+         }
+       }
 
   ngOnInit() {
+
+
     this.profilepic=  localStorage.getItem('profilepic')
     this.registerapi.setPage("Country")
     this.registerapi.VChangeEvent("Dashboard");

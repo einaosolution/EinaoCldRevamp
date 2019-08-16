@@ -15,15 +15,19 @@ import * as jwt_decode from  "jwt-decode"
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
- //serviceBase = 'http://localhost:5000/';
+// serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
 //serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
 
+
+
   constructor(private http: HttpClient,private router: Router , private deviceService: DeviceDetectorService) {
     this.getIpAddress()
    }
+
+
 
 
    GetFilepath() {
@@ -1375,6 +1379,23 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+    GetApplicationCount(pp: string,pp2: string  ) {
+
+      var data = {
+        applicationid: pp ,
+        userid: pp2
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/GetApplicationUserCount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
  UpdateRenewalFormStatus(pp: string,pp2: string  ) {
 
       var data = {
@@ -1455,6 +1476,40 @@ RejectUser(pp: string,pp2: string ) {
                 .then(data => {  return data; });
 
   }
+
+
+  SavePatent(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Patent/SaveApplication', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  SaveInvention(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Patent/SavePatentInvention', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+  SavePriority(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Patent/SavePatentPriority', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
 
   SaveOppositionForm(formData) {
 
@@ -1726,6 +1781,39 @@ RejectUser(pp: string,pp2: string ) {
   }
 
 
+
+  GetPatentApplicationById(pp : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      Applicationid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Patent/GetPatentApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPatentApplicationByUserId(pp : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      userid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Patent/GetPatentApplicationByUserId', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
   GetCountry(pp : string,pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -1741,6 +1829,24 @@ RejectUser(pp: string,pp2: string ) {
 				return data;
 			});
   }
+
+
+   GetPatentType(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Patent/GetAllPatentType', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
 
   GetPrelimSearch(pp : string) {
     var token = localStorage.getItem('access_tokenexpire');

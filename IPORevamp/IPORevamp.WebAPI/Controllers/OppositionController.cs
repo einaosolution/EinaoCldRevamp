@@ -798,7 +798,7 @@ namespace IPORevamp.WebAPI.Controllers
                     content.Comment = Comment;
                     content.Upload = filepath;
                     content.userid = userId;
-                    content.Status = "Pending";
+                    content.Status =STATUS.Pending ;
                     //  content.transactionid = transactionid;
 
                     content.IsActive = true;
@@ -944,7 +944,7 @@ namespace IPORevamp.WebAPI.Controllers
                     content.Comment = Comment;
                     content.Upload = filepath;
                     content.userid = userId;
-                    content.Status = "Pending";
+                    content.Status =STATUS.Pending ;
                     //  content.transactionid = transactionid;
 
                     content.IsActive = true;

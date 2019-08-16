@@ -28,6 +28,12 @@ namespace EmailEngine.Base.Entities
        Agent = 2
     }
 
+    public enum IPOPATENTTYPE
+    {
+        CONVENTIONAL = 1,
+        NONCONVENTIONAL = 2
+    }
+
     public enum IPORoles
     {
         SuperAdministrator = 1,
@@ -64,8 +70,11 @@ namespace EmailEngine.Base.Entities
         public const string Kiv = "Kiv";
         public const string ReconductSearch = "Reconduct-Search";
         public const string ApplicantKiv = "ApplicantKiv";
+        public const string Recordal = "Recordal";
 
         
+
+
 
 
     }
@@ -75,6 +84,7 @@ namespace EmailEngine.Base.Entities
     {
         public const string Fresh = "Fresh";
         public const string Paid = "Paid";
+        public const string Pending = "Pending";
         public const string Batch = "Batch";
         public const string Kiv = "Kiv";
         public const string ReconductSearch = "Reconduct-Search";
@@ -87,8 +97,18 @@ namespace EmailEngine.Base.Entities
         public const string Registra = "Registra";
         public const string Appeal = "Appeal";
         public const string Approved = "Approved";
+        public const string Merger = "Merger";
+        public const string Renewal = "Renewal";
+        public const string RecordalRenewalComment = "Recordal Renewal";
 
         
+
+
+
+
+
+
+
 
 
 
@@ -135,6 +155,7 @@ namespace EmailEngine.Base.Entities
         public const string RegistrartoAppealUnit = "ACP004";
         public const string ApplicationSentToOpposition = "ACP005";
         public const string AppealReply = "ACP006";
+        public const string SentToKiv = "ACP010";
 
 
         public const string PublicationMaxDay = "Pub";

@@ -718,8 +718,8 @@ namespace IPORevamp.WebAPI.Controllers
                     Application content = new Application();
                     content.Applicationtypeid = Convert.ToInt32(Applicationtypeid);
                     content.DateCreated = DateTime.Now;
-                    content.ApplicationStatus = "Pending";
-                    content.DataStatus = "Search";
+                    content.ApplicationStatus = STATUS.Pending;
+                    content.DataStatus = DATASTATUS.Search;
                     content.userid = userId;
                     //  content.transactionid = transactionid;
 
@@ -828,6 +828,25 @@ namespace IPORevamp.WebAPI.Controllers
 
                 return Ok();
                
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Occured", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetApplicationUserCount")]
+        public async Task<IActionResult> GetApplicationUserCount([FromQuery] string applicationid, [FromQuery] string userid)
+        {
+            try
+            {
+                // check for user information before processing the request
+             var result =   _newApplicationRepository.ApplicationUserCount(Convert.ToInt32(applicationid), Convert.ToInt32(userid));
+
+                return Ok(result);
+
             }
             catch (Exception ex)
             {

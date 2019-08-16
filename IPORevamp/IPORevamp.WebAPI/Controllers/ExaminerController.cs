@@ -421,6 +421,9 @@ namespace IPORevamp.WebAPI.Controllers
 
                 ip = Request.Headers["ip"];
 
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.SentToKiv);
+
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
                 if (user == null)
                 {
@@ -428,13 +431,18 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 var user2 = await _userManager.FindByIdAsync(userid); ;
 
-                var message = "Dear " + user2.FirstName + " " + user2.LastName + ",your application in examination unit hs been treated and sent to your kiv folder ,find below the comment from the officer . <br/> <br/>" + Comment;
+              //  var message = "Dear " + user2.FirstName + " " + user2.LastName + ",your application in examination unit hs been treated and sent to your kiv folder ,find below the comment from the officer . <br/> <br/>" + Comment;
 
+                string mailContent = emailTemplate.EmailBody;
 
+                var vname = user2.FirstName + " " + user2.LastName;
+                mailContent = mailContent.Replace("#Name", vname);
+                mailContent = mailContent.Replace("#comment", Comment);
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
 
                 if (user2 != null)
                 {
-                    await _emailsender.SendEmailAsync(user2.Email, "Application Sent to Kiv ", Comment);
+                    await _emailsender.SendEmailAsync(user2.Email, emailTemplate.EmailSubject, mailContent);
 
                    
 
@@ -490,7 +498,7 @@ namespace IPORevamp.WebAPI.Controllers
 
               //  var message = "Dear " + user2.FirstName + " " + user2.LastName + ",Application has been sent to   Reconduct Search folder , Please login to treat the application  . ";
                 string mailContent = emailTemplate.EmailBody;
-                mailContent = mailContent.Replace("#Name", user2.FirstName + " " + user2.LastName);
+              //  mailContent = mailContent.Replace("#Name", user2.FirstName + " " + user2.LastName);
              
                 mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
 
@@ -501,6 +509,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                     foreach (var users in user3)
                     {
+                        mailContent = mailContent.Replace("#Name", users.FirstName + " " + users.LastName);
                         await _emailsender.SendEmailAsync(users.Email, "Application Sent to Reconduct Search", mailContent);
 
 

@@ -444,7 +444,7 @@ namespace IPORevamp.WebAPI.Controllers
                     content.CertificateOfTrademark = filepath2;
                     content.RenewalDueDate = Convert.ToDateTime(NextRenewal);
                     content.userid = userId;
-                    content.Status = "Pending";
+                    content.Status = STATUS.Pending ;
                     content.RenewalType = Type;
                     //  content.transactionid = transactionid;
 

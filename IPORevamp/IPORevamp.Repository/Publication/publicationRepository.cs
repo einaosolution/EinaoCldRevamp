@@ -149,24 +149,28 @@ namespace IPORevamp.Repository.Publication
 
         public async System.Threading.Tasks.Task<String> UpdateBatch(String[] ss)
         {
+            var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+
             foreach (var val in ss)
             {
-                var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+               
                 var intval = Convert.ToInt32(val);
                 var App = (from p in _contex.Application where p.Id == intval select p).FirstOrDefault();
                 App.Batchno = Convert.ToString(BatchCount);
                 _contex.SaveChanges();
 
-                PublicationBatch bb = new PublicationBatch();
-                bb.DateCreated = DateTime.Now;
-                bb.BatchNo = BatchCount;
-                bb.IsActive = true;
-                bb.IsDeleted = false;
-                bb.NumberOfApplication = ss.Length;
-                await _contex.AddAsync(bb);
-                _contex.SaveChanges();
+               
 
             }
+
+            PublicationBatch bb = new PublicationBatch();
+            bb.DateCreated = DateTime.Now;
+            bb.BatchNo = BatchCount;
+            bb.IsActive = true;
+            bb.IsDeleted = false;
+            bb.NumberOfApplication = ss.Length;
+            await _contex.AddAsync(bb);
+            _contex.SaveChanges();
 
 
             return "success";
@@ -185,7 +189,7 @@ namespace IPORevamp.Repository.Publication
                               on p.BatchNo equals Convert.ToInt32(c.Batchno)
                              where c.DataStatus ==DATASTATUS.Publication 
 
-                             select p).ToListAsync();
+                             select p).Distinct().ToListAsync();
 
 
 

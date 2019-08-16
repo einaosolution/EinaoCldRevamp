@@ -1,1 +1,15 @@
 
+
+.active2{
+  background: #4798e8 !important;
+  color:white;
+  border-radius: 60px 0 0 60px;
+}
+
+@media print
+{
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

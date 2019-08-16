@@ -37,6 +37,7 @@ export class SearchFreshAppComponent implements OnInit {
   updatemode:boolean = false;
   userform: FormGroup;
   submitted:boolean=false;
+  appcount:any
   busy: Promise<any>;
   model: any = {};
   Code: FormControl;
@@ -274,6 +275,36 @@ showcountry2() {
   }
 
 
+  getApplicationCount(Appid ,userid) {
+
+
+    this.busy =   this.registerapi
+    .GetApplicationCount(Appid,userid)
+    .then((response: any) => {
+
+
+     this.appcount = response.result;
+  console.log("Application Count")
+  console.log(this.appcount)
+
+
+
+     $("#createmodel").modal('show');
+
+    })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+    })
+  }
 
 
   showcountry(kk) {
@@ -283,7 +314,24 @@ showcountry2() {
 this.row2 = kk;
 this.vshow = true;
 this.pwalletid = kk.pwalletid
-    $("#createmodel").modal('show');
+
+
+this.appcomment2 =""
+this.appdescription =""
+this.appcomment3 =""
+  try {
+
+let test = this.fileInput.nativeElement;
+
+  test.value = ''
+
+  }
+
+  catch(err) {
+
+  }
+  var userid = localStorage.getItem('UserId');
+   this.getApplicationCount(kk.pwalletid ,userid)
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );
   }

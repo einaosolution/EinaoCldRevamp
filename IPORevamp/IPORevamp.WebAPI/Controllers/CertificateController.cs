@@ -380,7 +380,7 @@ namespace IPORevamp.WebAPI.Controllers
                     content.ApplicantAddress = opponentAddress;
                    
                     content.userid = userId;
-                    content.Status = "Pending";
+                    content.Status = STATUS.Pending;
                     content.quantity = Convert.ToInt32(quantity);
                     //  content.transactionid = transactionid;
 

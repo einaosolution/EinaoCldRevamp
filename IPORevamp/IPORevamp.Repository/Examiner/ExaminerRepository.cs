@@ -36,7 +36,7 @@ namespace IPORevamp.Repository.Examiner
         public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetExaminerKiv()
         {
             var details = _contex.DataResult
-             .FromSql($"GetExaminerKiv   @p0, @p1", parameters: new[] { DATASTATUS.Examiner , STATUS.Kiv })
+             .FromSql($"GetExaminerKiv   @p0, @p1", parameters: new[] { DATASTATUS.ApplicantKiv , STATUS.ApplicantKiv })
             .ToList();
 
             return details;
@@ -45,43 +45,11 @@ namespace IPORevamp.Repository.Examiner
 
         public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetExaminerReconductSearch()
         {
-            var details = await (from p in _contex.Application
-                                 join c in _contex.MarkInformation
-                                  on p.Id equals c.applicationid
-                                 join d in _contex.ApplicationUsers
-                                  on Convert.ToInt32(p.userid) equals d.Id
+            var details = _contex.DataResult
+           .FromSql($"GetExaminerReconductSearch   @p0, @p1", parameters: new[] { DATASTATUS.ReconductSearch, STATUS.ReconductSearch })
+          .ToList();
 
-                                 join e in _contex.TrademarkType
-                                 on c.TradeMarkTypeID equals e.Id
-
-                                 join f in _contex.TrademarkApplicationHistory
-                                  on p.Id equals f.ApplicationID
-
-
-                                 where p.DataStatus == "Reconduct-Search" && p.ApplicationStatus == "Reconduct-Search" && f.ToStatus == "Reconduct-Search"
-
-                                 select new DataResult
-                                 {
-                                     FilingDate = p.DateCreated,
-                                     Filenumber = c.RegistrationNumber,
-                                     ApplicantName = d.FirstName + " " + d.LastName,
-                                     ProductTitle = c.ProductTitle,
-                                     Applicationclass = c.NiceClass,
-                                     status = p.ApplicationStatus,
-                                     Transactionid = p.TransactionID,
-                                     trademarktype = e.Description,
-                                     classdescription = c.NiceClassDescription,
-                                     phonenumber = d.MobileNumber,
-                                     email = d.UserName,
-                                     logo_pic = c.LogoPicture,
-                                     auth_doc = c.ApprovalDocument,
-                                     sup_doc1 = c.SupportDocument1,
-                                     sup_doc2 = c.SupportDocument2,
-                                     pwalletid = p.Id,
-                                     comment = f.trademarkcomment,
-                                     attach_doc = f.UploadsPath1,
-                                     commentby = d.FirstName + " " + d.LastName
-                                 }).ToListAsync();
+           
             return details;
             // return null;
         }

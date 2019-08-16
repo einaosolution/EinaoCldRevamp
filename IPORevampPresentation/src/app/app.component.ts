@@ -1,5 +1,10 @@
-import { Component , OnInit } from '@angular/core';
+import { Component , OnInit , OnDestroy} from '@angular/core';
+import { Location } from "@angular/common";
+
+import { Subscription } from 'rxjs';
 import {ApiClientService} from './api-client.service';
+
+import {Router} from '@angular/router';
 import {
   transition,
   trigger,
@@ -55,13 +60,35 @@ declare var $ :any;
   ]
 
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit ,OnDestroy {
   title = 'Todo';
   subscription: any;
 
-  constructor(private registerapi :ApiClientService ) {
+  showval=true;
 
+
+  loggedinuser:string =""
+  loggedinemail:string =""
+  addCss = false;
+  addCss2 = false;
+  loggeduser:string ="";
+  menuclass:string ="";
+  menuclass2:string ="Security";
+  menuclass3:string ="Country";
+  datediff :number ;
+  row :any[]=[];
+  profilepic;
+
+  constructor(private registerapi :ApiClientService , private router: Router ,location: Location, ) {
+
+    this.subscription = this.registerapi.getNavChangeEmitter()
+    .subscribe(item => this.selectedNavItem(item));
   }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+}
 
   getRouteAnimation(outlet) {
     return outlet.activatedRouteData.animation
@@ -80,14 +107,53 @@ export class AppComponent implements OnInit {
 
   }
 
+  selectedNavItem(item) {
+
+    // window.location.reload();
+
+    if (item =="Logout") {
+      this.showval = false;
+    }
 
 
-  islogged() {
-    //if (localStorage.getItem('token')) {
-      var kkp =this.registerapi.gettoken();
+    this.menuclass=item
+
+    this.registerapi.setPage(item)
+
+    this.isSpecial()
+   }
+   isSpecial() {
+
+     if (this.registerapi.getPage() == "Country") {
+       this.addCss =true;
+       this.addCss2 =false;
+       this.menuclass3="Country"
+        this.menuclass2=""
+
+     }
+
+     else if (this.registerapi.getPage() == "Security") {
+       this.addCss =false;
+       this.addCss2 =true;
+       this.menuclass2="Security"
+       this.menuclass3=""
+     }
+
+     else {
+       this.addCss =false;
+       this.addCss2 =false;
+     }
 
 
-      if (kkp) {
+       }
+
+  getprofilepic() {
+    this.profilepic=localStorage.getItem('profilepic')
+
+    this.loggeduser  =localStorage.getItem('loggeduser')
+    this.loggedinemail=localStorage.getItem('username')
+
+    if (this.profilepic && this.profilepic != null ) {
       return true ;
     }
 
@@ -95,8 +161,57 @@ export class AppComponent implements OnInit {
       return false;
     }
   }
-  ngOnInit() {
 
+  islogged() {
+    //if (localStorage.getItem('token')) {
+      var kkp =this.registerapi.gettoken();
+
+
+      if (kkp) {
+
+        this.showval=true;
+      return true ;
+    }
+
+    else {
+      this.showval=false;
+      return false;
+    }
+  }
+  ngOnInit() {
+   //this.islogged()
+
+   if (this.islogged()) {
+
+   //  this.router.navigateByUrl('/Dashboard/Dashboard2');
+   //alert( window.location.href)
+    // this.router.navigateByUrl('/Dashboard2');
+   //var navigateto = window.location.href
+   //window.location.href = navigateto
+    //this.router.navigateByUrl(window.location.href);
+     }
+
+     else {
+     // this.router.navigateByUrl('/logout');
+    //  return;
+
+     }
+this.profilepic=  localStorage.getItem('profilepic')
+
+this.loggedinemail=localStorage.getItem('username')
+
+
+try {
+var ppp2 = localStorage.getItem('Roles');
+this.row=[]
+this.row= JSON.parse(ppp2);
+console.log("roles")
+console.log(this.row)
+
+}
+catch(err) {
+
+}
 
 
 

@@ -336,7 +336,7 @@ namespace IPORevamp.Repository.Recordal
                                  select p).FirstOrDefaultAsync();
 
             details.PaymentReference = TransactionId;
-            details.Status = "Paid";
+            details.Status =STATUS.Paid;
 
             var appid = details.applicationid;
 
@@ -351,8 +351,8 @@ namespace IPORevamp.Repository.Recordal
             if (vpwallet != null)
             {
 
-                vpwallet.ApplicationStatus = "Renewal";
-                vpwallet.DataStatus = "Recordal";
+                vpwallet.ApplicationStatus =STATUS.Renewal;
+                vpwallet.DataStatus =DATASTATUS.Recordal ;
 
 
 
@@ -376,12 +376,12 @@ namespace IPORevamp.Repository.Recordal
                 DateCreated = DateTime.Now,
                 TransactionID = TransactionId,
                 FromDataStatus = prevDatastatus,
-                trademarkcomment = "Recordal Renewal",
+                trademarkcomment =STATUS.RecordalRenewalComment,
                 description = "",
 
-                ToDataStatus = "Recordal",
+                ToDataStatus =DATASTATUS.Recordal ,
                 FromStatus = prevappstatus,
-                ToStatus = "Renewal",
+                ToStatus = STATUS.Renewal,
                 UploadsPath1 = "",
                 userid = userid,
                 Role = Convert.ToString(roleid)
@@ -406,7 +406,7 @@ namespace IPORevamp.Repository.Recordal
                                  select p).FirstOrDefaultAsync();
 
             details.PaymentReference = TransactionId;
-            details.Status = "Paid";
+            details.Status =STATUS.Paid ;
             var appid = details.applicationid;
 
             var vpwallet = (from c in _contex.Application where c.Id == appid select c).FirstOrDefault();
@@ -420,8 +420,8 @@ namespace IPORevamp.Repository.Recordal
             if (vpwallet != null)
             {
 
-                vpwallet.ApplicationStatus = "Merger";
-                vpwallet.DataStatus = "Recordal";
+                vpwallet.ApplicationStatus =STATUS.Merger ;
+                vpwallet.DataStatus =DATASTATUS.Recordal ;
 
 
 

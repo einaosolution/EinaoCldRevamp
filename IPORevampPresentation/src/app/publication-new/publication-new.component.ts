@@ -191,6 +191,7 @@ SaveAppHistory(pid) {
 
 onSubmit3() {
   let vcount = 0;
+  this.row10 =[]
 
   var userid = localStorage.getItem('UserId');
 
@@ -204,6 +205,8 @@ onSubmit3() {
 }
 
 if ( this.row10.length > 0) {
+
+
 
 this.busy =   this.registerapi
 .UpdateBatch(userid,this.row10)
@@ -235,7 +238,13 @@ this.busy =   this.registerapi
         }
 
         else {
-          alert("No Row Selected")
+        //  alert("No Row Selected")
+
+          Swal.fire(
+            "No Row Selected",
+            '',
+            'info'
+          )
         }
 
 
@@ -653,6 +662,12 @@ this.busy =   this.registerapi
       console.log(response)
 
       this.dtTrigger.next();
+
+      for (var i = 0; i < this.rows.length; i++) {
+        this.rows[i].sn =""
+
+        //Do something
+    }
 
       if (this.rows.length > 0) {
 

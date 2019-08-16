@@ -957,6 +957,39 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("PayCertificate");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Comments.TrademarkComments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("pwalletid");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrademarkComments");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Department.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -1234,6 +1267,309 @@ namespace IPORevamp.Data.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("NoticeOfOpposition");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationStatus");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<string>("DataStatus");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("TransactionID");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PatentApplication");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory.PatentApplicationHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AcceptanceFilePath");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("FromDataStatus");
+
+                    b.Property<string>("FromStatus");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<int>("PatentApplicationID");
+
+                    b.Property<string>("RefusalFilePath");
+
+                    b.Property<string>("Role");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("ToDataStatus");
+
+                    b.Property<string>("ToStatus");
+
+                    b.Property<string>("TransactionID");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("UploadsPath1");
+
+                    b.Property<string>("UploadsPath2");
+
+                    b.Property<string>("description");
+
+                    b.Property<string>("patentcomment");
+
+                    b.Property<int>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatentApplicationID");
+
+                    b.ToTable("PatentApplicationHistory");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentAssignment.PatentAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssigneeAddress");
+
+                    b.Property<string>("AssigneeName");
+
+                    b.Property<int>("AssigneeNationalityId");
+
+                    b.Property<string>("AssignorAddress");
+
+                    b.Property<string>("AssignorName");
+
+                    b.Property<int>("AssignorNationalityId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateOfAssignment");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<int>("PatentApplicationID");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssigneeNationalityId");
+
+                    b.HasIndex("AssignorNationalityId");
+
+                    b.HasIndex("PatentApplicationID");
+
+                    b.ToTable("PatentAssignment");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentInformation.PatentInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Claims");
+
+                    b.Property<string>("CompleteSpecificationForm");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeedOfAssignment");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("InventionDescription");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("LetterOfAuthorization");
+
+                    b.Property<int>("PatentApplicationID");
+
+                    b.Property<int>("PatentTypeID");
+
+                    b.Property<string>("PctDocument");
+
+                    b.Property<string>("RegistrationNumber");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("TitleOfInvention");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatentApplicationID");
+
+                    b.HasIndex("PatentTypeID");
+
+                    b.ToTable("PatentInformation");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentInvention.PatentInvention", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CountryId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("InventorAddress");
+
+                    b.Property<string>("InventorEmail");
+
+                    b.Property<string>("InventorMobileNumber");
+
+                    b.Property<string>("InventorName");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<int>("PatentApplicationID");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("PatentApplicationID");
+
+                    b.ToTable("PatentInvention");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation.PatentPriorityInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationNumber");
+
+                    b.Property<int>("CountryId");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<int>("PatentApplicationID");
+
+                    b.Property<DateTime>("RegistrationDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("PatentApplicationID");
+
+                    b.ToTable("PatentPriorityInformation");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentType.PatentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PatentType");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Payment.Payment", b =>
@@ -1919,7 +2255,7 @@ namespace IPORevamp.Data.Migrations
 
                     b.HasIndex("paymentid");
 
-                    b.ToTable("Twallet");
+                    b.ToTable("TradeMarkwallet");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Unit.Units", b =>
@@ -2421,6 +2757,71 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "Application")
                         .WithMany("NoticeOfOpposition")
                         .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory.PatentApplicationHistory", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
+                        .WithMany("PatentApplicationHistory")
+                        .HasForeignKey("PatentApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentAssignment.PatentAssignment", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "AssigneeNationality")
+                        .WithMany("AssigneeNationality")
+                        .HasForeignKey("AssigneeNationalityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "AssignorNationality")
+                        .WithMany("AssignorNationality")
+                        .HasForeignKey("AssignorNationalityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
+                        .WithMany("PatentAssignment")
+                        .HasForeignKey("PatentApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentInformation.PatentInformation", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
+                        .WithMany("PatentInformation")
+                        .HasForeignKey("PatentApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentType.PatentType", "PatentType")
+                        .WithMany("PatentInformation")
+                        .HasForeignKey("PatentTypeID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentInvention.PatentInvention", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "Country")
+                        .WithMany("PatentInvention")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
+                        .WithMany("PatentInvention")
+                        .HasForeignKey("PatentApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation.PatentPriorityInformation", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entities.Country.Country", "Country")
+                        .WithMany("PatentPriorityInformation")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
+                        .WithMany("PatentPriorityInformation")
+                        .HasForeignKey("PatentApplicationID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

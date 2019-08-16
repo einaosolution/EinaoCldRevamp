@@ -152,6 +152,8 @@ this.getIpAddress();
 
 console.log(response)
 
+//this.registerapi.VChangeEvent("Login");
+
   this.router.navigateByUrl('/home');
    //
 

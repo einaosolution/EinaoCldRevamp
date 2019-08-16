@@ -39,6 +39,7 @@ export class ExaminerFreshComponent implements OnInit {
   userform: FormGroup;
   submitted:boolean=false;
   busy: Promise<any>;
+  appcount:any
   model: any = {};
   Code: FormControl;
   userid=""
@@ -60,6 +61,17 @@ export class ExaminerFreshComponent implements OnInit {
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
   onSubmit() {
+
+    if (parseInt(this.appcount) > 0 ) {
+
+      Swal.fire(
+        "This Login has been used in previous approval ",
+        '',
+        'error'
+      )
+
+      return ;
+    }
     $("#createmodel2").modal('show');
 
 
@@ -67,6 +79,17 @@ export class ExaminerFreshComponent implements OnInit {
 }
 
 onSubmit10() {
+
+  if (parseInt(this.appcount) > 0 ) {
+
+    Swal.fire(
+      "This Login has been used in previous approval ",
+      '',
+      'error'
+    )
+
+    return ;
+  }
   $("#createmodel3").modal('show');
 
 
@@ -74,6 +97,17 @@ onSubmit10() {
 }
 
 onSubmit11() {
+
+  if (parseInt(this.appcount) > 0 ) {
+
+    Swal.fire(
+      "This Login has been used in previous approval ",
+      '',
+      'error'
+    )
+
+    return ;
+  }
   $("#createmodel4").modal('show');
 
 
@@ -81,6 +115,16 @@ onSubmit11() {
 }
 
 onSubmit12() {
+  if (parseInt(this.appcount) > 0 ) {
+
+    Swal.fire(
+      "This Login has been used in previous approval ",
+      '',
+      'error'
+    )
+
+    return ;
+  }
   $("#createmodel5").modal('show');
 
 
@@ -494,6 +538,36 @@ showcountry2() {
 
 
 
+  getApplicationCount(Appid ,userid) {
+
+
+    this.busy =   this.registerapi
+    .GetApplicationCount(Appid,userid)
+    .then((response: any) => {
+
+
+     this.appcount = response.result;
+  console.log("Application Count")
+  console.log(this.appcount)
+
+
+
+     $("#createmodel").modal('show');
+
+    })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+    })
+  }
 
   showcountry(kk) {
 
@@ -520,6 +594,9 @@ this.busy =   this.registerapi
   this.row4 = response.content;
   console.log(response)
 
+ let  userid = localStorage.getItem('UserId');
+  this.getApplicationCount(kk.pwalletid ,userid)
+
 
 
 })
@@ -535,7 +612,7 @@ this.busy =   this.registerapi
           )
 
 })
-    $("#createmodel").modal('show');
+  //  $("#createmodel").modal('show');
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );
   }

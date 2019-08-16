@@ -44,6 +44,13 @@ using IPORevamp.Data.Entity.Interface.Entities.Opposition;
 using IPORevamp.Data.Entity.Interface.Entities.Certificate;
 using IPORevamp.Data.Entity.Interface.Entities.Recordal;
 using IPORevamp.Data.Entity.Interface.Entities.Search;
+using IPORevamp.Data.Entity.Interface.Entities.PatentApplication;
+using IPORevamp.Data.Entity.Interface.Entities.PatentType;
+using IPORevamp.Data.Entity.Interface.Entities.PatentInformation;
+using IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory;
+using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
+using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
+using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 
 namespace IPORevamp.Data
 {
@@ -120,6 +127,20 @@ namespace IPORevamp.Data
         public virtual DbSet<MenuManager> MenuManager { get; set; }
 
 
+
+        #endregion
+
+        #region Patent
+        public DbSet<PatentApplication> PatentApplication { get; set; }
+        public DbSet<PatentType> PatentType { get; set; }
+        public DbSet<PatentInformation> PatentInformation { get; set; }
+        public DbSet<PatentApplicationHistory> PatentApplicationHistory { get; set; }
+        public DbSet<PatentAssignment> PatentAssignment { get; set; }
+        public DbSet<PatentPriorityInformation> PatentPriorityInformation { get; set; }
+
+        public DbSet<PatentInvention> PatentInvention { get; set; }
+
+        
 
         #endregion
 

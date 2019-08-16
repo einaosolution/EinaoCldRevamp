@@ -10,6 +10,11 @@ using IPORevamp.Data.Entity.Interface.Entities.Pwallet;
 using IPORevamp.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using EmailEngine.Base.Entities;
+using IPORevamp.Data.Entity.Interface.Entities.PatentApplication;
+using IPORevamp.Data.Entity.Interface.Entities.PatentInformation;
+using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
+using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
+using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
 
 namespace IPORevamp.Repository.FileNewApplication
 {
@@ -78,6 +83,18 @@ namespace IPORevamp.Repository.FileNewApplication
         }
 
 
+        public async Task<Int32> ApplicationUserCount(int  ApplicationId,int  userid)
+        {
+
+            var result = (from c in _contex.TrademarkApplicationHistory where c.ApplicationID == ApplicationId && c.userid == userid  select c).Count();
+
+        
+            return result;
+
+
+        }
+
+
 
         public async Task<String> updateTransactionById(string transactionid , string paymentid)
         {
@@ -111,6 +128,38 @@ namespace IPORevamp.Repository.FileNewApplication
         }
 
 
+        public async Task<String> updatePatentTransactionById(string transactionid, string paymentid)
+        {
+
+            // check for user information before processing the request
+            int id = Convert.ToInt32(transactionid);
+
+            var result = (from c in _contex.PatentApplication where c.Id == id select c).FirstOrDefault();
+
+
+
+            if (result != null)
+            {
+                result.TransactionID = paymentid;
+                result.ApplicationStatus = STATUS.Fresh;
+
+                _contex.SaveChanges();
+
+                // get User Information
+
+
+
+
+            }
+
+            // var saveContent = await _markinforepository.InsertAsync(markinfo);
+            // await _markinforepository.SaveChangesAsync();
+            return "success";
+
+
+        }
+
+
         public async Task<MarkInformation> GetMarkInfo(int id)
         {
 
@@ -122,6 +171,205 @@ namespace IPORevamp.Repository.FileNewApplication
             return markinfo;
         }
 
+        public async Task<PatentApplication> SavePatentApplication(PatentApplication application)
+        {
+            _contex.PatentApplication.Add(application);
+
+            _contex.SaveChanges();
+
+            return application;
+        }
+
+        public async Task<PatentAssignment> SavePatentAssignment(PatentAssignment patentAssignment)
+        {
+            _contex.PatentAssignment.Add(patentAssignment);
+          
+           
+            _contex.SaveChanges();
+
+
+            return patentAssignment;
+        }
+
+
+
+        public async Task<PatentInventionView[]> SavePatentInvention(PatentInventionView[] PatentInventionView, int ApplicationId)
+        {
+            List<PatentInvention> PtInvention = new List<PatentInvention>();
+
+            foreach(var patentInventionview  in PatentInventionView)
+            {
+                PatentInvention patentInvention = new PatentInvention();
+                patentInvention.CountryId = patentInventionview.CountryId;
+                patentInvention.InventorAddress = patentInventionview.InventorAddress;
+                patentInvention.InventorEmail = patentInventionview.InventorEmail;
+                patentInvention.InventorMobileNumber = patentInventionview.InventorMobileNumber;
+                patentInvention.InventorName = patentInventionview.InventorName;
+                patentInvention.PatentApplicationID = patentInventionview.PatentApplicationID;
+
+                patentInvention.IsActive = true;
+                patentInvention.IsDeleted = false;
+                patentInvention.DateCreated = DateTime.Now;
+
+
+                PtInvention.Add(patentInvention);
+
+
+
+
+            }
+
+            var result  = (from c in _contex.PatentInvention where c.PatentApplicationID == ApplicationId select c).ToList();
+
+            if (result.Count() > 0)
+            {
+                _contex.PatentInvention.RemoveRange(result);
+                _contex.SaveChanges();
+
+            }
+
+           
+            _contex.PatentInvention.AddRangeAsync(PtInvention);
+
+
+            _contex.SaveChanges();
+
+
+            return PatentInventionView;
+        }
+
+        public async Task<PatentPriorityInformationView[]> SavePriorityInformation(PatentPriorityInformationView[] PatentPriorityInformationView, int ApplicationId)
+        {
+            List<PatentPriorityInformation> PatentPriority = new List<PatentPriorityInformation>();
+
+            foreach (var patentPriorityInformation in PatentPriorityInformationView)
+            {
+                PatentPriorityInformation patentpriorityInformation = new PatentPriorityInformation();
+                patentpriorityInformation.CountryId = Convert.ToInt32(patentPriorityInformation.CountryId);
+                patentpriorityInformation.ApplicationNumber = patentPriorityInformation.ApplicationNumber;
+                patentpriorityInformation.PatentApplicationID = patentPriorityInformation.PatentApplicationID;
+                patentpriorityInformation.RegistrationDate = patentPriorityInformation.RegistrationDate;
+
+
+                patentpriorityInformation.IsActive = true;
+                patentpriorityInformation.IsDeleted = false;
+                patentpriorityInformation.DateCreated = DateTime.Now;
+
+
+                PatentPriority.Add(patentpriorityInformation);
+
+
+
+
+            }
+
+            var result = (from c in _contex.PatentPriorityInformation where c.PatentApplicationID == ApplicationId select c).ToList();
+
+            if (result.Count() > 0)
+            {
+                _contex.PatentPriorityInformation.RemoveRange(result);
+                _contex.SaveChanges();
+
+            }
+          
+            _contex.PatentPriorityInformation.AddRangeAsync(PatentPriority);
+
+
+            _contex.SaveChanges();
+
+
+            return PatentPriorityInformationView;
+        }
+
+
+
+        public async Task<PatentInformation> GetPatentApplication(int id )
+        {
+            var patentInformation = (from c in _contex.PatentInformation where c.PatentApplicationID == id select c).FirstOrDefault();
+
+
+            return patentInformation;
+        }
+
+
+        public async Task<PatentApplication> GetPatentApplicationById(int id)
+        {
+            var patentApplication = (from c in _contex.PatentApplication where c.Id == id select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").FirstOrDefault();
+
+
+            return patentApplication;
+        }
+
+
+        public async Task<PatentApplication> GetPatentApplicationByUserId(string  userid)
+        {
+            var patentApplication = (from c in _contex.PatentApplication where c.userid == userid && c.ApplicationStatus ==STATUS.Pending select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").FirstOrDefault();
+
+
+            return patentApplication;
+        }
+
+
+        public async Task<PatentAssignment> UpdatePatentAssignment(int id , PatentAssignment patentassignment)
+        {
+            var result = (from c in _contex.PatentAssignment where c.PatentApplicationID == id select c).FirstOrDefault();
+
+            //  result = patentassignment;
+            result.AssigneeAddress = patentassignment.AssigneeAddress;
+            result.AssigneeName = patentassignment.AssigneeName;
+            result.AssigneeNationalityId = patentassignment.AssigneeNationalityId;
+            result.AssignorName = patentassignment.AssignorName;
+
+            result.AssignorAddress = patentassignment.AssignorAddress;
+
+            result.AssignorNationalityId = patentassignment.AssignorNationalityId;
+
+
+
+            _contex.SaveChanges();
+            return result;
+        }
+
+        public async Task<PatentInformation> SavePatentInformation(PatentInformation ptinfo)
+        {
+            string registrationnumber = "";
+            
+            _contex.PatentInformation.Add(ptinfo);
+            _contex.SaveChanges();
+
+
+            var retrieveApplication = (from c in _contex.PatentInformation where c.Id == ptinfo.Id select c).FirstOrDefault();
+
+            if (retrieveApplication.PatentTypeID ==Convert.ToInt32( IPOPATENTTYPE.CONVENTIONAL))
+            {
+                registrationnumber =  "NG/PT/C/" + DateTime.Today.Date.ToString("yyyy") + "/" + retrieveApplication.Id;
+            }
+
+            else
+            {
+                registrationnumber = "NG/PT/NC/" + DateTime.Today.Date.ToString("yyyy") + "/" + retrieveApplication.Id;
+            }
+
+            retrieveApplication.RegistrationNumber = registrationnumber;
+
+            _contex.SaveChanges();
+
+
+            // var saveContent = await _markinforepository.InsertAsync(markinfo);
+            // await _markinforepository.SaveChangesAsync();
+            return retrieveApplication;
+
+
+        }
+        public async Task<PatentInformation> UpdatePatentInformation(PatentInformation patentinfo)
+        {
+
+            var retrieveApplication = (from c in _contex.PatentInformation where c.Id == patentinfo.Id select c).FirstOrDefault();
+            retrieveApplication = patentinfo;
+            _contex.SaveChanges();
+
+            return retrieveApplication;
+        }
         public async Task<Application> SaveApplication(Application application)
         {
             var saveContent = await  _Applicationrepository.InsertAsync(application);

@@ -13,6 +13,7 @@ export class AuthGuard implements  CanActivateChild {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
   if (!this.registerapi.checktokenstatus())   {
+    localStorage.removeItem('firstLoad');
     this.router.navigate(['logout']);
     return false;
   }
