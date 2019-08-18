@@ -1,5 +1,8 @@
 import { Component, OnInit,ViewChild,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
+import { Student } from '../Student';
+import { Invention } from '../Invention';
+import { Priority } from '../Priority';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl , FormArray } from '@angular/forms';
 
@@ -9,6 +12,7 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
+
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {formatDate} from '@angular/common';
 
@@ -17,6 +21,8 @@ import { map } from 'rxjs/operators';
 
 import 'datatables.net'
 import 'datatables.net-dt'
+
+
 
 
 declare var $;
@@ -29,26 +35,39 @@ import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 
 declare var RmPaymentEngine:any;
+
+interface Person {
+  fullName: string;
+
+ }
 @Component({
   selector: 'app-new-patent',
   templateUrl: './new-patent.component.html',
   styleUrls: ['./new-patent.component.css']
 })
-export class NewPatentComponent implements OnInit {
+export class NewPatentComponent implements OnDestroy ,OnInit {
 
   dtOptions:any = {};
+  students: Student[] = [];
+ invention:Invention[] = [];
+ priority:Priority[] = [];
   modalRef: BsModalRef;
   dtTrigger: Subject<any> = new Subject();
   dataTable: any;
   savemode:boolean = false;
+  savemode2:boolean = false;
+  savemode3:boolean = false;
   updatemode:boolean = false;
   userform: FormGroup;
-  Inventor: FormArray;
-  Priority: FormArray;
-
   userform2: FormGroup;
+  userform3: FormGroup;
+  Inventor: FormArray;
+  Priority2: FormArray;
+
+
   submitted:boolean=false;
   submitted2:boolean=false;
+  submitted3:boolean=false;
   busy: Promise<any>;
   Code: FormControl;
   Firstname: FormControl;
@@ -84,7 +103,8 @@ export class NewPatentComponent implements OnInit {
   transactionid
   paymentreference
   transactionid2
-  public rows = [];
+
+  public rows=[];
   public row2 ;
   public tot ;
   public row3 = [];
@@ -104,6 +124,7 @@ export class NewPatentComponent implements OnInit {
   public row501 =[];
 
   public row502  =[];
+  public vid ="";
 
   public rrr ="";
 
@@ -118,6 +139,8 @@ export class NewPatentComponent implements OnInit {
   public image2
   public image3
   public image4
+  public image5
+  public image6
   public filepath
   public trademarklogo
 
@@ -154,18 +177,56 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
   getlogo(vid) {
     return this.trademarklogo
   }
+
+  feelist(description:string ) {
+  //  alert("called")
+    let  userid = localStorage.getItem('UserId');
+    this.registerapi
+.GetFeeListByName(description ,userid)
+.then((response: any) => {
+
+  console.log("fee  Response")
+  this.row2 = response.content;
+  localStorage.setItem('description',this.row2.description);
+  this.tot = parseInt(this.row2.init_amt ) +  parseInt(this.row2.technologyFee )
+  console.log(response)
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
+
+
+  }
+
+
+
   onChange2(deviceValue) {
 
    // let obj =  this.row11.find(o => o.id === deviceValue);
     //this.trademarklogo =obj.type
 
     if (deviceValue =="2") {
+    // alert("2")
       this.vshow = false;
-
+this.feelist("REGISTRATION OF PATENT (NON-CONVENTIONAL)")
     }
 
     else {
+    //  alert("1")
       this.vshow = true;
+      this.feelist("REGISTRATION OF PATENT (CONVENTIONAL)")
     }
   }
 
@@ -199,11 +260,11 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
 
    if (values.currentTarget.checked) {
 
-    this.checkboxFlag =true
+   // this.checkboxFlag =true
 
-    Swal.fire('Click make payment button to proceed')
+   // Swal.fire('Click make payment button to proceed')
 
-   // alert("Click Make Button button to proceed")
+
    }
 
    else {
@@ -271,6 +332,11 @@ return true;
 
     }
 
+
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
+    }
 
     chng2()
     {
@@ -451,20 +517,23 @@ return true;
       });
       }
 
-      onSubmit100(pwalletid) {
+      onSubmit105(pwalletid) {
 
 
         this.row101  = [];
+        let result = this.registerapi.getInvention2();
 
-        for (let i = 0; i < this.InventorFormGroup.controls.length; i++) {
+     //   for (let i = 0; i < this.InventorFormGroup.controls.length; i++) {
+          for (let i = 0; i < result.length; i++) {
          let invention =  {
           PatentApplicationID:pwalletid ,
 
-          CountryId :this.InventorFormGroup.controls[i].value.nationality ,
-          InventorName :this.InventorFormGroup.controls[i].value.name ,
-          InventorAddress :this.InventorFormGroup.controls[i].value.address ,
-          InventorEmail :this.InventorFormGroup.controls[i].value.email ,
-          InventorMobileNumber :this.InventorFormGroup.controls[i].value.phone ,
+          CountryId :result[i].NationalityId ,
+        //  InventorName :this.InventorFormGroup.controls[i].value.name ,
+           InventorName :result[i].Name ,
+          InventorAddress :result[i].Address ,
+          InventorEmail :result[i].Email,
+          InventorMobileNumber :result[i].phonenumber ,
 
 
          }
@@ -534,15 +603,15 @@ return true;
 
 
         this.row102  = [];
+let result = this.registerapi.getPriority2()
 
-
-        for (let i = 0; i < this.PriorityFormGroup.controls.length; i++) {
-         let priority =  {
+       for (let i = 0; i < result.length; i++) {
+        let priority =  {
           PatentApplicationID:pwalletid ,
 
-          CountryId :this.PriorityFormGroup.controls[i].value.country ,
-          ApplicationNumber :this.PriorityFormGroup.controls[i].value.applicationnumber ,
-          RegistrationDate :   formatDate(this.PriorityFormGroup.controls[i].value.priodate, 'MM/dd/yyyy', 'en')
+          CountryId :result[i].NationalityId ,
+          ApplicationNumber :result[i].ApplicationNumber,
+          RegistrationDate : result[i].RegistrationDate
 
 
 
@@ -578,6 +647,303 @@ return true;
 
       }
 
+
+    Onsubmit300(emp) {
+
+
+
+    }
+
+
+         Onsubmit401(emp) {
+
+this.savemode = false;
+  this.updatemode = true;
+
+  console.log("emp value")
+
+   console.log(emp) ;
+
+
+
+
+
+
+ (<FormControl> this.userform3.controls['applicationnumber']).setValue(emp.ApplicationNumber);
+ (<FormControl> this.userform3.controls['country']).setValue(emp.NationalityId);
+ (<FormControl> this.userform3.controls['priodate']).setValue(emp.RegistrationDate);
+
+
+  this.vid = emp.id ;
+
+ // (<FormControl> this.userform.controls['Description']).setValue("");
+  $("#createmodel2").modal('show');
+
+     }
+
+ ReintializeData() {
+   var table = $('#myTable2').DataTable();
+   var table2 = $('#myTable').DataTable();
+
+  table.destroy();
+  table2.destroy();
+
+
+
+ const priorityObservable = this.registerapi.getPriority();
+  priorityObservable.subscribe((priorityData: Priority[]) => {
+      this.priority = priorityData;
+      console.log("Priority Data")
+       console.log(this.priority)
+  });
+
+
+  const inventionObservable = this.registerapi.getInvention();
+        inventionObservable.subscribe((inventionData: Invention[]) => {
+            this.invention = inventionData;
+        });
+
+
+
+this.dtTrigger.next()
+
+
+
+ }
+
+
+      Onsubmit201(emp) {
+
+        this.registerapi.RemovePriority(emp.id)
+
+
+
+
+  this.ReintializeData()
+
+      }
+
+
+     Onsubmit400(emp) {
+
+this.savemode = false;
+  this.updatemode = true;
+
+  console.log("emp value")
+
+   console.log(emp) ;
+
+
+
+
+
+
+ (<FormControl> this.userform2.controls['name']).setValue(emp.Name);
+ (<FormControl> this.userform2.controls['address']).setValue(emp.Address);
+ (<FormControl> this.userform2.controls['phone']).setValue(emp.phonenumber);
+ (<FormControl> this.userform2.controls['email']).setValue(emp.Email);
+  (<FormControl> this.userform2.controls['nationality']).setValue(emp.NationalityId);
+
+  this.vid = emp.id ;
+
+ // (<FormControl> this.userform.controls['Description']).setValue("");
+  $("#createmodel").modal('show');
+
+     }
+
+      Onsubmit200(emp) {
+
+        this.registerapi.RemoveInvention(emp.id)
+
+
+        this.ReintializeData() ;
+
+
+
+      }
+
+
+      Onsubmit202(emp) {
+
+        this.registerapi.RemovePriority(emp.id)
+
+
+        this.ReintializeData() ;
+
+
+
+      }
+
+       onSubmit500() {
+
+        this.submitted=true;
+
+    let countryname =     this.row11.find(s => s.id == this.userform2.value.nationality);
+
+
+
+
+
+        if (this.userform2.valid) {
+  var Invention = {
+    Name:this.userform2.value.name ,
+    Address:this.userform2.value.address ,
+    phonenumber:this.userform2.value.phone ,
+    Email:this.userform2.value.email ,
+    NationalityId:this.userform2.value.nationality ,
+    Nationality:countryname.name  ,
+    id:this.registerapi.GetRandomNumber()
+
+
+
+  }
+ this.registerapi.RemoveInvention(this.vid)
+  this.registerapi.AddInvention(Invention)
+  var table = $('#myTable').DataTable();
+  $("#createmodel").modal('hide');
+  this.ReintializeData() ;
+
+        }
+
+
+
+
+      }
+
+
+
+      onSubmit501() {
+
+        this.submitted=true;
+
+        let countryname =     this.row11.find(s => s.id == this.userform3.value.country);
+
+
+
+
+
+        if (this.userform3.valid) {
+  var priority = {
+    ApplicationNumber:this.userform3.value.applicationnumber ,
+    RegistrationDate:formatDate(this.userform3.value.priodate, 'MM/dd/yyyy', 'en'),
+    Nationality:countryname.name ,
+
+    NationalityId:this.userform3.value.country   ,
+    id:this.registerapi.GetRandomNumber()
+
+
+
+  }
+this.registerapi.RemovePriority(this.vid)
+  this.registerapi.AddPriority(priority)
+
+  $("#createmodel2").modal('hide');
+
+  this.ReintializeData();
+
+
+
+        }
+
+
+
+
+      }
+
+
+            onSubmit1000() {
+
+        this.submitted3=true;
+
+
+
+    let countryname =     this.row11.find(s => s.id == this.userform3.value.country);
+
+
+
+
+
+        if (this.userform3.valid) {
+  var priority = {
+    ApplicationNumber:this.userform3.value.applicationnumber ,
+    RegistrationDate:formatDate(this.userform3.value.priodate, 'MM/dd/yyyy', 'en'),
+    Nationality:countryname.name ,
+
+    NationalityId:this.userform3.value.country   ,
+    id:this.registerapi.GetRandomNumber()
+
+
+
+  }
+
+  this.registerapi.AddPriority(priority)
+
+  $("#createmodel2").modal('hide');
+
+  this.ReintializeData();
+
+
+
+        }
+
+
+
+
+      }
+
+      onSubmit100() {
+
+        this.submitted=true;
+
+        var regexp = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'
+
+
+        if (this.userform2.value.email.match(regexp) == null) {
+         Swal.fire(
+           "Invalid Email  ",
+            '',
+            'error'
+          )
+
+          return ;
+        }
+
+    let countryname =     this.row11.find(s => s.id == this.userform2.value.nationality);
+
+
+
+
+
+        if (this.userform2.valid) {
+  var Invention = {
+    Name:this.userform2.value.name ,
+    Address:this.userform2.value.address ,
+    phonenumber:this.userform2.value.phone ,
+    Email:this.userform2.value.email ,
+    NationalityId:this.userform2.value.nationality ,
+    Nationality:countryname.name  ,
+    id:this.registerapi.GetRandomNumber()
+
+
+
+  }
+
+  this.registerapi.AddInvention(Invention)
+
+  $("#createmodel").modal('hide');
+
+  this.ReintializeData();
+
+
+
+
+        }
+
+
+
+
+      }
+
   onSubmit() {
 
 this.submitted2=true;
@@ -585,6 +951,46 @@ this.submitted2=true;
 var  formData = new FormData();
 var userid = localStorage.getItem('UserId');
 
+let result = this.registerapi.getInvention2();
+
+
+
+
+if (result.length == 0 ) {
+
+  Swal.fire(
+    "Enter Inventor Information   ",
+     '',
+     'error'
+   )
+
+   return ;
+}
+
+
+if (this.categoryid =="2") {
+
+  let f2 = this.fileInput2.nativeElement;
+ // let f22 = this.fileInput22.nativeElement;
+
+  if (f2.files[0]  ||this.image2) {
+
+
+   }
+
+   else {
+
+    Swal.fire(
+     "Please Upload Letter of Authorization ",
+      '',
+      'error'
+    )
+
+    return;
+
+   }
+
+  }
 
 //alert(this.userform.value.patenttype)
 
@@ -748,10 +1154,10 @@ console.log(this.row101)
 
     this.pwalletid =response.content
 
-    this.savemode = true;
+   // this.savemode = true;
 
 
-    this.onSubmit100(this.pwalletid ) ;
+    this.onSubmit105(this.pwalletid ) ;
 
 
 
@@ -828,7 +1234,7 @@ else {
   }
 
   onSubmit4a() {
-    $(".validation-wizard").steps("next");
+  //  $(".validation-wizard").steps("next");
 
 
   }
@@ -842,7 +1248,7 @@ else {
   onSubmit33() {
     // this.makePayment()
     this.row = []
-    this.row.push(8)
+   // this.row.push(8)
     var userid = localStorage.getItem('UserId');
 
 
@@ -861,14 +1267,13 @@ else {
 
   localStorage.setItem('Payment',JSON.stringify( Payment));
 
-  localStorage.setItem('PaymentType',"FileT002");
+  localStorage.setItem('PaymentType',"PtT002");
   localStorage.setItem('settings',this.settingcode);
 
 
-  this.settingcode
-    //  $(".validation-wizard").steps("next");
 
-    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+  //  this.router.navigateByUrl('/Dashboard/Invoice2');
 
 
 
@@ -882,7 +1287,14 @@ else {
   onSubmit3() {
    // this.makePayment()
    this.row = []
-   this.row.push(8)
+   if (this.userform.value.patenttype =="1") {
+ this.row.push(18)
+   }
+
+   if (this.userform.value.patenttype =="2") {
+ this.row.push(19)
+   }
+
    var userid = localStorage.getItem('UserId');
 
    var kk = {
@@ -928,10 +1340,11 @@ else {
  localStorage.setItem('Payment',JSON.stringify( Payment));
    localStorage.setItem('settings',this.settingcode);
 
- localStorage.setItem('PaymentType',"FileT002");
-   //  $(".validation-wizard").steps("next");
+ //localStorage.setItem('PaymentType',"FileT002");
+   localStorage.setItem('PaymentType',"PtT002");
 
-   this.router.navigateByUrl('/Dashboard/Invoice2');
+
+   //this.router.navigateByUrl('/Dashboard/Invoice2');
 
 
 
@@ -1052,11 +1465,11 @@ else {
   return formGroup;
 }
 
-getPriorityFormGroup(index): FormGroup {
-  this.Priority = this.userform.get('Priority') as FormArray;
-  const formGroup = this.Priority.controls[index] as FormGroup;
-  return formGroup;
-}
+//getPriorityFormGroup(index): FormGroup {
+  //this.Priority = this.userform.get('Priority') as FormArray;
+ // const formGroup = this.Priority.controls[index] as FormGroup;
+ // return formGroup;
+//}
  addItem(): void {
   this.Inventor = this.userform.get('Inventor') as FormArray;
   this.Inventor.push(this.createItem());
@@ -1064,7 +1477,7 @@ getPriorityFormGroup(index): FormGroup {
 
 removePriority(index) {
   // this.contactList = this.form.get('contacts') as FormArray;
-  this.Priority.removeAt(index);
+ // this.Priority.removeAt(index);
 }
 
 removeInventor(index) {
@@ -1073,8 +1486,8 @@ removeInventor(index) {
 }
 
 addItem2(): void {
-  this.Priority = this.userform.get('Priority') as FormArray;
-  this.Priority.push(this.createItem2());
+  //this.Priority = this.userform.get('Priority') as FormArray;
+  //this.Priority.push(this.createItem2());
 }
  createItem(): FormGroup {
   return this.formBuilder.group({
@@ -1123,9 +1536,261 @@ get InventorFormGroup() {
 get PriorityFormGroup() {
   return this.userform.get('Priority') as FormArray;
 }
+
+
+loaddata() {
+
+
+    var userid = localStorage.getItem('UserId');
+    this.busy =   this.registerapi
+        .GetPatentApplicationByUserId(userid)
+        .then((response: any) => {
+
+          console.log("Patent Application")
+          console.log(response.content)
+
+          if (response.content) {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+              customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+              },
+              buttonsStyling: false,
+            })
+
+                swalWithBootstrapButtons.fire({
+                  title: 'You Have Pending Application ,Proceed to file them  ',
+                  text: "",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, Proceed!',
+                  cancelButtonText: 'No, cancel!',
+                  reverseButtons: true
+                }).then((result) => {
+                  if (result.value) {
+
+
+                   this.row500 = response.content
+                   this.pwalletid =response.content.id
+
+                 let  ptifo =response.content.patentInformation
+                 let  ptiAssignment =response.content.patentAssignment
+                 if (ptifo[0].letterOfAuthorization) {
+                 this.image2 = ptifo[0].letterOfAuthorization
+
+                 }
+                 if (ptifo[0].claims) {
+                 this.image3 = ptifo[0].claims
+
+                 }
+                 if (ptifo[0].pctDocument) {
+                 this.image1 =ptifo[0].pctDocument
+
+                 }
+                 if (ptifo[0].completeSpecificationForm) {
+                  this.image5 =ptifo[0].completeSpecificationForm
+
+                 }
+                  if (ptifo[0].deedOfAssignment) {
+                  this.image6 =ptifo[0].deedOfAssignment
+
+                  }
+
+
+
+                //   this.removeInventor(0);
+                //   this.removePriority(0) ;
+                 //  this.createItem();
+
+                 (<FormControl> this.userform.controls['titleofinvention']).setValue(ptifo[0].titleOfInvention);
+                 (<FormControl> this.userform.controls['patenttype']).setValue(ptifo[0].patentTypeID);
+                 (<FormControl> this.userform.controls['patenttype']).setValue(ptifo[0].patentTypeID);
+                 (<FormControl> this.userform.controls['description']).setValue(ptifo[0].inventionDescription);
+                 (<FormControl> this.userform.controls['AssigneeName']).setValue(ptiAssignment[0].assigneeName);
+                 (<FormControl> this.userform.controls['AssigneeAddress']).setValue(ptiAssignment[0].assigneeAddress);
+                 (<FormControl> this.userform.controls['AssigneeNationality']).setValue(ptiAssignment[0].assigneeNationalityId);
+                 (<FormControl> this.userform.controls['AssignorName']).setValue(ptiAssignment[0].assignorName );
+                 (<FormControl> this.userform.controls['AssignorAddress']).setValue(ptiAssignment[0].assignorAddress );
+                 (<FormControl> this.userform.controls['AssignorNationality']).setValue(ptiAssignment[0].assignorNationalityId);
+                 this.Inventor = this.userform.get('Inventor') as FormArray;
+                // this.Priority = this.userform.get('Priority') as FormArray;
+                 this.row501 = response.content.patentInvention
+                 this.row502 = response.content.patentPriorityInformation
+
+
+                 if (ptifo[0].patentTypeID =="1") {
+                   this.feelist("REGISTRATION OF PATENT (CONVENTIONAL)")
+                 }
+
+                 if (ptifo[0].patentTypeID =="2") {
+                     this.feelist("REGISTRATION OF PATENT (NON-CONVENTIONAL)")
+                 }
+
+
+
+
+                 for ( let i = 0; i <  this.row501.length; i++) {
+              //   this.Inventor.push(  this.createItemB(this.row501[i].inventorName,this.row501[i].inventorAddress,this.row501[i].inventorMobileNumber,this.row501[i].inventorEmail
+               // ,this.row501[i].countryId) )
+
+
+     let countryname =     this.row11.find(s => s.id == this.row501[i].countryId);
+
+ var Invention = {
+    Name:this.row501[i].inventorName,
+    Address:this.row501[i].inventorAddress,
+    phonenumber:this.row501[i].inventorMobileNumber ,
+    Email:this.row501[i].inventorEmail,
+    NationalityId:this.row501[i].countryId ,
+    Nationality:countryname.name  ,
+    id:this.registerapi.GetRandomNumber()
+    }
+
+  this.registerapi.AddInvention(Invention)
+
+
+
+
+
+           }
+
+
+           for ( let i = 0; i <  this.row502.length; i++) {
+
+            let countryname =     this.row11.find(s => s.id == this.row502[i].countryId);
+
+
+            var priority = {
+              ApplicationNumber:this.row502[i].applicationNumber,
+              RegistrationDate:this.row502[i].registrationDate,
+              Nationality:countryname.name ,
+
+              NationalityId:this.row502[i].countryId   ,
+              id:this.registerapi.GetRandomNumber()
+
+
+
+            }
+
+            this.registerapi.AddPriority(priority)
+
+
+      }
+
+      this.ReintializeData();
+
+      this.savemode2 = true;
+                //   this.createItemB("test name ","test address","+23407059394683","ozoton@yahoo.com","42")
+
+
+//for (let i = 0; i <  this.row500.patentInvention.length; i++) {
+
+//}
+                   console.log("pending application ")
+
+                   console.log(this.row500)
+
+              } else if (
+                    // Read more about handling dismissals
+                    result.dismiss === Swal.DismissReason.cancel
+                  ) {
+
+                  }
+                })
+
+          }
+
+
+
+
+        })
+                 .catch((response: any) => {
+
+                   console.log(response)
+
+
+                 })
+}
+
+showInventor() {
+
+ this.savemode = true;
+  this.updatemode = false;
+  this.submitted = false ;
+
+this.userform2.reset()
+ // (<FormControl> this.userform.controls['Code']).setValue("");
+
+ // (<FormControl> this.userform.controls['Description']).setValue("");
+  $("#createmodel").modal('show');
+
+}
+
+
+showPriority() {
+
+ this.savemode = true;
+  this.updatemode = false;
+  this.submitted3 = false ;
+this.userform3.reset()
+
+ // (<FormControl> this.userform.controls['Code']).setValue("");
+
+ // (<FormControl> this.userform.controls['Description']).setValue("");
+  $("#createmodel2").modal('show');
+
+}
   ngOnInit() {
 
+
+  this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 10,
+    dom: 'Bfrtip',
+    // Configure the buttons
+    buttons: [
+
+
+
+    ]
+
+  };
+
+
+
     let email =localStorage.getItem('username');
+
+
+    const studentsObservable = this.registerapi.getStudents();
+        studentsObservable.subscribe((studentsData: Student[]) => {
+            this.students = studentsData;
+            this.dtTrigger.next()
+        });
+
+
+        const inventionObservable = this.registerapi.getInvention();
+        inventionObservable.subscribe((inventionData: Invention[]) => {
+            this.invention = inventionData;
+        });
+
+
+        const priorityObservable = this.registerapi.getPriority();
+        priorityObservable.subscribe((priorityData: Priority[]) => {
+            this.priority = priorityData;
+        });
+
+
+
+
+    //this.dtTrigger.next();
+
+   // var table = $('#myTable').DataTable();
+
+
+
+
+  //  this.dtTrigger.next();
 
     if (this.registerapi.checkAccess("#/Dashboard/NewApplication"))  {
 
@@ -1143,6 +1808,27 @@ get PriorityFormGroup() {
 
     this.registerapi.VChangeEvent("PrelimSearch");
 
+    this.userform2 = this.formBuilder.group({
+      name: [null,Validators.required ],
+      address: [null,Validators.required ],
+      phone: [null,Validators.required ] ,
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+ ])),
+      nationality: [null,Validators.required ]
+
+    });
+
+
+     this.userform3 = this.formBuilder.group({
+      applicationnumber: [null,Validators.required ],
+      country: [null,Validators.required ],
+      priodate: [null,Validators.required ]
+
+
+    });
+
 
     this.userform = this.formBuilder.group({
       patenttype:  [null,Validators.required ],
@@ -1156,13 +1842,13 @@ get PriorityFormGroup() {
       AssignorAddress: [null,Validators.required],
       AssignorNationality: [null,Validators.required],
 
-      Inventor: this.formBuilder.array([ this.createItem() ]) ,
+   //   Inventor: this.formBuilder.array([ this.createItem() ]) ,
 
       Priority: this.formBuilder.array([ this.createItem2() ])
     });
 
   this.Inventor = this.userform.get('Inventor') as FormArray;
-    this.Priority = this.userform.get('Priority') as FormArray;
+  //  this.Priority = this.userform.get('Priority') as FormArray;
 
 
     var form = $(".validation-wizard").show();
@@ -1221,129 +1907,14 @@ get PriorityFormGroup() {
   var vdesc =  localStorage.getItem('description');
     this.transactionid = secondparam ;
 
-    var userid = localStorage.getItem('UserId');
-    this.busy =   this.registerapi
-        .GetPatentApplicationByUserId(userid)
-        .then((response: any) => {
-
-          console.log("ackno by user")
-          console.log(response.content)
-
-          if (response.content) {
-
-            const swalWithBootstrapButtons = Swal.mixin({
-              customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-              },
-              buttonsStyling: false,
-            })
-
-                swalWithBootstrapButtons.fire({
-                  title: 'You Have Pending Application ,Proceed to file them  ',
-                  text: "",
-                  type: 'warning',
-                  showCancelButton: true,
-                  confirmButtonText: 'Yes, Proceed!',
-                  cancelButtonText: 'No, cancel!',
-                  reverseButtons: true
-                }).then((result) => {
-                  if (result.value) {
-
-                   this.row500 = response.content
-                 let  ptifo =response.content.patentInformation
-
-                   this.removeInventor(0);
-                   this.removePriority(0) ;
-                 //  this.createItem();
-
-                 (<FormControl> this.userform.controls['titleofinvention']).setValue(ptifo[0].titleOfInvention);
-
-                 this.Inventor = this.userform.get('Inventor') as FormArray;
-                 this.Priority = this.userform.get('Priority') as FormArray;
-                 this.row501 = response.content.patentInvention
-                 this.row502 = response.content.patentPriorityInformation
-
-
-
-
-                 for ( let i = 0; i <  this.row501.length; i++) {
-                 this.Inventor.push(  this.createItemB(this.row501[i].inventorName,this.row501[i].inventorAddress,this.row501[i].inventorMobileNumber,this.row501[i].inventorEmail
-                ,this.row501[i].countryId) )
-
-
-           }
-
-
-           for ( let i = 0; i <  this.row502.length; i++) {
-            this.Priority.push(  this.createItem2B(this.row502[i].applicationNumber,this.row502[i].registrationDate,this.row502[i].countryId) )
-
-
-      }
-
-
-                //   this.createItemB("test name ","test address","+23407059394683","ozoton@yahoo.com","42")
-
-
-//for (let i = 0; i <  this.row500.patentInvention.length; i++) {
-
-//}
-                   console.log("pending application ")
-
-                   console.log(this.row500)
-
-              } else if (
-                    // Read more about handling dismissals
-                    result.dismiss === Swal.DismissReason.cancel
-                  ) {
-
-                  }
-                })
-
-          }
-
-
-
-
-        })
-                 .catch((response: any) => {
-
-                   console.log(response)
-
-
-                 })
 
 
 
 
 
+this.loaddata()
 
 
-this.busy =   this.registerapi
-.GetFeeListByName("APPLICATION FOR REGISTRATION OF TRADE/SERVICE MARK" ,userid)
-.then((response: any) => {
-
-  console.log("fee  Response")
-  this.row2 = response.content;
-  localStorage.setItem('description',this.row2.description);
-  this.tot = parseInt(this.row2.init_amt ) +  parseInt(this.row2.technologyFee )
-  console.log(response)
-
-
-
-})
-         .catch((response: any) => {
-
-           console.log(response)
-
-
-          Swal.fire(
-            response.error.message,
-            '',
-            'error'
-          )
-
-})
 
 this.busy =   this.registerapi
 .GetSettingsById("34",userid)

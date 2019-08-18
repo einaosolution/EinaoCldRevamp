@@ -73,6 +73,32 @@ export class Invoice2Component implements OnInit ,AfterViewInit {
   }
 
 
+
+  generateInvoice8() {
+    let  pwallet =  localStorage.getItem('Pwallet');
+       this.registerapi
+       .UpDatePatentTransactionById( pwallet ,this.transactionid)
+       .then((response: any) => {
+
+         this.router.navigateByUrl('/Dashboard/Invoice');
+
+
+
+       })
+                .catch((response: any) => {
+
+                  console.log(response)
+
+
+                 Swal.fire(
+                   response.error.message,
+                   '',
+                   'error'
+                 )
+
+   })
+     }
+
   generateInvoice7() {
     let  pwallet =  localStorage.getItem('NoticeAppID');
     let  pwallet2 =  localStorage.getItem('Pwallet');
@@ -427,6 +453,8 @@ export class Invoice2Component implements OnInit ,AfterViewInit {
 
    })
      }
+
+
   print(): void {
     let printContents, popupWin;
     printContents = document.getElementById('report').innerHTML;
@@ -583,6 +611,11 @@ context['msImageSmoothingEnabled'] = false;
            if (paytype =="MergeApplication") {
              this.generateInvoice7()
            }
+ if (paytype =="PtT002") {
+          this.generateInvoice8()
+        }
+
+
 
 
 
@@ -716,6 +749,11 @@ context['msImageSmoothingEnabled'] = false;
         if (paytype =="MergeApplication") {
           this.generateInvoice7()
         }
+
+         if (paytype =="PtT002") {
+          this.generateInvoice8()
+        }
+
 
 
 

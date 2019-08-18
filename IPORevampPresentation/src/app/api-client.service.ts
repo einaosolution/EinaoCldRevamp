@@ -5,6 +5,15 @@ import {Router} from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import * as jwt_decode from  "jwt-decode"
 
+import { Student } from './Student';
+import { Invention } from './Invention';
+import { Priority } from './Priority';
+import { Observable } from 'rxjs';
+import { UUID } from 'angular2-uuid';
+declare var $ :any;
+
+
+
 
 
 @Injectable({
@@ -15,11 +24,27 @@ import * as jwt_decode from  "jwt-decode"
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
-// serviceBase = 'http://localhost:5000/';
+//serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
 //serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
+  invention :Invention[]=[]
+  priority :Priority[]=[]
+  students: Student[] = [{
+    id: 1,
+    name: 'Krunal',
+    EnrollmentNumber: 11047,
+    College: 'VVP Engineering College',
+    University: 'GTU'
+},
+{
+    id: 2,
+    name: 'Rushabh',
+    EnrollmentNumber: 116023,
+    College: 'VVP Engineering College',
+    University: 'GTU'
+}];
 
 
 
@@ -28,6 +53,94 @@ serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
    }
 
 
+   public getStudents(): any {
+    const studentsObservable = new Observable(observer => {
+           setTimeout(() => {
+               observer.next(this.students);
+           }, 1000);
+    });
+
+    return studentsObservable;
+}
+
+
+public getInvention(): any {
+  const inventionObservable = new Observable(observer => {
+         setTimeout(() => {
+             observer.next(this.invention);
+         }, 1000);
+  });
+
+  return inventionObservable;
+}
+
+
+public getPriority(): any {
+  const priorityObservable = new Observable(observer => {
+         setTimeout(() => {
+             observer.next(this.priority);
+         }, 1000);
+  });
+
+  return priorityObservable;
+}
+
+public AddInvention (Invention ) {
+  this.invention.push(Invention)
+}
+
+public AddPriority (Priority ) {
+  this.priority.push(Priority)
+}
+
+
+public getInvention2 ( ) {
+ return  this.invention
+}
+
+
+public getPriority2 ( ) {
+ return  this.priority
+}
+
+
+
+public RemoveInvention (ids  ) {
+
+  for (let i = 0; i < this.invention.length; i++) { 
+    
+    if(this.invention[i].id === ids) {
+      this.invention.splice(i,1);
+        return false;
+    }
+   // text += cars[i] + "<br>";
+  }
+
+
+
+}
+
+
+public RemovePriority (ids  ) {
+
+  for (let i = 0; i < this.priority.length; i++) { 
+    
+    if(this.priority[i].id === ids) {
+      this.priority.splice(i,1);
+        return false;
+    }
+   // text += cars[i] + "<br>";
+  }
+
+
+
+}
+
+
+
+public GetRandomNumber ( ) {
+  return UUID.UUID()
+}
 
 
    GetFilepath() {
@@ -1766,6 +1879,20 @@ RejectUser(pp: string,pp2: string ) {
 			});
   }
 
+
+UpDatePatentTransactionById(pp: string ,pp2: string) {
+
+		var data = {
+      pwalletid: pp ,
+      transid: pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Patent/UpDatePatentTransactionById', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
 
   all() {
     var token = localStorage.getItem('access_tokenexpire');

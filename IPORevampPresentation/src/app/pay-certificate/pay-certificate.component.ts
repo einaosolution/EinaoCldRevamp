@@ -600,6 +600,13 @@ this.busy =   this.registerapi
 
       this.dtTrigger.next();
 
+
+      for (var i = 0; i < this.rows.length; i++) {
+        this.rows[i].sn =""
+
+        //Do something
+    }
+
       if (this.rows.length > 0) {
 
       this.vbatch = this.rows[0].batCount

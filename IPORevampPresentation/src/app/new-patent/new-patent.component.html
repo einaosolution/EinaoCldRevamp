@@ -52,7 +52,7 @@
                                       <label for="wfirstName2"> Patent  Type : <span class="danger">*</span> </label>
 
 
-                                      <select (change)="onChange2($event.target.value)"   required  formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class="custom-select form-control-lg "    id="Month">
+                                      <select (change)="onChange2($event.target.value)"     formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class="custom-select form-control-lg "    id="Month">
                                         <option  value= "">
                                           --Select Patent Type--
                                           </option>
@@ -69,7 +69,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="wemailAddress2"> Title Of Invention  : <span class="danger">*</span> </label>
-                                    <input type="text"  required  formControlName="titleofinvention"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['titleofinvention'].hasError('required') }"  class="form-control " id="wemailAddress2" name="emailAddresss2">
+                                    <input type="text"    formControlName="titleofinvention"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['titleofinvention'].hasError('required') }"  class="form-control " id="wemailAddress2" name="emailAddresss2">
 
 
                                     </div>
@@ -82,7 +82,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                   <label for="wlocation2"> Description : <span class="danger">*</span> </label> <br/>
-                                  <textarea rows="4" required  class="form-control "   formControlName="description"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['description'].hasError('required') }"   id="description" name="classdescription2"   cols="30" placeholder="Description">
+                                  <textarea rows="4"   class="form-control "   formControlName="description"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['description'].hasError('required') }"   id="description" name="classdescription2"   cols="30" placeholder="Description">
 
 
 
@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-md-6">
                               <label for="wemailAddress2"> Assignee Name : <span class="danger">*</span> </label>
-                              <input type="text"  required  formControlName="AssigneeName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeName'].hasError('required') }" class="form-control " id="AssigneeName22" name="AssigneeName2">
+                              <input type="text"    formControlName="AssigneeName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeName'].hasError('required') }" class="form-control " id="AssigneeName22" name="AssigneeName2">
 
                                 </div>
                         </div>
@@ -102,7 +102,7 @@
                           <div class="col-md-6">
                               <div class="form-group">
                                 <label for="wlocation2"> Assignee Address  : <span class="danger">*</span> </label> <br/>
-                                <input type="text"  required  formControlName="AssigneeAddress"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeAddress'].hasError('required') }" class="form-control " id="AssigneeAddress22" name="AssigneeAddress">
+                                <input type="text"    formControlName="AssigneeAddress"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeAddress'].hasError('required') }" class="form-control " id="AssigneeAddress22" name="AssigneeAddress">
                           </div>
                           </div>
                           <div class="col-md-6">
@@ -127,12 +127,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                               <label for="wlocation2">Assignor Name  : <span class="danger">*</span> </label> <br/>
-                              <input type="text"  required  formControlName="AssignorName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorName'].hasError('required') }" class="form-control " id="AssignorName22" name="AssignorName">
+                              <input type="text"    formControlName="AssignorName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorName'].hasError('required') }" class="form-control " id="AssignorName22" name="AssignorName">
                         </div>
                         </div>
                         <div class="col-md-6">
                           <label for="wemailAddress2"> Assignor Address : <span class="danger">*</span> </label>
-                          <input type="text"  required  formControlName="AssignorAddress"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorAddress'].hasError('required') }" class="form-control " id="AssignorAddress22" name="AssignorAddress">
+                          <input type="text"    formControlName="AssignorAddress"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorAddress'].hasError('required') }" class="form-control " id="AssignorAddress22" name="AssignorAddress">
 
                             </div>
                     </div>
@@ -160,224 +160,118 @@
                   </div>
 
 
-                          <div class="row">
-                            <div class="card col-md-12 " >
-                              <div class="card-header ">Inventor Information</div>
-                              <div formArrayName="Inventor"
-                                  *ngFor="let item of InventorFormGroup.controls; let i = index;">
-                                  <div [formGroupName]="i">
-                              <div class="card-body">
 
-                                       <div class="row">
-                                                          <div class="col-md-4">
-                                                              <div class="form-group">
-                                                                  <label for="wemailAddress2"> Name Of Invention  :  </label>
-                                                                  <input type="text"  required  formControlName="name" class="form-control " id="wemailAddress2" name="emailAddresss2">
+                  <div class="ml-auto">
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showInventor()"   >
+                        Create New Inventor
+                        </button>
+                    </div>
+                    <div class="float-none"></div><br>
+                </div>
 
-                                                                  <span
-                                                                  class="text-danger"
-                                                                  *ngIf="submitted2 && getInventorFormGroup(i).controls['name'].hasError('required')"
-                                                                >
-                                                                 Name  is required!
-                                                                </span>
+                            <div class="table-responsive">
+                              <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
+                                  <thead>
+                                      <tr>
 
+                                          <th>Name</th>
 
-                                                                  </div>
-
-                                                                </div>
-                                                          <div class="col-md-4">
-                                                              <div class="form-group">
-                                                                  <label for="wphoneNumber2"></label>
+                                          <th>Address</th>
+                                          <th>PhoneNumber</th>
+                                          <th>Email</th>
+                                          <th>Nationality</th>
+                                          <th> </th>
 
 
-                                                                  <textarea rows="4" required  formControlName="address"  id="address33" name="address"   cols="20" placeholder="Address">
+                                      </tr>
+                                    </thead>
+                                    <tbody>
 
-                                                                  </textarea>
-                                                                </div>
-
-                                                                <span
-                                                                class="text-danger"
-                                                                *ngIf="submitted2 && getInventorFormGroup(i).controls['address'].hasError('required')"
-                                                              >
-                                                               Address  is required!
-                                                              </span>
-                                                          </div>
+                                        <tr *ngFor="let emp of invention  let i = index">
 
 
-                                                          <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="wphoneNumber2">Phone :</label>
+                                             <td>{{emp.Name}}</td>
 
-                                                                <international-phone-number formControlName="phone"  class="form-control " placeholder="Enter Mobile  number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number   name="phone_number" ></international-phone-number>
-                                                              </div>
+                                              <td>{{emp.Address}}</td>
+                                              <td>{{emp.phonenumber}}</td>
+                                              <td>{{emp.Email}}</td>
+                                              <td>{{emp.Nationality}}</td>
 
-                                                              <span
-                                                              class="text-danger"
-                                                              *ngIf="submitted2 && getInventorFormGroup(i).controls['phone'].hasError('required')"
-                                                            >
-                                                             Phone Number   is required!
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                          <div class="form-group">
-                                                              <label for="wphoneNumber2">Email :</label>
-                                                              <input type="text"    formControlName="email" class="form-control " id="wemailAddress2" name="emailAddresss2">
-                                                            </div>
-
-                                                            <span
-                                                            class="text-danger"
-                                                            *ngIf="submitted2 && getInventorFormGroup(i).controls['email'].hasError('required')"
-                                                          >
-                                                          Email    is required!
-                                                          </span>
-
-                                                                <span
-                                                            class="text-danger"
-                                                            *ngIf="submitted2 && getInventorFormGroup(i).controls['email'].hasError('email')"
-                                                          >
-                                                         Invalid Email!
-                                                          </span>
-                                                      </div>
-
-                                                      <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="wphoneNumber2">Nationality :</label>
+                                              <td>
+                                                <button type="button" id="openModalButton"  (click)="Onsubmit400(emp)"   class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                                   <button type="button"  (click)="Onsubmit200(emp)"     class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
 
 
-                                                            <select   name="nationality"  formControlName="nationality"        class="custom-select form-control-lg "    id="Month3">
-                                                              <option  value= "">
-                                                                --Select Country--
-                                                                </option>
-                                                              <option *ngFor="let country2 of row11" value= {{country2.id}}>
-                                                                {{country2.name}}
-                                                              </option>
-                                                            </select>
-                                                          </div>
+                                           </td>
 
-                                                                             <span
-                                                            class="text-danger"
-                                                            *ngIf="submitted2 && getInventorFormGroup(i).controls['nationality'].hasError('required')"
-                                                          >
-                                                          Nationality    is required!
-                                                          </span>
-                                                    </div>
-
-
-                                                    <div class="col">
-                                                      <div class="form-group">
-
-                                                        <label for="wphoneNumber2"></label>
-                                                          <div ><span class="float-right">  <button (click) ="removeInventor(i)" class="btn btn-danger"><i class="fa fa-minus"></i></button>  </span></div>
-                                                        </div>
-
-
-                                                  </div>
-                                                      </div>
-
-
-
-
-                              </div>
-                            </div>
-
-
+                                            </tr>
+                                          </tbody>
+                              </table>
                           </div>
-                              <div class="card-footer "><span class="float-right"> <button (click) ="addItem()" class="btn btn-success"><i class="fa fa-plus"></i></button>  </span></div>
-                              <div class="float-none"></div><br>
-                            </div>
 
 
-                            </div>
+<br/>
+                                    <div class="ml-auto">
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showPriority()"   >
+                        Create New Priority Information
+                        </button>
+                    </div>
+                    <div class="float-none"></div><br>
+                </div>
+
+                            <div class="table-responsive">
+                              <table id="myTable2" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
+                                  <thead>
+                                      <tr>
+
+                                          <th>Application Number</th>
+
+                                          <th>Country</th>
+                                          <th>Date</th>
+
+                                          <th> </th>
 
 
-                            <div class="row">
-                              <div class="card col-md-12 " >
-                                <div class="card-header ">Priority Information</div>
-                                <div class="card-body">
-                                    <div formArrayName="Priority"
-                                    *ngFor="let item of PriorityFormGroup.controls; let i = index;">
-                                    <div [formGroupName]="i">
-                                         <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label for="wemailAddress2"> Application Number : <span class="danger">*</span> </label>
-                                                                    <input type="text"    formControlName="applicationnumber" class="form-control " id="applicationnumber22" name="applicationnumber2">
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let emp of priority  let i = index">
 
 
+                                             <td>{{emp.ApplicationNumber}}</td>
+
+                                              <td>{{emp.Nationality}}</td>
+                                              <td>{{emp.RegistrationDate}}</td>
 
 
-                                                                    </div>
-
-                                                                  </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label for="wphoneNumber2">Country :</label>
+                                              <td>
+                                                <button type="button" id="openModalButton"  (click)="Onsubmit401(emp)"   class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                                   <button type="button"  (click)="Onsubmit202(emp)"     class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
 
 
+                                           </td>
 
-                                                            <select   name="country"  formControlName="country"        class="custom-select form-control-lg "    id="Month4">
-                                                              <option  value= "">
-                                                                --Select Country--
-                                                                </option>
-                                                              <option *ngFor="let country2 of row11" value= {{country2.id}}>
-                                                                {{country2.name}}
-                                                              </option>
-                                                            </select>
-                                                                  </div>
-
-
-                                                            </div>
-
-
-                                                            <div class="col">
-                                                              <div class="form-group">
-                                                                  <label for="wphoneNumber2">Date :</label>
-                                                                  <input type="text"    formControlName="priodate" class="form-control " id="priodate2" name="priodate22"  bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
-                                                                </div>
-
-
-                                                          </div>
+                                            </tr>
+                                          </tbody>
+                              </table>
+                          </div>
 
 
 
-                                                          <div class="col">
-                                                            <div class="form-group">
 
-                                                              <label for="wphoneNumber2"></label>
-                                                                <div ><span class="float-right">  <button type="button"  (click) ="removePriority(i)"  class="btn btn-danger"><i class="fa fa-minus"></i></button></span></div>
-                                                              </div>
-
-
-                                                        </div>
-
-
-
-                                                        </div>
-
-                                                      </div>
-
-
-                                                    </div>
-
-
-                                </div>
-                                <div class="card-footer "><span class="float-right">  <button type="button"  (click) ="addItem2()"  class="btn btn-success"><i class="fa fa-plus"></i></button></span></div>
-                                <div class="float-none"></div><br>
-                              </div>
-
-
-                              </div>
 
 
                           <div class="row">
 
-                              <div class="col-md-6"  *ngIf=" vshow3">
+                              <div class="col-md-6"  *ngIf="vshow3">
 
                                   <div class="form-group">
                                       <label for="wlocation2"> Letter of Authorization : <span class="danger">*</span> </label>
                                       <input type="file" (change)="chng2()"  #fileInput2 class="form-control " id="uploadAddress22" name="uploadAddresss">
-                                      <a *ngIf="image2" target="_blank"  href="{{filepath}}Upload/{{ image2}}">View Upload</a>
+                                      <a *ngIf="image2 && savemode2" target="_blank"  href="{{filepath}}Upload/{{ image2}}">View Upload</a>
                                     </div>
 
                               </div>
@@ -386,8 +280,9 @@
                                 <div class="form-group">
                                         <label for="wlocation2"> Claims  : <span class="danger">*</span> </label>
 
-                                        <input type="file" (change)="chng4()" #fileInput4 class="form-control " id="uploadAddress2" name="uploadAddress">  
-                                    </div>
+                                        <input type="file" (change)="chng4()" #fileInput4 class="form-control " id="uploadAddress2" name="uploadAddress">
+                                        <a *ngIf="image3 && savemode2" target="_blank"  href="{{filepath}}Upload/{{ image3}}">View Upload</a>
+                                      </div>
                         </div>
                             </div>
 
@@ -402,8 +297,8 @@
                               <div class="col-md-6">
                                       <div class="form-group">
                                               <label for="wlocation2"> Complete Specification (Form 3)  : <span class="danger">*</span> </label>
-                                              <input type="file" (change)="chng3()" #fileInput3 class="form-control " id="uploadAddress2" name="uploadAddress" > <span > Supporting document 1</span>  <a *ngIf="image3" target="_blank"  href="{{filepath}}Upload/{{ image3}}">View Upload</a> <br/>
-
+                                              <input type="file" (change)="chng3()" #fileInput3 class="form-control " id="uploadAddress2" name="uploadAddress" >
+                                              <a *ngIf="image5" target="_blank"  href="{{filepath}}Upload/{{ image5}}">View Upload</a>
                                           </div>
                               </div>
                             </div>
@@ -413,7 +308,7 @@
                                     <div class="form-group">
                                         <label for="wlocation2"> Deed of Assignment : <span class="danger">*</span> </label>
                                         <input type="file" (change)="chng22()" #fileInput22 class="form-control "   id="uploadAddress2" name="uploadAddress">
-                                        <a *ngIf="image1" target="_blank"  href="{{filepath}}Upload/{{ image1}}">View Upload</a>
+                                        <a *ngIf="image6" target="_blank"  href="{{filepath}}Upload/{{ image6}}">View Upload</a>
                                       </div>
                                 </div>
                               </div>
@@ -451,7 +346,8 @@
                          <section>
 
 
-                            <table  class="table form"   width="100%"  *ngIf="savemode" >
+                          <!--   <table  class="table form"   width="100%"  *ngIf="savemode" >   -->
+                            <table  class="table form"   width="100%"  *ngIf="savemode3" >
 
 
                                 <tr >
@@ -777,5 +673,253 @@
   <!-- ============================================================== -->
   <!-- End Right sidebar -->
   <!-- ============================================================== -->
+
+
+  <div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                 <div class="card-body wizard-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Create New Inventor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form class="form-horizontal" [formGroup]="userform2" class="tab-wizard wizard-circle" role="form" >
+
+
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wemailAddress2"> Name Of Invention  :  </label>
+                                        <input type="text" formControlName="name" class="form-control "   [ngClass]="{ 'is-invalid': submitted && userform2.controls['name'].hasError('required') }" id="wemailAddress2" name="emailAddresss2">
+
+
+
+
+                                    </div>
+
+                                </div>
+                              </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Address</label>
+
+
+                                        <textarea rows="4" formControlName="address"  class="form-control "  [ngClass]="{ 'is-invalid': submitted && userform2.controls['address'].hasError('required') }" id="address33" name="address" cols="20" placeholder="Address">
+
+                                                                                              </textarea>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+                                <div class="row">
+                                  <div  class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Phone :</label>
+
+                                        <international-phone-number formControlName="phone"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['phone'].hasError('required') }" class="form-control " placeholder="Enter Mobile  number" [maxlength]="20" [defaultCountry]="'ng'" [required]="true" #phone_number name="phone_number"></international-phone-number>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+                                <div class="row">
+
+
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Email :</label>
+                                        <input type="text" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('required' )    }"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('pattern' )    }" class="form-control " id="wemailAddress3" name="emailAddresss3">
+                                    </div>
+
+                                    <div *ngIf="submitted && userform2.controls['email'].hasError('pattern' ) " class="invalid-feedback">
+
+                                      <div *ngIf="submitted && userform2.controls['email'].hasError('pattern' ) ">Email must be a valid email address</div>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Nationality :</label>
+
+
+                                        <select name="nationality" formControlName="nationality"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['nationality'].hasError('required') }" class="custom-select form-control-lg " id="Month3">
+                                            <option value="">
+                                                --Select Country--
+                                            </option>
+                                            <option *ngFor="let country2 of row11" value={{country2.id}}>
+                                                {{country2.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </form>
+    </div>
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="savemode" (click) ="onSubmit100()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                    <button type="button" *ngIf="updatemode" (click) ="onSubmit500()"  class="btn btn-success"><i class="ti-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="createmodel2" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card-body wizard-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Create New Priority</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" [formGroup]="userform3" class="tab-wizard wizard-circle" role="form">
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="wemailAddress2"> Application Number : <span class="danger">*</span> </label>
+                                <input type="text" formControlName="applicationnumber" [ngClass]="{ 'is-invalid': submitted3 && userform3.controls['applicationnumber'].hasError('required') }" class="form-control " id="applicationnumber22" name="applicationnumber2">
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="wphoneNumber2">Country :</label>
+
+
+
+                                    <select name="country" formControlName="country" [ngClass]="{ 'is-invalid': submitted3 && userform3.controls['country'].hasError('required') }" class="custom-select form-control-lg " id="Month4">
+                                        <option value="">
+                                            --Select Country--
+                                        </option>
+                                        <option *ngFor="let country2 of row11" value={{country2.id}}>
+                                            {{country2.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="wphoneNumber2">Date :</label>
+                                    <input type="text" formControlName="priodate" [ngClass]="{ 'is-invalid': submitted3 && userform3.controls['priodate'].hasError('required') }" class="form-control " id="priodate2" name="priodate22" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="savemode" (click)="onSubmit1000()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                    <button type="button" *ngIf="updatemode" (click)="onSubmit501()" class="btn btn-success"><i class="ti-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </div>
 

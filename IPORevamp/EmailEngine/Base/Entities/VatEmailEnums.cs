@@ -87,9 +87,10 @@ namespace EmailEngine.Base.Entities
         public const string Pending = "Pending";
         public const string Batch = "Batch";
         public const string Kiv = "Kiv";
-        public const string ReconductSearch = "Reconduct-Search";
         public const string Counter = "Counter";
         public const string Submitted = "Submitted";
+        public const string AutoMoveComment = "Auto Move To Certificate By Admin";
+
         public const string ApplicantKiv = "ApplicantKiv";
         public const string Refused = "Refused";
         public const string Judgement = "Judgement";

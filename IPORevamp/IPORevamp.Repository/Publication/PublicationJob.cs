@@ -77,7 +77,7 @@ namespace IPORevamp.Repository.Publication
                         DateCreated = DateTime.Now,
                         TransactionID = "",
                         FromDataStatus = prevDatastatus,
-                        trademarkcomment = "Auto Move To Certificate By Admin",
+                        trademarkcomment =STATUS.AutoMoveComment,
                         description = "",
 
                         ToDataStatus = DATASTATUS.Certificate ,
