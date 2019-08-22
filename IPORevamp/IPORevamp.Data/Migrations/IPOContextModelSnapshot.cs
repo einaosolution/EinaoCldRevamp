@@ -828,6 +828,51 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("ApplicationType");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.AddressOfService.AddressOfService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("AttorneyCode");
+
+                    b.Property<string>("AttorneyName");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<string>("Email");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<int>("PatentApplicationID");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<int>("StateID");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatentApplicationID");
+
+                    b.HasIndex("StateID");
+
+                    b.ToTable("AddressOfService");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -1302,6 +1347,56 @@ namespace IPORevamp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PatentApplication");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentDataResult", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("AssigneeAddress");
+
+                    b.Property<string>("AssigneeCountry");
+
+                    b.Property<string>("AssigneeName");
+
+                    b.Property<string>("AssignorAddress");
+
+                    b.Property<string>("AssignorCountry");
+
+                    b.Property<string>("AssignorName");
+
+                    b.Property<string>("Claims");
+
+                    b.Property<string>("CompleteSpecificationForm");
+
+                    b.Property<string>("DeedOfAssignment");
+
+                    b.Property<string>("Filenumber");
+
+                    b.Property<DateTime>("FilingDate");
+
+                    b.Property<string>("InventionDescription");
+
+                    b.Property<string>("LetterOfAuthorization");
+
+                    b.Property<string>("PatentType");
+
+                    b.Property<string>("PctDocument");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("TitleOfInvention");
+
+                    b.Property<string>("Transactionid");
+
+                    b.Property<string>("datastatus");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("PatentDataResult");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory.PatentApplicationHistory", b =>
@@ -2712,6 +2807,19 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entities.Country.Country", "Country")
                         .WithMany("States")
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.AddressOfService.AddressOfService", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
+                        .WithMany("AddressOfService")
+                        .HasForeignKey("PatentApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("IPORevamp.Data.Entities.State", "State")
+                        .WithMany("AddressOfService")
+                        .HasForeignKey("StateID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

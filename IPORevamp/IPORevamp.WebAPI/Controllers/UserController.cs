@@ -524,7 +524,8 @@ namespace IPORevamp.WebAPI.Controllers
             {
                 var user = _userManager.Users.FirstOrDefault(x => x.UserName == model.Email);
               
-           var kk =     await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+          var kk =     await  _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+         
                 if (kk.Errors.Count() > 0)
                 {
                     var code = kk.Errors.ToArray()[0].Code;

@@ -577,7 +577,7 @@ namespace IPORevamp.WebAPI.Controllers
                     ActionTaken = AuditAction.Create,
                     DateCreated = DateTime.Now,
                     Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Examiner  Fresh Application   successfully",
-                    Entity = "GetFreshAppliction",
+                    Entity = "GetComment",
                     UserId = user.Id,
                     UserName = user.UserName,
                     IpAddress = ip

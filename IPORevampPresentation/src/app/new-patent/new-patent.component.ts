@@ -120,6 +120,7 @@ export class NewPatentComponent implements OnDestroy ,OnInit {
   public row101:any[] = [];
   public row102 :any[] = [];
   public row500 :any[] = [];
+  public row600 :any[] = [];
 
   public row501 =[];
 
@@ -150,6 +151,10 @@ export class NewPatentComponent implements OnDestroy ,OnInit {
   vshow2:boolean =false
   vshow3:boolean =false
   settingoff:boolean =false
+
+   phonepattern ="^[\s()+-]*([0-9][\s()+-]*){6,20}$";
+
+  emailpattern ="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
   settingcode
   vfilepath:string =""
   @ViewChild("fileInput") fileInput;
@@ -260,7 +265,7 @@ this.feelist("REGISTRATION OF PATENT (NON-CONVENTIONAL)")
 
    if (values.currentTarget.checked) {
 
-   // this.checkboxFlag =true
+    this.checkboxFlag =true
 
    // Swal.fire('Click make payment button to proceed')
 
@@ -322,7 +327,7 @@ return true;
 
     if(test2.size/ 1024 >3000){
 
-      alert("File Too Large")
+      alert("File Too Large,maxsize is 3mb")
 
       test.value = ''
 
@@ -350,7 +355,7 @@ return true;
 
     if(test2.size/ 1024>3000){
 
-      alert("File Too Large")
+      alert("File Too Large,maxsize is 3mb")
 
       test.value = ''
 
@@ -372,7 +377,7 @@ return true;
 
     if(test2.size/ 1024>3000){
 
-      alert("File Too Large")
+      alert("File Too Large,maxsize is 3mb")
 
       test.value = ''
 
@@ -394,7 +399,7 @@ return true;
 
     if(test2.size/ 1024>3000){
 
-      alert("File Too Large")
+      alert("File Too Large,maxsize is 3mb")
 
       test.value = ''
 
@@ -416,7 +421,7 @@ return true;
 
     if(test2.size/ 1024>3000){
 
-      alert("File Too Large")
+      alert("File Too Large,maxsize is 3mb")
 
       test.value = ''
 
@@ -547,7 +552,24 @@ return true;
         .SaveInvention(this.row101)
         .then((response: any) => {
 
-          this.onSubmit101(this.pwalletid) ;
+       //   this.onSubmit101(this.pwalletid) ;
+
+
+let result2 = this.registerapi.getPriority2();
+
+
+
+if (result2.length == 0 ) {
+
+ this.onSubmit103(this.pwalletid)
+
+}
+
+
+else {
+ this.onSubmit101(this.pwalletid) ;
+}
+
 
 
         })
@@ -778,13 +800,34 @@ this.savemode = false;
 
         this.submitted=true;
 
+
+        var regexp2 = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+
+
+        if (this.userform2.value.name=='' || this.userform2.value.address=='' || this.userform2.value.email=='' || this.userform2.value.nationality==''  ) {
+
+          return ;
+        }
+
+
+        if (this.userform2.value.phone.match(regexp2) == null) {
+         Swal.fire(
+           "Invalid Phone Number ",
+            '',
+            'error'
+          )
+
+          return ;
+        }
+
     let countryname =     this.row11.find(s => s.id == this.userform2.value.nationality);
 
 
 
 
 
-        if (this.userform2.valid) {
+
+
   var Invention = {
     Name:this.userform2.value.name ,
     Address:this.userform2.value.address ,
@@ -803,7 +846,6 @@ this.savemode = false;
   $("#createmodel").modal('hide');
   this.ReintializeData() ;
 
-        }
 
 
 
@@ -898,6 +940,13 @@ this.registerapi.RemovePriority(this.vid)
         var regexp = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'
 
 
+        if (this.userform2.value.name=='' || this.userform2.value.address=='' || this.userform2.value.email=='' || this.userform2.value.nationality==''  ) {
+
+          return ;
+        }
+
+
+
         if (this.userform2.value.email.match(regexp) == null) {
          Swal.fire(
            "Invalid Email  ",
@@ -908,13 +957,27 @@ this.registerapi.RemovePriority(this.vid)
           return ;
         }
 
+
+        var regexp2 = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+
+
+   if (this.userform2.value.phone.match(regexp2) == null) {
+    Swal.fire(
+      "Invalid Phone Number ",
+       '',
+       'error'
+     )
+
+     return ;
+   }
+
     let countryname =     this.row11.find(s => s.id == this.userform2.value.nationality);
 
 
 
 
 
-        if (this.userform2.valid) {
+
   var Invention = {
     Name:this.userform2.value.name ,
     Address:this.userform2.value.address ,
@@ -937,7 +1000,7 @@ this.registerapi.RemovePriority(this.vid)
 
 
 
-        }
+
 
 
 
@@ -953,6 +1016,7 @@ var userid = localStorage.getItem('UserId');
 
 let result = this.registerapi.getInvention2();
 
+let result2 = this.registerapi.getPriority2();
 
 
 
@@ -1141,6 +1205,12 @@ console.log(this.row101)
   formData.append("AssignorNationality",this.userform.value.AssignorNationality);
   formData.append("ApplicationId",this.pwalletid);
   formData.append("PatentInvention",JSON.stringify(this.row101));
+  formData.append("AttorneyCode",this.userform.value.AttorneyCode);
+  formData.append("AttorneyName",this.userform.value.AttorneyName);
+  formData.append("Address",this.userform.value.Address);
+  formData.append("PhoneNumber",this.userform.value.PhoneNumber);
+  formData.append("Email",this.userform.value.Email);
+  formData.append("State",this.userform.value.State);
 
 
 
@@ -1154,7 +1224,7 @@ console.log(this.row101)
 
     this.pwalletid =response.content
 
-   // this.savemode = true;
+    this.savemode = true;
 
 
     this.onSubmit105(this.pwalletid ) ;
@@ -1234,7 +1304,7 @@ else {
   }
 
   onSubmit4a() {
-  //  $(".validation-wizard").steps("next");
+    $(".validation-wizard").steps("next");
 
 
   }
@@ -1273,7 +1343,7 @@ else {
 
 
 
-  //  this.router.navigateByUrl('/Dashboard/Invoice2');
+    this.router.navigateByUrl('/Dashboard/Invoice2');
 
 
 
@@ -1344,7 +1414,7 @@ else {
    localStorage.setItem('PaymentType',"PtT002");
 
 
-   //this.router.navigateByUrl('/Dashboard/Invoice2');
+   this.router.navigateByUrl('/Dashboard/Invoice2');
 
 
 
@@ -1576,6 +1646,8 @@ loaddata() {
 
                  let  ptifo =response.content.patentInformation
                  let  ptiAssignment =response.content.patentAssignment
+                 let  addressofservice =response.content.addressOfService
+
                  if (ptifo[0].letterOfAuthorization) {
                  this.image2 = ptifo[0].letterOfAuthorization
 
@@ -1613,8 +1685,17 @@ loaddata() {
                  (<FormControl> this.userform.controls['AssignorName']).setValue(ptiAssignment[0].assignorName );
                  (<FormControl> this.userform.controls['AssignorAddress']).setValue(ptiAssignment[0].assignorAddress );
                  (<FormControl> this.userform.controls['AssignorNationality']).setValue(ptiAssignment[0].assignorNationalityId);
+                 (<FormControl> this.userform.controls['AttorneyCode']).setValue(addressofservice[0].attorneyCode);
+                 (<FormControl> this.userform.controls['AttorneyName']).setValue(addressofservice[0].attorneyName);
+                 (<FormControl> this.userform.controls['Address']).setValue(addressofservice[0].address );
+                 (<FormControl> this.userform.controls['PhoneNumber']).setValue(addressofservice[0].phoneNumber );
+                 (<FormControl> this.userform.controls['Email']).setValue(addressofservice[0].email );
+                 (<FormControl> this.userform.controls['State']).setValue(addressofservice[0].stateID );
                  this.Inventor = this.userform.get('Inventor') as FormArray;
-                // this.Priority = this.userform.get('Priority') as FormArray;
+
+
+
+                 // this.Priority = this.userform.get('Priority') as FormArray;
                  this.row501 = response.content.patentInvention
                  this.row502 = response.content.patentPriorityInformation
 
@@ -1811,7 +1892,7 @@ this.userform3.reset()
     this.userform2 = this.formBuilder.group({
       name: [null,Validators.required ],
       address: [null,Validators.required ],
-      phone: [null,Validators.required ] ,
+      phone: [''] ,
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -1841,6 +1922,12 @@ this.userform3.reset()
       AssignorName: [null,Validators.required],
       AssignorAddress: [null,Validators.required],
       AssignorNationality: [null,Validators.required],
+      AttorneyCode: [null,Validators.required],
+      AttorneyName: [null,Validators.required],
+      Address: [null,Validators.required],
+      PhoneNumber: [null,Validators.required],
+      Email: [null,Validators.required],
+      State: [null,Validators.required],
 
    //   Inventor: this.formBuilder.array([ this.createItem() ]) ,
 
@@ -1914,7 +2001,28 @@ this.userform3.reset()
 
 this.loaddata()
 
+this.busy =   this.registerapi
+.GetAllStates(userid)
+.then((response: any) => {
 
+
+  this.row600 = response.content;
+  console.log(response)
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+})
 
 this.busy =   this.registerapi
 .GetSettingsById("34",userid)

@@ -101,6 +101,9 @@ namespace IPORevamp.Repository.Examiner
             // return null;
         }
 
+
+      
+
         public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> GetApplicationHistoryById(int   applicationid)
         {
             

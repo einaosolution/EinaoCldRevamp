@@ -16,5 +16,6 @@ namespace IPORevamp.Data.Entities
         public Data.Entities.Country.Country Country { get; set; }
        
         public List<Data.Entities.LGAs.LGA> LGA { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.AddressOfService.AddressOfService> AddressOfService { get; set; }
     }
 }

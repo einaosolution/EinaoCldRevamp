@@ -1,182 +1,200 @@
-﻿1>------ Build started: Project: IPORevamp.Data, Configuration: Debug Any CPU ------
-1>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3245: Could not resolve this reference. Could not locate the assembly "EntityFramework". Check to make sure the assembly exists on disk. If this reference is required by your code, you may get compilation errors.
-1>Entity.Interface\Entities\Auth\UserRoleManager.cs(18,20,18,22): warning CS0108: 'UserRoleManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
-1>Entity.Interface\Entities\Role\LinkRolesMenus.cs(12,20,12,22): warning CS0108: 'LinkRolesMenus.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
-1>Entity.Interface\Entities\Role\RoleManager.cs(18,20,18,22): warning CS0108: 'RoleManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
-1>Entity.Interface\Entities\Menus\MenuManager.cs(17,20,17,22): warning CS0108: 'MenuManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
-1>UserManagement.Model\ApplicationUser.cs(38,23,38,34): warning CS0114: 'ApplicationUser.PhoneNumber' hides inherited member 'IdentityUser<int>.PhoneNumber'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
-1>PaginatedList.cs(71,52,71,63): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-1>UserManagement.Model\EmailService.cs(94,29,94,31): warning CS0168: The variable 'ee' is declared but never used
-1>IPORevamp.Data -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.dll
-1>Done building project "IPORevamp.Data.csproj".
-2>------ Build started: Project: IPORevamp.Repository, Configuration: Debug Any CPU ------
-2>AutoFacModule\RepositoryModule.cs(5,7,5,37): warning CS0105: The using directive for 'IPORevamp.Repository.Interface' appeared previously in this namespace
-2>Certificate\CertificateRepository.cs(62,116,62,143): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Certificate\CertificateRepository.cs(74,110,74,128): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Certificate\CertificateRepository.cs(86,116,86,134): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Certificate\CertificateRepository.cs(169,57,169,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>State\StateRepository.cs(68,54,68,73): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Certificate\CertificateRepository.cs(181,116,181,136): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(25,93,25,103): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(36,93,36,107): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(46,93,46,119): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(56,116,56,135): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(67,93,67,114): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(78,93,78,115): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Examiner\ExaminerRepository.cs(90,122,90,140): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(46,95,46,109): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(72,45,72,57): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(86,34,86,54): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(99,35,99,56): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(142,46,142,67): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(151,45,151,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>LGA\LGARepository.cs(114,57,114,70): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(200,13,200,63): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-2>FileNewApplication\newApplication.cs(164,50,164,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(243,13,243,76): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-2>FileNewApplication\newApplication.cs(209,60,209,83): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(254,46,254,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(263,46,263,70): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Notification\Notifier.cs(10,33,10,53): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Opposition\OppositionRepository.cs(39,116,39,135): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Opposition\OppositionRepository.cs(50,116,50,130): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Opposition\OppositionRepository.cs(61,116,61,137): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Opposition\OppositionRepository.cs(72,116,72,144): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Opposition\OppositionRepository.cs(107,58,107,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Opposition\OppositionRepository.cs(120,57,120,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\registraRepository.cs(23,116,23,129): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\registraRepository.cs(35,116,35,125): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>RemitaLineItem\RemitaLineItemRepository.cs(46,43,46,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Search Unit\searchRepository.cs(35,93,35,112): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Search Unit\searchRepository.cs(45,93,45,110): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Search Unit\searchRepository.cs(57,93,57,114): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Role\RoleRepository.cs(124,30,124,32): warning CS0168: The variable 'ex' is declared but never used
-2>Search Unit\searchRepository.cs(193,24,193,27): warning CS0219: The variable 'msg' is assigned but its value is never used
-2>FileNewApplication\newApplication.cs(271,45,271,67): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(291,46,291,67): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>FileNewApplication\newApplication.cs(322,46,322,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\publicationRepository.cs(31,116,31,135): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\publicationRepository.cs(51,116,51,144): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\publicationRepository.cs(62,116,62,134): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\publicationRepository.cs(86,116,86,146): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Publication\publicationRepository.cs(129,30,129,33): warning CS0168: The variable 'exp' is declared but never used
-2>Recordal\RecordalRepository.cs(227,57,227,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Recordal\RecordalRepository.cs(239,57,239,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-2>Recordal\RecordalRepository.cs(369,20,369,23): warning CS0219: The variable 'msg' is assigned but its value is never used
-2>Recordal\RecordalRepository.cs(438,20,438,23): warning CS0219: The variable 'msg' is assigned but its value is never used
-2>Department\DepartmentRepository.cs(14,48,14,66): warning CS0169: The field 'DepartmentRepository._auditTrailManager' is never used
-2>UserProfiling\UserProfilingRepository.cs(36,51,36,75): warning CS0169: The field 'UserProfilingRepository._EmailTemplateRepository' is never used
-2>Units\UnitRepository.cs(15,48,15,66): warning CS0169: The field 'UnitRepository._auditTrailManager' is never used
-2>Ministry\MinistryRepository.cs(15,48,15,66): warning CS0169: The field 'MinistryRepository._auditTrailManager' is never used
-2>NationalClass\NationalClassRepository.cs(14,48,14,66): warning CS0169: The field 'NationalClassRepository._auditTrailManager' is never used
-2>Product\ProductRepository.cs(14,48,14,66): warning CS0169: The field 'ProductRepository._auditTrailManager' is never used
-2>CoreRepository\Repository.cs(55,13,55,100): warning EF1000: The SQL expression passed to 'ExecuteSqlCommand' embeds data that will not be parameterized. Review for potential SQL injection vulnerability. See https://go.microsoft.com/fwlink/?linkid=871170 for more information.
-2>CoreRepository\Repository.cs(183,13,183,95): warning EF1000: The SQL expression passed to 'ExecuteSqlCommand' embeds data that will not be parameterized. Review for potential SQL injection vulnerability. See https://go.microsoft.com/fwlink/?linkid=871170 for more information.
-2>IPORevamp.Repository -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\bin\Debug\netcoreapp2.1\IPORevamp.Repository.dll
-2>Done building project "IPORevamp.Repository.csproj".
-3>------ Build started: Project: IPORevamp.WebAPI, Configuration: Debug Any CPU ------
-3>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3245: Could not resolve this reference. Could not locate the assembly "IronBarCode". Check to make sure the assembly exists on disk. If this reference is required by your code, you may get compilation errors.
-3>Controllers\DSApplicationStatusController.cs(39,7,39,47): warning CS0105: The using directive for 'IPORevamp.Repository.DSApplicationStatus' appeared previously in this namespace
-3>Controllers\RoleController.cs(40,7,40,32): warning CS0105: The using directive for 'IPORevamp.Repository.Role' appeared previously in this namespace
-3>Startup.cs(36,7,36,31): warning CS0105: The using directive for 'IPORevamp.WebAPI.Filters' appeared previously in this namespace
-3>Controllers\RoleController.cs(224,24,224,33): warning CS0108: 'RoleController.ToDataSet<T>(List<T>)' hides inherited member 'BaseController.ToDataSet<T>(List<T>)'. Use the new keyword if hiding was intended.
-3>Controllers\UserController.cs(115,42,115,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\UserController.cs(128,42,128,49): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\UserController.cs(145,42,145,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\UserController.cs(159,42,159,49): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\UserController.cs(173,42,173,56): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\UserController.cs(186,42,186,57): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\UserController.cs(367,17,367,76): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\UserController.cs(439,29,439,31): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\UserController.cs(557,33,557,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\CertificateController.cs(181,33,181,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\CertificateController.cs(402,21,402,115): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\CertificateController.cs(424,33,424,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\CertificateController.cs(342,20,342,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
-3>Controllers\CertificateController.cs(343,20,343,28): warning CS0219: The variable 'filepath' is assigned but its value is never used
-3>Controllers\CertificateController.cs(487,33,487,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(186,33,186,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(240,33,240,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\PatentController.cs(152,21,152,32): warning CS0219: The variable 'FileUpload5' is assigned but its value is never used
-3>Controllers\PatentController.cs(369,20,369,25): warning CS0219: The variable 'json2' is assigned but its value is never used
-3>Controllers\PreliminarySearchController.cs(269,33,269,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\SearchController.cs(146,42,146,56): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\SearchController.cs(160,42,160,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\OppositionController.cs(295,33,295,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(350,33,350,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(407,33,407,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(463,33,463,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(541,37,541,39): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(603,33,603,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(659,33,659,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(696,21,696,98): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\PublicationController.cs(179,34,179,36): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\PublicationController.cs(393,33,393,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\PublicationController.cs(447,34,447,36): warning CS0168: The variable 'ex' is declared but never used
-3>Controllers\UserController.cs(1107,17,1107,76): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\UserController.cs(1097,59,1097,66): warning CS0219: The variable 'Setting' is assigned but its value is never used
-3>Controllers\UserController.cs(1098,20,1098,30): warning CS0219: The variable 'Department' is assigned but its value is never used
-3>Controllers\RecordalController.cs(469,21,469,132): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\RecordalController.cs(328,20,328,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
-3>Controllers\RecordalController.cs(332,21,332,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
-3>Controllers\RecordalController.cs(333,21,333,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
-3>Controllers\RecordalController.cs(334,21,334,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
-3>Controllers\RecordalController.cs(335,21,335,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
-3>Controllers\RecordalController.cs(690,21,690,196): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\RecordalController.cs(512,20,512,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
-3>Controllers\RecordalController.cs(517,21,517,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
-3>Controllers\RecordalController.cs(518,21,518,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
-3>Controllers\RecordalController.cs(519,21,519,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
-3>Controllers\RecordalController.cs(520,21,520,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
-3>Controllers\RoleController.cs(412,34,412,36): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\RoleController.cs(435,33,435,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\RemitaPaymentController.cs(401,29,401,82): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\RemitaPaymentController.cs(514,38,514,40): warning CS0168: The variable 'ex' is declared but never used
-3>Controllers\SearchController.cs(387,28,387,30): warning CS0219: The variable 'ss' is assigned but its value is never used
-3>Controllers\SearchController.cs(366,42,366,49): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\OppositionController.cs(822,21,822,133): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\OppositionController.cs(844,34,844,36): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(716,20,716,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
-3>Controllers\OppositionController.cs(719,21,719,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
-3>Controllers\OppositionController.cs(720,21,720,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
-3>Controllers\OppositionController.cs(721,21,721,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
-3>Controllers\OppositionController.cs(722,21,722,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
-3>Controllers\OppositionController.cs(967,21,967,142): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\OppositionController.cs(991,33,991,35): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\OppositionController.cs(871,20,871,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
-3>Controllers\OppositionController.cs(874,21,874,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
-3>Controllers\OppositionController.cs(875,21,875,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
-3>Controllers\OppositionController.cs(876,21,876,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
-3>Controllers\OppositionController.cs(877,21,877,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
-3>Controllers\TrademarkController.cs(144,20,144,23): warning CS0219: The variable 'msg' is assigned but its value is never used
-3>Controllers\TrademarkController.cs(253,20,253,23): warning CS0219: The variable 'msg' is assigned but its value is never used
-3>Controllers\TrademarkController.cs(361,20,361,23): warning CS0219: The variable 'msg' is assigned but its value is never used
-3>Controllers\UserController.cs(1182,13,1182,72): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\UserController.cs(1339,37,1339,39): warning CS0168: The variable 'ee' is declared but never used
-3>Controllers\UserController.cs(1283,63,1283,70): warning CS0219: The variable 'Setting' is assigned but its value is never used
-3>Controllers\UserController.cs(1284,63,1284,71): warning CS0219: The variable 'Setting2' is assigned but its value is never used
-3>Controllers\TrademarkController.cs(468,20,468,23): warning CS0219: The variable 'msg' is assigned but its value is never used
-3>Controllers\TrademarkController.cs(827,17,827,84): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
-3>Controllers\TrademarkController.cs(822,42,822,59): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\TrademarkController.cs(841,42,841,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\TrademarkController.cs(859,42,859,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\TrademarkController.cs(897,42,897,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\TrademarkController.cs(934,42,934,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-3>Controllers\MinistryController.cs(30,39,30,51): warning CS0169: The field 'MinistryController._emailsender' is never used
-3>Controllers\ProductController.cs(38,39,38,51): warning CS0169: The field 'ProductController._emailsender' is never used
-3>Controllers\SettingController.cs(34,65,34,78): warning CS0169: The field 'SettingController._emailManager' is never used
-3>Controllers\DepartmentController.cs(32,47,32,67): warning CS0169: The field 'DepartmentController._httpContextAccessor' is never used
-3>Controllers\ProductController.cs(35,65,35,78): warning CS0169: The field 'ProductController._emailManager' is never used
-3>Controllers\SettingController.cs(39,45,39,63): warning CS0169: The field 'SettingController._SettingRepository' is never used
-3>Controllers\ExaminerController.cs(38,37,38,44): warning CS0169: The field 'ExaminerController._contex' is never used
-3>Controllers\MinistryController.cs(31,47,31,67): warning CS0169: The field 'MinistryController._httpContextAccessor' is never used
-3>Controllers\ProductController.cs(39,47,39,67): warning CS0169: The field 'ProductController._httpContextAccessor' is never used
-3>Controllers\UnitController.cs(37,47,37,67): warning CS0169: The field 'UnitController._httpContextAccessor' is never used
-3>Controllers\UnitController.cs(36,39,36,51): warning CS0169: The field 'UnitController._emailsender' is never used
-3>Controllers\DepartmentController.cs(31,39,31,51): warning CS0169: The field 'DepartmentController._emailsender' is never used
-3>Controllers\ProfileController.cs(38,42,38,57): warning CS0649: Field 'ProfileController._menuRepository' is never assigned to, and will always have its default value null
-3>Controllers\SettingController.cs(37,39,37,51): warning CS0169: The field 'SettingController._emailsender' is never used
-3>IPORevamp.WebAPI -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.dll
-3>IPORevamp.WebAPI -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.Views.dll
-3>Done building project "IPORevamp.WebAPI.csproj".
-========== Build: 3 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========
+﻿1>------ Build started: Project: EmailEngine, Configuration: Debug Any CPU ------
+1>EmailEngine -> C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\EmailEngine.dll
+2>------ Build started: Project: IPORevamp.Data, Configuration: Debug Any CPU ------
+2>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3245: Could not resolve this reference. Could not locate the assembly "EntityFramework". Check to make sure the assembly exists on disk. If this reference is required by your code, you may get compilation errors.
+2>Entity.Interface\Entities\Auth\UserRoleManager.cs(18,20,18,22): warning CS0108: 'UserRoleManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+2>Entity.Interface\Entities\Role\LinkRolesMenus.cs(12,20,12,22): warning CS0108: 'LinkRolesMenus.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+2>Entity.Interface\Entities\Role\RoleManager.cs(18,20,18,22): warning CS0108: 'RoleManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+2>Entity.Interface\Entities\Menus\MenuManager.cs(17,20,17,22): warning CS0108: 'MenuManager.Id' hides inherited member 'EntityBase.Id'. Use the new keyword if hiding was intended.
+2>UserManagement.Model\ApplicationUser.cs(38,23,38,34): warning CS0114: 'ApplicationUser.PhoneNumber' hides inherited member 'IdentityUser<int>.PhoneNumber'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
+2>PaginatedList.cs(71,52,71,63): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+2>UserManagement.Model\EmailService.cs(94,29,94,31): warning CS0168: The variable 'ee' is declared but never used
+2>IPORevamp.Data -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.dll
+2>Done building project "IPORevamp.Data.csproj".
+3>------ Build started: Project: IPORevamp.Repository, Configuration: Debug Any CPU ------
+3>AutoFacModule\RepositoryModule.cs(5,7,5,37): warning CS0105: The using directive for 'IPORevamp.Repository.Interface' appeared previously in this namespace
+3>Certificate\CertificateRepository.cs(62,116,62,143): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Certificate\CertificateRepository.cs(74,110,74,128): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Certificate\CertificateRepository.cs(86,116,86,134): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Certificate\CertificateRepository.cs(169,57,169,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Certificate\CertificateRepository.cs(181,116,181,136): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(25,93,25,103): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(36,93,36,107): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(46,93,46,119): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(56,116,56,135): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(67,93,67,114): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(78,93,78,115): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Examiner\ExaminerRepository.cs(90,122,90,140): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(47,95,47,109): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(73,45,73,57): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(87,34,87,54): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(100,35,100,56): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(132,35,132,62): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(175,46,175,67): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(184,45,184,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(206,29,206,31): warning CS0168: The variable 'ee' is declared but never used
+3>FileNewApplication\newApplication.cs(195,45,195,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>State\StateRepository.cs(68,54,68,73): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(262,13,262,63): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+3>FileNewApplication\newApplication.cs(226,50,226,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(305,13,305,76): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+3>FileNewApplication\newApplication.cs(271,60,271,83): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(316,46,316,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(325,46,325,70): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(334,46,334,74): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(343,45,343,67): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(363,46,363,67): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>FileNewApplication\newApplication.cs(394,46,394,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Search Unit\searchRepository.cs(36,93,36,112): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Search Unit\searchRepository.cs(46,93,46,110): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Search Unit\searchRepository.cs(58,93,58,114): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Search Unit\searchRepository.cs(194,24,194,27): warning CS0219: The variable 'msg' is assigned but its value is never used
+3>LGA\LGARepository.cs(114,57,114,70): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Role\RoleRepository.cs(124,30,124,32): warning CS0168: The variable 'ex' is declared but never used
+3>RemitaLineItem\RemitaLineItemRepository.cs(46,43,46,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Notification\Notifier.cs(10,33,10,53): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Opposition\OppositionRepository.cs(39,116,39,135): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Opposition\OppositionRepository.cs(50,116,50,130): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Opposition\OppositionRepository.cs(61,116,61,137): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Opposition\OppositionRepository.cs(72,116,72,144): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Opposition\OppositionRepository.cs(107,58,107,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Opposition\OppositionRepository.cs(120,57,120,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>PatentSearch\PatentSearchApplication.cs(55,51,55,74): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>PatentSearch\PatentSearchApplication.cs(203,51,203,76): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>PatentSearch\PatentSearchApplication.cs(218,50,218,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>PatentSearch\PatentSearchApplication.cs(229,51,229,74): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>PatentSearch\PatentSearchApplication.cs(241,60,241,75): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Publication\registraRepository.cs(23,116,23,129): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Publication\registraRepository.cs(35,116,35,125): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Recordal\RecordalRepository.cs(227,57,227,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Recordal\RecordalRepository.cs(239,57,239,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Publication\publicationRepository.cs(31,116,31,135): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Publication\publicationRepository.cs(51,116,51,144): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Publication\publicationRepository.cs(62,116,62,134): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Recordal\RecordalRepository.cs(369,20,369,23): warning CS0219: The variable 'msg' is assigned but its value is never used
+3>Publication\publicationRepository.cs(86,116,86,146): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+3>Publication\publicationRepository.cs(129,30,129,33): warning CS0168: The variable 'exp' is declared but never used
+3>Recordal\RecordalRepository.cs(438,20,438,23): warning CS0219: The variable 'msg' is assigned but its value is never used
+3>Department\DepartmentRepository.cs(14,48,14,66): warning CS0169: The field 'DepartmentRepository._auditTrailManager' is never used
+3>Units\UnitRepository.cs(15,48,15,66): warning CS0169: The field 'UnitRepository._auditTrailManager' is never used
+3>NationalClass\NationalClassRepository.cs(14,48,14,66): warning CS0169: The field 'NationalClassRepository._auditTrailManager' is never used
+3>UserProfiling\UserProfilingRepository.cs(36,51,36,75): warning CS0169: The field 'UserProfilingRepository._EmailTemplateRepository' is never used
+3>Product\ProductRepository.cs(14,48,14,66): warning CS0169: The field 'ProductRepository._auditTrailManager' is never used
+3>Ministry\MinistryRepository.cs(15,48,15,66): warning CS0169: The field 'MinistryRepository._auditTrailManager' is never used
+3>CoreRepository\Repository.cs(55,13,55,100): warning EF1000: The SQL expression passed to 'ExecuteSqlCommand' embeds data that will not be parameterized. Review for potential SQL injection vulnerability. See https://go.microsoft.com/fwlink/?linkid=871170 for more information.
+3>CoreRepository\Repository.cs(183,13,183,95): warning EF1000: The SQL expression passed to 'ExecuteSqlCommand' embeds data that will not be parameterized. Review for potential SQL injection vulnerability. See https://go.microsoft.com/fwlink/?linkid=871170 for more information.
+3>IPORevamp.Repository -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.Repository\bin\Debug\netcoreapp2.1\IPORevamp.Repository.dll
+3>Done building project "IPORevamp.Repository.csproj".
+4>------ Build started: Project: IPORevamp.WebAPI, Configuration: Debug Any CPU ------
+4>C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3245: Could not resolve this reference. Could not locate the assembly "IronBarCode". Check to make sure the assembly exists on disk. If this reference is required by your code, you may get compilation errors.
+4>Controllers\DSApplicationStatusController.cs(39,7,39,47): warning CS0105: The using directive for 'IPORevamp.Repository.DSApplicationStatus' appeared previously in this namespace
+4>Controllers\RoleController.cs(40,7,40,32): warning CS0105: The using directive for 'IPORevamp.Repository.Role' appeared previously in this namespace
+4>Startup.cs(36,7,36,31): warning CS0105: The using directive for 'IPORevamp.WebAPI.Filters' appeared previously in this namespace
+4>Controllers\RoleController.cs(224,24,224,33): warning CS0108: 'RoleController.ToDataSet<T>(List<T>)' hides inherited member 'BaseController.ToDataSet<T>(List<T>)'. Use the new keyword if hiding was intended.
+4>Controllers\UserController.cs(115,42,115,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\UserController.cs(128,42,128,49): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\UserController.cs(145,42,145,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\UserController.cs(159,42,159,49): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\UserController.cs(173,42,173,56): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\UserController.cs(186,42,186,57): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\UserController.cs(367,17,367,76): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\UserController.cs(439,29,439,31): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\UserController.cs(558,33,558,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\UserController.cs(1108,17,1108,76): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\UserController.cs(1098,59,1098,66): warning CS0219: The variable 'Setting' is assigned but its value is never used
+4>Controllers\UserController.cs(1099,20,1099,30): warning CS0219: The variable 'Department' is assigned but its value is never used
+4>Controllers\UserController.cs(1183,13,1183,72): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\UserController.cs(1340,37,1340,39): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\UserController.cs(1284,63,1284,70): warning CS0219: The variable 'Setting' is assigned but its value is never used
+4>Controllers\UserController.cs(1285,63,1285,71): warning CS0219: The variable 'Setting2' is assigned but its value is never used
+4>Controllers\TrademarkController.cs(144,20,144,23): warning CS0219: The variable 'msg' is assigned but its value is never used
+4>Controllers\TrademarkController.cs(253,20,253,23): warning CS0219: The variable 'msg' is assigned but its value is never used
+4>Controllers\TrademarkController.cs(361,20,361,23): warning CS0219: The variable 'msg' is assigned but its value is never used
+4>Controllers\TrademarkController.cs(468,20,468,23): warning CS0219: The variable 'msg' is assigned but its value is never used
+4>Controllers\TrademarkController.cs(827,17,827,84): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\TrademarkController.cs(822,42,822,59): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\TrademarkController.cs(841,42,841,65): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\TrademarkController.cs(859,42,859,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\TrademarkController.cs(897,42,897,66): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\TrademarkController.cs(934,42,934,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\SearchController.cs(146,42,146,56): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\SearchController.cs(160,42,160,58): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\SearchController.cs(387,28,387,30): warning CS0219: The variable 'ss' is assigned but its value is never used
+4>Controllers\SearchController.cs(366,42,366,49): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\RoleController.cs(412,34,412,36): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\RoleController.cs(435,33,435,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\CertificateController.cs(181,33,181,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\CertificateController.cs(402,21,402,115): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\CertificateController.cs(424,33,424,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\CertificateController.cs(342,20,342,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
+4>Controllers\CertificateController.cs(343,20,343,28): warning CS0219: The variable 'filepath' is assigned but its value is never used
+4>Controllers\CertificateController.cs(487,33,487,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\RemitaPaymentController.cs(401,29,401,82): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\RemitaPaymentController.cs(514,38,514,40): warning CS0168: The variable 'ex' is declared but never used
+4>Controllers\OppositionController.cs(186,33,186,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(240,33,240,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(295,33,295,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(350,33,350,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\PatentController.cs(135,29,135,31): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\PatentController.cs(154,17,154,90): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\PatentController.cs(149,42,149,69): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\RecordalController.cs(469,21,469,132): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\RecordalController.cs(328,20,328,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
+4>Controllers\RecordalController.cs(332,21,332,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
+4>Controllers\RecordalController.cs(333,21,333,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
+4>Controllers\RecordalController.cs(334,21,334,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
+4>Controllers\RecordalController.cs(335,21,335,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
+4>Controllers\RecordalController.cs(690,21,690,196): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\RecordalController.cs(512,20,512,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
+4>Controllers\RecordalController.cs(517,21,517,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
+4>Controllers\RecordalController.cs(518,21,518,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
+4>Controllers\RecordalController.cs(519,21,519,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
+4>Controllers\RecordalController.cs(520,21,520,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
+4>Controllers\PatentController.cs(495,17,495,81): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\PatentController.cs(195,21,195,32): warning CS0219: The variable 'FileUpload5' is assigned but its value is never used
+4>Controllers\PatentController.cs(423,20,423,25): warning CS0219: The variable 'json2' is assigned but its value is never used
+4>Controllers\OppositionController.cs(407,33,407,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(463,33,463,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(541,37,541,39): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(603,33,603,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(659,33,659,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(696,21,696,98): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\OppositionController.cs(822,21,822,133): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\OppositionController.cs(844,34,844,36): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(716,20,716,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
+4>Controllers\OppositionController.cs(719,21,719,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
+4>Controllers\OppositionController.cs(720,21,720,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
+4>Controllers\OppositionController.cs(721,21,721,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
+4>Controllers\OppositionController.cs(722,21,722,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
+4>Controllers\OppositionController.cs(967,21,967,142): warning CS4014: Because this call is not awaited, execution of the current method continues before the call is completed. Consider applying the 'await' operator to the result of the call.
+4>Controllers\OppositionController.cs(991,33,991,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\OppositionController.cs(871,20,871,30): warning CS0219: The variable 'pwalletid2' is assigned but its value is never used
+4>Controllers\OppositionController.cs(874,21,874,31): warning CS0219: The variable 'FileUpload' is assigned but its value is never used
+4>Controllers\OppositionController.cs(875,21,875,32): warning CS0219: The variable 'FileUpload1' is assigned but its value is never used
+4>Controllers\OppositionController.cs(876,21,876,32): warning CS0219: The variable 'FileUpload2' is assigned but its value is never used
+4>Controllers\OppositionController.cs(877,21,877,32): warning CS0219: The variable 'FileUpload3' is assigned but its value is never used
+4>Controllers\PatentSearchController.cs(426,42,426,71): warning CS1998: This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+4>Controllers\PublicationController.cs(179,34,179,36): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\PreliminarySearchController.cs(269,33,269,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\PublicationController.cs(393,33,393,35): warning CS0168: The variable 'ee' is declared but never used
+4>Controllers\PublicationController.cs(447,34,447,36): warning CS0168: The variable 'ex' is declared but never used
+4>Controllers\SettingController.cs(39,45,39,63): warning CS0169: The field 'SettingController._SettingRepository' is never used
+4>Controllers\UnitController.cs(37,47,37,67): warning CS0169: The field 'UnitController._httpContextAccessor' is never used
+4>Controllers\ProductController.cs(38,39,38,51): warning CS0169: The field 'ProductController._emailsender' is never used
+4>Controllers\DepartmentController.cs(32,47,32,67): warning CS0169: The field 'DepartmentController._httpContextAccessor' is never used
+4>Controllers\SettingController.cs(37,39,37,51): warning CS0169: The field 'SettingController._emailsender' is never used
+4>Controllers\PatentSearchController.cs(48,48,48,69): warning CS0169: The field 'PatentSearchController._patentTypeRepository' is never used
+4>Controllers\SettingController.cs(34,65,34,78): warning CS0169: The field 'SettingController._emailManager' is never used
+4>Controllers\MinistryController.cs(31,47,31,67): warning CS0169: The field 'MinistryController._httpContextAccessor' is never used
+4>Controllers\ProfileController.cs(38,42,38,57): warning CS0649: Field 'ProfileController._menuRepository' is never assigned to, and will always have its default value null
+4>Controllers\MinistryController.cs(30,39,30,51): warning CS0169: The field 'MinistryController._emailsender' is never used
+4>Controllers\UnitController.cs(36,39,36,51): warning CS0169: The field 'UnitController._emailsender' is never used
+4>Controllers\ProductController.cs(35,65,35,78): warning CS0169: The field 'ProductController._emailManager' is never used
+4>Controllers\ExaminerController.cs(38,37,38,44): warning CS0169: The field 'ExaminerController._contex' is never used
+4>Controllers\PatentSearchController.cs(49,42,49,67): warning CS0169: The field 'PatentSearchController._newApplicationRepository' is never used
+4>Controllers\ProductController.cs(39,47,39,67): warning CS0169: The field 'ProductController._httpContextAccessor' is never used
+4>Controllers\DepartmentController.cs(31,39,31,51): warning CS0169: The field 'DepartmentController._emailsender' is never used
+4>IPORevamp.WebAPI -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.dll
+4>IPORevamp.WebAPI -> C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Debug\netcoreapp2.1\IPORevamp.WebAPI.Views.dll
+4>Done building project "IPORevamp.WebAPI.csproj".
+========== Build: 4 succeeded, 0 failed, 1 up-to-date, 0 skipped ==========

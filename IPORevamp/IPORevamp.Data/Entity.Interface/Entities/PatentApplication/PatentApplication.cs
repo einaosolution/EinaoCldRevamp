@@ -26,8 +26,10 @@ namespace IPORevamp.Data.Entity.Interface.Entities.PatentApplication
 
         public List<IPORevamp.Data.Entity.Interface.Entities.PatentInvention.PatentInvention> PatentInvention { get; set; }
 
+        public List<IPORevamp.Data.Entity.Interface.Entities.AddressOfService.AddressOfService> AddressOfService { get; set; }
 
-        
+
+
 
 
 

@@ -15,6 +15,7 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentInformation;
 using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
+using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
 
 namespace IPORevamp.Repository.FileNewApplication
 {
@@ -191,7 +192,36 @@ namespace IPORevamp.Repository.FileNewApplication
             return patentAssignment;
         }
 
+        public async Task<AddressOfService> SaveAddressOfService(AddressOfService addressOfService)
+        {
+            try
+            {
+                var result = (from c in _contex.AddressOfService where c.PatentApplicationID == addressOfService.PatentApplicationID select c).FirstOrDefault();
 
+                _contex.AddressOfService.Remove(result);
+                _contex.SaveChanges();
+
+            }
+
+            catch(Exception ee)
+            {
+
+            }
+            try
+            {
+                _contex.AddressOfService.Add(addressOfService);
+
+
+                _contex.SaveChanges();
+
+            }catch(Exception ee)
+            {
+                var errmessage = ee.Message;
+            }
+
+
+            return addressOfService;
+        }
 
         public async Task<PatentInventionView[]> SavePatentInvention(PatentInventionView[] PatentInventionView, int ApplicationId)
         {
@@ -294,7 +324,7 @@ namespace IPORevamp.Repository.FileNewApplication
 
         public async Task<PatentApplication> GetPatentApplicationById(int id)
         {
-            var patentApplication = (from c in _contex.PatentApplication where c.Id == id select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").FirstOrDefault();
+            var patentApplication = (from c in _contex.PatentApplication where c.Id == id select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").Include(s => s.AddressOfService).Include("AddressOfService.State").FirstOrDefault();
 
 
             return patentApplication;
@@ -303,7 +333,7 @@ namespace IPORevamp.Repository.FileNewApplication
 
         public async Task<PatentApplication> GetPatentApplicationByUserId(string  userid)
         {
-            var patentApplication = (from c in _contex.PatentApplication where c.userid == userid && c.ApplicationStatus ==STATUS.Pending select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").FirstOrDefault();
+            var patentApplication = (from c in _contex.PatentApplication where c.userid == userid && c.ApplicationStatus ==STATUS.Pending select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").Include(s => s.AddressOfService).Include("AddressOfService.State").FirstOrDefault();
 
 
             return patentApplication;

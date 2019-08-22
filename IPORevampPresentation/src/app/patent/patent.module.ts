@@ -59,6 +59,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { NewPatent2Component } from '../new-patent2/new-patent2.component';
+import { InventorComponent } from '../inventor/inventor.component';
+import { PatentSubmittedApplicationComponent } from '../patent-submitted-application/patent-submitted-application.component';
+import { PatentfreshapplictionComponent } from '../patentfreshappliction/patentfreshappliction.component';
+import { ExaminerPatentFreshComponent } from '../examiner-patent-fresh/examiner-patent-fresh.component';
 
 
 
@@ -71,7 +75,26 @@ const routes: Routes = [
     {
       path:  'NewPatent2',
       component:  NewPatent2Component
-      }
+      } ,
+      {
+        path:  'SubmittedApplication',
+        component:  PatentSubmittedApplicationComponent
+        }
+
+        ,
+      {
+        path:  'FreshApplication',
+        component:  PatentfreshapplictionComponent
+        }
+
+
+        ,
+      {
+        path:  'ExaminerFresh',
+        component:  ExaminerPatentFreshComponent
+        }
+
+
 
 ];
 
@@ -80,7 +103,15 @@ const routes: Routes = [
 
     NewPatentComponent,
 
-    NewPatent2Component
+    NewPatent2Component,
+
+    InventorComponent,
+
+    PatentSubmittedApplicationComponent,
+
+    PatentfreshapplictionComponent,
+
+    ExaminerPatentFreshComponent
 
 
 

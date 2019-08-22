@@ -107,8 +107,8 @@ public getPriority2 ( ) {
 
 public RemoveInvention (ids  ) {
 
-  for (let i = 0; i < this.invention.length; i++) { 
-    
+  for (let i = 0; i < this.invention.length; i++) {
+
     if(this.invention[i].id === ids) {
       this.invention.splice(i,1);
         return false;
@@ -123,8 +123,8 @@ public RemoveInvention (ids  ) {
 
 public RemovePriority (ids  ) {
 
-  for (let i = 0; i < this.priority.length; i++) { 
-    
+  for (let i = 0; i < this.priority.length; i++) {
+
     if(this.priority[i].id === ids) {
       this.priority.splice(i,1);
         return false;
@@ -307,6 +307,22 @@ public GetRandomNumber ( ) {
                     .then(data => {  return data; });
 
       }
+
+
+      SavePatentFreshAppHistory(formData) {
+
+        //  var token = localStorage.getItem('access_tokenexpire');
+
+         // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+         //var vip = localStorage.getItem('ip');
+        // const  headers = new  HttpHeaders().set("ip", vip);
+          return this.http.post( this.serviceBase + 'api/PatentSearch/SavePatentFreshAppHistory', formData )
+                      .toPromise()
+
+                      .then(data => {  return data; });
+
+        }
+
 
 
       SaveFreshAppHistory2(formData) {
@@ -1266,6 +1282,160 @@ RejectUser(pp: string,pp2: string ) {
           return data;
         });
     }
+
+    GetPatentSubmittedApplication( ) {
+
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentSubmittedApplication')
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetPatentFreshapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentExaminerFreshapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentPriority(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentPriority', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetAddressOfServiceById2(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetAddressOfServiceById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    SendExaminerEmail(pp: string ) {
+
+      var data = {
+
+        RequestById: pp
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/SendExaminerEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    SendPatentUserEmail(pp: string ,pp2: string  ,pp3: string  ) {
+
+      var data = {
+
+        RequestById: pp ,
+        appid: pp2 ,
+        comment:pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/SendUserEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetPatentInventorById(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentInventorById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetPatentFreshApplication(pp: string ) {
+
+      var data = {
+
+        RequestById: pp
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetAddressOfServiceById(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetAddressOfServiceById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     GetApplicationByDocumentId(pp: string,pp2: string ) {
 

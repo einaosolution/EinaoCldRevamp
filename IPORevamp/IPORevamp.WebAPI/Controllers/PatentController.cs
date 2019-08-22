@@ -36,6 +36,7 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentInformation;
 using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
+using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -184,7 +185,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         [HttpPost("SaveApplication")]
         public async Task<IActionResult> SavePatentApplication([FromForm] string userId,
-      [FromForm] string patenttype, [FromForm] string titleofinvention , [FromForm] string description, [FromForm] string AssigneeName, [FromForm] string AssigneeAddress , [FromForm] string AssigneeNationality, [FromForm] string AssignorName, [FromForm] string AssignorAddress, [FromForm] string AssignorNationality, [FromForm] string ApplicationId)
+      [FromForm] string patenttype, [FromForm] string titleofinvention , [FromForm] string description, [FromForm] string AssigneeName, [FromForm] string AssigneeAddress , [FromForm] string AssigneeNationality, [FromForm] string AssignorName, [FromForm] string AssignorAddress, [FromForm] string AssignorNationality, [FromForm] string ApplicationId, [FromForm] string AttorneyCode, [FromForm] string AttorneyName, [FromForm] string Address, [FromForm] string PhoneNumber, [FromForm] string Email, [FromForm] string State)
         {
             Boolean FileUpload = false;
             Boolean FileUpload1 = false;
@@ -195,6 +196,17 @@ namespace IPORevamp.WebAPI.Controllers
 
             string ip = "";
             ip = Request.Headers["ip"];
+            AddressOfService addressOfService = new AddressOfService();
+            addressOfService.Address = Address;
+            addressOfService.AttorneyCode = AttorneyCode;
+            addressOfService.AttorneyName = AttorneyName;
+            addressOfService.DateCreated = DateTime.Now;
+            addressOfService.IsActive = true;
+            addressOfService.IsDeleted = false;
+
+            addressOfService.PhoneNumber = PhoneNumber;
+            addressOfService.Email = Email;
+            addressOfService.StateID =Convert.ToInt32( State);
 
             PatentInformation patentInformation = new PatentInformation();
 
@@ -434,7 +446,10 @@ namespace IPORevamp.WebAPI.Controllers
 
                 patentInformation.PatentApplicationID = ApplicationId2;
 
-                var result = await _newApplicationRepository.SavePatentInformation(patentInformation);
+                addressOfService.PatentApplicationID = ApplicationId2;
+              await  _newApplicationRepository.SaveAddressOfService(addressOfService);
+
+               var result = await _newApplicationRepository.SavePatentInformation(patentInformation);
                 await _newApplicationRepository.SavePatentAssignment(patentAssignment);
                 
             }
@@ -476,6 +491,8 @@ namespace IPORevamp.WebAPI.Controllers
                 }
                 await _newApplicationRepository.UpdatePatentInformation(patentAllinformation);
 
+                addressOfService.PatentApplicationID = Convert.ToInt32(ApplicationId);
+                _newApplicationRepository.SaveAddressOfService(addressOfService);
 
                 await _newApplicationRepository.UpdatePatentAssignment(Convert.ToInt32(ApplicationId), patentAssignment);
 

@@ -1,4 +1,5 @@
 ﻿
+using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
 using IPORevamp.Data.Entity.Interface.Entities.PatentApplication;
 using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInformation;
@@ -33,6 +34,7 @@ namespace IPORevamp.Repository.FileNewApplication
         Task<PatentPriorityInformationView[]> SavePriorityInformation(PatentPriorityInformationView[] PatentPriorityInformationView, int ApplicationId);
         Task<PatentApplication> GetPatentApplicationById(int id);
         Task<PatentApplication> GetPatentApplicationByUserId(string userid);
+        Task<AddressOfService> SaveAddressOfService(AddressOfService addressOfService);
         Task<String> updatePatentTransactionById(string transactionid, string paymentid);
         Task<PatentAssignment> UpdatePatentAssignment(int id, PatentAssignment patentassignment);
     }

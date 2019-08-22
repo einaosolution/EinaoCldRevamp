@@ -51,6 +51,7 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory;
 using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
+using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
 
 namespace IPORevamp.Data
 {
@@ -103,6 +104,9 @@ namespace IPORevamp.Data
         public DbSet<RecordalRenewal> RecordalRenewal { get; set; }
         public DbSet<NoticeOfOpposition> NoticeOfOpposition { get; set; }
         public DbSet<DataResult> DataResult { get; set; }
+        public DbSet<PatentDataResult> PatentDataResult { get; set; }
+
+        
         public DbSet<Data.Entities.Country.Country> Country { get; set; }
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
 
@@ -137,6 +141,9 @@ namespace IPORevamp.Data
         public DbSet<PatentApplicationHistory> PatentApplicationHistory { get; set; }
         public DbSet<PatentAssignment> PatentAssignment { get; set; }
         public DbSet<PatentPriorityInformation> PatentPriorityInformation { get; set; }
+        public DbSet<AddressOfService> AddressOfService { get; set; }
+
+        
 
         public DbSet<PatentInvention> PatentInvention { get; set; }
 

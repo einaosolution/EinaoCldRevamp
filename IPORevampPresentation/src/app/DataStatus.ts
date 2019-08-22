@@ -1,7 +1,16 @@
 
 export enum DataStatus {
-  Up = "UP",
-  Down = "DOWN",
-  Left = "LEFT",
-  Right = "RIGHT",
+
+  Certificate = "Certificate",
+   Opposition = "Opposition",
+  Search = "Search",
+  Examiner = "Examiner",
+
+  Publication = "Publication",
+  Kiv = "Kiv",
+   ReconductSearch = "Reconduct-Search",
+  ApplicantKiv = "ApplicantKiv",
+ Recordal = "Recordal"
 }
+
+

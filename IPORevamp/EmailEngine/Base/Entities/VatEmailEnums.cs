@@ -47,6 +47,7 @@ namespace EmailEngine.Base.Entities
         Opposition_Officer_Trade_Mark =17,
         Recordals_Officers_Trade_Mark = 12  ,
         Individual =13,
+        Patent_Examiner =21,
         Registrar =8
 
 
@@ -89,6 +90,8 @@ namespace EmailEngine.Base.Entities
         public const string Kiv = "Kiv";
         public const string Counter = "Counter";
         public const string Submitted = "Submitted";
+        public const string ReconductSearch = "ReconductSearch";
+        
         public const string AutoMoveComment = "Auto Move To Certificate By Admin";
 
         public const string ApplicantKiv = "ApplicantKiv";
@@ -157,6 +160,8 @@ namespace EmailEngine.Base.Entities
         public const string ApplicationSentToOpposition = "ACP005";
         public const string AppealReply = "ACP006";
         public const string SentToKiv = "ACP010";
+
+        public const string SendPatentExaminerEmail = "ACP011";
 
 
         public const string PublicationMaxDay = "Pub";
