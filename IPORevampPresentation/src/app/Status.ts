@@ -10,6 +10,9 @@ export enum Status {
   Submitted = "Submitted" ,
   ReconductSearch = "ReconductSearch" ,
 
+  DelegateAppeal= "DelegateAppeal" ,
+  ReceiveAppeal ="ReceiveAppeal" ,
+
   AutoMoveComment = "Auto Move To Certificate By Admin" ,
 
   ApplicantKiv = "ApplicantKiv" ,
@@ -20,7 +23,8 @@ export enum Status {
   Appeal = "Appeal" ,
    Approved = "Approved" ,
    Merger = "Merger" ,
-   Renewal = "Renewal" ,
+   Renewal = "Renewal"
+
 
 
 

@@ -50,6 +50,9 @@ export class PatentSubmittedApplicationComponent implements OnInit {
   public row2
   public row3 = [];
   public row4  = [];
+  public row5  = [];
+
+
   vshow :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
@@ -286,6 +289,35 @@ this.pwalletid = kk.applicationId
    // this.modalRef = this.modalService.show(ref );
 
    var userid = localStorage.getItem('UserId');
+
+   this.busy =   this.registerapi
+   .GetAddressOfServiceById2( this.pwalletid,userid )
+   .then((response: any) => {
+
+     console.log("Address Of Service  By Id ")
+     this.row5 = response.content;
+     console.log(response.content)
+
+
+
+
+
+
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
+
 
 
    this.busy =   this.registerapi

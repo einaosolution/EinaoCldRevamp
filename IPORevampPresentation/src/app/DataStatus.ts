@@ -10,7 +10,8 @@ export enum DataStatus {
   Kiv = "Kiv",
    ReconductSearch = "Reconduct-Search",
   ApplicantKiv = "ApplicantKiv",
- Recordal = "Recordal"
+ Recordal = "Recordal" ,
+ Acceptance="Acceptance"
 }
 
 

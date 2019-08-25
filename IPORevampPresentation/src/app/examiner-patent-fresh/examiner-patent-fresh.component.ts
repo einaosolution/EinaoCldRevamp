@@ -10,6 +10,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Status} from '../Status';
+import {DataStatus} from '../DataStatus';
+
 
 
 import { map } from 'rxjs/operators';
@@ -48,10 +51,15 @@ export class ExaminerPatentFreshComponent implements OnInit {
   appdescription:string ;
 
   Description: FormControl;
+  public Status = Status;
+  public DataStatus = DataStatus;
   public rows = [];
   public row2
   public row3 = [];
-  public row4
+  public row4 = [];
+  public row5  = [];
+  public row6  = [];
+
   public appcomment =""
   appcomment3="";
   appcomment2="" ;
@@ -131,6 +139,140 @@ onSubmit12() {
 
 }
 
+
+showdetail(kk) {
+
+  this.savemode = false;
+  this.updatemode = true;
+this.row4 = kk;
+this.vshow = true;
+this.pwalletid = kk.applicationId
+
+  //document.getElementById("openModalButton").click();
+ // this.modalRef = this.modalService.show(ref );
+
+ localStorage.setItem('Pwallet',kk.applicationId);
+
+ var userid = localStorage.getItem('UserId');
+
+
+ this.busy =   this.registerapi
+ .GetAddressOfServiceById2( this.pwalletid,userid )
+ .then((response: any) => {
+
+   console.log("Address Of Service  By Id ")
+   this.row5 = response.content;
+   console.log(response.content)
+
+
+
+
+
+
+
+ })
+          .catch((response: any) => {
+           this.spinner.hide();
+            console.log(response)
+
+
+           Swal.fire(
+             response.error.message,
+             '',
+             'error'
+           )
+
+})
+
+
+
+this.busy =   this.registerapi
+.GetExaminerPreviousComment( userid ,this.pwalletid )
+.then((response: any) => {
+
+  console.log("previous comment ")
+  this.row6 = response.content;
+  console.log(response.content)
+
+
+
+
+
+
+
+})
+         .catch((response: any) => {
+          this.spinner.hide();
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
+
+
+ this.busy =   this.registerapi
+ .GetPatentInventorById( this.pwalletid,userid )
+ .then((response: any) => {
+
+   console.log("Inventor By Id ")
+   this.row2 = response.content;
+   console.log(response)
+
+
+   this.busy =   this.registerapi
+   .GetPatentPriority( this.pwalletid,userid )
+   .then((response: any) => {
+
+     console.log("Priority  By Id ")
+     this.row3 = response.content;
+     console.log(response)
+
+     this.savemode = true;
+
+     $("#createmodel").modal('show');
+
+
+
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
+
+
+
+
+ })
+          .catch((response: any) => {
+           this.spinner.hide();
+            console.log(response)
+
+
+           Swal.fire(
+             response.error.message,
+             '',
+             'error'
+           )
+
+})
+
+
+}
+
 onSubmit2() {
 
   if (this.appcomment =="") {
@@ -152,15 +294,15 @@ onSubmit2() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment);
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","Fresh");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","Publication");
+   formData.append("fromstatus",Status.Fresh);
+   formData.append("tostatus",Status.Fresh);
+   formData.append("fromDatastatus",DataStatus.Examiner);
+   formData.append("toDatastatus",DataStatus.Acceptance);
    formData.append("userid",userid);
 
 
    this.busy =  this.registerapi
-   .SaveFreshAppHistory(formData)
+   .SavePatentFreshAppHistory(formData)
    .then((response: any) => {
 
      this.submitted=false;
@@ -174,7 +316,7 @@ onSubmit2() {
 
   this. getallApplication()
 
-  this.router.navigateByUrl('/Dashboard/AcceptanceLetter');
+  this.router.navigateByUrl('/Patent/AcceptanceptanceLetter');
 
    })
             .catch((response: any) => {
@@ -214,15 +356,15 @@ onSubmit3() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","Refused");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","Examiner");
+   formData.append("fromstatus",Status.Fresh);
+   formData.append("tostatus",Status.Refused);
+   formData.append("fromDatastatus",DataStatus.Examiner);
+   formData.append("toDatastatus",DataStatus.Examiner);
    formData.append("userid",userid);
 
 
    this.busy =  this.registerapi
-   .SaveFreshAppHistory(formData)
+   .SavePatentFreshAppHistory(formData)
    .then((response: any) => {
 
      this.submitted=false;
@@ -236,7 +378,7 @@ onSubmit3() {
 
   this. getallApplication()
 
-  this.router.navigateByUrl('/Dashboard/RefusalLetter');
+  this.router.navigateByUrl('/Patent/RefusalPatentLetter');
 
    })
             .catch((response: any) => {
@@ -278,15 +420,15 @@ onSubmit44() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment3);
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","ApplicantKiv");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","ApplicantKiv");
+   formData.append("fromstatus",Status.Fresh);
+   formData.append("tostatus",Status.ApplicantKiv);
+   formData.append("fromDatastatus",DataStatus.Examiner);
+   formData.append("toDatastatus",DataStatus.ApplicantKiv);
    formData.append("userid",userid);
 
 
    this.busy =  this.registerapi
-   .SaveFreshAppHistory(formData)
+   .SavePatentFreshAppHistory(formData)
    .then((response: any) => {
 
      this.submitted=false;
@@ -363,15 +505,15 @@ valuechange(een ) {
       formData.append("pwalletid",this.pwalletid);
      formData.append("comment",this.appcomment4);
      formData.append("description","");
-     formData.append("fromstatus","Fresh");
-     formData.append("tostatus","Reconduct-Search");
-     formData.append("fromDatastatus","Examiner");
-     formData.append("toDatastatus","Reconduct-Search");
+     formData.append("fromstatus",Status.Fresh);
+     formData.append("tostatus",Status.ReconductSearch);
+     formData.append("fromDatastatus",DataStatus.Examiner);
+     formData.append("toDatastatus",DataStatus.ReconductSearch);
      formData.append("userid",userid);
 
 
      this.busy =  this.registerapi
-     .SaveFreshAppHistory(formData)
+     .SavePatentFreshAppHistory(formData)
      .then((response: any) => {
 
        this.submitted=false;
@@ -387,7 +529,7 @@ valuechange(een ) {
 
 
     this.busy =   this.registerapi
-    .SendUserEmail3(userid,this.userid,this.appcomment3)
+    .SendMailReconductSearch(userid,this.userid,this.appcomment3)
     .then((response: any) => {
 
 
@@ -512,7 +654,7 @@ showcountry2() {
   getallApplication() {
     var userid = localStorage.getItem('UserId');
     this.busy =   this.registerapi
-    .GetExaminerFreshApplication(userid)
+    .GetPatentExaminerFreshapplication(userid)
     .then((response: any) => {
 
       console.log("Fresh Response")
@@ -619,7 +761,7 @@ this.busy =   this.registerapi
 
   ngOnInit() {
 
-    if (this.registerapi.checkAccess("#/Dashboard/ExaminerFresh"))  {
+    if (this.registerapi.checkAccess("#/Patent/ExaminerFresh"))  {
 
     }
 
@@ -630,9 +772,9 @@ this.busy =   this.registerapi
       return ;
     }
 
-    this.registerapi.setPage("TrademarkExaminer")
+    this.registerapi.setPage("PatentExaminer")
 
-    this.registerapi.VChangeEvent("TrademarkExaminer");
+    this.registerapi.VChangeEvent("PatentExaminer");
 
   this.dtOptions = {
     pagingType: 'full_numbers',
@@ -678,10 +820,10 @@ this.busy =   this.registerapi
 
 
    this.busy =   this.registerapi
-    .GetExaminerFreshApplication(userid)
+    .GetPatentExaminerFreshapplication(userid)
     .then((response: any) => {
 
-      console.log("Sector Response")
+      console.log("Examiner Response")
       this.rows = response.content;
       console.log(response)
       this.dtTrigger.next();

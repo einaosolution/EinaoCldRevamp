@@ -1,0 +1,56 @@
+select {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: menulist;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    background-color: white;
+    cursor: default;
+    margin: 0em;
+
+    border-radius: 0px;
+
+    border-image: initial;
+  }
+
+  .table-grid {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table-grid>tbody>tr>th {
+    padding: 0;
+  }
+
+  .table-grid>thead>tr>th,
+  .table-grid>tbody>tr>th,
+  .table-grid>tfoot>tr>th,
+  .table-grid>thead>tr>td,
+  .table-grid>tbody>tr>td,
+  .table-grid>tfoot>tr>td {
+    border: 1px solid black;
+  }
+
+  .table-grid .table-grid td,
+  .table-grid .table-grid th {
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 0;
+    border-left: 0;
+  }
+
+  .table-grid .table-grid td:last-child,
+  .table-grid .table-grid th:last-child {
+    border-right: 0;
+  }
+

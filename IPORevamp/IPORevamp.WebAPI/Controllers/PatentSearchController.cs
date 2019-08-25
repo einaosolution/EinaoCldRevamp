@@ -156,7 +156,7 @@ namespace IPORevamp.WebAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Select PatentPriority", "");
-                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+                return PrepareResponse(HttpStatusCode.OK, "Mail Not Sent", false, "");
             }
         }
 
@@ -207,7 +207,9 @@ namespace IPORevamp.WebAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Select PatentPriority", "");
-                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+               
+
+                return PrepareResponse(HttpStatusCode.OK, "Mail Not Sent", false, "");
             }
         }
 

@@ -124,7 +124,7 @@
                                               <strong>DATA DETAILS FOR {{row4.titleOfInvention.toUpperCase()}}</strong></td>
                                       </tr>
                                        <tr>
-                                          <td >
+                                          <td align="right" >
                                               &nbsp;PATENT TYPE :&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -134,7 +134,7 @@
                                       </tr>
 
                                      <tr>
-                                          <td >
+                                          <td align="right">
                                               &nbsp;TITLE OF INVENTION  :&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -144,7 +144,7 @@
                                       </tr>
 
                                <tr>
-                                          <td >
+                                          <td  align="right">
                                               &nbsp;DESCRIPTION :&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -154,7 +154,7 @@
                                       </tr>
 
                                 <tr>
-                                          <td >
+                                          <td align="right">
                                               &nbsp;ASSIGNEE NAME&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -164,7 +164,7 @@
                                       </tr>
 
                               <tr>
-                                          <td >
+                                          <td align="right">
                                               &nbsp;ASSIGNEE ADDRESS :&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -174,7 +174,7 @@
                                       </tr>
 
                                       <tr>
-                                       <td >
+                                       <td align="right" >
                                            &nbsp;ASSIGNEE NATIONALITY :&nbsp;&nbsp;
                                        </td>
                                        <td>
@@ -184,7 +184,7 @@
                                    </tr>
 
                                    <tr>
-                                     <td >
+                                     <td align="right">
                                          &nbsp;ASSIGNOR NAME :&nbsp;&nbsp;
                                      </td>
                                      <td>
@@ -194,7 +194,7 @@
                                  </tr>
 
                                  <tr>
-                                   <td >
+                                   <td  align="right">
                                        &nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp;
                                    </td>
                                    <td>
@@ -204,7 +204,7 @@
                                </tr>
 
                                <tr>
-                                 <td >
+                                 <td  align="right">
                                      &nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp;
                                  </td>
                                  <td>
@@ -309,12 +309,85 @@
                            </tr>
 
                            <tr>
+                            <td class="tbbg" colspan="2" align="center">
+                                --- ADDRESS OF SERVICE  ---</td>
+                        </tr>
+
+
+                        <tr  >
+                          <td align="right" >
+                              &nbsp;Attorney Code:&nbsp;&nbsp;
+                          </td>
+                          <td>
+
+                           {{row5[0].attorneyCode}}
+
+                          </td>
+                      </tr>
+
+                      <tr  >
+                        <td align="right" >
+                            &nbsp;Attorney Name:&nbsp;&nbsp;
+                        </td>
+                        <td>
+
+                          {{row5[0].attorneyName}}
+
+
+                        </td>
+                    </tr>
+
+                    <tr  >
+                      <td align="right" >
+                          &nbsp;Email:&nbsp;&nbsp;
+                      </td>
+                      <td>
+
+                        {{row5[0].email}}
+
+
+
+                      </td>
+                  </tr>
+
+                  <tr  >
+                    <td align="right" >
+                        &nbsp;Phone Number:&nbsp;&nbsp;
+                    </td>
+                    <td>
+
+                      {{row5[0].phoneNumber}}
+
+
+
+
+                    </td>
+                </tr>
+
+
+                <tr  >
+                  <td align="right" >
+                      &nbsp;State:&nbsp;&nbsp;
+                  </td>
+                  <td>
+
+                    {{row5[0].state.stateName}}
+
+
+
+
+                  </td>
+              </tr>
+
+
+
+                           <tr>
                                <td class="tbbg" colspan="2" align="center">
                                    --- UPLOADS  ---</td>
                            </tr>
 
                              <tr  *ngIf="row4.claims">
-                                          <td >
+                                          <td align="right" >
                                               &nbsp;Claims:&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -324,7 +397,7 @@
                                       </tr>
 
             <tr *ngIf="row4.deedOfAssignment">
-                                          <td >
+                                          <td align="right">
                                               &nbsp;Deed Of Assignment :&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -334,7 +407,7 @@
                                       </tr>
 
            <tr *ngIf="row4.letterOfAuthorization">
-                                          <td >
+                                          <td align="right" >
                                               &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
                                           </td>
                                           <td>
@@ -346,7 +419,7 @@
 
 
                                       <tr *ngIf="row4.pctDocument">
-                                         <td >
+                                         <td align="right" >
                                              &nbsp;PCT Document :&nbsp;&nbsp;
                                          </td>
                                          <td>
@@ -358,12 +431,12 @@
 
 
                                      <tr *ngIf="row4.completeSpecificationForm">
-                                        <td >
+                                        <td align="right">
                                             &nbsp;Complete Specification Form :&nbsp;&nbsp;
                                         </td>
                                         <td>
                                             <a  target="_blank"  href="{{filepath}}Upload/{{row4.completeSpecificationForm}}">View Upload</a>   <br/>
-    
+
                                            &nbsp;
                                         </td>
                                     </tr>

@@ -163,6 +163,114 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+
+        [HttpPost("SendAttachmentAcceptance")]
+        public async Task<IActionResult> SendAttachmentAcceptance([FromForm] string userid, [FromForm] string message)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.PatentAcceptance);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            var username = user.FirstName + " " + user.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+            mailContent = mailContent.Replace("#Name", username);
+
+
+
+            //  String ss2 = "Dear " + username + " <br/> Find Attached <br/><br/> Regards";
+
+
+            //  String ss = "<html>  <head> </head> <body style=\"color: grey; font - size:15px; \"> <font face=\"Helvetica, Arial, sans - serif \">  <div style=\"position: absolute; height: 100px;width: 600px; background - color:0d1d36; padding: 30px; \"> " + ss2 + "</div></body> </html>";
+
+
+
+
+
+
+            // file upload
+            string msg = "";
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    var postedFile = Request.Form.Files[0];
+                    var vfile = postedFile.FileName.Replace("\"", string.Empty).Replace("'", string.Empty);
+
+                    vfile = vfile + Guid.NewGuid().ToString();
+
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["MemberPassportFolder"], vfile + ".pdf");
+
+                    using (var fileSrteam = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await postedFile.CopyToAsync(fileSrteam);
+                    }
+                    // postedFile.sa.SaveAs(fullPath);
+
+                    //  msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                    //    result2);
+
+
+                    List<string> vlist = new List<string>();
+                    vlist.Add(fullPath);
+
+
+
+                    await _emailsender.SendEmailAsync(user.Email, message, mailContent, true, vlist);
+
+
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+
+
+            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Application File Sent successfully",
+                Entity = "Pwallet",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip,
+                RecordBefore = "",
+                RecordAfter = ""
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Mail Sent", false);
+
+        }
+
         [HttpGet("GetPatentApplicationById")]
         public async Task<IActionResult> GetPatentApplicationById([FromQuery] string Applicationid)
         {

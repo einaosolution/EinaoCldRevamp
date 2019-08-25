@@ -46,6 +46,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { NewPatentComponent } from '../new-patent/new-patent.component';
+import { PatentAppealUnitComponent } from '../patent-appeal-unit/patent-appeal-unit.component';
 
 
 import {AuthGuard} from '../auth.guard';
@@ -63,6 +64,13 @@ import { InventorComponent } from '../inventor/inventor.component';
 import { PatentSubmittedApplicationComponent } from '../patent-submitted-application/patent-submitted-application.component';
 import { PatentfreshapplictionComponent } from '../patentfreshappliction/patentfreshappliction.component';
 import { ExaminerPatentFreshComponent } from '../examiner-patent-fresh/examiner-patent-fresh.component';
+import { AcceptancepatentLetterComponent } from '../acceptancepatent-letter/acceptancepatent-letter.component';
+import { RefusalPatentLetterComponent } from '../refusal-patent-letter/refusal-patent-letter.component';
+import { PatentKivComponent } from '../patent-kiv/patent-kiv.component';
+import { PatentReconductSearchComponent } from '../patent-reconduct-search/patent-reconduct-search.component';
+import { PatentAppealRefusalComponent } from '../patent-appeal-refusal/patent-appeal-refusal.component';
+import { PatentReceiveAppealComponent } from '../patent-receive-appeal/patent-receive-appeal.component';
+import { PatentReceiveAppel2Component } from '../patent-receive-appel2/patent-receive-appel2.component';
 
 
 
@@ -94,6 +102,58 @@ const routes: Routes = [
         component:  ExaminerPatentFreshComponent
         }
 
+        ,
+        {
+          path:  'AcceptanceptanceLetter',
+          component:  AcceptancepatentLetterComponent
+          }
+
+          ,
+          {
+            path:  'RefusalPatentLetter',
+            component:  RefusalPatentLetterComponent
+            }
+
+
+            ,
+            {
+              path:  'PatentKiv',
+              component:  PatentKivComponent
+              }
+
+              ,
+              {
+                path:  'PatentReconductSearch',
+                component:  PatentReconductSearchComponent
+                }
+
+                ,
+              {
+                path:  'PatentAppealRefusal',
+                component:  PatentAppealRefusalComponent
+                }
+
+
+                ,
+                {
+                  path:  'DelegateAppeal',
+                  component:   PatentReceiveAppealComponent
+                  }
+
+                  ,
+                  {
+                    path:  'TreatAppeal',
+                    component:   PatentAppealUnitComponent
+                    }
+
+                    ,
+                  {
+                    path:  'ReceiveAppeal',
+                    component:   PatentReceiveAppel2Component
+                    }
+
+
+
 
 
 ];
@@ -111,7 +171,21 @@ const routes: Routes = [
 
     PatentfreshapplictionComponent,
 
-    ExaminerPatentFreshComponent
+    ExaminerPatentFreshComponent,
+
+    AcceptancepatentLetterComponent,
+
+    RefusalPatentLetterComponent,
+
+    PatentKivComponent,
+
+    PatentReconductSearchComponent,
+
+    PatentAppealRefusalComponent,
+
+    PatentReceiveAppealComponent ,
+    PatentAppealUnitComponent,
+    PatentReceiveAppel2Component
 
 
 

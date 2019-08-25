@@ -70,6 +70,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent,   data: { animation: 'tiger1' } } ,
   { path: 'login', component: LoginComponent ,   data: { animation: 'tiger2' } } ,
@@ -124,6 +125,7 @@ const routes: Routes = [
     CorporateComponent ,
     IndividualComponent ,
     ForgetpasswordComponent
+
 
 
 

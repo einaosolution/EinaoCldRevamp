@@ -155,6 +155,21 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+
+        [HttpGet("GetUserFromId")]
+        public async Task<IActionResult> GetUserFromId([FromQuery] string Id)
+        {
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Id));
+
+
+
+            return Ok(user);
+
+
+        }
+
         [HttpGet("GetUser")]
         public async Task<IActionResult> GetUser()
         {

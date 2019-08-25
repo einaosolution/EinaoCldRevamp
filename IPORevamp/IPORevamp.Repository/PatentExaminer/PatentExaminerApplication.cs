@@ -49,6 +49,64 @@ namespace IPORevamp.Repository.PatentExaminer
         }
 
 
+        public async void SendRegistraEmail(int applicationId)
+        {
+            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.ApplicationAccepted);
+
+            
+
+
+            var roleid = Convert.ToInt32(IPORoles.Registrar);
+
+            var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department ==DEPARTMENT.Patent select c).ToList();
+            var Result = (from c in _contex.PatentInformation where c.PatentApplicationID == applicationId select c).FirstOrDefault();
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+            foreach (var users in ApplicationUser)
+            {
+                var vname = users.FirstName + " " + users.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+                mailContent = mailContent.Replace("#num", Result.RegistrationNumber);
+                mailContent = mailContent.Replace("#num2", Result.TitleOfInvention);
+
+                await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+            }
+
+
+        }
+
+        public async Task<PatentApplicationHistory> GetRefusalComment(int id)
+        {
+
+
+            var Result = (from c in _contex.PatentApplicationHistory where c.PatentApplicationID == id && c.FromStatus ==STATUS.Fresh && c.ToStatus == STATUS.Refused && c.ToDataStatus==DATASTATUS.Examiner select c).FirstOrDefault();
+
+
+            return Result;
+        }
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.PreviousComments>> GetPreviousComment(int id)
+        {
+            string applicationid = Convert.ToString(id);
+
+
+            var details = _contex.PreviousComments
+                .FromSql($"GetPatentPreviousComment   @p0", parameters: new[] { applicationid })
+               .ToList();
+
+
+            return details;
+            // return null;
+        }
+
         public async Task<List<PatentDataResult>> GetPatentFreshApplication()
         {
 
@@ -56,6 +114,91 @@ namespace IPORevamp.Repository.PatentExaminer
 
             var details = _contex.PatentDataResult
             .FromSql($"PatentFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Fresh })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+        public async Task<List<PatentDataResult>> GetPatentAppeal()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentAppeal   @p0, @p1, @p2", parameters: new[] { DATASTATUS.Examiner, STATUS.Registra,  STATUS.Refused })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+        public async Task<List<PatentDataResult>> GetPatentTreatedAppeal()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentTreatedAppeal   @p0, @p1 , @p2", parameters: new[] { DATASTATUS.Examiner, STATUS.ReceiveAppeal, STATUS.Appeal })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+
+        public async System.Threading.Tasks.Task<List<PatentDataResult>> GetRefuseApplicationByUserid(string userid)
+        {
+            //  var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentRefuseApplicationById    @p0, @p1 ", parameters: new[] { STATUS.Refused, userid })
+           .ToList();
+
+            return details;
+            // return null;
+        }
+
+        public async Task<List<PatentDataResult>> GetPatentExaminerKiv()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentExminerKiv   @p0, @p1", parameters: new[] { DATASTATUS.ApplicantKiv, STATUS.ApplicantKiv })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+        public async Task<List<PatentDataResult>> GetPatentAppealUnit()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentAppealUnit   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Appeal })
+           .ToList();
+
+
+
+            return details;
+        }
+        public async Task<List<PatentDataResult>> GetPatentExaminerReconductSearch()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"PatentReconductSearch   @p0, @p1", parameters: new[] { DATASTATUS.ReconductSearch, STATUS.ReconductSearch })
            .ToList();
 
 

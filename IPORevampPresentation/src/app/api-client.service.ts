@@ -1318,7 +1318,88 @@ RejectUser(pp: string,pp2: string ) {
       };
 
       return this.http
-        .get(this.serviceBase + 'api/PatentSearch/GetFreshApplication', { params: data })
+        .get(this.serviceBase + 'api/PatentExaminer/GetFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentExaminerKivapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentExaminerKiv', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentAppealUnit(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentAppealUnit', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentTreatedAppeal(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentTreatedAppeal', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentAppeal(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentAppeal', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+
+    GetPatentExaminerReconductSearch(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentExaminerReconductSearch', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -1999,6 +2080,20 @@ RejectUser(pp: string,pp2: string ) {
   }
 
 
+  GetUserById(pp: string) {
+
+		var data = {
+      Id: pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetUserFromId', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetAknwoledgment(pp: string) {
 
 		var data = {
@@ -2587,6 +2682,26 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+
+  SendMailReconductSearch(pp2:string ,pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      userid:pp ,
+      Comment:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentExaminer/MailToReconductSearch', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetExaminerFreshApplication(pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -2638,6 +2753,24 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+  SendRegistraAppealEmail(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Appid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentExaminer/SendRegistraAppealEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   SendAppealUnitEmail(pp2:string ,pp:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -2671,6 +2804,25 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 				return data;
 			});
   }
+
+
+  GetPatentRefuseApplicationByUserid(pp2:string ) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentExaminer/GetRefuseApplicationByUserid', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
 
 
   GetBatches(pp2:string) {
@@ -2769,6 +2921,61 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Examiner/GetPreviousComment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPatentRefusalComment(pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentExaminer/GetRefusalComment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  SendPatentRegistraEmail(pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentExaminer/SendRegistraEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetExaminerPreviousComment(pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentExaminer/GetPreviousComment', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

@@ -40,6 +40,7 @@ namespace EmailEngine.Base.Entities
         Administrator =2,
         CorporateAgent_Trade_Mark  =3,
         Search_Officer_Trade_Mark = 5,
+        Search_Officer_Patent = 22,
         Examination_Officer_Trade_Mark = 6,
         Publication_Officer_Trade_Mark =7,
         Certificate_Officer_Trade_Mark =9,
@@ -56,6 +57,7 @@ namespace EmailEngine.Base.Entities
     public class DEPARTMENT
     {
         public const string Trademark = "3";
+        public const string Patent = "1";
 
     }
 
@@ -90,6 +92,8 @@ namespace EmailEngine.Base.Entities
         public const string Kiv = "Kiv";
         public const string Counter = "Counter";
         public const string Submitted = "Submitted";
+        public const string ReceiveAppeal = "ReceiveAppeal";
+        public const string DelegateAppeal = "DelegateAppeal";
         public const string ReconductSearch = "ReconductSearch";
         
         public const string AutoMoveComment = "Auto Move To Certificate By Admin";
@@ -154,6 +158,7 @@ namespace EmailEngine.Base.Entities
         public const string Invoice = "RECPT001";
         public const string Receipt = "RECPT002";
         public const string Acceptance = "ACP001";
+        public const string PatentAcceptance = "ACP013";
         public const string Refusal = "ACP002";
         public const string NoticeOfOpposition = "ACP003";
         public const string RegistrartoAppealUnit = "ACP004";
@@ -162,6 +167,7 @@ namespace EmailEngine.Base.Entities
         public const string SentToKiv = "ACP010";
 
         public const string SendPatentExaminerEmail = "ACP011";
+        public const string ApplicationAccepted = "ACP012";
 
 
         public const string PublicationMaxDay = "Pub";
