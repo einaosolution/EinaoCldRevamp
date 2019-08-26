@@ -15,6 +15,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.PatentApplication
 
         public string DataStatus { get; set; }
 
+        public string CertificatePayReference { get; set; }
+
 
         public List<IPORevamp.Data.Entity.Interface.Entities.PatentInformation.PatentInformation> PatentInformation { get; set; }
 

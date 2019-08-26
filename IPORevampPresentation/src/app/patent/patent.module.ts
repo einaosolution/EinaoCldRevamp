@@ -71,6 +71,9 @@ import { PatentReconductSearchComponent } from '../patent-reconduct-search/paten
 import { PatentAppealRefusalComponent } from '../patent-appeal-refusal/patent-appeal-refusal.component';
 import { PatentReceiveAppealComponent } from '../patent-receive-appeal/patent-receive-appeal.component';
 import { PatentReceiveAppel2Component } from '../patent-receive-appel2/patent-receive-appel2.component';
+import { PayPatentCertificateComponent } from '../pay-patent-certificate/pay-patent-certificate.component';
+import { NoticePatentCertificatePaymentComponent } from '../notice-patent-certificate-payment/notice-patent-certificate-payment.component';
+import { PatentPaidCertificaeComponent } from '../patent-paid-certificae/patent-paid-certificae.component';
 
 
 
@@ -152,6 +155,29 @@ const routes: Routes = [
                     component:   PatentReceiveAppel2Component
                     }
 
+                    ,
+                    {
+                      path:  'PayPatentCertificate',
+                      component:   PayPatentCertificateComponent
+                      }
+
+
+                      ,
+                      {
+                        path:  'NoticePatentCertificatePayment',
+                        component:   NoticePatentCertificatePaymentComponent
+                        }
+
+
+                        ,
+                        {
+                          path:  'PatentPaidCertificate',
+                          component:    PatentPaidCertificaeComponent
+                          }
+
+
+
+
 
 
 
@@ -185,7 +211,10 @@ const routes: Routes = [
 
     PatentReceiveAppealComponent ,
     PatentAppealUnitComponent,
-    PatentReceiveAppel2Component
+    PatentReceiveAppel2Component,
+    PayPatentCertificateComponent,
+    NoticePatentCertificatePaymentComponent,
+    PatentPaidCertificaeComponent
 
 
 

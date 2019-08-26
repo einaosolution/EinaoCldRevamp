@@ -58,6 +58,8 @@ export class PatentKivComponent implements OnInit {
   public row5  = [];
   public row6  = [];
 
+  filepath ="" ;
+
 
   vshow :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
@@ -455,6 +457,7 @@ this.pwalletid = kk.applicationId
   }
 
   ngOnInit() {
+    this.filepath = this.registerapi.GetFilepath2();
 
     if (this.registerapi.checkAccess("#/Patent/FreshApplication"))  {
 

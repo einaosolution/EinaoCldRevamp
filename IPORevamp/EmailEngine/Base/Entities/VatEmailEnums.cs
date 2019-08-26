@@ -67,6 +67,8 @@ namespace EmailEngine.Base.Entities
         public const string Certificate = "Certificate";
         public const string Opposition = "Opposition";
         public const string Search = "Search";
+        public const string Acceptance = "Acceptance";
+        
         public const string Examiner = "Examiner";
        
         public const string Publication = "Publication";

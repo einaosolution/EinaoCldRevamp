@@ -3,6 +3,8 @@ import Swal from 'sweetalert2' ;
 import {ApiClientService} from '../api-client.service';
 import {ActivatedRoute} from "@angular/router";
 import {Router} from '@angular/router';
+import {Status} from '../Status';
+import {DataStatus} from '../DataStatus';
 
 declare var $ :any;
 
@@ -33,6 +35,9 @@ export class Invoice2Component implements OnInit ,AfterViewInit {
   vshow:boolean =false;
   busy: Promise<any>;
   messages = ""
+
+  public Status = Status;
+public DataStatus = DataStatus;
 
   constructor(private registerapi :ApiClientService ,private route: ActivatedRoute ,private router: Router) {
 
@@ -72,7 +77,80 @@ export class Invoice2Component implements OnInit ,AfterViewInit {
    );
   }
 
+  generateInvoice9() {
+    let  pwallet =  localStorage.getItem('NoticeAppID');
+    let  pwallet2 =  localStorage.getItem('Pwallet');
 
+
+    let  userid = localStorage.getItem('UserId');
+       this.registerapi
+       .UpdateCertPatentPaymentById( pwallet ,userid ,this.transactionid)
+       .then((response: any) => {
+
+         console.log("response after payment")
+         console.log(response.content)
+
+
+         var  formData = new FormData();
+         var userid = localStorage.getItem('UserId');
+
+         var array = pwallet2.split(",");
+
+         for (let i = 0; i < array.length; i++) {
+
+
+           array[i]
+        // formData.append("pwalletid",pwallet2);
+        formData.append("pwalletid",array[i]);
+        formData.append("comment","Certificate Payment Sucessful");
+        formData.append("description","");
+        formData.append("fromstatus","");
+        formData.append("tostatus",Status.Paid);
+        formData.append("fromDatastatus","");
+        formData.append("toDatastatus",DataStatus.Certificate);
+        formData.append("userid",userid);
+        formData.append("uploadpath","");
+
+
+        this.busy =  this.registerapi
+        .SavePatentFreshAppHistory(formData)
+        .then((response: any) => {
+         this.router.navigateByUrl('/Dashboard/Invoice');
+
+        })
+                 .catch((response: any) => {
+                //  this.spinner.hide();
+                   console.log(response)
+
+
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
+
+     })
+
+   }
+
+       //  this.router.navigateByUrl('/Dashboard/Acknowledgement');
+
+
+
+       })
+                .catch((response: any) => {
+
+                  console.log(response)
+
+
+                 Swal.fire(
+                   response.error.message,
+                   '',
+                   'error'
+                 )
+
+   })
+     }
 
   generateInvoice8() {
     let  pwallet =  localStorage.getItem('Pwallet');
@@ -616,6 +694,11 @@ context['msImageSmoothingEnabled'] = false;
         }
 
 
+        if (paytype =="CertPatentPayment") {
+          this.generateInvoice9()
+        }
+
+
 
 
 
@@ -752,6 +835,11 @@ context['msImageSmoothingEnabled'] = false;
 
          if (paytype =="PtT002") {
           this.generateInvoice8()
+        }
+
+
+        if (paytype =="CertPatentPayment") {
+          this.generateInvoice9()
         }
 
 

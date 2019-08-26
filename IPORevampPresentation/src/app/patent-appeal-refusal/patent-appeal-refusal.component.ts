@@ -40,6 +40,7 @@ export class PatentAppealRefusalComponent implements OnInit {
   dataTable: any;
   savemode:boolean = true;
   updatemode:boolean = false;
+  filepath="" ;
   userform: FormGroup;
   submitted:boolean=false;
   busy: Promise<any>;
@@ -426,6 +427,7 @@ this.pwalletid = kk.applicationId
 
   ngOnInit() {
 
+    this.filepath = this.registerapi.GetFilepath2();
     if (this.registerapi.checkAccess("#/Patent/PatentAppealRefusal"))  {
 
     }

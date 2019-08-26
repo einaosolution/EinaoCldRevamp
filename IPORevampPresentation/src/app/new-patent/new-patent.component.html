@@ -897,7 +897,15 @@
                                     <div class="form-group">
                                         <label for="wphoneNumber2">Phone :</label>
 
-                                        <international-phone-number   autocomplete="nope"  formControlName="phone"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['phone'].hasError('required') }" class="form-control " placeholder="Enter Mobile  number"   [maxlength]="20" [defaultCountry]="'ng'" [required]="false"    #phone_number name="phone_number"></international-phone-number>
+
+
+                                        <input type="text" required type="text" autocomplete="nope"    formControlName="phone" [pattern]="phonepattern"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['phone'].hasError('required') }" class="form-control " id="PhoneNumber222" name="PhoneNumber221">
+
+
+                                        <div *ngIf="userform2.controls['phone'].errors?.pattern" style="color:red">
+                                         Phone Number  not valid.
+                                     </div>
+
                                     </div>
 
 

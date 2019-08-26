@@ -59,6 +59,7 @@ export class ExaminerPatentFreshComponent implements OnInit {
   public row4 = [];
   public row5  = [];
   public row6  = [];
+  filepath:any ;
 
   public appcomment =""
   appcomment3="";
@@ -760,6 +761,7 @@ this.busy =   this.registerapi
   }
 
   ngOnInit() {
+    this.filepath = this.registerapi.GetFilepath2();
 
     if (this.registerapi.checkAccess("#/Patent/ExaminerFresh"))  {
 

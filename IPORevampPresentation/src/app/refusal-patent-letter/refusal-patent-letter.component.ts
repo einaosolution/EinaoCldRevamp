@@ -24,6 +24,7 @@ export class RefusalPatentLetterComponent implements OnInit {
   vshow :boolean = false;
   busy: Promise<any>;
   public filepath
+
   appuser
   vimage
   constructor(private registerapi :ApiClientService) { }

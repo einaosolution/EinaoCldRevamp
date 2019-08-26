@@ -57,6 +57,7 @@ export class PatentfreshapplictionComponent implements OnInit {
   public row4  = [];
   public row5  = [];
   vshow :boolean = false;
+  filepath:any ;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
   onSubmit() {
@@ -424,6 +425,7 @@ this.pwalletid = kk.applicationId
   }
 
   ngOnInit() {
+    this.filepath = this.registerapi.GetFilepath2();
 
     if (this.registerapi.checkAccess("#/Patent/FreshApplication"))  {
 

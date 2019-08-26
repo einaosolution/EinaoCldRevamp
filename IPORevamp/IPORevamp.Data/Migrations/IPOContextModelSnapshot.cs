@@ -1322,6 +1322,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("ApplicationStatus");
 
+                    b.Property<string>("CertificatePayReference");
+
                     b.Property<string>("CreatedBy");
 
                     b.Property<string>("DataStatus");

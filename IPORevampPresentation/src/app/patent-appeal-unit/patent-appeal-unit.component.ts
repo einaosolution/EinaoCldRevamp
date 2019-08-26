@@ -34,6 +34,7 @@ export class PatentAppealUnitComponent implements OnInit {
   @ViewChild("fileInput") fileInput;
   dtOptions:any = {};
   modalRef: BsModalRef;
+  filepath ="" ;
   dtTrigger: Subject<any> = new Subject();
   public Status = Status;
   public DataStatus = DataStatus;
@@ -421,7 +422,7 @@ this.pwalletid = kk.applicationId
   }
 
   ngOnInit() {
-
+    this.filepath = this.registerapi.GetFilepath2();
     if (this.registerapi.checkAccess("#/Patent/TreatAppeal"))  {
 
     }

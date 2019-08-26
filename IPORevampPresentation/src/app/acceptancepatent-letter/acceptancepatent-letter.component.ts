@@ -31,7 +31,7 @@ export class AcceptancepatentLetterComponent implements OnInit {
   senddata (dd:FormData) {
 
     $(document).scrollTop(0);
-   this.registerapi.SendAttachmentAcceptance(dd)
+   this.registerapi.SendAttachmentPatentAcceptance(dd)
   .then((response: any) => {
 
 
@@ -154,18 +154,6 @@ export class AcceptancepatentLetterComponent implements OnInit {
     this.filepath = this.registerapi.GetFilepath2();
     var userid = localStorage.getItem('UserId');
 
-    this.registerapi
-    .SendPatentRegistraEmail(userid,pwallet)
-    .then((response: any) => {
-
-        })
-             .catch((response: any) => {
-
-               console.log(response)
-
- })
-
-
 
 
     this.registerapi
@@ -207,6 +195,20 @@ export class AcceptancepatentLetterComponent implements OnInit {
               console.log(response)
 
 })
+
+
+
+
+this.registerapi
+    .SendPatentRegistraEmail(userid,pwallet)
+    .then((response: any) => {
+
+        })
+             .catch((response: any) => {
+
+               console.log(response)
+
+ })
 
 
 

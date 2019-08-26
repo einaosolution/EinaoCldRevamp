@@ -399,6 +399,21 @@ public GetRandomNumber ( ) {
 
             }
 
+
+            SendAttachmentPatentAcceptance(formData) {
+
+              //  var token = localStorage.getItem('access_tokenexpire');
+
+               // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+               //var vip = localStorage.getItem('ip');
+              // const  headers = new  HttpHeaders().set("ip", vip);
+                return this.http.post( this.serviceBase + 'api/Patent/SendAttachmentAcceptance', formData )
+                            .toPromise()
+
+                            .then(data => {  return data; });
+
+              }
+
             SendAttachmentRefusal(formData) {
 
               //  var token = localStorage.getItem('access_tokenexpire');
@@ -1325,6 +1340,37 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetPatentCertificateFreshApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/GetFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentPaidCertificate(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/GetPatentPaidCertificate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     GetPatentExaminerKivapplication(pp2: string  ) {
       var data = {
@@ -1785,6 +1831,23 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/Certificate/UpdateCertPaymentById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    UpdateCertPatentPaymentById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/UpdateCertPaymentById', { params: data })
         .toPromise()
         .then((data) => {
           return data;

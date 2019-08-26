@@ -57,6 +57,7 @@ export class PatentReconductSearchComponent implements OnInit {
   public row4  = [];
   public row5  = [];
   public row6  = [];
+  filepath:any ;
 
 
   vshow :boolean = false;
@@ -455,7 +456,7 @@ this.pwalletid = kk.applicationId
   }
 
   ngOnInit() {
-
+    this.filepath = this.registerapi.GetFilepath2();
     if (this.registerapi.checkAccess("#/Patent/PatentReconductSearch"))  {
 
     }

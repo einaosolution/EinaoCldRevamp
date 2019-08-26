@@ -1892,7 +1892,7 @@ this.userform3.reset()
     this.userform2 = this.formBuilder.group({
       name: [null,Validators.required ],
       address: [null,Validators.required ],
-      phone: [''] ,
+      phone: ['',Validators.required] ,
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
