@@ -1371,6 +1371,38 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetPatentUserByApplication(pp2: string ,pp: string  ) {
+      var data = {
+
+        RequestById: pp2 ,
+        ApplicationId: pp
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/GetUserByApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentConfirmedCertificate(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/GetPatentConfirmedCertificate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     GetPatentExaminerKivapplication(pp2: string  ) {
       var data = {
@@ -2706,6 +2738,24 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 			});
   }
 
+
+  PatentCertificateSendUserEmail(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      applicationId:pp
+
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentCertificate/SendUserEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
 
   OppositionSendUserEmail2(pp2:string ,pp:string,pp3:string) {
     var token = localStorage.getItem('access_tokenexpire');

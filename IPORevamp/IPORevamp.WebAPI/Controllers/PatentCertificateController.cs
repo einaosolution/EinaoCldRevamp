@@ -165,6 +165,66 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+
+
+        [HttpGet("SendUserEmail")]
+        public async Task<IActionResult> SendUserEmail([FromQuery] string RequestById, [FromQuery] string applicationId)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.PatentCertificateCollection);
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+               
+                var users = (from p in _contex.Users where p.Id == Convert.ToInt32(applicationId) select p).FirstOrDefault();
+                var user2 = await _userManager.FindByIdAsync(Convert.ToString(users.Id)); ;
+
+                //  var message = "Dear " + user2.FirstName + " " + user2.LastName + ",your application in examination unit hs been treated and sent to your kiv folder ,find below the comment from the officer . <br/> <br/>" + Comment;
+
+                string mailContent = emailTemplate.EmailBody;
+
+                var vname = user2.FirstName + " " + user2.LastName;
+                mailContent = mailContent.Replace("#Name", vname);
+               
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+              
+                    await _emailsender.SendEmailAsync(user2.Email, emailTemplate.EmailSubject, mailContent);
+
+
+
+
+                    // get User Information
+                    //  user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                    // Added A New Country 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  sent user email   successfully",
+                        Entity = "Certificate",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "Certificate Returned Successfully", false, user2);
+
+               
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Certificate", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpGet("GetFreshApplication")]
         public async Task<IActionResult> GetFreshApplication([FromQuery] string RequestById)
         {
@@ -210,6 +270,52 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+
+        [HttpGet("GetUserByApplication")]
+        public async Task<IActionResult> GetPatentPaidCertificate([FromQuery] string RequestById, [FromQuery] string ApplicationId)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _patentCertificateRepository.GetUserByApplicationId(Convert.ToInt32(ApplicationId));
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Paten Application   successfully",
+                    Entity = "GetPatentAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Patent Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpGet("GetPatentPaidCertificate")]
         public async Task<IActionResult> GetPatentPaidCertificate([FromQuery] string RequestById)
         {
@@ -227,6 +333,52 @@ namespace IPORevamp.WebAPI.Controllers
 
 
                 var result = await _patentCertificateRepository.GetPatentPaidCertificate();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Paten Application   successfully",
+                    Entity = "GetPatentAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Patent Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetPatentConfirmedCertificate")]
+        public async Task<IActionResult> GetPatentConfirmedCertificate([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _patentCertificateRepository.GetPatentConfirmedCertificate();
 
 
                 // get User Information

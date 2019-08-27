@@ -107,10 +107,10 @@ onSubmit2() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment);
    formData.append("description","");
-   formData.append("fromstatus",Status.Registra);
-   formData.append("tostatus",Status.Appeal);
-   formData.append("fromDatastatus",DataStatus.Examiner);
-   formData.append("toDatastatus",DataStatus.Examiner);
+   formData.append("fromstatus",Status.Paid);
+   formData.append("tostatus",Status.Confirm);
+   formData.append("fromDatastatus",DataStatus.Certificate);
+   formData.append("toDatastatus",DataStatus.Certificate);
    formData.append("userid",userid);
 
 
@@ -131,7 +131,7 @@ onSubmit2() {
 
 
   this.registerapi
-.SendAppealUnitEmail(userid,this.pwalletid)
+.PatentCertificateSendUserEmail(userid,this.pwalletid)
 .then((response: any) => {
 
  // var table = $('#myTable').DataTable();

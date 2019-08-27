@@ -9,6 +9,7 @@ export enum Status {
    Counter = "Counter" ,
   Submitted = "Submitted" ,
   ReconductSearch = "ReconductSearch" ,
+  Confirm = "Confirm" ,
 
   DelegateAppeal= "DelegateAppeal" ,
   ReceiveAppeal ="ReceiveAppeal" ,

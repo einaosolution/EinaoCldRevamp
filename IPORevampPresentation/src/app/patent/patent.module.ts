@@ -74,6 +74,8 @@ import { PatentReceiveAppel2Component } from '../patent-receive-appel2/patent-re
 import { PayPatentCertificateComponent } from '../pay-patent-certificate/pay-patent-certificate.component';
 import { NoticePatentCertificatePaymentComponent } from '../notice-patent-certificate-payment/notice-patent-certificate-payment.component';
 import { PatentPaidCertificaeComponent } from '../patent-paid-certificae/patent-paid-certificae.component';
+import { PatentCertificateComponent } from '../patent-certificate/patent-certificate.component';
+import { PatentconfirmcertificateComponent } from '../patentconfirmcertificate/patentconfirmcertificate.component';
 
 
 
@@ -176,6 +178,29 @@ const routes: Routes = [
                           }
 
 
+                          ,
+                          {
+                            path:  'PatentCertificate',
+                            component:    PatentCertificateComponent
+                            }
+
+
+                            ,
+                          {
+                            path:  'Patentconfirmcertificate',
+                            component:    PatentconfirmcertificateComponent
+                            }
+
+                            ,
+                            {
+                              path:  'PatentCertificate',
+                              component:    PatentCertificateComponent
+                              }
+
+
+
+
+
 
 
 
@@ -214,7 +239,9 @@ const routes: Routes = [
     PatentReceiveAppel2Component,
     PayPatentCertificateComponent,
     NoticePatentCertificatePaymentComponent,
-    PatentPaidCertificaeComponent
+    PatentPaidCertificaeComponent,
+    PatentCertificateComponent,
+    PatentconfirmcertificateComponent
 
 
 

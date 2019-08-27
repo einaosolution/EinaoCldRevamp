@@ -88,6 +88,9 @@ namespace EmailEngine.Base.Entities
     public class STATUS
     {
         public const string Fresh = "Fresh";
+        public const string Confirm = "Confirm";
+
+        
         public const string Paid = "Paid";
         public const string Pending = "Pending";
         public const string Batch = "Batch";
@@ -153,8 +156,9 @@ namespace EmailEngine.Base.Entities
         public const string PublicationDue_Mail = "ACP007";
         public const string CertificatePayment = "ACP008";
         public const string NotifyUserOfOpposition = "ACP009";
+        public const string PatentCertificateCollection = "ACP014";
 
-        
+
 
         public const string Preliminary_Search = "PRELIM001";
         public const string Invoice = "RECPT001";

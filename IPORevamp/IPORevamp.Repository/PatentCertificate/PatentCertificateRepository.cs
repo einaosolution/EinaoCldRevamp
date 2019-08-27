@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using IPORevamp.Data.UserManagement.Model;
 
 namespace IPORevamp.Repository.PatentCertificate
 {
@@ -71,6 +72,35 @@ namespace IPORevamp.Repository.PatentCertificate
             return details;
             // return null;
         }
+
+        public async System.Threading.Tasks.Task<ApplicationUser> GetUserByApplicationId(int AppID)
+        {
+
+            var Application = await (from p in _contex.PatentApplication
+
+                                 where p.Id == AppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            int userid = Convert.ToInt32(Application.userid);
+
+
+            var Result = await (from p in _contex.Users
+
+                                     where p.Id == userid
+
+                                select p).FirstOrDefaultAsync();
+
+
+
+          
+
+
+
+
+            return Result;
+            // return null;
+        }
         public async Task<List<PatentDataResult>> GetPatentPaidCertificate()
         {
 
@@ -78,6 +108,21 @@ namespace IPORevamp.Repository.PatentCertificate
 
             var details = _contex.PatentDataResult
             .FromSql($"GePatentPaidCertificate   @p0, @p1", parameters: new[] { DATASTATUS.Certificate, STATUS.Paid })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+        public async Task<List<PatentDataResult>> GetPatentConfirmedCertificate()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentConfirmedCertificate   @p0, @p1", parameters: new[] { DATASTATUS.Certificate, STATUS.Confirm })
            .ToList();
 
 
