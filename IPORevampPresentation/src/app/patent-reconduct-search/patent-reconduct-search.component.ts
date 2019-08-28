@@ -128,7 +128,7 @@ onChange( deviceValue) {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);
    formData.append("description",this.appdescription);
-   formData.append("fromstatus",this.Status.Fresh);
+   formData.append("fromstatus",this.Status.ReconductSearch);
    formData.append("tostatus",this.Status.Fresh);
    formData.append("fromDatastatus",this.DataStatus.Search);
    formData.append("toDatastatus",this.DataStatus.Examiner);
@@ -227,9 +227,9 @@ onChange( deviceValue) {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment3);
    formData.append("description",this.appdescription);
-   formData.append("fromstatus",this.Status.Fresh);
+   formData.append("fromstatus",this.Status.ReconductSearch);
    formData.append("tostatus",this.Status.Kiv);
-   formData.append("fromDatastatus",this.DataStatus.Search);
+   formData.append("fromDatastatus",this.DataStatus.ReconductSearch);
    formData.append("toDatastatus",this.DataStatus.Search);
    formData.append("userid",userid);
 

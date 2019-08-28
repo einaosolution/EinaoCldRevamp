@@ -502,7 +502,8 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+        <button type="submit"  (click) ="onSubmit()"  class="btn btn-success"> Fail Formality Check</button>
+        <button type="submit" *ngIf="updatemode" (click) ="onSubmit4()"  class="btn btn-success"> Pass Formality Check</button>
                <div [ngBusy]="busy"></div>
               </div>
 </form>
@@ -642,19 +643,6 @@ Upload
       </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
