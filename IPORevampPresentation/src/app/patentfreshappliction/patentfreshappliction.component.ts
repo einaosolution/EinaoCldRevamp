@@ -138,11 +138,22 @@ onChange( deviceValue) {
 
      this.submitted=false;
 
-  this.busy =   this.registerapi
+
+
+
+  $("#createmodel3").modal('hide');
+  $("#createmodel").modal('hide');
+
+
+  table.destroy();
+
+  this. getallApplication2()
+
+  this.registerapi
   .SendExaminerEmail(userid)
   .then((response: any) => {
 
-    console.log("Examiner Email")
+
   //  this.rows = response.content;
 
 
@@ -159,16 +170,7 @@ onChange( deviceValue) {
               'error'
             )
 
-})
-
-
-  $("#createmodel3").modal('hide');
-  $("#createmodel").modal('hide');
-
-
-  table.destroy();
-
-  this. getallApplication2()
+  })
 
    })
             .catch((response: any) => {
@@ -183,6 +185,9 @@ onChange( deviceValue) {
              )
 
 })
+
+
+
 
     }
 

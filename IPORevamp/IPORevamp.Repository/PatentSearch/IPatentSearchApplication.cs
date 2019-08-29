@@ -23,7 +23,7 @@ namespace IPORevamp.Repository.PatentSearch
         void SendExaminerEmail();
         void SendUserEmail(int userid, string comment);
         Task<List<PatentDataResult>> GetPatentFreshApplication();
-   void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid);
+   void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid,string filepath);
 
        
 

@@ -48,7 +48,7 @@ namespace EmailEngine.Base.Entities
         Opposition_Officer_Trade_Mark =17,
         Recordals_Officers_Trade_Mark = 12  ,
         Individual =13,
-        Patent_Examiner =21,
+        Patent_Examiner =15,
         Registrar =8
 
 

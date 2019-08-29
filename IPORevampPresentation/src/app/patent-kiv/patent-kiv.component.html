@@ -502,7 +502,7 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+        <button type="submit"  (click) ="onSubmit4()"  class="btn btn-success"> Pass  Check</button>
                <div [ngBusy]="busy"></div>
               </div>
 </form>
@@ -572,7 +572,7 @@
       <div class="modal-content">
                <div class="card-body wizard-content">
                       <div class="modal-header">
-                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Pass Formality Check </h5>
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Pass  Check </h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                               </button>
@@ -580,21 +580,7 @@
                           <form name="form"  #f="ngForm" novalidate>
 <table class="table text-center"  >
 
-  <tr>
-      <td>
-       Mark Description
-      </td>
 
-      <td>
-          <select  [(ngModel)]="appdescription" #device  (change)="onChange(device.value)" required class="form-control custom-select">
-              <option value="">Select</option>
-              <option value="Similar Marks Exist">Similar Marks  Exist</option>
-              <option value="No Similar Marks">No Similar Marks</option>
-
-            </select>
-      </td>
-
-       </tr>
 <tr>
 <td>
 Comments

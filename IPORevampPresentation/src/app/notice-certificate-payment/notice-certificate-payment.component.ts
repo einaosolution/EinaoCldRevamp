@@ -764,74 +764,7 @@ var userid = localStorage.getItem('UserId');
 
     if (firstParam) {
 
-    this.tot =  localStorage.getItem('tot');
-    let qt = localStorage.getItem('quantity');
 
-      var kk2 = {
-        RRR:firstParam
-
-
-
-      }
-
-      this.registerapi
-      . RemitaTransactionRequeryPayment(kk2)
-      .then((response: any) => {
-
-        console.log("RemittaResponse")
-      //  this.rows = response.content;
-        console.log(response)
-
-      //  this.row2 =response.content
-
-        var result =response.content
-
-        if (result.message ="Approved")
-
-        {
-
-
-          var Payment= {
-
-            description: vdesc ,
-            quatity: qt,
-            amount: this.tot ,
-            paymentref:firstParam ,
-            transactionid:secondparam
-
-
-
-        };
-
-        localStorage.setItem('Payment',JSON.stringify( Payment));
-
-        this.generateInvoice()
-
-        }
-
-        else {
-          alert("Payment Not Successful")
-        }
-
-        this.vshow = true;
-
-    //    alert("success")
-
-
-
-      })
-               .catch((response: any) => {
-
-                 console.log(response)
-
-
-                Swal.fire(
-                  response.error.message,
-                  '',
-                  'error'
-                )
-
-   })
 
     }
 

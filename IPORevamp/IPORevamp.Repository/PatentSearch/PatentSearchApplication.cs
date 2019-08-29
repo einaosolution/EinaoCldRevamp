@@ -90,12 +90,17 @@ namespace IPORevamp.Repository.PatentSearch
 
 
         }
+
+       
         public async void SendExaminerEmail()
         {
-            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.SendPatentExaminerEmail);
+
+           
+             EmailTemplate emailtemplate =  (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.SendPatentExaminerEmail && c.IsActive == true && c.IsDeleted == true  select c).FirstOrDefault();
+            
             var roleid = Convert.ToInt32(IPORoles.Patent_Examiner);
 
-            var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid select c).ToList();
+            var ApplicationUser =  (from c in _contex.Users where c.RolesId == roleid select c).ToList();
             // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
 
             foreach (var users in ApplicationUser)
@@ -118,7 +123,7 @@ namespace IPORevamp.Repository.PatentSearch
         }
 
 
-            public async void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid)
+            public async void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid,string filepath)
         {
 
             var vpwallet = (from c in _contex.PatentApplication where c.Id == id select c).FirstOrDefault();
@@ -136,7 +141,7 @@ namespace IPORevamp.Repository.PatentSearch
                 vpwallet.DataStatus = toDatastatus;
 
 
-
+                _contex.SaveChanges();
                 // get User Information
 
 
@@ -145,55 +150,36 @@ namespace IPORevamp.Repository.PatentSearch
             }
 
 
-
+         
             // file upload
-            string msg = "";
+      
 
-            if (request.Form.Files.Count > 0)
-            {
-                try
+
+           
+
+                _contex.Add(new PatentApplicationHistory
                 {
-                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
-                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
-                    int result1 = Convert.ToInt32(oneMegaByte[0]);
-                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+                    PatentApplicationID = id,
+                    DateCreated = DateTime.Now,
+                    TransactionID = transactionid,
+                    FromDataStatus = prevDatastatus,
+                    patentcomment = comment,
+                    description = description,
 
-                    msg = await _fileUploadRespository.UploadFile(request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
-                      result2);
-
-                }
-
-                catch (Exception ee)
-                {
-                    var kk = ee.Message;
-                }
-
-
-            }
+                    ToDataStatus = toDatastatus,
+                    FromStatus = prevappstatus,
+                    ToStatus = tostatus,
+                    UploadsPath1 = filepath,
+                    userid = Convert.ToInt32(userid),
+                    Role = userrole
+                });
 
 
 
-
-            await _contex.AddAsync(new PatentApplicationHistory
-            {
-                PatentApplicationID = id,
-                DateCreated = DateTime.Now,
-                TransactionID = transactionid,
-                FromDataStatus = prevDatastatus,
-                patentcomment = comment,
-                description = description,
-
-                ToDataStatus = toDatastatus,
-                FromStatus = prevappstatus,
-                ToStatus = tostatus,
-                UploadsPath1 = msg,
-                userid = Convert.ToInt32(userid),
-                Role = userrole
-            });
+                _contex.SaveChanges();
 
 
-
-            //  _contex.SaveChanges();
+           
 
 
 

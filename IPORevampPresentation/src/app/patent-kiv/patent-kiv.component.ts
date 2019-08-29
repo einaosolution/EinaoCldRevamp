@@ -103,16 +103,7 @@ onChange( deviceValue) {
      }
 
 
-     if (!this.appdescription) {
 
-      Swal.fire(
-        " Mark Description  Required",
-        '',
-        'error'
-      )
-
-      return;
-     }
 
     if (f) {
 
@@ -128,10 +119,10 @@ onChange( deviceValue) {
 
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);
-   formData.append("description",this.appdescription);
-   formData.append("fromstatus",this.Status.Fresh);
+   formData.append("description","");
+   formData.append("fromstatus",this.Status.Kiv);
    formData.append("tostatus",this.Status.Fresh);
-   formData.append("fromDatastatus",this.DataStatus.Search);
+   formData.append("fromDatastatus",this.DataStatus.Examiner);
    formData.append("toDatastatus",this.DataStatus.Examiner);
    formData.append("userid",userid);
 

@@ -37,6 +37,7 @@ export class PremSearchComponent implements OnInit {
   Firstname: FormControl;
   Lastname: FormControl;
   registering: FormControl;
+  settingcode
   product: FormControl;
   industry: FormControl;
   UserEmail: FormControl;
@@ -52,6 +53,8 @@ export class PremSearchComponent implements OnInit {
   row3:any ;
   busy: Promise<any>;
   vshow:boolean = false;
+
+  settingoff:boolean =false;
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
@@ -115,7 +118,36 @@ if (  vcount > 0) {
 
     localStorage.setItem('PrelimData',JSON.stringify( PrelimData));
 
-    //this.router.navigateByUrl('/Dashboard/ProductBilling');
+
+if ( this.settingoff) {
+
+  var Payment= {
+
+      description: this.row5.description,
+      quatity: "1",
+      amount: this.tot ,
+      paymentref:"x13389996777",
+      transactionid:''
+
+
+
+  };
+
+
+localStorage.setItem('Payment',JSON.stringify( Payment));
+
+  localStorage.setItem('PaymentType',"PrelimSearch");
+ localStorage.setItem('settings',this.settingcode);
+
+    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+}
+
+else {
+
+
+
     this.row = []
     this.row.push(1)
    // var userid = localStorage.getItem('UserId');
@@ -183,6 +215,8 @@ if (  vcount > 0) {
               )
 
  })
+
+}
 
 
     }
@@ -286,6 +320,40 @@ if (response.content[count].description =="Cbn") {
                 '',
                 'error'
               )
+
+})
+
+
+
+this.busy =   this.registerapi
+.GetSettingsById("34",userid)
+.then((response: any) => {
+
+var Settings = response.content;
+console.log("Settins Value")
+  console.log(response.content)
+this.settingcode =Settings.itemValue
+if (Settings.itemValue =="0"    ) {
+  // alert("off")
+  this.settingoff =true;
+ }
+
+ else {
+   this.settingoff =false;
+
+ }
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
 
 })
 

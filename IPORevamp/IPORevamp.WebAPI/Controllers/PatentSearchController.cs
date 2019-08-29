@@ -137,7 +137,9 @@ namespace IPORevamp.WebAPI.Controllers
                     // get User Information
                     user = await _userManager.FindByIdAsync(RequestById.ToString());
 
-                    // Added A New Country 
+                // Added A New Country 
+                try
+                {
                     await _auditTrailManager.AddAuditTrail(new AuditTrail
                     {
                         ActionTaken = AuditAction.Create,
@@ -148,6 +150,12 @@ namespace IPORevamp.WebAPI.Controllers
                         UserName = user.UserName,
                         IpAddress = ip
                     });
+
+                }
+                catch(Exception ee)
+                {
+
+                }
 
                     return PrepareResponse(HttpStatusCode.OK, "PatentInventor Returned Successfully", false, "success");
 
@@ -326,6 +334,7 @@ namespace IPORevamp.WebAPI.Controllers
          [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid)
         {
             string ip = "";
+            string msg = "";
 
             ip = Request.Headers["ip"];
             var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
@@ -345,26 +354,38 @@ namespace IPORevamp.WebAPI.Controllers
             int id = Convert.ToInt32(pwalletid);
             var userrole = Convert.ToString(user.RolesId);
 
-            _patentSearchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid);
 
-
-
-
-
-            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
-
-            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            if (Request.Form.Files.Count > 0)
             {
-                ActionTaken = AuditAction.Update,
-                DateCreated = DateTime.Now,
-                Description = $"Application  has been Updated  successfully",
-                Entity = "PatentApplication",
-                UserId = user.Id,
-                UserName = user.UserName,
-                IpAddress = ip,
-                RecordBefore = fromstatus,
-                RecordAfter = tostatus
-            });
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                      result2);
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+           
+                _patentSearchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, msg);
+
+         
+
+
+           
+
+          
 
 
 
