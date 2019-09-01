@@ -136,6 +136,14 @@ public RemovePriority (ids  ) {
 
 }
 
+public Reset (  ) {
+
+  this.priority = []
+  this.invention =[]
+
+}
+
+
 
 
 public GetRandomNumber ( ) {
@@ -324,6 +332,26 @@ public GetRandomNumber ( ) {
         }
 
 
+        SavePatentStateAppHistory(formData) {
+
+          //  var token = localStorage.getItem('access_tokenexpire');
+
+           // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+           //var vip = localStorage.getItem('ip');
+          // const  headers = new  HttpHeaders().set("ip", vip);
+            return this.http.post( this.serviceBase + 'api/PatentSearch/SavePatentStateAppHistory', formData )
+                        .toPromise()
+
+                        .then(data => {  return data; });
+
+          }
+
+
+
+
+
+
+
 
       SaveFreshAppHistory2(formData) {
 
@@ -368,6 +396,22 @@ public GetRandomNumber ( ) {
                       .then(data => {  return data; });
 
         }
+
+
+
+        SendAKnowlegment(formData) {
+
+          //  var token = localStorage.getItem('access_tokenexpire');
+
+           // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+           //var vip = localStorage.getItem('ip');
+          // const  headers = new  HttpHeaders().set("ip", vip);
+            return this.http.post( this.serviceBase + 'api/Trademark/SendAKnowlegment', formData )
+                        .toPromise()
+
+                        .then(data => {  return data; });
+
+          }
 
 
         SendAttachmentReceipt(formData) {
@@ -926,6 +970,23 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+
+    GetPatentSearchState(pp: string,pp2: string ) {
+
+      var data = {
+        RequestById: pp ,
+        ApplicationId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentSearchState', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     DeleteCountry(pp: string,pp2: string ) {
 
       var data = {
@@ -1325,6 +1386,21 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetPatentByUserId(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentByUserId', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetPatentExaminerFreshapplication(pp2: string  ) {
       var data = {
 
@@ -1355,6 +1431,20 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetPatentCertificatePayment(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/GetPatentCertificatePayment', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
 
     GetPatentPaidCertificate(pp2: string  ) {
       var data = {
@@ -1420,6 +1510,22 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetPatentSearchKiv(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentSearchKiv', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     GetPatentAppealUnit(pp2: string  ) {
       var data = {
 
@@ -1450,6 +1556,24 @@ RejectUser(pp: string,pp2: string ) {
           return data;
         });
     }
+
+
+    GetApplicationTransactionAmount(pp2: string ,pp: string  ) {
+      var data = {
+
+        RequestById: pp2 ,
+        TransactionId: pp
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetApplicationTransactionAmount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
 
     GetPatentAppeal(pp2: string  ) {
@@ -1533,6 +1657,23 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    SendPatentExaminerEmail(pp: string ) {
+
+      var data = {
+
+        RequestById: pp
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/SendExaminerEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+
     SendPatentUserEmail(pp: string ,pp2: string  ,pp3: string  ) {
 
       var data = {
@@ -1549,6 +1690,25 @@ RejectUser(pp: string,pp2: string ) {
           return data;
         });
     }
+
+
+    SendEmailForCertificate(pp: string ,pp2: string  ,pp3: string  ) {
+
+      var data = {
+
+        RequestById: pp ,
+        appid: pp2 ,
+        comment:pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/SendEmailForCertificate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     GetPatentInventorById(pp: string,pp2: string ) {
 

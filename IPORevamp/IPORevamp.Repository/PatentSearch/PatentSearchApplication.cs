@@ -65,7 +65,8 @@ namespace IPORevamp.Repository.PatentSearch
 
         public async void SendUserEmail(int  appid,string comment)
         {
-            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.SentToKiv);
+           
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.SentToKiv && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
             // var roleid = Convert.ToInt32(IPORoles.Patent_Examiner);
             var vpwallet = (from c in _contex.PatentApplication where c.Id == appid select c).FirstOrDefault();
             var users = (from c in _contex.Users where c.Id == Convert.ToInt32(vpwallet.userid)  select c).FirstOrDefault();
@@ -80,6 +81,8 @@ namespace IPORevamp.Repository.PatentSearch
 
                 mailContent = mailContent.Replace("#comment", comment);
 
+            mailContent = mailContent.Replace("#Name", vname);
+
 
 
             await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
@@ -91,12 +94,44 @@ namespace IPORevamp.Repository.PatentSearch
 
         }
 
-       
+
+        public async void SendEmailForCerticate(int appid, string comment)
+        {
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.CertificatePayment && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+            // var roleid = Convert.ToInt32(IPORoles.Patent_Examiner);
+            var vpwallet = (from c in _contex.PatentApplication where c.Id == appid select c).FirstOrDefault();
+            var users = (from c in _contex.Users where c.Id == Convert.ToInt32(vpwallet.userid) select c).FirstOrDefault();
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+
+            var vname = users.FirstName + " " + users.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+            mailContent = mailContent.Replace("#comment", comment);
+
+            mailContent = mailContent.Replace("#Name", vname);
+
+
+
+            await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+
+
+
+        }
+
+
         public async void SendExaminerEmail()
         {
 
            
-             EmailTemplate emailtemplate =  (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.SendPatentExaminerEmail && c.IsActive == true && c.IsDeleted == true  select c).FirstOrDefault();
+             EmailTemplate emailtemplate =  (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.SendPatentExaminerEmail && c.IsActive == true && c.IsDeleted == false  select c).FirstOrDefault();
             
             var roleid = Convert.ToInt32(IPORoles.Patent_Examiner);
 
@@ -186,6 +221,69 @@ namespace IPORevamp.Repository.PatentSearch
             // return null;
         }
 
+
+        public async void SaveApplicationStateHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid, string filepath)
+        {
+
+            var vpwallet = (from c in _contex.PatentApplication where c.Id == id select c).FirstOrDefault();
+
+            string transactionid = vpwallet.TransactionID;
+          
+
+
+
+         
+
+
+
+            // file upload
+
+
+
+
+
+            _contex.Add(new PatentApplicationHistory
+            {
+                PatentApplicationID = id,
+                DateCreated = DateTime.Now,
+                TransactionID = transactionid,
+                FromDataStatus = toDatastatus,
+                patentcomment = comment,
+                description = description,
+
+                ToDataStatus = toDatastatus,
+                FromStatus = fromstatus,
+                ToStatus = tostatus,
+                UploadsPath1 = filepath,
+                userid = Convert.ToInt32(userid),
+                Role = userrole
+            });
+
+
+
+            _contex.SaveChanges();
+
+
+
+
+
+
+            // return null;
+        }
+        public async Task<List<PatentDataResult>> GetPatentSearchKiv()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentExminerKiv   @p0, @p1", parameters: new[] { DATASTATUS.Search, STATUS.Kiv })
+           .ToList();
+
+
+
+            return details;
+        }
+
         public async Task<List<PatentDataResult>> GetPatentFreshApplication()
         {
           
@@ -200,6 +298,31 @@ namespace IPORevamp.Repository.PatentSearch
             return details;
         }
 
+
+        public async Task<List<PatentDataResult>> GetPatentApplicationByUserid(string userid)
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentApplicationByUserid   @p0", parameters: new[] { userid })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+        public async Task<List<PatentApplicationHistory>> GetSearchState(int id,int  userid)
+        {
+
+
+            var patentsearchstater = (from c in _contex.PatentApplicationHistory where c.PatentApplicationID == id  && c.userid == userid && c.ToStatus == STATUS.SaveMode select c).ToList();
+
+
+            return patentsearchstater;
+        }
 
         public async Task<List<PatentInvention>> GetInventorById(int id )
         {

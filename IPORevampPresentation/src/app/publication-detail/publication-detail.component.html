@@ -15,21 +15,27 @@
 
   <div id="report"    class="pp report" >
 <hr/>
-        <div  *ngFor="let emp of rows  let i = index">
+        <div  *ngFor="let emp of rows  let i = index" style="padding-left: 5px;padding-right:5px ; font-family:sans-serif;">
 
             <div>
-                <strong> {{emp.filenumber}} </strong>  {{emp.filingDate|date}}   ({{emp.applicationclass}})
+              <strong>   Registration Number </strong>:  <strong> {{emp.filenumber}} </strong>  {{emp.filingDate|date}}   ({{emp.applicationclass}})
 
             </div>
+
+            <hr/>
+
+            <br/>
 
             <div *ngIf="emp.logo_pic">
 
-                <img alt="" src="data:image/gif;base64,{{emp.logo_pic}}"  height="25%" width="25%"/>
+                <img alt=""  class="mx-auto d-block" src="data:image/gif;base64,{{emp.logo_pic}}"  height="25%" width="25%"/>
 
             </div>
 
+            <br/>
+
             <div>
-                <strong> {{emp.productTitle}}  </strong>
+                <strong> {{emp.productTitle.toUpperCase()}}  </strong>
             </div>
 
             <div>
@@ -37,12 +43,12 @@
             </div>
 
             <div>
-                {{emp.classdescription}}
+                {{emp.classdescription.toUpperCase()}}
             </div>
 
 
             <div>
-                <strong>{{emp.applicantName}} </strong>
+                <strong>{{emp.applicantName.toUpperCase()}} </strong>
             </div>
 
 
@@ -50,7 +56,7 @@
                 <strong>Email:</strong> {{emp.email}}  , {{emp.applicantAddress}}
             </div>
 
-            <hr/>
+           <br/>
 
           </div>
 

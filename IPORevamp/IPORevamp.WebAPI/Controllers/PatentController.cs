@@ -150,8 +150,33 @@ namespace IPORevamp.WebAPI.Controllers
         {
             try
             {
+
+                EmailTemplate emailTemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.PatentFreshApplication && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
                 // check for user information before processing the request
                 _newApplicationRepository.updatePatentTransactionById(pwalletid, transid);
+
+                string mailContent = emailTemplate.EmailBody;
+
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                var roleid = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+
+                var user3 = _userManager.Users.Where(x => x.RolesId == roleid).ToList();
+
+                foreach (var users in user3)
+                {
+                    mailContent = mailContent.Replace("#Name", users.FirstName + " " + users.LastName);
+                  
+                    await _emailsender.SendEmailAsync(users.Email, emailTemplate.EmailSubject, mailContent);
+
+
+                }
+
+
+
+
+
 
                 return Ok();
 
@@ -314,7 +339,16 @@ namespace IPORevamp.WebAPI.Controllers
 
             addressOfService.PhoneNumber = PhoneNumber;
             addressOfService.Email = Email;
-            addressOfService.StateID =Convert.ToInt32( State);
+            try
+            {
+                addressOfService.StateID = Convert.ToInt32(State);
+
+            }
+
+            catch(Exception  ee)
+            {
+
+            }
 
             PatentInformation patentInformation = new PatentInformation();
 
@@ -555,9 +589,12 @@ namespace IPORevamp.WebAPI.Controllers
                 patentInformation.PatentApplicationID = ApplicationId2;
 
                 addressOfService.PatentApplicationID = ApplicationId2;
+                if (patentInformation.LetterOfAuthorization !=null) { 
               await  _newApplicationRepository.SaveAddressOfService(addressOfService);
 
-               var result = await _newApplicationRepository.SavePatentInformation(patentInformation);
+                }
+
+                var result = await _newApplicationRepository.SavePatentInformation(patentInformation);
                 await _newApplicationRepository.SavePatentAssignment(patentAssignment);
                 
             }
@@ -600,7 +637,11 @@ namespace IPORevamp.WebAPI.Controllers
                 await _newApplicationRepository.UpdatePatentInformation(patentAllinformation);
 
                 addressOfService.PatentApplicationID = Convert.ToInt32(ApplicationId);
-                _newApplicationRepository.SaveAddressOfService(addressOfService);
+                if (patentInformation.LetterOfAuthorization != null)
+                {
+                    _newApplicationRepository.SaveAddressOfService(addressOfService);
+
+                }
 
                 await _newApplicationRepository.UpdatePatentAssignment(Convert.ToInt32(ApplicationId), patentAssignment);
 

@@ -108,6 +108,11 @@ auditTrailManager
 
         }
 
+      
+
+
+
+
 
         [HttpGet("SendRegistraAppealEmail")]
         public async Task<IActionResult> SendRegistraAppealEmail([FromQuery] string RequestById, [FromQuery] string Appid)
@@ -171,6 +176,60 @@ auditTrailManager
             {
                 _logger.LogError(ex, "Sent Email", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+        [HttpGet("SendExaminerEmail")]
+        public async Task<IActionResult> SendExaminerEmail([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+
+            try
+            {
+                ip = Request.Headers["ip"];
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                _patentExaminerRepository.SendExaminerEmail();
+
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                try
+                {
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all SendExaminerEmail  successfully",
+                        Entity = "SendExaminerEmail",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+                catch (Exception ee)
+                {
+
+                }
+
+                return PrepareResponse(HttpStatusCode.OK, "PatentInventor Returned Successfully", false, "success");
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select PatentPriority", "");
+                return PrepareResponse(HttpStatusCode.OK, "Mail Not Sent", false, "");
             }
         }
 
@@ -571,6 +630,61 @@ auditTrailManager
 
 
         }
+
+        [HttpGet("GetApplicationTransactionAmount")]
+        public async Task<IActionResult> GetApplicationTransactionAmountl([FromQuery] string RequestById , [FromQuery] string TransactionId)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _patentExaminerRepository.SendApplicationAmount(TransactionId);
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all  patent successfully",
+                    Entity = "GetAllPatentAppeal",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Appeal Patent Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
 
         [HttpGet("GetPatentTreatedAppeal")]
         public async Task<IActionResult> GetPatentTreatedAppeal([FromQuery] string RequestById)

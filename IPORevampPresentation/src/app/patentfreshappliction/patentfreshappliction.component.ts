@@ -47,20 +47,29 @@ export class PatentfreshapplictionComponent implements OnInit {
   Code: FormControl;
   id:string;
   pwalletid:string ;
-  appdescription:string ;
+  appdescription:string ="" ;
+  display =false
   appcomment3:string ;
   appcomment2:string ;
   Description: FormControl;
+  markdescription =[{ title: "Similar Marks Exist", value: "Similar Marks Exist" },
+  { title: "No Similar Marks", value: "No Similar Marks" }]
   public rows = [];
   public row2
   public row3 = [];
   public row4  = [];
   public row5  = [];
+  public row50  = [];
+  uploads
+  dataid
+
+
   vshow :boolean = false;
   filepath:any ;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
   onSubmit() {
+    this.appcomment3 = ""
     $("#createmodel2").modal('show');
 
 }
@@ -74,12 +83,150 @@ valuechange(een ) {
 
 
 onSubmit4() {
+  this.appdescription =""
+  this.display = false;
+  this.onChange("")
+  this.appcomment2 =""
+
+  let test = this.fileInput.nativeElement;
+  this.markdescription = []
+
+
+  this.markdescription =[{ title: "Similar Marks Exist", value: "Similar Marks Exist" },
+  { title: "No Similar Marks", value: "No Similar Marks" }]
+
+  test.value = ''
+
   $("#createmodel3").modal('show');
 }
 
 onChange( deviceValue) {
   console.log(deviceValue);
   this.appdescription = deviceValue
+}
+
+onSubmit22(data) {
+
+
+  this.display = true;
+
+ // $('#vselect').val(data.description).change();
+
+ // this.onChange(data.description)
+
+  this.appcomment2 = data.patentcomment
+  this.dataid = data.id
+
+
+  if (data.uploadsPath1) {
+    this.uploads = data.uploadsPath1
+  }
+
+ // this.appdescription ="\""+ data.description + "\"" ;
+  this.appdescription =data.description  ;
+
+ // this.appdescription ="No Similar Marks"
+
+
+}
+onSubmit20(f) {
+  console.log(this.model)
+
+
+
+  if (!this.appcomment2  ) {
+
+    Swal.fire(
+      "Comment   Required",
+      '',
+      'error'
+    )
+
+    return;
+   }
+
+
+   if (!this.appdescription) {
+
+    Swal.fire(
+      " Mark Description  Required",
+      '',
+      'error'
+    )
+
+    return;
+   }
+
+  if (f) {
+
+  var  formData = new FormData();
+  var userid = localStorage.getItem('UserId');
+  var table = $('#myTable').DataTable();
+  let fi = this.fileInput.nativeElement;
+  if (fi.files && fi.files[0]) {
+    let fileToUpload = fi.files[0];
+   formData.append("FileUpload", fileToUpload);
+
+   }
+
+  formData.append("pwalletid",this.pwalletid);
+ formData.append("comment",this.appcomment2);
+ formData.append("description",this.appdescription);
+ formData.append("fromstatus",this.Status.Fresh);
+ formData.append("tostatus",this.Status.SaveMode);
+ formData.append("fromDatastatus",this.DataStatus.Search);
+ formData.append("toDatastatus",this.DataStatus.Search);
+ formData.append("userid",userid);
+
+
+ this.busy =  this.registerapi
+ .SavePatentStateAppHistory(formData)
+ .then((response: any) => {
+
+   this.submitted=false;
+
+
+
+
+$("#createmodel3").modal('hide');
+$("#createmodel").modal('hide');
+
+
+table.destroy();
+
+this. getallApplication2()
+
+
+
+ })
+          .catch((response: any) => {
+           this.spinner.hide();
+            console.log(response)
+
+
+           Swal.fire(
+             response.error.message,
+             '',
+             'error'
+           )
+
+})
+
+
+
+
+  }
+
+  else {
+   // alert("input not valid")
+
+    Swal.fire(
+      "input not valid",
+      '',
+      'error'
+    )
+  }
+
 }
 
   onSubmit2(f) {
@@ -130,6 +277,7 @@ onChange( deviceValue) {
    formData.append("fromDatastatus",this.DataStatus.Search);
    formData.append("toDatastatus",this.DataStatus.Examiner);
    formData.append("userid",userid);
+   formData.append("Uploads",this.uploads);
 
 
    this.busy =  this.registerapi
@@ -150,7 +298,7 @@ onChange( deviceValue) {
   this. getallApplication2()
 
   this.registerapi
-  .SendExaminerEmail(userid)
+  .SendPatentExaminerEmail(userid)
   .then((response: any) => {
 
 
@@ -367,6 +515,35 @@ this.pwalletid = kk.applicationId
                '',
                'error'
              )
+
+})
+
+
+ this.registerapi
+.GetPatentSearchState( userid ,this.pwalletid )
+.then((response: any) => {
+
+  console.log("History content")
+  this.row50 = response.content;
+  console.log(response.content)
+
+
+
+
+
+
+
+})
+         .catch((response: any) => {
+          this.spinner.hide();
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
 
 })
 

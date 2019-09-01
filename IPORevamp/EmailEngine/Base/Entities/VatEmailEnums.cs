@@ -90,7 +90,9 @@ namespace EmailEngine.Base.Entities
         public const string Fresh = "Fresh";
         public const string Confirm = "Confirm";
 
-        
+        public const string SaveMode = "SaveMode";
+
+
         public const string Paid = "Paid";
         public const string Pending = "Pending";
         public const string Batch = "Batch";
@@ -157,12 +159,14 @@ namespace EmailEngine.Base.Entities
         public const string CertificatePayment = "ACP008";
         public const string NotifyUserOfOpposition = "ACP009";
         public const string PatentCertificateCollection = "ACP014";
+        public const string PatentFreshApplication = "ACP015";
 
 
 
         public const string Preliminary_Search = "PRELIM001";
         public const string Invoice = "RECPT001";
         public const string Receipt = "RECPT002";
+        public const string TransactionAcknowledgment = "ACP016";
         public const string Acceptance = "ACP001";
         public const string PatentAcceptance = "ACP013";
         public const string Refusal = "ACP002";

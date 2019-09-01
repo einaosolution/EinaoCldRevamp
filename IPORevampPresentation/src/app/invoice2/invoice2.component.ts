@@ -158,7 +158,7 @@ public DataStatus = DataStatus;
        .UpDatePatentTransactionById( pwallet ,this.transactionid)
        .then((response: any) => {
 
-         this.router.navigateByUrl('/Dashboard/Invoice');
+         this.router.navigateByUrl('/Patent/Invoice');
 
 
 

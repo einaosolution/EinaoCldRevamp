@@ -49,6 +49,65 @@ this.registerapi.SendAttachment(dd)
    );
   }
 
+
+  onSubmit9(){
+    alert("Return")
+    html2canvas(document.getElementById('report2')).then(function(canvas) {
+      // alert(self)
+
+
+      const context = canvas.getContext('2d');
+      context.scale(2, 2);
+      context['dpi'] = 144;
+      context['imageSmoothingEnabled'] = false;
+      context['mozImageSmoothingEnabled'] = false;
+      context['oImageSmoothingEnabled'] = false;
+      context['webkitImageSmoothingEnabled'] = false;
+      context['msImageSmoothingEnabled'] = false;
+
+      // alert(self)
+      var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+     //  var img = canvas.toDataURL("image/png");
+       var img = canvas.toDataURL("image/png", 1.0);
+
+    //  var doc = new jsPDF();
+
+
+    //  var doc = new jsPDF('p', 'mm', "a4");
+
+   // doc.setFont("courier");
+
+    var width = doc.internal.pageSize.width;
+    var height = doc.internal.pageSize.height;
+
+
+
+  //  doc.addImage(img, 'JPEG', 0, 0, width, height);
+    doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+
+  //  doc.addImage(img,0,0,canvas.width, canvas.height);
+
+
+
+   // var pdf = doc.output('blob');
+
+   doc.save('Output.pdf');
+
+    // var pdf = doc.output('blob');
+     //console.log(pdf)
+
+
+
+
+   //formData.append("FileUpload", fileToUpload);
+
+   //self.senddata(data2)
+
+
+
+   });
+
+  }
   onSubmit8(){
 
 
@@ -68,7 +127,6 @@ this.registerapi.SendAttachment(dd)
 
    };
 
-   //console.log(AgentsData)
 
    data2.append("RegisterBindingModel", JSON.stringify(AgentsData));
    var self = this;
@@ -81,19 +139,14 @@ this.registerapi.SendAttachment(dd)
      //  var img = canvas.toDataURL("image/png");
      var img = canvas.toDataURL("image/png", 1.0);
 
-    //  var doc = new jsPDF();
 
-
-    //  var doc = new jsPDF('p', 'mm', "a4");
-
-   //doc.setFont("courier");
 
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
 
 
 
-    //doc.addImage(img, 'JPEG', 0, 0, width, height);
+
 
     doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
 
@@ -137,75 +190,8 @@ this.registerapi.SendAttachment(dd)
     this. generatePdf()
   }
   ngOnInit() {
-    var pwallet =   localStorage.getItem('Pwallet');
-    var vpayment= localStorage.getItem('Payment')
 
-    this.row= JSON.parse(vpayment);
-    this.vdate =new Date();
-
-
-    this.registerapi
-    .GetAknwoledgment(pwallet)
-    .then((response: any) => {
-
-
-      this.row2 = response.content;
-      this.rrr=localStorage.getItem('rrr');
-
-      this.vshow =true;
-
-      var self = this;
-
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false,
-      })
-
-          swalWithBootstrapButtons.fire({
-            title: 'A Copy Will be sent to your email ',
-            text: "",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, Proceed!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.value) {
-
-              self.onSubmit8();
-        } else if (
-              // Read more about handling dismissals
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-
-            }
-          })
-
-
-
-
-     // alert("Generating")
-
-     // this. generatePdf()
-
-      console.log("ack")
-
-      console.log(response)
-
-
-    })
-             .catch((response: any) => {
-
-               console.log(response)
-
-
-       alert("error")
-  })
-
-
+    this.onSubmit9() ;
 
 
 

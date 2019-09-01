@@ -450,7 +450,7 @@ this.pwalletid = kk.applicationId
   ngOnInit() {
     this.filepath = this.registerapi.GetFilepath2();
 
-    if (this.registerapi.checkAccess("#/Patent/FreshApplication"))  {
+    if (this.registerapi.checkAccess("#/Patent/PatentKiv"))  {
 
     }
 

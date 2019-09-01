@@ -523,7 +523,7 @@
 
 <!-- Create Modal 3 -->
 <div class="modal fade" id="createmodel3" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
                <div class="card-body wizard-content">
                       <div class="modal-header">
@@ -541,10 +541,15 @@
       </td>
 
       <td>
-          <select  [(ngModel)]="appdescription" #device  (change)="onChange(device.value)" required class="form-control custom-select">
-              <option value="">Select</option>
-              <option value="Similar Marks Exist">Similar Marks  Exist</option>
+
+
+          <select  name ="vselect3"  [(ngModel)]="appdescription" #device  (change)="onChange(device.value)" required class="form-control custom-select">
+              <option value="">Select Description</option>
+              <option value="Similar Marks Exist">Similar Marks Exist</option>
               <option value="No Similar Marks">No Similar Marks</option>
+
+
+
 
             </select>
       </td>
@@ -571,6 +576,10 @@ Upload
 
 <td>
   <input type="file" #fileInput class="form-control " id="uploadAddress2" name="uploadAddress">
+<span *ngIf="uploads && display">
+  <a  target="_blank"  href="{{filepath}}Upload/{{uploads}}">View Upload</a>   <br/>
+</span>
+
 </td>
 
 </tr>
@@ -591,9 +600,54 @@ Upload
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="submit"  (click) ="onSubmit2(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="submit"  (click) ="onSubmit20(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save And Continue Later</button>
 
               </div>
           </form>
+
+
+          <table id="myTable"  *ngIf="row50.length > 0"  class="table table-bordered">
+            <thead>
+                <tr>
+
+
+                    <th>Mark Description</th>
+                    <th>Comment</th>
+
+                   <th>Upload </th>
+
+
+                   <th> </th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let data of row50  let i = index">
+
+
+
+                       <td>{{data.description}}</td>
+                        <td>{{data.patentcomment}}</td>
+
+                        <td>{{data.uploadsPath1}}</td>
+
+
+
+
+                        <td>
+                          <button type="button" id="openModalButton"  (click) ="onSubmit22(data)"   class="btn btn-success ">Restore </button>
+
+
+
+                     </td>
+
+
+
+                      </tr>
+                    </tbody>
+        </table>
       </div>
   </div>
 </div>

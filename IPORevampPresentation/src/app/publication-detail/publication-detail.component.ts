@@ -83,7 +83,7 @@ export class PublicationDetailComponent implements OnInit {
 
   generatepdf3() {
     var doc4 = new jspdf();
-    alert("inside")
+
 
     doc4.fromHTML(document.getElementById('html-2-pdfwrapper'),
     this.margins.left, // x coord
@@ -160,30 +160,33 @@ doc.save ('Visiometria_'+this.id+ '_'+date.getTime()+'.pdf')
   var  self = this;
 
     html2canvas(document.getElementById('report')).then(function(canvas) {
+      const context = canvas.getContext('2d');
+      context.scale(2, 2);
+      context['dpi'] = 144;
+      context['imageSmoothingEnabled'] = false;
+      context['mozImageSmoothingEnabled'] = false;
+      context['oImageSmoothingEnabled'] = false;
+      context['webkitImageSmoothingEnabled'] = false;
+      context['msImageSmoothingEnabled'] = false;
+
       var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+      // var img = canvas.toDataURL("image/png");
+      var img = canvas.toDataURL("image/png", 1.0);
 
-     // var img = canvas.toDataURL("image/png");
-     var img = canvas.toDataURL("image/png", 1.0);
-     // doc.addPage(self.PDF_Width, self.PDF_Height);
-
-  // doc.setFont("courier");
+    //  var doc = new jsPDF();
 
 
+    //  var doc = new jsPDF('p', 'mm', "a4");
+
+    //doc.setFont("courier");
+
+    var width = doc.internal.pageSize.width;
+    var height = doc.internal.pageSize.height;
 
 
-   var width = doc.internal.pageSize.getWidth();
-var height = doc.internal.pageSize.getHeight();
 
-
-   // var width = doc.internal.pageSize.width;
-   // var height = doc.internal.pageSize.height;
-
-  //doc.addImage(img, 'JPEG',5,20);
-    //doc.addImage(img, 'JPEG', 0, 0);
-
-  //  doc.addImage(img, 'JPEG', 0, 0, width, height);
-
-  doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+   // doc.addImage(img, 'JPEG', 0, 0, width, height);
+   doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
 
 
 

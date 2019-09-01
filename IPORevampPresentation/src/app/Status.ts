@@ -8,6 +8,7 @@ export enum Status {
    Kiv = "Kiv" ,
    Counter = "Counter" ,
   Submitted = "Submitted" ,
+  SaveMode = "SaveMode" ,
   ReconductSearch = "ReconductSearch" ,
   Confirm = "Confirm" ,
 

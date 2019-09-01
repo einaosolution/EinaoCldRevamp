@@ -54,7 +54,9 @@ export class SearchFreshAppComponent implements OnInit {
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
   onSubmit() {
+    this.appcomment3= ""
     $("#createmodel2").modal('show');
+    
 
 }
 

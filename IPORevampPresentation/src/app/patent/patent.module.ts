@@ -76,6 +76,10 @@ import { NoticePatentCertificatePaymentComponent } from '../notice-patent-certif
 import { PatentPaidCertificaeComponent } from '../patent-paid-certificae/patent-paid-certificae.component';
 import { PatentCertificateComponent } from '../patent-certificate/patent-certificate.component';
 import { PatentconfirmcertificateComponent } from '../patentconfirmcertificate/patentconfirmcertificate.component';
+import { PatentUserApplicationComponent } from '../patent-user-application/patent-user-application.component';
+import { PatentSearchKivComponent } from '../patent-search-kiv/patent-search-kiv.component';
+import { Invoice3Component } from '../invoice3/invoice3.component';
+import { PatentRegistraCertificateComponent } from '../patent-registra-certificate/patent-registra-certificate.component';
 
 
 
@@ -198,6 +202,32 @@ const routes: Routes = [
                               }
 
 
+                              ,
+                              {
+                                path:  'PatentUserApplication',
+                                component:    PatentUserApplicationComponent
+                                }
+
+                                ,
+                                {
+                                  path:  'PatentSearchKiv',
+                                  component:    PatentSearchKivComponent
+                                  }
+
+                                  ,
+                                {
+                                  path:  'Invoice',
+                                  component:    Invoice3Component
+                                  }
+
+
+                                  ,
+                                  {
+                                    path:  'PatentCertificatePayment',
+                                    component:    PatentRegistraCertificateComponent
+                                    }
+
+
 
 
 
@@ -241,7 +271,11 @@ const routes: Routes = [
     NoticePatentCertificatePaymentComponent,
     PatentPaidCertificaeComponent,
     PatentCertificateComponent,
-    PatentconfirmcertificateComponent
+    PatentconfirmcertificateComponent,
+    PatentUserApplicationComponent,
+    PatentSearchKivComponent,
+    Invoice3Component,
+    PatentRegistraCertificateComponent
 
 
 

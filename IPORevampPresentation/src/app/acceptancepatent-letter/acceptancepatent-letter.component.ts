@@ -18,6 +18,8 @@ export class AcceptancepatentLetterComponent implements OnInit {
 
   row2:any;
   row3:any;
+  row4:any;
+
   elementType = 'url';
   value = 'Federal Ministry Of Trade Nigeria';
   vshow :boolean = false;
@@ -101,7 +103,7 @@ export class AcceptancepatentLetterComponent implements OnInit {
 
     //  var doc = new jsPDF('p', 'mm', "a4");
 
-   // doc.setFont("courier");
+    //doc.setFont("courier");
 
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
@@ -119,9 +121,11 @@ export class AcceptancepatentLetterComponent implements OnInit {
 
    data2.append('FileUpload' , pdf);
 
-   //formData.append("FileUpload", fileToUpload);
+
 
    self.senddata(data2)
+
+  // doc.save('acceptance.pdf');
 
 
 
@@ -166,6 +170,16 @@ export class AcceptancepatentLetterComponent implements OnInit {
 
       this.appuser =response.content.userid
 
+      let  transid =response.content.transactionID
+
+      console.log("patent Application ")
+
+      console.log(response.content)
+
+
+
+
+
 
 
    this.busy =   this.registerapi
@@ -197,7 +211,22 @@ export class AcceptancepatentLetterComponent implements OnInit {
 })
 
 
+this.registerapi
+.GetApplicationTransactionAmount(userid,transid)
+.then((response: any) => {
 
+console.log("payment response")
+
+this.row4 = response.content
+
+console.log(response.content)
+
+    })
+         .catch((response: any) => {
+
+           console.log(response)
+
+})
 
 this.registerapi
     .SendPatentRegistraEmail(userid,pwallet)

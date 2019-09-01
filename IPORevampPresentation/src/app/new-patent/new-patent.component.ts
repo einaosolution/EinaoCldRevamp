@@ -1009,6 +1009,7 @@ this.registerapi.RemovePriority(this.vid)
 
   onSubmit() {
 
+    this.AddressOfService() ;
 this.submitted2=true;
 
 var  formData = new FormData();
@@ -1030,6 +1031,59 @@ if (result.length == 0 ) {
 
    return ;
 }
+
+
+try {
+let f4 = this.fileInput4.nativeElement;
+if ((f4.files[0]  ||this.image3) ) {
+
+
+}
+
+else {
+
+  Swal.fire(
+    "Please Upload Letter of Claim ",
+     '',
+     'error'
+   )
+
+   return;
+
+}
+}
+catch(err) {
+
+}
+
+
+try {
+
+let f3 = this.fileInput3.nativeElement;
+if ((f3.files[0]  ||this.image5) ) {
+
+
+
+}
+
+else {
+
+  Swal.fire(
+    "Please Upload Complete Specification (Form 3)",
+     '',
+     'error'
+   )
+
+   return;
+
+}
+
+}
+
+catch(err) {
+
+}
+
 
 
 if (this.categoryid =="2") {
@@ -1342,7 +1396,7 @@ else {
 
 
 
-
+  this.registerapi.Reset()
     this.router.navigateByUrl('/Dashboard/Invoice2');
 
 
@@ -1413,8 +1467,11 @@ else {
  //localStorage.setItem('PaymentType',"FileT002");
    localStorage.setItem('PaymentType',"PtT002");
 
-
+   this.registerapi.Reset()
    this.router.navigateByUrl('/Dashboard/Invoice2');
+
+
+
 
 
 
@@ -1528,6 +1585,36 @@ else {
 
      }
  }
+
+ AddressOfService() {
+  const AttorneyCode = this.userform.get('AttorneyCode');
+  const AttorneyName = this.userform.get('AttorneyName');
+  const Address = this.userform.get('Address');
+ const PhoneNumber = this.userform.get('PhoneNumber');
+ const Email = this.userform.get('Email');
+  const State = this.userform.get('State');
+
+
+
+      if (this.vshow3) {
+        AttorneyCode.setValidators([Validators.required]);
+        AttorneyName.setValidators([Validators.required]);
+        Address.setValidators([Validators.required]);
+        PhoneNumber.setValidators([Validators.required]);
+        Email.setValidators([Validators.required]);
+        State.setValidators([Validators.required]);
+
+
+        AttorneyCode.updateValueAndValidity();
+        AttorneyName.updateValueAndValidity();
+        Address.updateValueAndValidity();
+        Email.updateValueAndValidity();
+        State.updateValueAndValidity();
+
+      }
+
+ }
+
 
  getInventorFormGroup(index): FormGroup {
   this.Inventor = this.userform.get('Inventor') as FormArray;
@@ -1647,11 +1734,13 @@ loaddata() {
                  let  ptifo =response.content.patentInformation
                  let  ptiAssignment =response.content.patentAssignment
                  let  addressofservice =response.content.addressOfService
-
+              if ( this.vshow3) {
                  if (ptifo[0].letterOfAuthorization) {
                  this.image2 = ptifo[0].letterOfAuthorization
 
                  }
+
+                }
                  if (ptifo[0].claims) {
                  this.image3 = ptifo[0].claims
 
@@ -1685,12 +1774,15 @@ loaddata() {
                  (<FormControl> this.userform.controls['AssignorName']).setValue(ptiAssignment[0].assignorName );
                  (<FormControl> this.userform.controls['AssignorAddress']).setValue(ptiAssignment[0].assignorAddress );
                  (<FormControl> this.userform.controls['AssignorNationality']).setValue(ptiAssignment[0].assignorNationalityId);
+                 if (ptifo[0].letterOfAuthorization) {
                  (<FormControl> this.userform.controls['AttorneyCode']).setValue(addressofservice[0].attorneyCode);
                  (<FormControl> this.userform.controls['AttorneyName']).setValue(addressofservice[0].attorneyName);
                  (<FormControl> this.userform.controls['Address']).setValue(addressofservice[0].address );
                  (<FormControl> this.userform.controls['PhoneNumber']).setValue(addressofservice[0].phoneNumber );
                  (<FormControl> this.userform.controls['Email']).setValue(addressofservice[0].email );
                  (<FormControl> this.userform.controls['State']).setValue(addressofservice[0].stateID );
+                 }
+               
                  this.Inventor = this.userform.get('Inventor') as FormArray;
 
 
@@ -1922,12 +2014,12 @@ this.userform3.reset()
       AssignorName: [null,Validators.required],
       AssignorAddress: [null,Validators.required],
       AssignorNationality: [null,Validators.required],
-      AttorneyCode: [null,Validators.required],
-      AttorneyName: [null,Validators.required],
-      Address: [null,Validators.required],
-      PhoneNumber: [null,Validators.required],
-      Email: [null,Validators.required],
-      State: [null,Validators.required],
+      AttorneyCode: [null],
+      AttorneyName: [null],
+      Address: [null],
+      PhoneNumber: [null],
+      Email: [null],
+      State: [null],
 
    //   Inventor: this.formBuilder.array([ this.createItem() ]) ,
 
@@ -2077,11 +2169,14 @@ this.categoryid = response.categoryId
 
 if (this.categoryid =="2") {
   this.vshow3 = true
+  this.AddressOfService();
 
 }
 
 else {
   this.vshow3 = false
+
+  this.AddressOfService();
 
 }
 

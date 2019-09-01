@@ -49,9 +49,76 @@ namespace IPORevamp.Repository.PatentExaminer
         }
 
 
+
+        public async Task<String> SendApplicationAmount(string transid)
+        {
+
+
+
+            var Transval = (from c in _contex.RemitaPayments where c.OrderId == transid select c).FirstOrDefault();
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+            if (Transval != null)
+            {
+                return Transval.TotalAmount;
+            }
+
+            else
+            {
+                return "0";
+            }
+           
+
+
+         
+
+
+        }
+
+        public async void SendExaminerEmail()
+        {
+
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.SendPatentExaminerEmail && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+
+            var roleid = Convert.ToInt32(IPORoles.Patent_Examiner);
+
+            var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid select c).ToList();
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+            foreach (var users in ApplicationUser)
+            {
+                try
+                {
+                    var vname = users.FirstName + " " + users.LastName;
+
+                    string mailContent = emailtemplate.EmailBody;
+
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                    mailContent = mailContent.Replace("#Name", vname);
+
+                    await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+                }
+
+                catch(Exception ee)
+                {
+                    var err = ee.Message;
+                }
+
+
+
+            }
+
+
+        }
+
         public async void SendRegistraEmail(int applicationId)
         {
-            EmailTemplate emailtemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.ApplicationAccepted);
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.ApplicationAccepted && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+
 
             
 

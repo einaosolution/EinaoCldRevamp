@@ -338,7 +338,7 @@ if ( this.row10.length > 0) {
   getallApplication2() {
     var userid = localStorage.getItem('UserId');
     this.busy =   this.registerapi
-    .GetPatentCertificateFreshApplication(userid)
+    .GetPatentCertificatePayment(userid)
     .then((response: any) => {
 
       console.log("Fresh Response")
@@ -556,7 +556,7 @@ this.pwalletid = kk.applicationId
    var userid = localStorage.getItem('UserId');
 
    this.busy =   this.registerapi
-    .GetPatentCertificateFreshApplication(userid)
+    .GetPatentCertificatePayment(userid)
     .then((response: any) => {
 
       console.log("Submitted Application ")

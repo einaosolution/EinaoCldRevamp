@@ -169,6 +169,59 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetPatentSearchKiv")]
+        public async Task<IActionResult> GetPatentSearchKiv([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _patentSearchRepository.GetPatentSearchKiv();
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Kiv patent successfully",
+                    Entity = "GetAllPatentKiv",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Fresh Patent Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
 
 
 
@@ -216,6 +269,54 @@ namespace IPORevamp.WebAPI.Controllers
             {
                 _logger.LogError(ex, "Select PatentPriority", "");
                
+
+                return PrepareResponse(HttpStatusCode.OK, "Mail Not Sent", false, "");
+            }
+        }
+
+        [HttpGet("SendEmailForCertificate")]
+        public async Task<IActionResult> SendEmailForCertificate([FromQuery] string RequestById, [FromQuery] string appid, [FromQuery] string comment)
+        {
+            string ip = "";
+
+
+            try
+            {
+                ip = Request.Headers["ip"];
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                _patentSearchRepository.SendEmailForCerticate(Convert.ToInt32(appid), comment);
+
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all SendExaminerEmail  successfully",
+                    Entity = "SendExaminerEmail",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "PatentInventor Returned Successfully", false, "success");
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select PatentPriority", "");
+
 
                 return PrepareResponse(HttpStatusCode.OK, "Mail Not Sent", false, "");
             }
@@ -326,11 +427,10 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-
-        [HttpPost("SavePatentFreshAppHistory")]
+        [HttpPost("SavePatentStateAppHistory")]
         [Consumes("multipart/form-data")]
 
-        public async Task<IActionResult> SavePatentFreshAppHistory([FromForm] string pwalletid,
+        public async Task<IActionResult> SavePatentStateAppHistory([FromForm] string pwalletid,
          [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid)
         {
             string ip = "";
@@ -377,8 +477,78 @@ namespace IPORevamp.WebAPI.Controllers
 
             }
 
+
+            _patentSearchRepository.SaveApplicationStateHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, msg);
+
+
+
+
+
+
+
+
+
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+
+        }
+
+        [HttpPost("SavePatentFreshAppHistory")]
+        [Consumes("multipart/form-data")]
+
+        public async Task<IActionResult> SavePatentFreshAppHistory([FromForm] string pwalletid,
+         [FromForm] string comment, [FromForm] string description, [FromForm] string fromstatus, [FromForm] string tostatus, [FromForm] string fromDatastatus, [FromForm] string toDatastatus, [FromForm] string userid, [FromForm] string Uploads)
+        {
+            string ip = "";
+          //  string msg = "";
+            string msg = Uploads;
+            Boolean Fileupload = false;
+
+            ip = Request.Headers["ip"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+
+
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
+
+            if (user == null)
+            {
+
+                return PrepareResponse(HttpStatusCode.Found, "Member record don't exist, please try again", false);
+
+            }
+
+            // check for user information before processing the request
+            int id = Convert.ToInt32(pwalletid);
+            var userrole = Convert.ToString(user.RolesId);
+
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                      result2);
+
+                   
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
            
-                _patentSearchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, msg);
+                _patentSearchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, msg );
 
          
 
@@ -461,6 +631,110 @@ namespace IPORevamp.WebAPI.Controllers
             return Ok(details.Result);
         }
 
+
+        [HttpGet("GetPatentByUserId")]
+        public async Task<IActionResult> GetPatentByUserId([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _patentSearchRepository.GetPatentApplicationByUserid(RequestById.ToString());
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all  patent successfully",
+                    Entity = "GetAllPatentByUserid",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Fresh Patent Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+
+        [HttpGet("GetPatentSearchState")]
+        public async Task<IActionResult> GetPatentSearchState([FromQuery] string RequestById, [FromQuery] string ApplicationId)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _patentSearchRepository.GetSearchState(Convert.ToInt32(ApplicationId) , Convert.ToInt32(RequestById));
+
+
+
+   
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all  patent successfully",
+                    Entity = "GetAllPatentByUserid",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Fresh Patent Returned Successfully", false, details.Result);
+
+           
+
+
+
+
+
+
+
+
+
+        }
 
         [HttpGet("GetPatentFreshApplication")]
         public async Task<IActionResult> GetPatentFreshApplication([FromQuery] string RequestById)

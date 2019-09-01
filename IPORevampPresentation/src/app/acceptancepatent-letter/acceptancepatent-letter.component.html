@@ -49,6 +49,16 @@
           {{row2.transactionID}}
             </td>
     </tr>
+
+
+    <tr>
+      <td align="right">
+                          &nbsp;
+                          TRANSACTION AMOUNT : </td>
+      <td>
+        {{row4}}
+          </td>
+  </tr>
      <tr>
         <td colspan="2" class="tbbg">
             ---
@@ -372,7 +382,7 @@
     </tr>
     <tr>
         <td colspan="2" class="tbbg">
-            --- DOCUMENTS ATTACHED ---
+            --- DOCUMENTS ATTACHED DURING APPLICATION FILING---
         </td>
     </tr>
     <tr *ngIf="row2.patentInformation[0].claims">
@@ -380,7 +390,7 @@
             Claims
         </td>
         <td >
-           ATTACHED
+          ATTACHED
       </td>
     </tr>
 

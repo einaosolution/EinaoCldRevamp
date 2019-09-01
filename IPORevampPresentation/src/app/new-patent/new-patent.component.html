@@ -260,7 +260,7 @@
                           </div>
 
 
-                          <fieldset>
+                          <fieldset  *ngIf="vshow3">
                             <legend>ADDRESS OF SERVICES IN NIGERIA</legend>
                           <div class="row">
                             <div class="col-md-6">
@@ -605,13 +605,13 @@
 
                       </tr>
 
-                      <tr>
+                      <tr *ngIf="vshow3">
                         <td class="tbbg" colspan="2" align="center">
                             --- ADDRESS OF SERVICE  ---</td>
                     </tr>
 
 
-                    <tr  >
+                    <tr *ngIf="vshow3"  >
                       <td align="right">
                           &nbsp;Attorney Code:&nbsp;&nbsp;
                       </td>
@@ -622,7 +622,7 @@
                       </td>
                   </tr>
 
-                  <tr  >
+                  <tr *ngIf="vshow3"  >
                     <td align="right" >
                         &nbsp;Attorney Name:&nbsp;&nbsp;
                     </td>
@@ -634,7 +634,7 @@
                     </td>
                 </tr>
 
-                <tr   >
+                <tr  *ngIf="vshow3" >
                   <td align="right">
                       &nbsp;Email:&nbsp;&nbsp;
                   </td>
@@ -647,7 +647,7 @@
                   </td>
               </tr>
 
-              <tr  >
+              <tr  *ngIf="vshow3">
                 <td align="right" >
                     &nbsp;Phone Number:&nbsp;&nbsp;
                 </td>
@@ -662,7 +662,7 @@
             </tr>
 
 
-            <tr  >
+            <tr *ngIf="vshow3" >
               <td align="right" >
                   &nbsp;State:&nbsp;&nbsp;
               </td>
@@ -702,7 +702,7 @@
                                      </td>
                                  </tr>
 
-      <tr *ngIf="row500.patentInformation[0].letterOfAuthorization">
+      <tr *ngIf="row500.patentInformation[0].letterOfAuthorization && vshow3 ">
                                      <td align="right" >
                                          &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
                                      </td>
