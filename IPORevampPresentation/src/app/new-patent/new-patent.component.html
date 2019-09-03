@@ -212,7 +212,7 @@
 
 
 <br/>
-                                    <div class="ml-auto">
+                                    <div class="ml-auto"  *ngIf="vshow3">
                     <div class="btn-group float-right">
                         <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showPriority()"   >
                         Create New Priority Information
@@ -221,7 +221,7 @@
                     <div class="float-none"></div><br>
                 </div>
 
-                            <div class="table-responsive">
+                            <div class="table-responsive"  *ngIf="vshow3">
                               <table id="myTable2" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
                                   <thead>
                                       <tr>
@@ -368,7 +368,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6"  *ngIf="vshow">
+                                <div class="col-md-6"  >
                                     <div class="form-group">
                                         <label for="wlocation2"> Deed of Assignment : <span class="danger">*</span> </label>
                                         <input type="file" (change)="chng22()" #fileInput22 class="form-control "   id="uploadAddress2" name="uploadAddress">

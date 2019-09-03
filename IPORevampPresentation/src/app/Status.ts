@@ -11,6 +11,8 @@ export enum Status {
   SaveMode = "SaveMode" ,
   ReconductSearch = "ReconductSearch" ,
   Confirm = "Confirm" ,
+  Delegate = "Delegate" ,
+  AppealDate="30",
 
   DelegateAppeal= "DelegateAppeal" ,
   ReceiveAppeal ="ReceiveAppeal" ,

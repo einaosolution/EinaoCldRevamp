@@ -80,6 +80,7 @@ import { PatentUserApplicationComponent } from '../patent-user-application/paten
 import { PatentSearchKivComponent } from '../patent-search-kiv/patent-search-kiv.component';
 import { Invoice3Component } from '../invoice3/invoice3.component';
 import { PatentRegistraCertificateComponent } from '../patent-registra-certificate/patent-registra-certificate.component';
+import { Patentregistracertificate2Component } from '../patentregistracertificate2/patentregistracertificate2.component';
 
 
 
@@ -227,6 +228,13 @@ const routes: Routes = [
                                     component:    PatentRegistraCertificateComponent
                                     }
 
+                                    ,
+                                    {
+                                      path:  'PatentCertificateExaminePayment',
+                                      component:    Patentregistracertificate2Component
+                                      }
+
+
 
 
 
@@ -275,7 +283,8 @@ const routes: Routes = [
     PatentUserApplicationComponent,
     PatentSearchKivComponent,
     Invoice3Component,
-    PatentRegistraCertificateComponent
+    PatentRegistraCertificateComponent,
+    Patentregistracertificate2Component
 
 
 

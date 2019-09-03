@@ -98,6 +98,7 @@ const routes: Routes = [
 { path: 'Individual', component: IndividualComponent ,   data: { animation: 'tiger9' } } ,
 { path: 'Dashboard',canActivateChild: [AuthGuard] , loadChildren: './trademark/trademark.module#TrademarkModule' } ,
 { path: 'Patent',canActivateChild: [AuthGuard] , loadChildren: './patent/patent.module#PatentModule' } ,
+{ path: 'Design',canActivateChild: [AuthGuard] , loadChildren: './design/design.module#DesignModule' } ,
   { path: '',   redirectTo: 'home', pathMatch: 'full' }
 ];
 

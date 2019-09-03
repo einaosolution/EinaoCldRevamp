@@ -1431,6 +1431,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+    GetDelegateApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentCertificate/GetDelegateApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetPatentCertificatePayment(pp2: string  ) {
       var data = {
 
@@ -1650,6 +1666,24 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/PatentSearch/SendExaminerEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DelegateExaminerEmail(pp: string ,pp2: string , pp3: string ) {
+
+      var data = {
+
+        RequestById: pp ,
+        userid: pp2 ,
+        Applicationid: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/DelegateExaminerEmail', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2335,6 +2369,18 @@ RejectUser(pp: string,pp2: string ) {
   }
 
 
+   GetUserFromDepartment() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetUserFromDepartment')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetUserById(pp: string) {
 
 		var data = {
@@ -2488,6 +2534,22 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Patent/GetAllPatentType', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetAllDesignType(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignType/GetAllDesignType', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

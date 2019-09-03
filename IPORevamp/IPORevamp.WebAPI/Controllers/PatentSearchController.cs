@@ -169,6 +169,61 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("DelegateExaminerEmail")]
+        public async Task<IActionResult> DelegateExaminerEmail([FromQuery] string RequestById , [FromQuery] string userid , [FromQuery] string Applicationid)
+        {
+            string ip = "";
+
+
+            try
+            {
+                ip = Request.Headers["ip"];
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                _patentSearchRepository.DelegateExaminerEmail(userid,Convert.ToInt32(Applicationid));
+
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                try
+                {
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all SendExaminerEmail  successfully",
+                        Entity = "SendExaminerEmail",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                }
+                catch (Exception ee)
+                {
+
+                }
+
+                return PrepareResponse(HttpStatusCode.OK, "PatentInventor Returned Successfully", false, "success");
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select PatentPriority", "");
+                return PrepareResponse(HttpStatusCode.OK, "Mail Not Sent", false, "");
+            }
+        }
+
+
         [HttpGet("GetPatentSearchKiv")]
         public async Task<IActionResult> GetPatentSearchKiv([FromQuery] string RequestById)
         {

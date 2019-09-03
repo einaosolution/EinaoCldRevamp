@@ -57,6 +57,7 @@ export class PatentRegistraCertificateComponent implements OnInit {
   public row4  = [];
   public row5  = [];
   public row6  = [];
+  public row7  = [];
   filepath:any ;
 
 
@@ -105,7 +106,7 @@ onChange( deviceValue) {
      if (!this.appdescription) {
 
       Swal.fire(
-        " Mark Description  Required",
+        "Select User",
         '',
         'error'
       )
@@ -117,21 +118,18 @@ onChange( deviceValue) {
 
     var  formData = new FormData();
     var userid = localStorage.getItem('UserId');
-    var table = $('#myTable').DataTable();
-    let fi = this.fileInput.nativeElement;
-    if (fi.files && fi.files[0]) {
-      let fileToUpload = fi.files[0];
-     formData.append("FileUpload", fileToUpload);
+   let  table = $('#myTable').DataTable();
 
-     }
 
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);
    formData.append("description",this.appdescription);
-   formData.append("fromstatus",this.Status.ReconductSearch);
-   formData.append("tostatus",this.Status.Fresh);
-   formData.append("fromDatastatus",this.DataStatus.Search);
+   formData.append("fromstatus",this.Status.Fresh);
+   formData.append("tostatus",this.Status.Delegate);
+   formData.append("fromDatastatus",this.DataStatus.Acceptance);
+
    formData.append("toDatastatus",this.DataStatus.Examiner);
+
    formData.append("userid",userid);
 
 
@@ -142,7 +140,7 @@ onChange( deviceValue) {
      this.submitted=false;
 
   this.busy =   this.registerapi
-  .SendExaminerEmail(userid)
+  .DelegateExaminerEmail(userid,this.appdescription,this.pwalletid)
   .then((response: any) => {
 
     console.log("Examiner Email")
@@ -171,7 +169,7 @@ onChange( deviceValue) {
 
   table.destroy();
 
-  this. getallApplication2()
+  this.getallApplication2()
 
    })
             .catch((response: any) => {
@@ -222,7 +220,7 @@ onChange( deviceValue) {
     var  formData = new FormData();
     var userid = localStorage.getItem('UserId');
 
-    var table = $('#myTable').DataTable();
+    let table = $('#myTable').DataTable();
 
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment3);
@@ -297,6 +295,7 @@ onChange( deviceValue) {
   }
 
   getallApplication2() {
+
     var userid = localStorage.getItem('UserId');
     this.busy =   this.registerapi
     .GetPatentCertificateFreshApplication(userid)
@@ -514,6 +513,35 @@ this.pwalletid = kk.applicationId
    var userid = localStorage.getItem('UserId');
 
    var userid = localStorage.getItem('UserId');
+
+
+   this.registerapi
+   .GetUserFromDepartment()
+   .then((response: any) => {
+
+
+console.log("user list")
+
+this.row7 = response
+
+console.log(response)
+
+
+
+
+
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+
+
+})
+
+
 
    this.busy =   this.registerapi
     .GetPatentCertificateFreshApplication(userid)

@@ -11,6 +11,10 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
+import {Status} from '../Status';
+import {DataStatus} from '../DataStatus';
+
+
 
 import { map } from 'rxjs/operators';
 
@@ -38,6 +42,8 @@ export class RefuseApplicationComponent implements OnInit {
   updatemode:boolean = false;
   userform: FormGroup;
   submitted:boolean=false;
+  public Status = Status;
+  public DataStatus = DataStatus;
   busy: Promise<any>;
   model: any = {};
   Code: FormControl;
@@ -51,6 +57,8 @@ export class RefuseApplicationComponent implements OnInit {
   public row2
   public row3 = [];
   public row4
+  public row6
+
   public appcomment =""
   appcomment3="";
   appcomment2="" ;
@@ -512,10 +520,36 @@ showcountry2() {
 
 
 
-  showcountry(kk) {
+  showdetail(kk) {
 
     this.savemode = false;
     this.updatemode = true;
+
+
+    console.log("application detail ")
+
+var result = new Date(kk.filingDate);
+
+var Current= new Date();
+var Compare= new Date();
+
+
+
+
+
+
+Current.setDate(result.getDate()+ parseInt(Status.AppealDate));
+this.row6 = Current;
+
+if (Compare >  Current)  {
+  Swal.fire(
+    "Max 30 days  Appeal Period Exceeded",
+    '',
+    'error'
+  )
+
+  return;
+}
 this.row2 = kk;
 this.vshow = true;
 this.pwalletid = kk.pwalletid

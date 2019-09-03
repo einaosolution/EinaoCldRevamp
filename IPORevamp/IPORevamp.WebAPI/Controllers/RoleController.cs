@@ -339,7 +339,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 if (checkCount != null)
                 {
-                    return PrepareResponse(HttpStatusCode.Conflict, WebApiMessage.RecordNotFound, false, null);
+                    return PrepareResponse(HttpStatusCode.Conflict, "Record Already Exist", false, null);
                 }
 
                 // attempt to save

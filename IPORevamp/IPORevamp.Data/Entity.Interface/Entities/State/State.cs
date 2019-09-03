@@ -17,5 +17,7 @@ namespace IPORevamp.Data.Entities
        
         public List<Data.Entities.LGAs.LGA> LGA { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.AddressOfService.AddressOfService> AddressOfService { get; set; }
+
+        public List<IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService.DesignAddressOfService> DesignAddressOfService { get; set; }
     }
 }

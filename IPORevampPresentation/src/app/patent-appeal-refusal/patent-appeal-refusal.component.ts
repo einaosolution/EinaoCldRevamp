@@ -59,6 +59,7 @@ export class PatentAppealRefusalComponent implements OnInit {
   public row4  = [];
   public row5  = [];
   public row6  = [];
+  public row7
 
 
   vshow :boolean = false;
@@ -303,6 +304,37 @@ onSubmit2(f) {
 this.row4 = kk;
 this.vshow = true;
 this.pwalletid = kk.applicationId
+
+console.log("application detail ")
+
+var result = new Date(kk.filingDate);
+
+var Current= new Date();
+var Compare= new Date();
+
+
+
+
+
+
+Current.setDate(result.getDate()+ parseInt(Status.AppealDate));
+
+this.row7 = Current
+
+if (Compare >  Current)  {
+  Swal.fire(
+    "Max 30 days  Appeal Period Exceeded",
+    '',
+    'error'
+  )
+
+  return;
+}
+
+
+
+//alert(result)
+console.log(kk)
 
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );

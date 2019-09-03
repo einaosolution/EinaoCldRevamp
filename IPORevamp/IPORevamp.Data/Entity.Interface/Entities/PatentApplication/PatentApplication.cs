@@ -30,6 +30,10 @@ namespace IPORevamp.Data.Entity.Interface.Entities.PatentApplication
 
         public List<IPORevamp.Data.Entity.Interface.Entities.AddressOfService.AddressOfService> AddressOfService { get; set; }
 
+        public List<IPORevamp.Data.Entity.Interface.Entities.DelegateJob.DelegateJob> DelegateJob { get; set; }
+
+        
+
 
 
 

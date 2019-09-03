@@ -78,7 +78,7 @@
                                         <td>{{emp.status}}</td>
 
                                         <td>
-                                          <button type="button" id="openModalButton" (click) ="showcountry(emp)"  class="btn btn-success ">Details </button>
+                                          <button type="button" id="openModalButton" (click) ="showdetail(emp)"  class="btn btn-success ">Details </button>
 
 
 
@@ -355,6 +355,21 @@
                                       </td>
 
                                        </tr>
+
+
+                                       <tr>
+                                      <td>
+                                        Appeal Expiration Date
+                                      </td>
+
+                                      <td>
+                                        {{ row6|date}}
+                                      </td>
+
+                                       </tr>
+
+
+
 
 
                                  </table>

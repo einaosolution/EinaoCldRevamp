@@ -269,6 +269,18 @@ this. getallApplication2()
 
      }
 
+     else {
+
+      Swal.fire(
+        "Upload Search Result",
+        '',
+        'error'
+      )
+
+      return ;
+
+     }
+
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);
    formData.append("description",this.appdescription);

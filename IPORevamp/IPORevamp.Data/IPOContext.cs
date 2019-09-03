@@ -52,6 +52,14 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
+using IPORevamp.Data.Entity.Interface.Entities.DelegateJob;
+using IPORevamp.Data.Entity.Interface.Entities.DesignApplication;
+using IPORevamp.Data.Entity.Interface.Entities.DesignType;
+using IPORevamp.Data.Entity.Interface.Entities.DesignInformation;
+using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
+using IPORevamp.Data.Entity.Interface.Entities.DesignAssigment;
+using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
+using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
 
 namespace IPORevamp.Data
 {
@@ -111,6 +119,7 @@ namespace IPORevamp.Data
         public DbSet<UserVerificationTemp> UserVerificationTemp { get; set; }
 
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
+        public DbSet<DelegateJob> DelegateJob { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Data.Entities.LGAs.LGA> LGAs { get; set; }
@@ -129,6 +138,31 @@ namespace IPORevamp.Data
 
         public virtual DbSet<LinkRolesMenus> LinkRolesMenus { get; set; }
         public virtual DbSet<MenuManager> MenuManager { get; set; }
+
+
+
+        #endregion
+
+        #region Design
+       
+        public DbSet<DesignApplication> DesignApplication { get; set; }
+        public DbSet<DesignType> DesignType { get; set; }
+        public DbSet<DesignInformation> DesignInformation { get; set; }
+        public DbSet<DesignApplicationHistory> DesignApplicationHistory { get; set; }
+        public DbSet<DesignAssignment> DesignAssignment { get; set; }
+
+        public DbSet<DesignInvention> DesignInvention { get; set; }
+
+        public DbSet<DesignPriority> DesignPriority { get; set; }
+
+        public DbSet<DesignPriority> DesignAddressOfService { get; set; }
+
+        
+
+
+
+
+
 
 
 

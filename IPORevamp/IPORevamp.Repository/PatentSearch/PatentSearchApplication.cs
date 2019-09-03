@@ -23,6 +23,7 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory;
 using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Repository.Email;
 using IPORevamp.Data.Entities.Email;
+using IPORevamp.Data.Entity.Interface.Entities.DelegateJob;
 
 namespace IPORevamp.Repository.PatentSearch
 {
@@ -158,7 +159,51 @@ namespace IPORevamp.Repository.PatentSearch
         }
 
 
-            public async void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid,string filepath)
+        public async void DelegateExaminerEmail(string userid ,int applicationid)
+        {
+
+            DelegateJob delegates = new DelegateJob();
+            delegates.PatentApplicationID = applicationid;
+            delegates.userid = userid;
+            delegates.DateCreated = DateTime.Now;
+            delegates.IsActive = true;
+            delegates.IsDeleted = false;
+            _contex.Add(delegates);
+            _contex.SaveChanges();
+
+
+
+
+
+
+          EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.DelegateEmail && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+
+            var roleid = Convert.ToInt32(IPORoles.Patent_Examiner);
+
+            // var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid select c).ToList();
+            var  ApplicationUser = _contex.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
+
+           
+                var vname = ApplicationUser.FirstName + " " + ApplicationUser.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+
+                await _emailsender.SendEmailAsync(ApplicationUser.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+          
+
+
+        }
+
+
+
+        public async void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid,string filepath)
         {
 
             var vpwallet = (from c in _contex.PatentApplication where c.Id == id select c).FirstOrDefault();

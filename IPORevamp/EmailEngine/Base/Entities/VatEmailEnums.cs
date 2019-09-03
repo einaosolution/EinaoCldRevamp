@@ -99,6 +99,7 @@ namespace EmailEngine.Base.Entities
         public const string Kiv = "Kiv";
         public const string Counter = "Counter";
         public const string Submitted = "Submitted";
+        public const string Delegate = "Delegate";
         public const string ReceiveAppeal = "ReceiveAppeal";
         public const string DelegateAppeal = "DelegateAppeal";
         public const string ReconductSearch = "ReconductSearch";
@@ -177,6 +178,7 @@ namespace EmailEngine.Base.Entities
         public const string SentToKiv = "ACP010";
 
         public const string SendPatentExaminerEmail = "ACP011";
+        public const string DelegateEmail = "ACP017";
         public const string ApplicationAccepted = "ACP012";
 
 

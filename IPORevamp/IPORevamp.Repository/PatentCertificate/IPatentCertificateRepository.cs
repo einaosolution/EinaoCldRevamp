@@ -17,6 +17,7 @@ namespace IPORevamp.Repository.PatentCertificate
         Task<IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate> ProcessCertificatePayment(int NoticeAppID, string TransactionId);
         Task<List<PatentDataResult>> GetPatentPaidCertificate();
         Task<List<PatentDataResult>> GetPatentConfirmedCertificate();
+        Task<List<PatentDataResult>> GetDelegateCertificate(string userid);
         Task<List<PatentDataResult>> GetPatentPayCertificate(string userid);
         Task<ApplicationUser> GetUserByApplicationId(int AppID);
     }

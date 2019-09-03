@@ -9,6 +9,9 @@ namespace IPORevamp.Data.Entity.Interface.Entities.National_Class
     {
         public string Type { get; set; }
         public string Description { get; set; }
-      
+
+
+        public List<IPORevamp.Data.Entity.Interface.Entities.DesignInformation.DesignInformation> DesignInformation { get; set; }
+
     }
 }

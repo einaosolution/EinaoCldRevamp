@@ -503,6 +503,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit"  (click) ="onSubmit()"  class="btn btn-success"> Approve Certificate Payment </button>
+        <button type="submit"  (click) ="onSubmit4()"  class="btn btn-success"> Delegate </button>
 
                <div [ngBusy]="busy"></div>
               </div>
@@ -573,7 +574,7 @@
       <div class="modal-content">
                <div class="card-body wizard-content">
                       <div class="modal-header">
-                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Pass Formality Check </h5>
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Delegate </h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                               </button>
@@ -583,16 +584,21 @@
 
   <tr>
       <td>
-       Mark Description
+     Delegate To  User
       </td>
 
       <td>
-          <select  [(ngModel)]="appdescription" #device  (change)="onChange(device.value)" required class="form-control custom-select">
-              <option value="">Select</option>
-              <option value="Similar Marks Exist">Similar Marks  Exist</option>
-              <option value="No Similar Marks">No Similar Marks</option>
 
-            </select>
+
+          <select class="form-control"  name=users [(ngModel)]="appdescription" #device   (change)="onChange(device.value)"  id="sel1">
+              <option value="">---- --Select User-----</option>
+
+
+              <option *ngFor="let country2 of row7" value= {{country2.id}}>
+                {{country2.firstName}} -  {{country2.email}}
+              </option>
+          </select>
+
       </td>
 
        </tr>
@@ -610,16 +616,7 @@ Comments
 
 </tr>>
 
-<tr>
-<td>
-Upload
-</td>
 
-<td>
-  <input type="file" #fileInput class="form-control " id="uploadAddress2" name="uploadAddress">
-</td>
-
-</tr>
 
 
 

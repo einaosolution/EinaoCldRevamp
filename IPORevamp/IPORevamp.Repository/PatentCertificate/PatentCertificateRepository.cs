@@ -145,6 +145,21 @@ namespace IPORevamp.Repository.PatentCertificate
             return details;
         }
 
+
+        public async Task<List<PatentDataResult>> GetDelegateCertificate(string userid)
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"GetPatentCertificateById   @p0, @p1, @p2 ", parameters: new[] { DATASTATUS.Examiner, STATUS.Delegate, userid })
+           .ToList();
+
+
+
+            return details;
+        }
+
         public async Task<List<PatentDataResult>> GetPatentPayCertificate(string userid)
         {
 

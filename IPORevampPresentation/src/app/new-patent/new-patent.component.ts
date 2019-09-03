@@ -1086,6 +1086,35 @@ catch(err) {
 
 
 
+try {
+
+  let f22 = this.fileInput22.nativeElement;
+  if ((f22.files[0]  ||this.image6) ) {
+
+
+
+  }
+
+  else {
+
+    Swal.fire(
+      "Please Upload Deed of Assignment ",
+       '',
+       'error'
+     )
+
+     return;
+
+  }
+
+  }
+
+  catch(err) {
+
+  }
+
+
+
 if (this.categoryid =="2") {
 
   let f2 = this.fileInput2.nativeElement;
@@ -1782,7 +1811,7 @@ loaddata() {
                  (<FormControl> this.userform.controls['Email']).setValue(addressofservice[0].email );
                  (<FormControl> this.userform.controls['State']).setValue(addressofservice[0].stateID );
                  }
-               
+
                  this.Inventor = this.userform.get('Inventor') as FormArray;
 
 

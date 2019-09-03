@@ -23,6 +23,7 @@ namespace IPORevamp.Repository.PatentSearch
         Task<List<AddressOfService>> GetAddressOfServiceById(int id);
         Task<List<PatentDataResult>> GetPatentSearchKiv();
         void SendExaminerEmail();
+        void DelegateExaminerEmail(string userid, int applicationid);
         void SendUserEmail(int userid, string comment);
         Task<List<PatentDataResult>> GetPatentFreshApplication();
         Task<List<PatentDataResult>> GetPatentApplicationByUserid(string userid);
