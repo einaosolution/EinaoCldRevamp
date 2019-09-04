@@ -403,8 +403,8 @@
                                    <div class="col-md-6"  >
                                       <div class="form-group">
                                           <label for="wlocation2"> REPRESENTATION OF DESIGN 2 : <span class="danger"></span> </label>
-                                          <input type="file" (change)="chng22()" #fileInput22 class="form-control "   id="uploadAddress2" name="uploadAddress">
-                                          <a *ngIf="image6" target="_blank"  href="{{filepath}}Upload/{{ image6}}">View Upload</a>
+                                          <input type="file" (change)="chng23()" #fileInput23 class="form-control "   id="uploadAddress2" name="uploadAddress">
+                                          <a *ngIf="image7" target="_blank"  href="{{filepath}}Upload/{{ image7}}">View Upload</a>
                                         </div>
                                   </div>
                                 </div>
@@ -413,16 +413,16 @@
                                   <div class="col-md-6"  >
                                       <div class="form-group">
                                           <label for="wlocation2"> REPRESENTATION OF DESIGN 3 : <span class="danger"></span> </label>
-                                          <input type="file" (change)="chng22()" #fileInput22 class="form-control "   id="uploadAddress2" name="uploadAddress">
-                                          <a *ngIf="image6" target="_blank"  href="{{filepath}}Upload/{{ image6}}">View Upload</a>
+                                          <input type="file" (change)="chng24()" #fileInput24 class="form-control "   id="uploadAddress2" name="uploadAddress">
+                                          <a *ngIf="image8" target="_blank"  href="{{filepath}}Upload/{{ image8}}">View Upload</a>
                                         </div>
                                   </div>
 
                                    <div class="col-md-6"  >
                                       <div class="form-group">
                                           <label for="wlocation2"> REPRESENTATION OF DESIGN 4 : <span class="danger"></span> </label>
-                                          <input type="file" (change)="chng22()" #fileInput22 class="form-control "   id="uploadAddress2" name="uploadAddress">
-                                          <a *ngIf="image6" target="_blank"  href="{{filepath}}Upload/{{ image6}}">View Upload</a>
+                                          <input type="file" (change)="chng25()" #fileInput25 class="form-control "   id="uploadAddress2" name="uploadAddress">
+                                          <a *ngIf="image9" target="_blank"  href="{{filepath}}Upload/{{ image9}}">View Upload</a>
                                         </div>
                                   </div>
                                 </div>
@@ -462,20 +462,20 @@
 
                     <div class="Container">
 
-                             <table  class="table-grid"     *ngIf="savemode" align="center" >
+                             <table  class="table-grid"  *ngIf="savemode"    align="center" >
                             <!--    <table  class="table form"   width="100%"  *ngIf="savemode3" >  -->
 
 
                                   <tr >
                                        <td width="22%" colspan="2" class="tbbg" align="center">
-                                           <strong>DATA DETAILS FOR {{row500.patentInformation[0].titleOfInvention.toUpperCase()}}</strong></td>
+                                           <strong>DATA DETAILS FOR {{row500.designInformation[0].titleOfDesign.toUpperCase()}}</strong></td>
                                    </tr>
                                     <tr>
                                        <td align="right">
                                            &nbsp;PATENT TYPE :&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           {{row500.patentInformation[0].patentType.description                   }}
+                                           {{row500.designInformation[0].designType.description                   }}
                                           &nbsp;
                                        </td>
                                    </tr>
@@ -485,7 +485,18 @@
                                            &nbsp;TITLE OF INVENTION  :&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           {{row500.patentInformation[0].titleOfInvention}}
+                                           {{row500.designInformation[0].titleOfDesign}}
+                                          &nbsp;
+                                       </td>
+                                   </tr>
+
+
+                                    <tr>
+                                       <td  align="right">
+                                           &nbsp;CLASS  :&nbsp;&nbsp;
+                                       </td>
+                                       <td>
+                                           {{row500.designInformation[0].nationClassID}}
                                           &nbsp;
                                        </td>
                                    </tr>
@@ -495,7 +506,7 @@
                                            &nbsp;DESCRIPTION :&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           {{row500.patentInformation[0].inventionDescription}}
+                                           {{row500.designInformation[0].designDescription}}
                                           &nbsp;
                                        </td>
                                    </tr>
@@ -505,7 +516,7 @@
                                            &nbsp;ASSIGNEE NAME&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           {{row500.patentAssignment[0].assigneeName}}
+                                           {{row500.designAssignment[0].assigneeName}}
                                           &nbsp;
                                        </td>
                                    </tr>
@@ -515,7 +526,7 @@
                                            &nbsp;ASSIGNEE ADDRESS :&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           {{row500.patentAssignment[0].assigneeAddress  }}
+                                           {{row500.designAssignment[0].assigneeAddress  }}
                                           &nbsp;
                                        </td>
                                    </tr>
@@ -525,7 +536,7 @@
                                         &nbsp;ASSIGNEE NATIONALITY :&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        {{row500.patentAssignment[0].assigneeNationality.name}}
+                                        {{row500.designAssignment[0].assigneeNationality2.name}}
                                        &nbsp;
                                     </td>
                                 </tr>
@@ -535,7 +546,7 @@
                                       &nbsp;ASSIGNOR NAME :&nbsp;&nbsp;
                                   </td>
                                   <td>
-                                      {{row500.patentAssignment[0].assignorName         }}
+                                      {{row500.designAssignment[0].assignorName         }}
                                      &nbsp;
                                   </td>
                               </tr>
@@ -545,7 +556,7 @@
                                     &nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    {{row500.patentAssignment[0].assignorAddress}}
+                                    {{row500.designAssignment[0].assignorAddress}}
                                    &nbsp;
                                 </td>
                             </tr>
@@ -555,7 +566,7 @@
                                   &nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp;
                               </td>
                               <td>
-                                  {{row500.patentAssignment[0].assignorNationality.name}}
+                                  {{row500.designAssignment[0].assignorNationality2.name}}
                                  &nbsp;
                               </td>
                           </tr>
@@ -591,7 +602,7 @@
                                       <tbody>
 
 
-                                          <tr *ngFor="let emp of row500.patentInvention  let i = index">
+                                          <tr *ngFor="let emp of row500.designInvention  let i = index">
 
 
 
@@ -637,7 +648,7 @@
                                       </thead>
                                       <tbody>
 
-                                          <tr *ngFor="let emp of row500.patentPriorityInformation  let i = index">
+                                          <tr *ngFor="let emp of row500.designPriority   let i = index">
 
 
 
@@ -648,6 +659,9 @@
 
 
                                               </tr>
+
+
+
                                             </tbody>
                                 </table>
 
@@ -655,7 +669,8 @@
 
                         </tr>
 
-                        <tr *ngIf="vshow3">
+             
+<tr *ngIf="vshow3">
                           <td class="tbbg" colspan="2" align="center">
                               --- ADDRESS OF SERVICE  ---</td>
                       </tr>
@@ -667,7 +682,7 @@
                         </td>
                         <td>
 
-                         {{row500.addressOfService[0].attorneyCode}}
+                         {{row500.designAddressOfService[0].attorneyCode}}
 
                         </td>
                     </tr>
@@ -678,7 +693,7 @@
                       </td>
                       <td>
 
-                        {{row500.addressOfService[0].attorneyName}}
+                        {{row500.designAddressOfService[0].attorneyName}}
 
 
                       </td>
@@ -690,7 +705,7 @@
                     </td>
                     <td>
 
-                      {{row500.addressOfService[0].email}}
+                      {{row500.designAddressOfService[0].email}}
 
 
 
@@ -703,7 +718,7 @@
                   </td>
                   <td>
 
-                    {{row500.addressOfService[0].phoneNumber}}
+                    {{row500.designAddressOfService[0].phoneNumber}}
 
 
 
@@ -718,7 +733,7 @@
                 </td>
                 <td>
 
-                  {{row500.addressOfService[0].state.stateName}}
+                  {{row500.designAddressOfService[0].state.stateName}}
 
 
 
@@ -727,49 +742,49 @@
             </tr>
 
 
-                        <tr>
+             <tr>
                             <td class="tbbg" colspan="2" align="center">
                                 --- UPLOADS  ---</td>
                         </tr>
 
-                          <tr  *ngIf="row500.patentInformation[0].claims">
+                          <tr  *ngIf="row500.designInformation[0].noveltyStatement">
                                        <td align="right">
                                            &nbsp;NOVELTY STATEMENT:&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].claims}}">View Upload</a>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{ row500.designInformation[0].noveltyStatement}}">View Upload</a>
                                           &nbsp;
                                        </td>
                                    </tr>
 
-         <tr *ngIf="row500.patentInformation[0].deedOfAssignment">
+         <tr *ngIf="row500.designInformation[0].deedOfAssignment">
                                        <td align="right" >
                                            &nbsp;Deed Of Assignment :&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].deedOfAssignment}}">View Upload</a>
+                                           <a  target="_blank"  href="{{filepath}}Upload/{{ row500.designInformation[0].deedOfAssignment}}">View Upload</a>
                                           &nbsp;
                                        </td>
                                    </tr>
 
-        <tr *ngIf="row500.patentInformation[0].letterOfAuthorization && vshow3 ">
+        <tr *ngIf="row500.designInformation[0].letterOfAuthorization && vshow3 ">
                                        <td align="right" >
                                            &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
                                        </td>
                                        <td>
-                                           <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
+                                           <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
 
                                           &nbsp;
                                        </td>
                                    </tr>
 
 
-                                   <tr *ngIf="row500.patentInformation[0].pctDocument">
+                                   <tr *ngIf="row500.designInformation[0].priorityDocument">
                                       <td align="right">
                                           &nbsp;PRIORITY DOCUMENT :&nbsp;&nbsp;
                                       </td>
                                       <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].pctDocument}}">View Upload</a>   <br/>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].priorityDocument}}">View Upload</a>   <br/>
 
                                          &nbsp;
                                       </td>
@@ -777,17 +792,50 @@
 
 
 
-                                  <tr *ngIf="row500.patentInformation[0].completeSpecificationForm">
+                                  <tr *ngIf="row500.designInformation[0].representationOfDesign1">
                                       <td  align="right" >
                                           &nbsp;REPRESENTATION OF DESIGN 1 :&nbsp;&nbsp;
                                       </td>
                                       <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].completeSpecificationForm}}">View Upload</a>   <br/>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign1}}">View Upload</a>   <br/>
 
                                          &nbsp;
                                       </td>
                                   </tr>
 
+                                        <tr *ngIf="row500.designInformation[0].representationOfDesign2">
+                                      <td  align="right" >
+                                          &nbsp;REPRESENTATION OF DESIGN 2 :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign2}}">View Upload</a>   <br/>
+
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+
+                                        <tr *ngIf="row500.designInformation[0].representationOfDesign3">
+                                      <td  align="right" >
+                                          &nbsp;REPRESENTATION OF DESIGN 3 :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign3}}">View Upload</a>   <br/>
+
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+                                                        <tr *ngIf="row500.designInformation[0].representationOfDesign4">
+                                      <td  align="right" >
+                                          &nbsp;REPRESENTATION OF DESIGN 4 :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign4}}">View Upload</a>   <br/>
+
+                                         &nbsp;
+                                      </td>
+                                  </tr>
 
 
 

@@ -98,6 +98,9 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   public pwalletid ="" ;
   vshow :boolean = true
 
+  vshow10 :boolean = false
+
+
   elementType = 'url';
   value = '';
 
@@ -143,6 +146,9 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   public image4
   public image5
   public image6
+  public image7
+  public image8
+  public image9
   public filepath
   public trademarklogo
 
@@ -163,6 +169,9 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   @ViewChild("fileInput1") fileInput1;
   @ViewChild("fileInput2") fileInput2;
   @ViewChild("fileInput22") fileInput22;
+  @ViewChild("fileInput23") fileInput23;
+  @ViewChild("fileInput24") fileInput24;
+  @ViewChild("fileInput25") fileInput25;
   @ViewChild("fileInput3") fileInput3;
   @ViewChild("fileInput33") fileInput33;
   @ViewChild("fileInput4") fileInput4;
@@ -227,7 +236,7 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
     if (deviceValue =="2") {
     // alert("2")
       this.vshow = false;
-this.feelist("REGISTRATION OF PATENT (NON-CONVENTIONAL)")
+this.feelist("REGISTRATION OF DESIGNS (TEXTILE)")
     }
 
     else {
@@ -422,8 +431,8 @@ return true;
 
     chng23()
     {
-
-      let test = this.fileInput1.nativeElement;
+//tony
+      let test = this.fileInput23.nativeElement;
 
 
     let test2 = test.files[0];
@@ -432,7 +441,7 @@ return true;
 
     if(test2.size/ 1024>3000){
 
-      alert("File Too Large")
+      alert("File Too Large,maxsize is 3mb")
 
       test.value = ''
 
@@ -442,10 +451,12 @@ return true;
 
     }
 
+
+   
     chng24()
     {
 
-      let test = this.fileInput33.nativeElement;
+      let test = this.fileInput24.nativeElement;
 
 
     let test2 = test.files[0];
@@ -467,7 +478,7 @@ return true;
     chng25()
     {
 
-      let test = this.fileInput44.nativeElement;
+      let test = this.fileInput25.nativeElement;
 
 
     let test2 = test.files[0];
@@ -537,7 +548,7 @@ return true;
          }
 
         this.busy =   this.registerapi
-        .SaveInvention(this.row101)
+        .SaveDesignInvention(this.row101)
         .then((response: any) => {
 
        //   this.onSubmit101(this.pwalletid) ;
@@ -579,13 +590,15 @@ else {
       onSubmit103(pwalletid) {
 
         this.busy =   this.registerapi
-        .GetPatentApplicationById(pwalletid)
+        .GetDesignApplicationById(pwalletid)
         .then((response: any) => {
 
          console.log("Latest Pwallet ")
        //  this.row4 = response.content;
 
        this.row500 = response.content
+
+       this.savemode = true;
 
          console.log(response.content)
 
@@ -634,7 +647,7 @@ let result = this.registerapi.getPriority2()
 
         if (this.row102.length > 0) {
         this.busy =   this.registerapi
-        .SavePriority(this.row102)
+        .SaveDesignPriority(this.row102)
         .then((response: any) => {
 
 
@@ -1000,7 +1013,7 @@ this.registerapi.RemovePriority(this.vid)
     this.AddressOfService() ;
 this.submitted2=true;
 
-return;
+
 
 var  formData = new FormData();
 var userid = localStorage.getItem('UserId');
@@ -1024,8 +1037,8 @@ if (result.length == 0 ) {
 
 
 try {
-let f4 = this.fileInput4.nativeElement;
-if ((f4.files[0]  ||this.image3) ) {
+let f4 = this.fileInput.nativeElement;
+if ((f4.files[0]  ||this.image1) ) {
 
 
 }
@@ -1033,7 +1046,7 @@ if ((f4.files[0]  ||this.image3) ) {
 else {
 
   Swal.fire(
-    "Please Upload Letter of Claim ",
+    "Please Upload NOVELTY STATEMENT ",
      '',
      'error'
    )
@@ -1049,8 +1062,8 @@ catch(err) {
 
 try {
 
-let f3 = this.fileInput3.nativeElement;
-if ((f3.files[0]  ||this.image5) ) {
+let f3 = this.fileInput22.nativeElement;
+if ((f3.files[0]  ||this.image6) ) {
 
 
 
@@ -1059,7 +1072,7 @@ if ((f3.files[0]  ||this.image5) ) {
 else {
 
   Swal.fire(
-    "Please Upload Complete Specification (Form 3)",
+    "Please Upload REPRESENTATION OF DESIGN 1",
      '',
      'error'
    )
@@ -1078,8 +1091,8 @@ catch(err) {
 
 try {
 
-  let f22 = this.fileInput22.nativeElement;
-  if ((f22.files[0]  ||this.image6) ) {
+  let f22 = this.fileInput4.nativeElement;
+  if ((f22.files[0]  ||this.image3) ) {
 
 
 
@@ -1186,7 +1199,7 @@ if (this.userform.valid) {
   // }
 
   try {
-    let f2 = this.fileInput2.nativeElement;
+    let f2 = this.fileInput3.nativeElement;
    if (f2.files && f2.files[0]) {
     let fileToUpload = f2.files[0];
    formData.append("FileUpload2", fileToUpload);
@@ -1206,7 +1219,7 @@ if (this.userform.valid) {
  //  }
 
  try {
-  let f3 = this.fileInput3.nativeElement;
+  let f3 = this.fileInput4.nativeElement;
    if (f3.files && f3.files[0]) {
     let fileToUpload = f3.files[0];
    formData.append("FileUpload3", fileToUpload);
@@ -1226,7 +1239,7 @@ if (this.userform.valid) {
   // }
 
   try {
-    let f4 = this.fileInput4.nativeElement;
+    let f4 = this.fileInput3.nativeElement;
    if (f4.files && f4.files[0]) {
     let fileToUpload = f4.files[0];
    formData.append("FileUpload4", fileToUpload);
@@ -1254,6 +1267,53 @@ if (this.userform.valid) {
 
   }
 
+
+  
+  try {
+    let f4 = this.fileInput23.nativeElement;
+   if (f4.files && f4.files[0]) {
+    let fileToUpload = f4.files[0];
+   formData.append("FileUpload6", fileToUpload);
+
+   }
+
+  }
+  catch(err) {
+
+
+  }
+
+
+    try {
+    let f4 = this.fileInput24.nativeElement;
+   if (f4.files && f4.files[0]) {
+    let fileToUpload = f4.files[0];
+   formData.append("FileUpload7", fileToUpload);
+
+   }
+
+  }
+  catch(err) {
+
+
+  }
+
+
+    try {
+    let f4 = this.fileInput25.nativeElement;
+   if (f4.files && f4.files[0]) {
+    let fileToUpload = f4.files[0];
+   formData.append("FileUpload8", fileToUpload);
+
+   }
+
+  }
+  catch(err) {
+
+
+  }
+
+
  //  if (f44.files && f44.files[0]) {
   //  let fileToUpload = f44.files[0];
   // formData.append("FileUpload4", fileToUpload);
@@ -1276,6 +1336,10 @@ console.log(this.row101)
   formData.append("AssignorName",this.userform.value.AssignorName);
   formData.append("AssignorAddress",this.userform.value.AssignorAddress);
   formData.append("AssignorNationality",this.userform.value.AssignorNationality);
+
+  formData.append("DesignClass",this.userform.value.DesignClass);
+
+  
   formData.append("ApplicationId",this.pwalletid);
   formData.append("PatentInvention",JSON.stringify(this.row101));
   formData.append("AttorneyCode",this.userform.value.AttorneyCode);
@@ -1288,7 +1352,7 @@ console.log(this.row101)
 
 
   this.busy = this.registerapi
-  .SavePatent(formData)
+  .SaveDesign(formData)
   .then((response: any) => {
 
 
@@ -1297,7 +1361,7 @@ console.log(this.row101)
 
     this.pwalletid =response.content
 
-    this.savemode = true;
+    
 
 
     this.onSubmit105(this.pwalletid ) ;
@@ -1410,7 +1474,7 @@ else {
 
   localStorage.setItem('Payment',JSON.stringify( Payment));
 
-  localStorage.setItem('PaymentType',"PtT002");
+  localStorage.setItem('PaymentType',"dsT002");
   localStorage.setItem('settings',this.settingcode);
 
 
@@ -1431,11 +1495,11 @@ else {
    // this.makePayment()
    this.row = []
    if (this.userform.value.patenttype =="1") {
- this.row.push(18)
+ this.row.push(24)
    }
 
    if (this.userform.value.patenttype =="2") {
- this.row.push(19)
+ this.row.push(26)
    }
 
    var userid = localStorage.getItem('UserId');
@@ -1484,7 +1548,7 @@ else {
    localStorage.setItem('settings',this.settingcode);
 
  //localStorage.setItem('PaymentType',"FileT002");
-   localStorage.setItem('PaymentType',"PtT002");
+   localStorage.setItem('PaymentType',"dsT002");
 
    this.registerapi.Reset()
    this.router.navigateByUrl('/Dashboard/Invoice2');
@@ -1719,10 +1783,10 @@ loaddata() {
 
     var userid = localStorage.getItem('UserId');
     this.busy =   this.registerapi
-        .GetPatentApplicationByUserId(userid)
+        .GetDesignApplicationByUserId(userid)
         .then((response: any) => {
 
-          console.log("Patent Application")
+          console.log("Design  Application 2")
           console.log(response.content)
 
           if (response.content) {
@@ -1750,9 +1814,11 @@ loaddata() {
                    this.row500 = response.content
                    this.pwalletid =response.content.id
 
-                 let  ptifo =response.content.patentInformation
-                 let  ptiAssignment =response.content.patentAssignment
-                 let  addressofservice =response.content.addressOfService
+                 let  ptifo =response.content.designInformation
+
+                 let  ptiAssignment =response.content.designAssignment
+
+                 let  addressofservice =response.content.designAddressOfService
               if ( this.vshow3) {
                  if (ptifo[0].letterOfAuthorization) {
                  this.image2 = ptifo[0].letterOfAuthorization
@@ -1760,22 +1826,40 @@ loaddata() {
                  }
 
                 }
-                 if (ptifo[0].claims) {
-                 this.image3 = ptifo[0].claims
+                 if (ptifo[0].deedOfAssignment) {
+                 this.image3 = ptifo[0].deedOfAssignment
 
                  }
-                 if (ptifo[0].pctDocument) {
-                 this.image1 =ptifo[0].pctDocument
+                 if (ptifo[0].noveltyStatement) {
+                 this.image1 =ptifo[0].noveltyStatement
 
                  }
-                 if (ptifo[0].completeSpecificationForm) {
-                  this.image5 =ptifo[0].completeSpecificationForm
+                 if (ptifo[0].priorityDocument) {
+                  this.image5 =ptifo[0].priorityDocument
 
                  }
-                  if (ptifo[0].deedOfAssignment) {
-                  this.image6 =ptifo[0].deedOfAssignment
+                  if (ptifo[0].representationOfDesign1) {
+                  this.image6 =ptifo[0].representationOfDesign1
 
                   }
+
+                   if (ptifo[0].representationOfDesign2) {
+                  this.image7 =ptifo[0].representationOfDesign2
+
+                  }
+
+                   if (ptifo[0].representationOfDesign3) {
+                  this.image8 =ptifo[0].representationOfDesign3
+
+                  }
+
+                   if (ptifo[0].representationOfDesign4) {
+                  this.image9 =ptifo[0].representationOfDesign4
+
+                  }
+
+
+
 
 
 
@@ -1783,10 +1867,10 @@ loaddata() {
                 //   this.removePriority(0) ;
                  //  this.createItem();
 
-                 (<FormControl> this.userform.controls['titleofinvention']).setValue(ptifo[0].titleOfInvention);
-                 (<FormControl> this.userform.controls['patenttype']).setValue(ptifo[0].patentTypeID);
-                 (<FormControl> this.userform.controls['patenttype']).setValue(ptifo[0].patentTypeID);
-                 (<FormControl> this.userform.controls['description']).setValue(ptifo[0].inventionDescription);
+                 (<FormControl> this.userform.controls['titleofinvention']).setValue(ptifo[0].titleOfDesign);
+                 (<FormControl> this.userform.controls['patenttype']).setValue(ptifo[0].designTypeID);
+                 (<FormControl> this.userform.controls['DesignClass']).setValue(ptifo[0].nationClassID);
+                 (<FormControl> this.userform.controls['description']).setValue(ptifo[0].designDescription);
                  (<FormControl> this.userform.controls['AssigneeName']).setValue(ptiAssignment[0].assigneeName);
                  (<FormControl> this.userform.controls['AssigneeAddress']).setValue(ptiAssignment[0].assigneeAddress);
                  (<FormControl> this.userform.controls['AssigneeNationality']).setValue(ptiAssignment[0].assigneeNationalityId);
@@ -1800,6 +1884,11 @@ loaddata() {
                  (<FormControl> this.userform.controls['PhoneNumber']).setValue(addressofservice[0].phoneNumber );
                  (<FormControl> this.userform.controls['Email']).setValue(addressofservice[0].email );
                  (<FormControl> this.userform.controls['State']).setValue(addressofservice[0].stateID );
+
+                  let obj2 = this.row33.find(o => o.id === ptifo[0].nationClassID);
+
+
+  (<FormControl> this.userform.controls['DesignDescription']).setValue(obj2.description);
                  }
 
                  this.Inventor = this.userform.get('Inventor') as FormArray;
@@ -1807,16 +1896,18 @@ loaddata() {
 
 
                  // this.Priority = this.userform.get('Priority') as FormArray;
-                 this.row501 = response.content.patentInvention
-                 this.row502 = response.content.patentPriorityInformation
+                 this.row501 = response.content.designInvention
+
+                 this.row502 = response.content.designPriority
 
 
-                 if (ptifo[0].patentTypeID =="1") {
-                   this.feelist("REGISTRATION OF PATENT (CONVENTIONAL)")
+
+                 if (ptifo[0].designTypeID =="1") {
+                   this.feelist("REGISTRATION OF DESIGNS (TEXTILE)")
                  }
 
                  if (ptifo[0].patentTypeID =="2") {
-                     this.feelist("REGISTRATION OF PATENT (NON-CONVENTIONAL)")
+                     this.feelist("REGISTRATION OF DESIGNS (NON- TEXTILES)")
                  }
 
 
@@ -1939,8 +2030,6 @@ onChange($event) {
 
   let obj2 = this.row33.find(o => o.type === this.userform.value.DesignClass);
 
-  console.log("obj2") ;
-  console.log(obj2) ;
 
   (<FormControl> this.userform.controls['DesignDescription']).setValue(obj2.description);
 

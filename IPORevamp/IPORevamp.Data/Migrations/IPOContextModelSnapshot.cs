@@ -3245,7 +3245,7 @@ namespace IPORevamp.Data.Migrations
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService.DesignAddressOfService", b =>
                 {
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication", "DesignApplication")
-                        .WithMany()
+                        .WithMany("DesignAddressOfService")
                         .HasForeignKey("DesignApplicationID")
                         .OnDelete(DeleteBehavior.Cascade);
 

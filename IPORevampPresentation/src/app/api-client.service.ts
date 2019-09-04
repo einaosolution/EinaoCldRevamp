@@ -2141,10 +2141,30 @@ RejectUser(pp: string,pp2: string ) {
 
   }
 
+   SaveDesign(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Design/SaveApplication', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
   SaveInvention(formData) {
 
 
     return this.http.post( this.serviceBase + 'api/Patent/SavePatentInvention', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  SaveDesignInvention(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Design/SaveDesignInvention', formData)
                 .toPromise()
 
                 .then(data => {  return data; });
@@ -2161,6 +2181,18 @@ RejectUser(pp: string,pp2: string ) {
                 .then(data => {  return data; });
 
   }
+
+
+  SaveDesignPriority(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Design/SaveDesignPriority', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
 
 
 
@@ -2460,6 +2492,22 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 			});
   }
 
+
+  UpDateDesignTransactionById(pp: string ,pp2: string) {
+
+		var data = {
+      pwalletid: pp ,
+      transid: pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Design/UpDateDesignTransactionById', { params: data })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   all() {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -2491,6 +2539,23 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 			});
   }
 
+
+  GetDesignApplicationById(pp : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      Applicationid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Design/GetDesignApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
   GetPatentApplicationByUserId(pp : string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -2501,6 +2566,23 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Patent/GetPatentApplicationByUserId', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetDesignApplicationByUserId(pp : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      userid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Design/GetDesignApplicationByUserId', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

@@ -60,6 +60,7 @@ using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
 using IPORevamp.Data.Entity.Interface.Entities.DesignAssigment;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
+using IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService;
 
 namespace IPORevamp.Data
 {
@@ -155,7 +156,7 @@ namespace IPORevamp.Data
 
         public DbSet<DesignPriority> DesignPriority { get; set; }
 
-        public DbSet<DesignPriority> DesignAddressOfService { get; set; }
+        public DbSet<DesignAddressOfService> DesignAddressOfService { get; set; }
 
         
 

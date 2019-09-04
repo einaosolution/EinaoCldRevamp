@@ -23,6 +23,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignAssigment.DesignAssignment> DesignAssignment { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignInvention.DesignInvention> DesignInvention { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignPriority.DesignPriority> DesignPriority { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService.DesignAddressOfService> DesignAddressOfService { get; set; }
+        
 
     }
 }

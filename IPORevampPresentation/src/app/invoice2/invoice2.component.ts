@@ -36,6 +36,8 @@ export class Invoice2Component implements OnInit ,AfterViewInit {
   busy: Promise<any>;
   messages = ""
 
+  savemode =true;
+
   public Status = Status;
 public DataStatus = DataStatus;
 
@@ -76,6 +78,34 @@ public DataStatus = DataStatus;
    }
    );
   }
+
+
+  
+  generateInvoice10() {
+    this.savemode = false;
+    let  pwallet =  localStorage.getItem('Pwallet');
+       this.registerapi
+       .UpDateDesignTransactionById( pwallet ,this.transactionid)
+       .then((response: any) => {
+
+       //  this.router.navigateByUrl('/Patent/Invoice');
+
+
+
+       })
+                .catch((response: any) => {
+
+                  console.log(response)
+
+
+                 Swal.fire(
+                   response.error.message,
+                   '',
+                   'error'
+                 )
+
+   })
+     }
 
   generateInvoice9() {
     let  pwallet =  localStorage.getItem('NoticeAppID');
@@ -698,6 +728,10 @@ context['msImageSmoothingEnabled'] = false;
           this.generateInvoice9()
         }
 
+        if (paytype =="dsT002") {
+          this.generateInvoice10()
+        }
+
 
 
 
@@ -843,6 +877,9 @@ context['msImageSmoothingEnabled'] = false;
         }
 
 
+   if (paytype =="dsT002") {
+          this.generateInvoice10()
+        }
 
 
 

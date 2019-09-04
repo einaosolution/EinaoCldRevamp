@@ -34,6 +34,13 @@ namespace EmailEngine.Base.Entities
         NONCONVENTIONAL = 2
     }
 
+
+    public enum IPODESIGNTYPE
+    {
+        NONTEXTILE = 2,
+        TEXTILE = 1
+    }
+
     public enum IPORoles
     {
         SuperAdministrator = 1,
