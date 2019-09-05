@@ -80,7 +80,7 @@ public DataStatus = DataStatus;
   }
 
 
-  
+
   generateInvoice10() {
     this.savemode = false;
     let  pwallet =  localStorage.getItem('Pwallet');
@@ -88,7 +88,7 @@ public DataStatus = DataStatus;
        .UpDateDesignTransactionById( pwallet ,this.transactionid)
        .then((response: any) => {
 
-       //  this.router.navigateByUrl('/Patent/Invoice');
+         this.router.navigateByUrl('/Design/Invoice');
 
 
 

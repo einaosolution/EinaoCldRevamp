@@ -272,14 +272,19 @@ namespace IPORevamp.WebAPI
             app.UseAuthentication();
             app.UseHangfireDashboard();
 
+           
             var cronsetting = Cron.Hourly();
            
+           // var cronsetting2 = Cron.DayInterval(1);
+
+            string cronExp = Cron.Daily();
+
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronsetting);
-            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationCount(), cronsetting);
+            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
 
 
             app.UseElmah();

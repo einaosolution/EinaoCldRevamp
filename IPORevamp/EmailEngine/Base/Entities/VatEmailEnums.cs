@@ -48,6 +48,7 @@ namespace EmailEngine.Base.Entities
         CorporateAgent_Trade_Mark  =3,
         Search_Officer_Trade_Mark = 5,
         Search_Officer_Patent = 22,
+        Search_Officer_Design = 28,
         Examination_Officer_Trade_Mark = 6,
         Publication_Officer_Trade_Mark =7,
         Certificate_Officer_Trade_Mark =9,
@@ -165,6 +166,7 @@ namespace EmailEngine.Base.Entities
         public const string Send_Registra_Mail = "AC007";
         public const string PublicationDue_Mail = "ACP007";
         public const string CertificatePayment = "ACP008";
+        public const string PendingApplication = "ACP018";
         public const string NotifyUserOfOpposition = "ACP009";
         public const string PatentCertificateCollection = "ACP014";
         public const string PatentFreshApplication = "ACP015";

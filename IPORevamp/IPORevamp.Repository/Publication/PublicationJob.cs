@@ -107,8 +107,48 @@ namespace IPORevamp.Repository.Publication
             // return null;
         }
 
+        public void CheckPendingApplication()
+        {
+            var DesignPending = (from p in _contex.DesignApplication
 
-        public void CheckPublicationCount()
+                                 where p.ApplicationStatus == STATUS.Pending && p.DataStatus ==DATASTATUS.Search
+                                 select p).ToList();
+
+            var PatentPending = (from p in _contex.PatentApplication
+
+                                 where p.ApplicationStatus == STATUS.Pending && p.DataStatus == DATASTATUS.Search
+                                 select p).ToList();
+
+            var TrademarkPending = (from p in _contex.Application
+
+                                    where p.ApplicationStatus == STATUS.Pending && p.DataStatus == DATASTATUS.Search
+                                    select p).ToList();
+
+            foreach (var trademark in TrademarkPending)
+            {
+                SendEmailonPendingApplication(Convert.ToInt32(trademark.userid), "Trademark");
+
+
+            }
+
+
+            foreach (var patent in PatentPending)
+            {
+                SendEmailonPendingApplication(Convert.ToInt32(patent.userid), "Patent");
+
+
+            }
+
+            foreach (var design in DesignPending)
+            {
+                SendEmailonPendingApplication(Convert.ToInt32(design.userid), "Design");
+
+
+            }
+
+        }
+
+            public void CheckPublicationCount()
         {
             var Countval  = (from c in _contex.Settings where c.SettingCode == IPOCONSTANT.PublicationCount select c).FirstOrDefault();
 
@@ -174,6 +214,33 @@ namespace IPORevamp.Repository.Publication
 
                 // await _emailsender.SendEmailAsync(Setting[0].ItemValue, emailtemplate.EmailSubject, mailContent);
                 await _emailsender.SendEmailAsync(user.Email, emailtemplate.EmailSubject, mailContent);
+
+
+            //}
+        }
+
+
+        public async void SendEmailonPendingApplication(int userid,string app)
+        {
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.PendingApplication select c).FirstOrDefault();
+
+            var user = (from c in _contex.ApplicationUsers where c.Id == userid select c).FirstOrDefault();
+            // var user = _userManager.Users.Where(x => x.RolesId == roleid && x.department == model.department).ToList();
+
+            var vname = user.FirstName + " " + user.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+            mailContent = mailContent.Replace("#Name", vname);
+            mailContent = mailContent.Replace("#App", app);
+
+            //  mailContent = mailContent.Replace("#Password", password);
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+
+
+            // await _emailsender.SendEmailAsync(Setting[0].ItemValue, emailtemplate.EmailSubject, mailContent);
+            await _emailsender.SendEmailAsync(user.Email, emailtemplate.EmailSubject, mailContent);
 
 
             //}

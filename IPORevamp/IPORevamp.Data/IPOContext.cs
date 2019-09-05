@@ -102,6 +102,7 @@ namespace IPORevamp.Data
         public DbSet<TrademarkComments> TrademarkComments { get; set; }
         public DbSet<Twallet> TradeMarkwallet { get; set; }
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<DesignDataResult> DesignDataResult { get; set; }
         public DbSet<PayCertificate> PayCertificate { get; set; }
         public DbSet<ApplicationType> ApplicationType { get; set; }
         public DbSet<NationalClass> NationalClass { get; set; }

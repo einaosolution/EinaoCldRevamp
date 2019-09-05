@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { Student } from '../Student';
 import { Invention } from '../Invention';
+import {Fee} from '../Fee';
 import { Priority } from '../Priority';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl , FormArray } from '@angular/forms';
@@ -63,6 +64,8 @@ export class NewPatentComponent implements OnDestroy ,OnInit {
   userform3: FormGroup;
   Inventor: FormArray;
   Priority2: FormArray;
+  public Fee = Fee;
+
 
 
   submitted:boolean=false;
@@ -225,13 +228,13 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
     if (deviceValue =="2") {
     // alert("2")
       this.vshow = false;
-this.feelist("REGISTRATION OF PATENT (NON-CONVENTIONAL)")
+this.feelist(Fee.REGISTRATIONOFPATENTNONCONVENTIONAL)
     }
 
     else {
     //  alert("1")
       this.vshow = true;
-      this.feelist("REGISTRATION OF PATENT (CONVENTIONAL)")
+      this.feelist(Fee.REGISTRATIONOFPATENTCONVENTIONAL)
     }
   }
 
@@ -2118,7 +2121,7 @@ this.userform3.reset()
 
 
 
-
+this.registerapi.Reset()
 
 this.loaddata()
 

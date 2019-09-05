@@ -59,6 +59,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { NnewDesignComponent } from '../nnew-design/nnew-design.component';
+import { Invoice4Component } from '../invoice4/invoice4.component';
 
 
 
@@ -68,14 +69,21 @@ const routes: Routes = [
   {
     path:  'newDesign',
     component:   NnewDesignComponent
-    }
+    } ,
+    {
+      path:  'Invoice',
+      component:   Invoice4Component
+      }
+
+
 
 
 ];
 
 @NgModule({
   declarations: [
-   NnewDesignComponent],
+   NnewDesignComponent,
+   Invoice4Component],
   imports: [
     CommonModule ,
     SharedModule,

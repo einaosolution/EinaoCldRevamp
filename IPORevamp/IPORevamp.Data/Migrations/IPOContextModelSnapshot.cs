@@ -1183,6 +1183,66 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("DesignApplication");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignDataResult", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("AssigneeAddress");
+
+                    b.Property<string>("AssigneeCountry");
+
+                    b.Property<string>("AssigneeName");
+
+                    b.Property<string>("AssignorAddress");
+
+                    b.Property<string>("AssignorCountry");
+
+                    b.Property<string>("AssignorName");
+
+                    b.Property<string>("ClassDescription");
+
+                    b.Property<string>("DeedOfAssignment");
+
+                    b.Property<string>("DesignDescription");
+
+                    b.Property<string>("DesignType");
+
+                    b.Property<string>("Filenumber");
+
+                    b.Property<DateTime>("FilingDate");
+
+                    b.Property<string>("LetterOfAuthorization");
+
+                    b.Property<int>("NationClassID");
+
+                    b.Property<string>("NoveltyStatement");
+
+                    b.Property<string>("PriorityDocument");
+
+                    b.Property<string>("RepresentationOfDesign1");
+
+                    b.Property<string>("RepresentationOfDesign2");
+
+                    b.Property<string>("RepresentationOfDesign3");
+
+                    b.Property<string>("RepresentationOfDesign4");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("TitleOfInvention");
+
+                    b.Property<string>("Transactionid");
+
+                    b.Property<string>("datastatus");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("DesignDataResult");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory.DesignApplicationHistory", b =>
                 {
                     b.Property<int>("Id")

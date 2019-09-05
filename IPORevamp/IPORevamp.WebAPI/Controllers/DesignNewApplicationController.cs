@@ -102,10 +102,12 @@ namespace IPORevamp.WebAPI.Controllers
         _designRepository = designRepository;
             _fileUploadRespository = fileUploadRespository;
             _EmailTemplateRepository = EmailTemplateRepository;
-
+           
 
         }
 
+
+       
 
         [HttpGet("UpDateDesignTransactionById")]
         public async Task<IActionResult> UpDateDesignTransactionById([FromQuery] string pwalletid, [FromQuery] string transid)
@@ -120,20 +122,20 @@ namespace IPORevamp.WebAPI.Controllers
                 string mailContent = emailTemplate.EmailBody;
 
 
-                //mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
 
-                //var roleid = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                var roleid = Convert.ToInt32(IPORoles.Search_Officer_Design);
 
-                //var user3 = _userManager.Users.Where(x => x.RolesId == roleid).ToList();
+                var user3 = _userManager.Users.Where(x => x.RolesId == roleid).ToList();
 
-                //foreach (var users in user3)
-                //{
-                //    mailContent = mailContent.Replace("#Name", users.FirstName + " " + users.LastName);
+                foreach (var users in user3)
+                {
+                    mailContent = mailContent.Replace("#Name", users.FirstName + " " + users.LastName);
 
-                //    await _emailsender.SendEmailAsync(users.Email, emailTemplate.EmailSubject, mailContent);
+                    await _emailsender.SendEmailAsync(users.Email, emailTemplate.EmailSubject, mailContent);
 
 
-                //}
+                }
 
 
 

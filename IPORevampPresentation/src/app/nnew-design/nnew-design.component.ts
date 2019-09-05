@@ -12,6 +12,7 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
+import {Fee} from '../Fee';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {formatDate} from '@angular/common';
@@ -64,6 +65,8 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   userform3: FormGroup;
   Inventor: FormArray;
   Priority2: FormArray;
+
+  public Fee = Fee;
 
 
   submitted:boolean=false;
@@ -236,13 +239,14 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
     if (deviceValue =="2") {
     // alert("2")
       this.vshow = false;
-this.feelist("REGISTRATION OF DESIGNS (TEXTILE)")
+
+this.feelist(Fee.REGISTRATIONOFDESIGNSTEXTILE)
     }
 
     else {
     //  alert("1")
       this.vshow = true;
-      this.feelist("REGISTRATION OF PATENT (CONVENTIONAL)")
+      this.feelist(Fee.REGISTRATIONOFDESIGNSNONTEXTILE)
     }
   }
 
@@ -452,7 +456,7 @@ return true;
     }
 
 
-   
+
     chng24()
     {
 
@@ -1268,7 +1272,7 @@ if (this.userform.valid) {
   }
 
 
-  
+
   try {
     let f4 = this.fileInput23.nativeElement;
    if (f4.files && f4.files[0]) {
@@ -1339,7 +1343,7 @@ console.log(this.row101)
 
   formData.append("DesignClass",this.userform.value.DesignClass);
 
-  
+
   formData.append("ApplicationId",this.pwalletid);
   formData.append("PatentInvention",JSON.stringify(this.row101));
   formData.append("AttorneyCode",this.userform.value.AttorneyCode);
@@ -1361,7 +1365,7 @@ console.log(this.row101)
 
     this.pwalletid =response.content
 
-    
+
 
 
     this.onSubmit105(this.pwalletid ) ;
@@ -2219,7 +2223,7 @@ onChange($event) {
 
 
 
-
+this.registerapi.Reset()
 this.loaddata()
 
 this.busy =   this.registerapi
