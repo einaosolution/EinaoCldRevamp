@@ -236,7 +236,7 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
    // let obj =  this.row11.find(o => o.id === deviceValue);
     //this.trademarklogo =obj.type
 
-    if (deviceValue =="2") {
+    if (deviceValue =="1") {
     // alert("2")
       this.vshow = false;
 

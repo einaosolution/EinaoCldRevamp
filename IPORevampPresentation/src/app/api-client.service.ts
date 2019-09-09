@@ -332,6 +332,21 @@ public GetRandomNumber ( ) {
         }
 
 
+        SaveDesignFreshAppHistory(formData) {
+
+          //  var token = localStorage.getItem('access_tokenexpire');
+  
+           // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+           //var vip = localStorage.getItem('ip');
+          // const  headers = new  HttpHeaders().set("ip", vip);
+            return this.http.post( this.serviceBase + 'api/DesignSearch/SaveDesignFreshAppHistory', formData )
+                        .toPromise()
+  
+                        .then(data => {  return data; });
+  
+          }
+
+
         SavePatentStateAppHistory(formData) {
 
           //  var token = localStorage.getItem('access_tokenexpire');
@@ -345,6 +360,23 @@ public GetRandomNumber ( ) {
                         .then(data => {  return data; });
 
           }
+
+
+          SaveDesignStateAppHistory(formData) {
+
+            //  var token = localStorage.getItem('access_tokenexpire');
+  
+             // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+             //var vip = localStorage.getItem('ip');
+            // const  headers = new  HttpHeaders().set("ip", vip);
+              return this.http.post( this.serviceBase + 'api/DesignSearch/SaveDesignStateAppHistory', formData )
+                          .toPromise()
+  
+                          .then(data => {  return data; });
+  
+            }
+  
+  
 
 
 
@@ -987,6 +1019,21 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetDesignSearchState(pp: string,pp2: string ) {
+
+      var data = {
+        RequestById: pp ,
+        ApplicationId: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignSearchState', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     DeleteCountry(pp: string,pp2: string ) {
 
       var data = {
@@ -1385,6 +1432,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetDesignFreshapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
 
     GetPatentByUserId(pp2: string  ) {
       var data = {
@@ -1641,6 +1704,22 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetDesignPriority(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignPriority', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     GetAddressOfServiceById2(pp: string,pp2: string ) {
 
       var data = {
@@ -1650,6 +1729,22 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/PatentSearch/GetAddressOfServiceById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetAddressOfServiceById3(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetAddressOfServiceById', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -1707,6 +1802,22 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    SendDesignExaminerEmail(pp: string ) {
+
+      var data = {
+
+        RequestById: pp
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/SendExaminerEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
 
     SendPatentUserEmail(pp: string ,pp2: string  ,pp3: string  ) {
 
@@ -1719,6 +1830,24 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/PatentSearch/SendUserEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    SendDesignUserEmail(pp: string ,pp2: string  ,pp3: string  ) {
+
+      var data = {
+
+        RequestById: pp ,
+        appid: pp2 ,
+        comment:pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/SendUserEmail', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -1753,6 +1882,21 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/PatentSearch/GetPatentInventorById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetDesignInventorById(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignInventorById', { params: data })
         .toPromise()
         .then((data) => {
           return data;

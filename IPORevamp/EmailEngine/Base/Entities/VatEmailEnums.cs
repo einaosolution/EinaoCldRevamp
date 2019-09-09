@@ -57,6 +57,8 @@ namespace EmailEngine.Base.Entities
         Recordals_Officers_Trade_Mark = 12  ,
         Individual =13,
         Patent_Examiner =15,
+        Design_Examiner = 29,
+
         Registrar =8
 
 

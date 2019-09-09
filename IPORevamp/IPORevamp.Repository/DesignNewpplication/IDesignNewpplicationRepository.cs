@@ -40,7 +40,9 @@ namespace IPORevamp.Repository.DesignNewpplication
        
         Task<DesignInformation> GetDesignApplication(int id);
         Task<DesignAssignment> UpdateDesignAssignment(int id, DesignAssignment designassignment);
-       
+
+
+
 
 
     }

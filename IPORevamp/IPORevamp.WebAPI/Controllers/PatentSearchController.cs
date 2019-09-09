@@ -448,8 +448,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var AddressOfService = await _patentSearchRepository.GetAddressOfServiceById(Convert.ToInt32(Id));
 
-                if (AddressOfService != null)
-                {
+              
 
                     // get User Information
                     user = await _userManager.FindByIdAsync(RequestById.ToString());
@@ -468,11 +467,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                     return PrepareResponse(HttpStatusCode.OK, "Patent Address Of Service  Returned Successfully", false, AddressOfService);
 
-                }
-                else
-                {
-                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
-                }
+               
             }
             catch (Exception ex)
             {
@@ -636,8 +631,6 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var patentpriority = await _patentSearchRepository.GetPriorityById(Convert.ToInt32(Id));
 
-                if (patentpriority != null)
-                {
 
                     // get User Information
                     user = await _userManager.FindByIdAsync(RequestById.ToString());
@@ -656,11 +649,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                     return PrepareResponse(HttpStatusCode.OK, "PatentPriority Returned Successfully", false, patentpriority);
 
-                }
-                else
-                {
-                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
-                }
+               
             }
             catch (Exception ex)
             {

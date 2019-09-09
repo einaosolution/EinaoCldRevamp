@@ -1,0 +1,681 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">All Design Fresh Application</h4>
+          <div class="d-flex align-items-center">
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">Design  Application</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- Column -->
+      <div class="col-lg-12 col-xl-12 col-md-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex no-block align-items-center m-b-30">
+                      <h4 class="card-title">Design  Application</h4>
+                      <div [ngBusy]="busy"></div>
+
+                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
+                  </div>
+<br/>
+
+
+                  <div class="table-responsive">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                          <thead>
+                              <tr>
+                                <th>SN</th>
+
+                                  <th>FILING DATE</th>
+                                  <th>FILE NO.</th>
+
+                                 <th>TITLE OF INVENTION </th>
+                                 <th>DESIGN TYPE </th>
+                                 <th>STATUS </th>
+
+                                 <th> </th>
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of rows  let i = index">
+
+                                  <td>{{i + 1}}</td>
+
+                                     <td>{{emp.filingDate|date}}</td>
+                                      <td>{{emp.filenumber}}</td>
+
+                                      <td>{{emp.titleOfInvention }}</td>
+                                      <td>{{emp.designType   }}</td>
+                                      <td>{{emp.status}}</td>
+
+
+                                      <td>
+                                        <button type="button" id="openModalButton" (click) ="showdetail(emp)"  class="btn btn-success ">Details </button>
+
+
+
+                                   </td>
+
+
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column -->
+
+  </div>
+
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Data Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+
+                          <div class="Container">
+
+                            <table  class="table-grid"     *ngIf="savemode" align="center" >
+                              <!--    <table  class="table form"   width="100%"  *ngIf="savemode3" >  -->
+
+
+                                    <tr >
+                                         <td width="22%" colspan="2" class="tbbg" align="center">
+                                             <strong>DATA DETAILS FOR {{row4.titleOfInvention.toUpperCase()}}</strong></td>
+                                     </tr>
+                                      <tr>
+                                         <td align="right" >
+                                             &nbsp;DESIGN TYPE :&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             {{row4.designType}}
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+                                     <tr>
+                                      <td align="right" >
+                                          &nbsp;CLASS :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          {{row4.nationClassID }}
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+                                    <tr>
+                                         <td align="right" >
+                                             &nbsp;TITLE OF INVENTION  :&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             {{row4.titleOfInvention }}
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+                              <tr>
+                                         <td align="right">
+                                             &nbsp;DESCRIPTION :&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             {{row4.designDescription }}
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+                               <tr>
+                                         <td align="right" >
+                                             &nbsp;ASSIGNEE NAME&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             {{row4.assigneeName }}
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+                             <tr>
+                                         <td align="right" >
+                                             &nbsp;ASSIGNEE ADDRESS :&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             {{row4.assigneeAddress  }}
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+                                     <tr>
+                                      <td align="right" >
+                                          &nbsp;ASSIGNEE NATIONALITY :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          {{row4.assigneeCountry}}
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+                                  <tr>
+                                    <td align="right" >
+                                        &nbsp;ASSIGNOR NAME :&nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        {{row4.assignorName }}
+                                       &nbsp;
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                  <td align="right" >
+                                      &nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp;
+                                  </td>
+                                  <td>
+                                      {{row4.assignorAddress}}
+                                     &nbsp;
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                <td align="right" >
+                                    &nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    {{row4.assignorCountry}}
+                                   &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tbbg" colspan="2" align="center">
+                                    --- INVENTOR INFORMATION  ---</td>
+                            </tr>
+
+
+
+                            <tr>
+
+                              <td colspan="2" >
+
+                                  <table  class="table"   width="100%">
+
+
+                                      <thead>
+
+
+                                          <tr>
+
+                                            <th>Name Of Invention </th>
+                                            <th>Address</th>
+                                              <th>Phone</th>
+                                              <th>Email</th>
+                                              <th>Nationality</th>
+
+
+
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <tr *ngFor="let emp of row2  let i = index">
+
+
+
+                                                 <td>{{emp.inventorName}}</td>
+                                                 <td>{{emp.inventorAddress}}</td>
+                                                <td>  {{emp.inventorMobileNumber}}</td>
+                                                <td>  {{emp.inventorEmail}}</td>
+                                                <td>{{emp.country.name}}  </td>
+
+
+
+
+                                                </tr>
+                                              </tbody>
+                                  </table>
+
+                              </td>
+
+                          </tr>
+
+                          <tr>
+                              <td class="tbbg" colspan="2" align="center">
+                                  --- PRIORITY INFORMATION  ---</td>
+                          </tr>
+
+                          <tr>
+                              <td colspan="2" >
+                                  <table class="table"  width="100%"   >
+
+                                      <thead>
+
+
+                                          <tr>
+
+                                            <th>ApplicationNumber  </th>
+                                            <th>Registration Date</th>
+                                              <th>Country</th>
+
+
+
+
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr *ngFor="let emp of row3  let i = index">
+
+
+
+                                                 <td>{{emp.applicationNumber}}</td>
+                                                 <td>{{emp.registrationDate|date}}</td>
+                                                <td>  {{emp.country.name }}</td>
+
+
+
+                                                </tr>
+                                              </tbody>
+                                  </table>
+
+                              </td>
+
+                          </tr>
+
+                          <tr>
+                            <td class="tbbg" colspan="2" align="center">
+                                --- ADDRESS OF SERVICE  ---</td>
+                        </tr>
+
+
+                        <tr  >
+                          <td align="right" >
+                              &nbsp;Attorney Code:&nbsp;&nbsp;
+                          </td>
+                          <td>
+
+                           {{row5[0].attorneyCode}}
+
+                          </td>
+                      </tr>
+
+                      <tr  >
+                        <td align="right" >
+                            &nbsp;Attorney Name:&nbsp;&nbsp;
+                        </td>
+                        <td>
+
+                          {{row5[0].attorneyName}}
+
+
+                        </td>
+                    </tr>
+
+                    <tr  >
+                      <td align="right" >
+                          &nbsp;Email:&nbsp;&nbsp;
+                      </td>
+                      <td>
+
+                        {{row5[0].email}}
+
+
+
+                      </td>
+                  </tr>
+
+                  <tr  >
+                    <td align="right" >
+                        &nbsp;Phone Number:&nbsp;&nbsp;
+                    </td>
+                    <td>
+
+                      {{row5[0].phoneNumber}}
+
+
+
+
+                    </td>
+                </tr>
+
+
+                <tr  >
+                  <td align="right" >
+                      &nbsp;State:&nbsp;&nbsp;
+                  </td>
+                  <td>
+
+                    {{row5[0].state.stateName}}
+
+
+
+
+                  </td>
+              </tr>
+
+
+
+                          <tr>
+                              <td class="tbbg" colspan="2" align="center">
+                                  --- UPLOADS  ---</td>
+                          </tr>
+
+                            <tr  *ngIf="row4.claims">
+                                         <td align="right" >
+                                             &nbsp;Claims:&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                            <a  target="_blank"  href="{{filepath}}Upload/{{ row4.claims}}">View Upload</a>
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+           <tr *ngIf="row4.deedOfAssignment">
+                                         <td align="right" >
+                                             &nbsp;Deed Of Assignment :&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             <a  target="_blank"  href="{{filepath}}Upload/{{ row4.deedOfAssignment}}">View Upload</a>
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+          <tr *ngIf="row4.letterOfAuthorization">
+                                         <td align="right" >
+                                             &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             <a  target="_blank"  href="{{filepath}}Upload/{{row4.letterOfAuthorization}}">View Upload</a>   <br/>
+
+                                            &nbsp;
+                                         </td>
+                                     </tr>
+
+
+                                     <tr *ngIf="row4.pctDocument">
+                                        <td align="right">
+                                            &nbsp;PCT Document :&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <a  target="_blank"  href="{{filepath}}Upload/{{row4.pctDocument}}">View Upload</a>   <br/>
+
+                                           &nbsp;
+                                        </td>
+                                    </tr>
+
+
+                                    <tr *ngIf="row4.completeSpecificationForm">
+                                       <td align="right">
+                                           &nbsp;Complete Specification Form :&nbsp;&nbsp;
+                                       </td>
+                                       <td>
+                                           <a  target="_blank"  href="{{filepath}}Upload/{{row4.completeSpecificationForm}}">View Upload</a>   <br/>
+
+                                          &nbsp;
+                                       </td>
+                                   </tr>
+
+
+
+
+         </table>
+
+       </div>
+
+
+
+  </div>
+  <form>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit"  (click) ="onSubmit()"  class="btn btn-success"> Fail Formality Check</button>
+               <button type="submit" *ngIf="updatemode" (click) ="onSubmit4()"  class="btn btn-success"> Pass Formality Check</button>
+               <div [ngBusy]="busy"></div>
+              </div>
+</form>
+      </div>
+  </div>
+</div>
+
+
+<!-- Create Modal 2 -->
+<div class="modal fade" id="createmodel2" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-full" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>Fail Formality Check </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+                          <form name="form"  #f="ngForm" novalidate>
+
+                          <table class="table text-center">
+                              <tr>
+                             <td>
+                             Comments
+                             </td>
+
+                             <td>
+
+
+                                <textarea rows="4" class="form-control" required [(ngModel)]="appcomment3"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                  </textarea>
+
+
+
+                               </td>
+
+                              </tr>
+
+
+                             </table>
+
+
+                            </form>
+  </div>
+
+
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  (click) ="onSubmit5(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+<!-- Create Modal 3 -->
+<div class="modal fade" id="createmodel3" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Pass Formality Check </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <form name="form"  #f="ngForm" novalidate>
+<table class="table text-center"  >
+
+  <tr>
+      <td>
+       Mark Description
+      </td>
+
+      <td>
+
+
+          <select  name ="vselect3"  [(ngModel)]="appdescription" #device  (change)="onChange(device.value)" required class="form-control custom-select">
+              <option value="">Select Description</option>
+              <option value="Similar Marks Exist">Similar Marks Exist</option>
+              <option value="No Similar Marks">No Similar Marks</option>
+
+
+
+
+            </select>
+      </td>
+
+       </tr>
+<tr>
+<td>
+Comments
+</td>
+
+<td>
+  <textarea rows="4" required [(ngModel)]="appcomment2" id="classdescription" name="classdescription2"  cols="30" placeholder="Comment">
+
+    </textarea>
+
+</td>
+
+</tr>>
+
+<tr>
+<td>
+Upload
+</td>
+
+<td>
+  <input type="file" #fileInput class="form-control " id="uploadAddress2" name="uploadAddress">
+<span *ngIf="uploads && display">
+  <a  target="_blank"  href="{{filepath}}Upload/{{uploads}}">View Upload</a>   <br/>
+</span>
+
+</td>
+
+</tr>
+
+
+
+
+</table>
+
+
+</form>
+
+
+  </div>
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  (click) ="onSubmit2(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="submit"  (click) ="onSubmit20(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save And Continue Later</button>
+
+              </div>
+          </form>
+
+
+          <table id="myTable"  *ngIf="row50.length > 0"  class="table table-bordered">
+            <thead>
+                <tr>
+
+
+                    <th>Mark Description</th>
+                    <th>Comment</th>
+
+                   <th>Upload </th>
+
+
+                   <th> </th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let data of row50  let i = index">
+
+
+
+                       <td>{{data.description}}</td>
+                        <td>{{data.patentcomment}}</td>
+
+                        <td>{{data.uploadsPath1}}</td>
+
+
+
+
+                        <td>
+                          <button type="button" id="openModalButton"  (click) ="onSubmit22(data)"   class="btn btn-success ">Restore </button>
+
+
+
+                     </td>
+
+
+
+                      </tr>
+                    </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

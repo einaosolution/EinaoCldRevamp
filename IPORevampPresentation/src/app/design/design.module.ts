@@ -60,6 +60,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { NnewDesignComponent } from '../nnew-design/nnew-design.component';
 import { Invoice4Component } from '../invoice4/invoice4.component';
+import { DesignFreshApplicationComponent } from '../design-fresh-application/design-fresh-application.component';
 
 
 
@@ -74,6 +75,11 @@ const routes: Routes = [
       path:  'Invoice',
       component:   Invoice4Component
       }
+      ,
+      {
+        path:  'FreshApplication',
+        component:   DesignFreshApplicationComponent
+        }
 
 
 
@@ -83,7 +89,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
    NnewDesignComponent,
-   Invoice4Component],
+   Invoice4Component,
+   DesignFreshApplicationComponent],
   imports: [
     CommonModule ,
     SharedModule,
