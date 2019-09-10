@@ -271,6 +271,10 @@ this. getallApplication2()
 
      else {
 
+      if (this.uploads) {
+
+      }
+      else {
       Swal.fire(
         "Upload Search Result",
         '',
@@ -280,6 +284,8 @@ this. getallApplication2()
       return ;
 
      }
+
+    }
 
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);

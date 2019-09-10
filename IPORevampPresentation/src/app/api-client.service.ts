@@ -1448,6 +1448,37 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetDesignRegistraFreshapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDesignFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetDesignFreshExaminerapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignExaminer/GetDesignFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
 
     GetPatentByUserId(pp2: string  ) {
       var data = {
@@ -3263,6 +3294,25 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+  SendMailReconductSearch2(pp2:string ,pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      userid:pp ,
+      Comment:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignExaminer/MailToReconductSearch', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetExaminerFreshApplication(pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3506,6 +3556,24 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 			});
   }
 
+  GetDesignRefusalComment(pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignExaminer/GetRefusalComment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
   SendPatentRegistraEmail(pp:string,pp3:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3525,6 +3593,25 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+  SendDesignRegistraEmail(pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignExaminer/SendRegistraEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetExaminerPreviousComment(pp:string,pp3:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3537,6 +3624,24 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/PatentExaminer/GetPreviousComment', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetExaminerPreviousComment2(pp:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      RequestById:pp ,
+      ID:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignExaminer/GetPreviousComment', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

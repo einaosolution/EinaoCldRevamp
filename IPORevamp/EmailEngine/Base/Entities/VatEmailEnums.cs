@@ -68,6 +68,7 @@ namespace EmailEngine.Base.Entities
     {
         public const string Trademark = "3";
         public const string Patent = "1";
+        public const string Design = "5";
 
     }
 

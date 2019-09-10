@@ -61,6 +61,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NnewDesignComponent } from '../nnew-design/nnew-design.component';
 import { Invoice4Component } from '../invoice4/invoice4.component';
 import { DesignFreshApplicationComponent } from '../design-fresh-application/design-fresh-application.component';
+import { ExaminerDesignFreshComponent } from '../examiner-design-fresh/examiner-design-fresh.component';
+import { AcceptancedesignLetterComponent } from '../acceptancedesign-letter/acceptancedesign-letter.component';
+import { RefusalDesignLetterComponentComponent } from '../refusal-design-letter-component/refusal-design-letter-component.component';
+import { DesignRegistraCertificateComponent } from '../design-registra-certificate/design-registra-certificate.component';
 
 
 
@@ -81,6 +85,34 @@ const routes: Routes = [
         component:   DesignFreshApplicationComponent
         }
 
+        ,
+      {
+        path:  'ExaminerFresh',
+        component:   ExaminerDesignFreshComponent
+        }
+
+        ,
+        {
+          path:  'AcceptanceptanceLetter',
+          component:  AcceptancedesignLetterComponent
+          }
+
+          ,
+          {
+            path:  'RefusalDesignLetter',
+            component:  RefusalDesignLetterComponentComponent
+            }
+
+            ,
+          {
+            path:  'DesignCertificatePayment',
+            component:  DesignRegistraCertificateComponent
+            }
+
+
+
+
+
 
 
 
@@ -90,7 +122,11 @@ const routes: Routes = [
   declarations: [
    NnewDesignComponent,
    Invoice4Component,
-   DesignFreshApplicationComponent],
+   DesignFreshApplicationComponent,
+   ExaminerDesignFreshComponent,
+   AcceptancedesignLetterComponent,
+   RefusalDesignLetterComponentComponent,
+   DesignRegistraCertificateComponent],
   imports: [
     CommonModule ,
     SharedModule,
