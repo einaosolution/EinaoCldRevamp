@@ -170,6 +170,20 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [HttpGet("GetUserFromDesignDepartment")]
+        public async Task<IActionResult> GetUserFromDesignDepartment()
+        {
+
+
+            var user = _userManager.Users.Where(x => x.IsDeleted != true && x.RolesId == Convert.ToInt32(IPORoles.Design_Examiner)).ToList();
+
+
+
+            return Ok(user);
+
+
+        }
+
 
         [HttpGet("GetUserFromId")]
         public async Task<IActionResult> GetUserFromId([FromQuery] string Id)

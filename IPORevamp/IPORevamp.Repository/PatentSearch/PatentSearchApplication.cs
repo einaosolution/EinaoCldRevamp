@@ -168,6 +168,7 @@ namespace IPORevamp.Repository.PatentSearch
             delegates.DateCreated = DateTime.Now;
             delegates.IsActive = true;
             delegates.IsDeleted = false;
+            delegates.applicationstage = "patent";
             _contex.Add(delegates);
             _contex.SaveChanges();
 

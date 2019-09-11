@@ -335,15 +335,15 @@ public GetRandomNumber ( ) {
         SaveDesignFreshAppHistory(formData) {
 
           //  var token = localStorage.getItem('access_tokenexpire');
-  
+
            // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
            //var vip = localStorage.getItem('ip');
           // const  headers = new  HttpHeaders().set("ip", vip);
             return this.http.post( this.serviceBase + 'api/DesignSearch/SaveDesignFreshAppHistory', formData )
                         .toPromise()
-  
+
                         .then(data => {  return data; });
-  
+
           }
 
 
@@ -365,18 +365,18 @@ public GetRandomNumber ( ) {
           SaveDesignStateAppHistory(formData) {
 
             //  var token = localStorage.getItem('access_tokenexpire');
-  
+
              // const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
              //var vip = localStorage.getItem('ip');
             // const  headers = new  HttpHeaders().set("ip", vip);
               return this.http.post( this.serviceBase + 'api/DesignSearch/SaveDesignStateAppHistory', formData )
                           .toPromise()
-  
+
                           .then(data => {  return data; });
-  
+
             }
-  
-  
+
+
 
 
 
@@ -1541,6 +1541,23 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+    GetDesignDelegateApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDelegateApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     GetPatentCertificatePayment(pp2: string  ) {
       var data = {
 
@@ -1550,6 +1567,22 @@ RejectUser(pp: string,pp2: string ) {
 
       return this.http
         .get(this.serviceBase + 'api/PatentCertificate/GetPatentCertificatePayment', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignCertificatePayment(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDesignCertificatePayment', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -1816,6 +1849,23 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    DelegateDesignExaminerEmail(pp: string ,pp2: string , pp3: string ) {
+
+      var data = {
+
+        RequestById: pp ,
+        userid: pp2 ,
+        Applicationid: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/DelegateExaminerEmail', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     SendPatentExaminerEmail(pp: string ) {
 
@@ -1897,6 +1947,23 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/PatentSearch/SendEmailForCertificate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    SendDesignEmailForCertificate(pp: string ,pp2: string  ,pp3: string  ) {
+
+      var data = {
+
+        RequestById: pp ,
+        appid: pp2 ,
+        comment:pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/SendEmailForCertificate', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2255,6 +2322,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    UpdateCertDesignPaymentById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/UpdateCertPaymentById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     SaveState(formData) {
 
@@ -2587,6 +2670,16 @@ RejectUser(pp: string,pp2: string ) {
 			});
   }
 
+  GetUserFromDesignDepartment() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetUserFromDesignDepartment')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
 
   GetUserById(pp: string) {
 

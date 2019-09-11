@@ -134,13 +134,13 @@ onChange( deviceValue) {
 
 
    this.busy =  this.registerapi
-   .SavePatentFreshAppHistory(formData)
+   .SaveDesignFreshAppHistory(formData)
    .then((response: any) => {
 
      this.submitted=false;
 
   this.busy =   this.registerapi
-  .DelegateExaminerEmail(userid,this.appdescription,this.pwalletid)
+  .DelegateDesignExaminerEmail(userid,this.appdescription,this.pwalletid)
   .then((response: any) => {
 
     console.log("Examiner Email")
@@ -233,14 +233,14 @@ onChange( deviceValue) {
 
 
    this.busy =  this.registerapi
-   .SavePatentFreshAppHistory(formData)
+   .SaveDesignFreshAppHistory(formData)
    .then((response: any) => {
 
      this.submitted=false;
 
 
      this.busy =   this.registerapi
-     .SendEmailForCertificate(userid,this.pwalletid,this.appcomment3)
+     .SendDesignEmailForCertificate(userid,this.pwalletid,this.appcomment3)
      .then((response: any) => {
 
        console.log("Examiner Email")
@@ -456,7 +456,7 @@ this.pwalletid = kk.applicationId
 
   ngOnInit() {
     this.filepath = this.registerapi.GetFilepath2();
-    if (this.registerapi.checkAccess("#/Patent/PatentCertificatePayment"))  {
+    if (this.registerapi.checkAccess("#/Design/DesignCertificatePayment"))  {
 
     }
 
@@ -467,9 +467,9 @@ this.pwalletid = kk.applicationId
       return ;
     }
 
-    this.registerapi.setPage("RegistraPatent")
+    this.registerapi.setPage("RegistraDesign")
 
-    this.registerapi.VChangeEvent("RegistraPatent");
+    this.registerapi.VChangeEvent("RegistraDesign");
 
   this.dtOptions = {
     pagingType: 'full_numbers',
@@ -516,7 +516,7 @@ this.pwalletid = kk.applicationId
 
 
    this.registerapi
-   .GetUserFromDepartment()
+   .GetUserFromDesignDepartment()
    .then((response: any) => {
 
 

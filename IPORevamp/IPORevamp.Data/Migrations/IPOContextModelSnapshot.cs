@@ -1035,6 +1035,41 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("TrademarkComments");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DelegateJob.DelegateDesignJob", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<int>("DesignApplicationID");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("applicationstage");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DesignApplicationID");
+
+                    b.ToTable("DelegateDesignJob");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DelegateJob.DelegateJob", b =>
                 {
                     b.Property<int>("Id")
@@ -3291,6 +3326,14 @@ namespace IPORevamp.Data.Migrations
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application", "application")
                         .WithMany("TrademarkApplicationHistory")
                         .HasForeignKey("ApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DelegateJob.DelegateDesignJob", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication", "DesignApplication")
+                        .WithMany("DelegateDesignJob")
+                        .HasForeignKey("DesignApplicationID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

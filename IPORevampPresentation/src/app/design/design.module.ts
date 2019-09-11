@@ -65,6 +65,9 @@ import { ExaminerDesignFreshComponent } from '../examiner-design-fresh/examiner-
 import { AcceptancedesignLetterComponent } from '../acceptancedesign-letter/acceptancedesign-letter.component';
 import { RefusalDesignLetterComponentComponent } from '../refusal-design-letter-component/refusal-design-letter-component.component';
 import { DesignRegistraCertificateComponent } from '../design-registra-certificate/design-registra-certificate.component';
+import { DesignRegistraCertificate2Component } from '../design-registra-certificate2/design-registra-certificate2.component';
+import { PayDesignCertificateComponent } from '../pay-design-certificate/pay-design-certificate.component';
+import { NoticeDesignCertificatePaymentComponent } from '../notice-design-certificate-payment/notice-design-certificate-payment.component';
 
 
 
@@ -109,6 +112,23 @@ const routes: Routes = [
             component:  DesignRegistraCertificateComponent
             }
 
+            ,
+            {
+              path:  'DesignCertificateExaminePayment',
+              component:  DesignRegistraCertificate2Component
+              }
+
+              ,
+              {
+                path:  'PayDesignCertificate',
+                component:  PayDesignCertificateComponent
+                }
+
+                ,
+                {
+                  path:  'NoticeDesignCertificatePayment',
+                  component:   NoticeDesignCertificatePaymentComponent
+                  }
 
 
 
@@ -126,7 +146,10 @@ const routes: Routes = [
    ExaminerDesignFreshComponent,
    AcceptancedesignLetterComponent,
    RefusalDesignLetterComponentComponent,
-   DesignRegistraCertificateComponent],
+   DesignRegistraCertificateComponent,
+   DesignRegistraCertificate2Component,
+   PayDesignCertificateComponent,
+   NoticeDesignCertificatePaymentComponent],
   imports: [
     CommonModule ,
     SharedModule,

@@ -122,6 +122,9 @@ namespace IPORevamp.Data
 
         public DbSet<DSApplicationStatus> DSApplicationStatus { get; set; }
         public DbSet<DelegateJob> DelegateJob { get; set; }
+        public DbSet<DelegateDesignJob> DelegateDesignJob { get; set; }
+
+        
         public DbSet<Product> Product { get; set; }
         public DbSet<Department> Department { get; set; }
         public DbSet<Data.Entities.LGAs.LGA> LGAs { get; set; }

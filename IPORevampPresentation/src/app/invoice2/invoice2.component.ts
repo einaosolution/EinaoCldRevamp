@@ -81,6 +81,81 @@ public DataStatus = DataStatus;
 
 
 
+  generateInvoice11() {
+    let  pwallet =  localStorage.getItem('NoticeAppID');
+    let  pwallet2 =  localStorage.getItem('Pwallet');
+
+
+    let  userid = localStorage.getItem('UserId');
+       this.registerapi
+       .UpdateCertDesignPaymentById( pwallet ,userid ,this.transactionid)
+       .then((response: any) => {
+
+         console.log("response after payment")
+         console.log(response.content)
+
+
+         var  formData = new FormData();
+         var userid = localStorage.getItem('UserId');
+
+         var array = pwallet2.split(",");
+
+         for (let i = 0; i < array.length; i++) {
+
+
+           array[i]
+        // formData.append("pwalletid",pwallet2);
+        formData.append("pwalletid",array[i]);
+        formData.append("comment","Certificate Payment Sucessful");
+        formData.append("description","");
+        formData.append("fromstatus","");
+        formData.append("tostatus",Status.Paid);
+        formData.append("fromDatastatus","");
+        formData.append("toDatastatus",DataStatus.Certificate);
+        formData.append("userid",userid);
+        formData.append("uploadpath","");
+
+
+        this.busy =  this.registerapi
+        .SaveDesignFreshAppHistory(formData)
+        .then((response: any) => {
+         this.router.navigateByUrl('/Dashboard/Invoice');
+
+        })
+                 .catch((response: any) => {
+                //  this.spinner.hide();
+                   console.log(response)
+
+
+                  Swal.fire(
+                    response.error.message,
+                    '',
+                    'error'
+                  )
+
+     })
+
+   }
+
+       //  this.router.navigateByUrl('/Dashboard/Acknowledgement');
+
+
+
+       })
+                .catch((response: any) => {
+
+                  console.log(response)
+
+
+                 Swal.fire(
+                   response.error.message,
+                   '',
+                   'error'
+                 )
+
+   })
+     }
+
   generateInvoice10() {
     this.savemode = false;
     let  pwallet =  localStorage.getItem('Pwallet');
@@ -733,6 +808,11 @@ context['msImageSmoothingEnabled'] = false;
         }
 
 
+        if (paytype =="CertDesignPayment") {
+          this.generateInvoice11()
+        }
+
+
 
 
 
@@ -879,6 +959,11 @@ context['msImageSmoothingEnabled'] = false;
 
    if (paytype =="dsT002") {
           this.generateInvoice10()
+        }
+
+
+        if (paytype =="CertDesignPayment") {
+          this.generateInvoice11()
         }
 
 

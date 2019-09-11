@@ -13,5 +13,10 @@ namespace IPORevamp.Repository.DesignRegistra
    public  interface IDesignRegistraApplication : IAutoDependencyRegister
     {
         Task<List<DesignDataResult>> GetDesignFreshApplication();
+        void DelegateExaminerEmail(string userid, int applicationid);
+        Task<List<DesignDataResult>> GetDelegateCertificate(string userid);
+        void SendEmailForCerticate(int appid, string comment);
+        Task<List<DesignDataResult>> GetDesignPayCertificate(string userid);
+        Task<IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate> ProcessCertificatePayment(int NoticeAppID, string TransactionId);
     }
 }
