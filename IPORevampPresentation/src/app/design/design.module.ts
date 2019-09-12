@@ -68,6 +68,10 @@ import { DesignRegistraCertificateComponent } from '../design-registra-certifica
 import { DesignRegistraCertificate2Component } from '../design-registra-certificate2/design-registra-certificate2.component';
 import { PayDesignCertificateComponent } from '../pay-design-certificate/pay-design-certificate.component';
 import { NoticeDesignCertificatePaymentComponent } from '../notice-design-certificate-payment/notice-design-certificate-payment.component';
+import { DesignPaidCertificateComponentComponent } from '../design-paid-certificate-component/design-paid-certificate-component.component';
+import { DesignPaidCertificate2Component } from '../design-paid-certificate2/design-paid-certificate2.component';
+import { DesignCertificateComponent } from '../design-certificate/design-certificate.component';
+import { DesignApplicationListingComponent } from '../design-application-listing/design-application-listing.component';
 
 
 
@@ -131,6 +135,33 @@ const routes: Routes = [
                   }
 
 
+                  ,
+                {
+                  path:  'DesignVerifyPaidCertificate',
+                  component:    DesignPaidCertificateComponentComponent
+                  }
+
+                  ,
+                  {
+                    path:  'DesignConfirmCertificate',
+                    component:    DesignPaidCertificate2Component
+                    }
+
+
+                  ,
+                  {
+                    path:  'DesignCertificate',
+                    component:    DesignCertificateComponent
+                    }
+
+                    ,
+                    {
+                      path:  'DesignApplicationListing',
+                      component:    DesignApplicationListingComponent
+                      }
+
+
+
 
 
 
@@ -149,7 +180,11 @@ const routes: Routes = [
    DesignRegistraCertificateComponent,
    DesignRegistraCertificate2Component,
    PayDesignCertificateComponent,
-   NoticeDesignCertificatePaymentComponent],
+   NoticeDesignCertificatePaymentComponent,
+   DesignPaidCertificateComponentComponent,
+   DesignPaidCertificate2Component,
+   DesignCertificateComponent,
+   DesignApplicationListingComponent],
   imports: [
     CommonModule ,
     SharedModule,

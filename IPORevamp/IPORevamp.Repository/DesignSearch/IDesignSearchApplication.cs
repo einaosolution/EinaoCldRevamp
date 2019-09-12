@@ -33,7 +33,9 @@ namespace IPORevamp.Repository.DesignSearch
         Task<List<DesignPriority>> GetPriorityById(int id);
         void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid, string filepath);
         void SendExaminerEmail();
-      
+        Task<List<DesignDataResult>> GetDesignListing(string userid);
+
+
 
     }
 }

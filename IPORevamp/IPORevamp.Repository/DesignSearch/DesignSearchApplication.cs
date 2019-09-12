@@ -266,5 +266,20 @@ namespace IPORevamp.Repository.DesignSearch
         }
 
 
+        public async Task<List<DesignDataResult>> GetDesignListing(string userid)
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"GetDesignListing   @p0", parameters: new[] { userid })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
     }
 }

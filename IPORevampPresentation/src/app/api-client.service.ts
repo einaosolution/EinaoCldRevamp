@@ -1510,6 +1510,54 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+    GetDesignCertificateFreshapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignCertificate/GetFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignCertificateConfirmapplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignCertificate/GetConfirmCertificate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignDateFormat(pp2: string  ) {
+      var data = {
+
+        ApplicationId: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignCertificate/GetDateFormat', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetPatentCertificateFreshApplication(pp2: string  ) {
       var data = {
 
@@ -1524,6 +1572,23 @@ RejectUser(pp: string,pp2: string ) {
           return data;
         });
     }
+
+
+    GetDesignListing(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignListing', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
 
     GetDelegateApplication(pp2: string  ) {
@@ -3323,6 +3388,25 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/PatentCertificate/SendUserEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  DesignCertificateSendUserEmail(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      applicationId:pp
+
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignCertificate/SendUserEmail', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

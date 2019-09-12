@@ -177,11 +177,15 @@ namespace IPORevamp.WebAPI.Controllers
                 ip = Request.Headers["ip"];
 
                 EmailTemplate emailTemplate;
-                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.PatentCertificateCollection);
+
+
+                emailTemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.PatentCertificateCollection && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
-               
-                var users = (from p in _contex.Users where p.Id == Convert.ToInt32(applicationId) select p).FirstOrDefault();
+
+                var result = (from p in _contex.PatentApplication where p.Id == Convert.ToInt32(applicationId) select p).FirstOrDefault();
+
+                var users = (from p in _contex.Users where p.Id == Convert.ToInt32(result.userid) select p).FirstOrDefault();
                 var user2 = await _userManager.FindByIdAsync(Convert.ToString(users.Id)); ;
 
                 //  var message = "Dear " + user2.FirstName + " " + user2.LastName + ",your application in examination unit hs been treated and sent to your kiv folder ,find below the comment from the officer . <br/> <br/>" + Comment;
