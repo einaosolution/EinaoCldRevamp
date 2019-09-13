@@ -422,9 +422,9 @@ onSubmit44() {
    formData.append("comment",this.appcomment3);
    formData.append("description","");
    formData.append("fromstatus",Status.Fresh);
-   formData.append("tostatus",Status.ApplicantKiv);
+   formData.append("tostatus",Status.Kiv);
    formData.append("fromDatastatus",DataStatus.Examiner);
-   formData.append("toDatastatus",DataStatus.ApplicantKiv);
+   formData.append("toDatastatus",DataStatus.Search);
    formData.append("userid",userid);
 
 

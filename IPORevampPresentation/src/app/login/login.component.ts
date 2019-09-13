@@ -154,7 +154,7 @@ console.log(response)
 
 //this.registerapi.VChangeEvent("Login");
 
-  this.router.navigateByUrl('/home');
+  this.router.navigateByUrl('/redirect');
    //
 
 
@@ -272,7 +272,7 @@ console.log(response)
   ngOnInit() {
 
     if (this.islogged()) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/redirect');
      }
 
      else {

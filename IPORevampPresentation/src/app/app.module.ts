@@ -72,12 +72,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent,   data: { animation: 'tiger1' } } ,
+  { path: 'redirect', component: HomeComponent,   data: { animation: 'tiger1' } } ,
   { path: 'login', component: LoginComponent ,   data: { animation: 'tiger2' } } ,
   { path: 'login', component: LoginComponent ,   data: { animation: 'tiger2' } } ,
   { path: 'register', component: RegisterComponent ,   data: { animation: 'tiger3' } } ,
   {
-    path:  'Dashboard2',
+    path:  'home',
     component:  DashboardComponent
     } ,
 
@@ -99,7 +99,7 @@ const routes: Routes = [
 { path: 'Dashboard',canActivateChild: [AuthGuard] , loadChildren: './trademark/trademark.module#TrademarkModule' } ,
 { path: 'Patent',canActivateChild: [AuthGuard] , loadChildren: './patent/patent.module#PatentModule' } ,
 { path: 'Design',canActivateChild: [AuthGuard] , loadChildren: './design/design.module#DesignModule' } ,
-  { path: '',   redirectTo: 'home', pathMatch: 'full' }
+  { path: '',   redirectTo: 'redirect', pathMatch: 'full' }
 ];
 
 

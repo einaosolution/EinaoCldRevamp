@@ -445,12 +445,12 @@ namespace IPORevamp.Repository.Recordal
                 DateCreated = DateTime.Now,
                 TransactionID = TransactionId,
                 FromDataStatus = prevDatastatus,
-                trademarkcomment = "Recordal Merger",
+                trademarkcomment =STATUS.RecordalComment ,
                 description = "",
 
-                ToDataStatus = "Recordal",
+                ToDataStatus =DATASTATUS.Recordal ,
                 FromStatus = prevappstatus,
-                ToStatus = "Merger",
+                ToStatus = STATUS.Merger ,
                 UploadsPath1 = "",
                 userid = userid,
                 Role = Convert.ToString(roleid)

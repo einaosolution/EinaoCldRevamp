@@ -134,7 +134,7 @@ namespace IPORevamp.Repository.Certificate
 
             var appid = details.ApplicationId.Split(',');
             details.PaymentReference = TransactionId;
-            details.Status = "Paid";
+            details.Status = STATUS.Paid;
 
             _contex.SaveChanges();
 

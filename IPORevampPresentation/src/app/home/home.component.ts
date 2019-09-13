@@ -83,7 +83,8 @@ this.getIpAddress()
 
     if (this.islogged()) {
 
-      this.router.navigateByUrl('/Dashboard2');
+     // this.router.navigateByUrl('/Dashboard2');
+      this.router.navigateByUrl('/home');
      }
 
      else {

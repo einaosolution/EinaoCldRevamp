@@ -266,6 +266,35 @@ namespace IPORevamp.Repository.DesignSearch
         }
 
 
+        public async Task<List<DesignDataResult>> GetDesignReconductSearch()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.ReconductSearch, STATUS.ReconductSearch })
+           .ToList();
+
+
+
+            return details;
+        }
+
+        public async Task<List<DesignDataResult>> GetDesignKivSearch()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Search, STATUS.Kiv })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
         public async Task<List<DesignDataResult>> GetDesignListing(string userid)
         {
 

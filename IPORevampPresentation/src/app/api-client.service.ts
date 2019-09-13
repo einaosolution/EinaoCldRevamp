@@ -1448,6 +1448,37 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetDesignReconductSearchApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignReconductSearchApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignKivSearchApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignKivSearchApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetDesignRegistraFreshapplication(pp2: string  ) {
       var data = {
 

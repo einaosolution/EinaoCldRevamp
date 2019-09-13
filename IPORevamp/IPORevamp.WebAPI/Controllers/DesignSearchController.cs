@@ -539,6 +539,114 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetDesignReconductSearchApplication")]
+        public async Task<IActionResult> GetDesignReconductSearchApplication([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designSearchRepository.GetDesignReconductSearch();
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all ReconductSearch design successfully",
+                    Entity = "GetAllReconductSearchDesign",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "ReconductSearch Design Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+        [HttpGet("GetDesignKivSearchApplication")]
+        public async Task<IActionResult> GetDesignKivSearchApplication([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designSearchRepository.GetDesignKivSearch();
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all KivSearch design successfully",
+                    Entity = "GetAllKivSearchDesign",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "KivSearch Design Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
 
         [HttpGet("GetDesignFreshApplication")]
         public async Task<IActionResult> GetDesignFreshApplication([FromQuery] string RequestById)

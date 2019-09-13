@@ -72,6 +72,8 @@ import { DesignPaidCertificateComponentComponent } from '../design-paid-certific
 import { DesignPaidCertificate2Component } from '../design-paid-certificate2/design-paid-certificate2.component';
 import { DesignCertificateComponent } from '../design-certificate/design-certificate.component';
 import { DesignApplicationListingComponent } from '../design-application-listing/design-application-listing.component';
+import { DesignReconductSearchComponent } from '../design-reconduct-search/design-reconduct-search.component';
+import { DesignKivSearchComponent } from '../design-kiv-search/design-kiv-search.component';
 
 
 
@@ -160,6 +162,19 @@ const routes: Routes = [
                       component:    DesignApplicationListingComponent
                       }
 
+                      ,
+                      {
+                        path:  'DesignReconductSearch',
+                        component:    DesignReconductSearchComponent
+                        }
+
+                        ,
+                      {
+                        path:  'DesignKivSearch',
+                        component:    DesignKivSearchComponent
+                        }
+
+
 
 
 
@@ -184,7 +199,9 @@ const routes: Routes = [
    DesignPaidCertificateComponentComponent,
    DesignPaidCertificate2Component,
    DesignCertificateComponent,
-   DesignApplicationListingComponent],
+   DesignApplicationListingComponent,
+   DesignReconductSearchComponent,
+   DesignKivSearchComponent],
   imports: [
     CommonModule ,
     SharedModule,

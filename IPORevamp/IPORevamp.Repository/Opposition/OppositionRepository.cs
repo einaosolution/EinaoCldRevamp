@@ -95,7 +95,7 @@ namespace IPORevamp.Repository.Opposition
                                  select p).FirstOrDefaultAsync();
 
             details.PaymentReference = transactionid;
-            details.Status = "Paid";
+            details.Status = STATUS.Paid;
             _contex.SaveChanges();
             return details;
             // return null;
@@ -225,7 +225,7 @@ namespace IPORevamp.Repository.Opposition
                                  select p).FirstOrDefaultAsync();
 
             details.PaymentReference = transactionid;
-            details.Status = "Paid";
+            details.Status = STATUS.Paid;
             _contex.SaveChanges();
             return details;
             // return null;

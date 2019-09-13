@@ -102,6 +102,9 @@ namespace EmailEngine.Base.Entities
         public const string Confirm = "Confirm";
 
         public const string SaveMode = "SaveMode";
+        public const string RecordalComment = "Recordal Merger";
+
+        
 
 
         public const string Paid = "Paid";

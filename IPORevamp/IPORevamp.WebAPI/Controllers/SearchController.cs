@@ -376,7 +376,7 @@ namespace IPORevamp.WebAPI.Controllers
                           join f in _contex.TrademarkApplicationHistory
                                on p.Id equals f.ApplicationID
 
-                          where f.ToDataStatus == "Publication" && f.ToStatus == "Batch" && p.DataStatus == "Publication" && p.ApplicationStatus == "Batch"
+                          where f.ToDataStatus ==DATASTATUS.Publication && f.ToStatus ==STATUS.Batch  && p.DataStatus == DATASTATUS.Publication && p.ApplicationStatus == STATUS.Batch
                           select f).ToList();
 
             // System.Console.Write("result count = " + result.Count);
