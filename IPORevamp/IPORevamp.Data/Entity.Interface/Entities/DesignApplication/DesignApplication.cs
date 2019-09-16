@@ -14,6 +14,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public string ApplicationStatus { get; set; }
 
         public string DataStatus { get; set; }
+        public int ?  BatchNo { get; set; }
 
         public string CertificatePayReference { get; set; }
 

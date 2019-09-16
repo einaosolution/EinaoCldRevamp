@@ -250,16 +250,6 @@ doc.save ('Visiometria_'+this.id+ '_'+date.getTime()+'.pdf')
 
   ngOnInit() {
 
-    if (this.registerapi.checkAccess("#/Dashboard/PublicationNew"))  {
-
-    }
-
-    else {
-      alert("Access Denied ")
-
-      this.router.navigateByUrl('/logout');
-      return ;
-    }
 
 
 

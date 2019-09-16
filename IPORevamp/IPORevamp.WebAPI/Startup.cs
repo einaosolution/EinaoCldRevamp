@@ -286,6 +286,7 @@ namespace IPORevamp.WebAPI
            // RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronsetting);
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronExp);
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
+            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckDesignPublicationStatus(), cronExp);
 
 
             app.UseElmah();

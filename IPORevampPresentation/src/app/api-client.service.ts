@@ -971,6 +971,23 @@ public GetRandomNumber ( ) {
     }
 
 
+    UpdateDesignApplicationBatch(pp2: string ) {
+
+      var data = {
+
+        RequestById: pp2
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignPublication/UpdateApplicationBatch', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     GetSettingsById(pp: string,pp2: string ) {
 
       var data = {
@@ -1446,6 +1463,23 @@ RejectUser(pp: string,pp2: string ) {
           return data;
         });
     }
+
+
+    GetDesignPendingPublication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignPublication/GetDesignPendingPublication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
 
     GetDesignReconductSearchApplication(pp2: string  ) {
@@ -3660,6 +3694,23 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 			});
   }
 
+
+  GetDesignBatches(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignPublication/GetDesignBatches', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
   GetPublicationById(pp2:string ,pp:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3671,6 +3722,24 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Publication/GetPublicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetDesignPublicationById(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Id:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignPublication/GetPublicationById', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

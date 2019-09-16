@@ -397,7 +397,7 @@ this. getallApplication2()
    formData.append("comment",this.appcomment3);
    formData.append("description",this.appdescription);
    formData.append("fromstatus",this.Status.Confirm);
-   formData.append("tostatus",this.Status.Fresh);
+   formData.append("tostatus",this.Status.Pending);
    formData.append("fromDatastatus",this.DataStatus.Certificate);
    formData.append("toDatastatus",this.DataStatus.Publication);
    formData.append("userid",userid);

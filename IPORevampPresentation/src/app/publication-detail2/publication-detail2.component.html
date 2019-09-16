@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="align-items-center justify-content-center row" >
+
+
+  <br/>
+  <br/>
+
+      <button type="submit"  (click) ="generatePdf()"  class="btn btn-success"> Download Pdf </button>
+      <div [ngBusy]="busy"></div>
+
+  </div>
+
+
+
+
+    <div id="report"    class="pp report" >
+  <hr/>
+          <div  *ngFor="let emp of rows  let i = index" style="padding-left: 5px;padding-right:5px ; font-family:sans-serif;">
+
+              <div>
+                <strong>   Registration Number </strong>:  <strong> {{emp.filenumber}} </strong>  {{emp.filingDate|date}}   ({{emp.nationClassID}})
+
+              </div>
+
+              <hr/>
+
+              <br/>
+
+              <div >
+
+                  <img alt=""  class="mx-auto d-block" src="data:image/gif;base64,{{emp.representationOfDesign1  }}"  height="25%" width="25%"/>
+
+              </div>
+
+              <br/>
+
+              <div>
+                  <strong> {{emp.titleOfInvention.toUpperCase()}}  </strong>
+              </div>
+
+              <div>
+                  Class {{emp.nationClassID}}
+              </div>
+
+              <div>
+                  {{emp.classDescription.toUpperCase()}}
+              </div>
+
+
+
+
+             <br/>
+
+            </div>
+
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+

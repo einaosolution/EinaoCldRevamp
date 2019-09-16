@@ -58,6 +58,7 @@ namespace EmailEngine.Base.Entities
         Individual =13,
         Patent_Examiner =15,
         Design_Examiner = 29,
+        Publication_Officer_Design = 30,
 
         Registrar =8
 
@@ -195,9 +196,11 @@ namespace EmailEngine.Base.Entities
         public const string SendPatentExaminerEmail = "ACP011";
         public const string DelegateEmail = "ACP017";
         public const string ApplicationAccepted = "ACP012";
+        public const string DesignPendingPublication = "ACP019";
 
 
         public const string PublicationMaxDay = "Pub";
+        public const string PublicationDesignPending = "Pub2";
         public const string PublicationCount = "PubCount";
 
         

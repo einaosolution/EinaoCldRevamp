@@ -74,6 +74,9 @@ import { DesignCertificateComponent } from '../design-certificate/design-certifi
 import { DesignApplicationListingComponent } from '../design-application-listing/design-application-listing.component';
 import { DesignReconductSearchComponent } from '../design-reconduct-search/design-reconduct-search.component';
 import { DesignKivSearchComponent } from '../design-kiv-search/design-kiv-search.component';
+import { DesignpublicationpendingComponent } from '../designpublicationpending/designpublicationpending.component';
+import { PublicationBatch2Component } from '../publication-batch2/publication-batch2.component';
+import { PublicationDetail2Component } from '../publication-detail2/publication-detail2.component';
 
 
 
@@ -175,6 +178,28 @@ const routes: Routes = [
                         }
 
 
+                        ,
+                      {
+                        path:  'Designpublicationpending',
+                        component:    DesignpublicationpendingComponent
+                        }
+
+
+                        ,
+                        {
+                          path:  'PublicationBatch',
+                          component:    PublicationBatch2Component
+                          }
+
+                          ,
+                          {
+                            path:  'PublicationDetail',
+                            component:    PublicationDetail2Component
+                            }
+
+
+
+
 
 
 
@@ -201,7 +226,10 @@ const routes: Routes = [
    DesignCertificateComponent,
    DesignApplicationListingComponent,
    DesignReconductSearchComponent,
-   DesignKivSearchComponent],
+   DesignKivSearchComponent,
+   DesignpublicationpendingComponent,
+   PublicationBatch2Component,
+   PublicationDetail2Component],
   imports: [
     CommonModule ,
     SharedModule,

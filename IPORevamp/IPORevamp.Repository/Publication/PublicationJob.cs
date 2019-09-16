@@ -107,6 +107,32 @@ namespace IPORevamp.Repository.Publication
             // return null;
         }
 
+        public void CheckDesignPublicationStatus()
+        {
+            var settings = (from c in _contex.Settings where c.SettingCode == IPOCONSTANT.PublicationDesignPending select c).FirstOrDefault();
+
+
+
+            //  settings.ItemValue
+            var result = (from p in _contex.DesignApplication
+                        
+                          where p.DataStatus == DATASTATUS.Publication && p.ApplicationStatus == STATUS.Pending 
+                          select p).Count();
+            if (result >= Convert.ToInt32(settings.ItemValue))
+            {
+                SendPublicationOfficer();
+                SendRegistraEmail();
+            }
+
+         
+
+
+
+
+            //   return "success";
+            // return null;
+        }
+
         public void CheckPendingApplication()
         {
             var DesignPending = (from p in _contex.DesignApplication
@@ -166,6 +192,77 @@ namespace IPORevamp.Repository.Publication
         }
 
 
+
+        public async void SendRegistraEmail()
+        {
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.DesignPendingPublication && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+
+
+
+
+
+            var roleid = Convert.ToInt32(IPORoles.Registrar);
+
+            var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department == DEPARTMENT.Design select c).ToList();
+          
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+            foreach (var users in ApplicationUser)
+            {
+                var vname = users.FirstName + " " + users.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+                
+
+                await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+            }
+
+
+        }
+
+
+        public async void SendPublicationOfficer()
+        {
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.DesignPendingPublication && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+
+
+
+
+
+            var roleid = Convert.ToInt32(IPORoles.Publication_Officer_Design);
+
+            var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department == DEPARTMENT.Design select c).ToList();
+
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+            foreach (var users in ApplicationUser)
+            {
+                var vname = users.FirstName + " " + users.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+
+
+                await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+            }
+
+
+        }
 
         public async  void SendEmail()
         {
