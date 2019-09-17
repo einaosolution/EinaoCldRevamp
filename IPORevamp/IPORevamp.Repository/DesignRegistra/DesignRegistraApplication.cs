@@ -177,6 +177,20 @@ namespace IPORevamp.Repository.DesignRegistra
 
         }
 
+        public async Task<List<DesignDataResult>> GetDesignAppealApplication()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Registra })
+           .ToList();
+
+
+
+            return details;
+        }
+
         public async Task<List<DesignDataResult>> GetDesignFreshApplication()
         {
 

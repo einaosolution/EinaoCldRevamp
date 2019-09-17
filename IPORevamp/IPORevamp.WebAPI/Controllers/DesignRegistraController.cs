@@ -355,6 +355,60 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetDesignAppealApplication")]
+        public async Task<IActionResult> GetDesignAppealApplication([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designRegistraRepository.GetDesignAppealApplication();
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Appeal design successfully",
+                    Entity = "GetAllAppealDesign",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Appeal Design Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
         [HttpGet("GetDesignFreshApplication")]
         public async Task<IActionResult> GetDesignFreshApplication([FromQuery] string RequestById)
         {

@@ -295,19 +295,22 @@ onSubmit2(f) {
   }
 
 
+  showdetail2(kk) {
+    this.row4 = kk;
+    this.vshow = true;
+    this.pwalletid = kk.applicationId
+
+    this.busy =   this.registerapi
+    .GetPatentRefuseDate( this.pwalletid )
+    .then((response: any) => {
+
+      console.log("show detail 2 ")
+     var result = response;
+      console.log(response)
 
 
-  showdetail(kk) {
 
-    this.savemode = false;
-    this.updatemode = true;
-this.row4 = kk;
-this.vshow = true;
-this.pwalletid = kk.applicationId
-
-console.log("application detail ")
-
-var result = new Date(kk.filingDate);
+      var result2 = new Date(result.dateCreated);
 
 var Current= new Date();
 var Compare= new Date();
@@ -317,7 +320,7 @@ var Compare= new Date();
 
 
 
-Current.setDate(result.getDate()+ parseInt(Status.AppealDate));
+Current.setDate(result2.getDate()+ parseInt(Status.AppealDate));
 
 this.row7 = Current
 
@@ -330,6 +333,41 @@ if (Compare >  Current)  {
 
   return;
 }
+
+
+
+ this.showdetail(kk) ;
+
+
+
+
+    })
+             .catch((response: any) => {
+              this.spinner.hide();
+               console.log(response)
+
+
+              Swal.fire(
+                response.error.message,
+                '',
+                'error'
+              )
+
+ })
+
+  }
+
+  showdetail(kk) {
+
+    this.savemode = false;
+    this.updatemode = true;
+this.row4 = kk;
+this.vshow = true;
+this.pwalletid = kk.applicationId
+
+console.log("application detail ")
+
+
 
 
 

@@ -77,6 +77,8 @@ import { DesignKivSearchComponent } from '../design-kiv-search/design-kiv-search
 import { DesignpublicationpendingComponent } from '../designpublicationpending/designpublicationpending.component';
 import { PublicationBatch2Component } from '../publication-batch2/publication-batch2.component';
 import { PublicationDetail2Component } from '../publication-detail2/publication-detail2.component';
+import { DesignAppealRefusalComponent } from '../design-appeal-refusal/design-appeal-refusal.component';
+import { DesignRegistraAppealComponent } from '../design-registra-appeal/design-registra-appeal.component';
 
 
 
@@ -197,6 +199,20 @@ const routes: Routes = [
                             component:    PublicationDetail2Component
                             }
 
+                            ,
+                            {
+                              path:  'DesignAppealRefusal',
+                              component:    DesignAppealRefusalComponent
+                              }
+
+
+                              ,
+                              {
+                                path:  'DesignRegistraAppeal',
+                                component:   DesignRegistraAppealComponent
+                                }
+
+
 
 
 
@@ -229,7 +245,9 @@ const routes: Routes = [
    DesignKivSearchComponent,
    DesignpublicationpendingComponent,
    PublicationBatch2Component,
-   PublicationDetail2Component],
+   PublicationDetail2Component,
+   DesignAppealRefusalComponent,
+   DesignRegistraAppealComponent],
   imports: [
     CommonModule ,
     SharedModule,

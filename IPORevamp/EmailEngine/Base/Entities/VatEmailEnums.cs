@@ -53,6 +53,7 @@ namespace EmailEngine.Base.Entities
         Publication_Officer_Trade_Mark =7,
         Certificate_Officer_Trade_Mark =9,
         Appeal_Officer_Trade_Mark = 10,
+        Appeal_Officer_Design = 31,
         Opposition_Officer_Trade_Mark =17,
         Recordals_Officers_Trade_Mark = 12  ,
         Individual =13,

@@ -17,6 +17,7 @@ namespace IPORevamp.Repository.DesignExaminer
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.PreviousComments>> GetPreviousComment(int id);
         void SendRegistraEmail(int applicationId);
         Task<DesignApplicationHistory> GetRefusalComment(int id);
+        Task<List<DesignDataResult>> GetDesignRefuseApplication(string userid);
 
 
     }

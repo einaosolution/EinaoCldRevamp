@@ -66,6 +66,7 @@ import {NgBusyModule} from 'ng-busy';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DefaultDashboardComponent } from './default-dashboard/default-dashboard.component';
 
 
 
@@ -125,7 +126,8 @@ const routes: Routes = [
     EmailverificationComponent ,
     CorporateComponent ,
     IndividualComponent ,
-    ForgetpasswordComponent
+    ForgetpasswordComponent,
+    DefaultDashboardComponent
 
 
 

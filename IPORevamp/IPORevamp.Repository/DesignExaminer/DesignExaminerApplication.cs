@@ -103,6 +103,20 @@ namespace IPORevamp.Repository.DesignExaminer
             return details;
             // return null;
         }
+
+        public async Task<List<DesignDataResult>> GetDesignRefuseApplication(string userid)
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignRefuseApplicationByUserid   @p0, @p1 , @p2", parameters: new[] { DATASTATUS.Examiner, STATUS.Refused , userid })
+           .ToList();
+
+
+
+            return details;
+        }
         public async Task<List<DesignDataResult>> GetDesignFreshApplication()
         {
 

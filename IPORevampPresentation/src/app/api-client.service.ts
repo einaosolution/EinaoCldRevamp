@@ -1465,6 +1465,21 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetDesignRefuseApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignExaminer/GetDesignRefuseApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetDesignPendingPublication(pp2: string  ) {
       var data = {
 
@@ -1522,6 +1537,22 @@ RejectUser(pp: string,pp2: string ) {
 
       return this.http
         .get(this.serviceBase + 'api/DesignRegistra/GetDesignFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignAppealApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDesignAppealApplication', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2404,6 +2435,39 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetDesignRefuseDate(pp: string ) {
+
+      var data = {
+        ApplicationId: pp
+
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignExaminer/GetDesignRefuseDate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentRefuseDate(pp: string ) {
+
+      var data = {
+        ApplicationId: pp
+
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignExaminer/GetPatentRefuseDate', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
  UpdateRenewalFormStatus(pp: string,pp2: string  ) {
 
       var data = {
@@ -2805,6 +2869,17 @@ RejectUser(pp: string,pp2: string ) {
 
 		return this.http
 			.get(this.serviceBase + 'api/UserManagement/GetUserFromDesignDepartment')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetUserFromDesignAppealDepartment() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetUserFromDesignAppealDepartment')
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -3622,6 +3697,25 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 				return data;
 			});
   }
+
+
+  SendRegistraDesignAppealEmail(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Appid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignExaminer/SendRegistraAppealEmail', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
 
 
   SendAppealUnitEmail(pp2:string ,pp:string) {

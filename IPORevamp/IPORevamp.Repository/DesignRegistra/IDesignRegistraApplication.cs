@@ -18,5 +18,6 @@ namespace IPORevamp.Repository.DesignRegistra
         void SendEmailForCerticate(int appid, string comment);
         Task<List<DesignDataResult>> GetDesignPayCertificate(string userid);
         Task<IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate> ProcessCertificatePayment(int NoticeAppID, string TransactionId);
+        Task<List<DesignDataResult>> GetDesignAppealApplication();
     }
 }

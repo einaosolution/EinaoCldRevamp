@@ -153,6 +153,71 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("SendRegistraAppealEmail")]
+        public async Task<IActionResult> SendRegistraAppealEmail([FromQuery] string RequestById, [FromQuery] string Appid)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+                var App = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(Appid) select p).FirstOrDefault();
+                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                var departmentid = DEPARTMENT.Design;
+                var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.AppealReply);
+
+                foreach (var users in user2)
+                {
+
+                    string mailContent = emailTemplate.EmailBody;
+
+                    var vname = users.FirstName + " " + users.LastName;
+                    mailContent = mailContent.Replace("#Name", vname);
+                    mailContent = mailContent.Replace("#transid", App.TransactionID);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                    await _emailsender.SendEmailAsync(users.Email, "User Replies Appeal", mailContent);
+
+                }
+
+                //   var result = await _publicationRepository.GetFreshApplication();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application   successfully",
+                    Entity = "User",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, "Success");
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Sent Email", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpGet("GetPreviousComment")]
         public async Task<IActionResult> GetPreviousComment([FromQuery] string RequestById, [FromQuery] string ID)
         {
@@ -312,6 +377,88 @@ namespace IPORevamp.WebAPI.Controllers
                 _logger.LogError(ex, "Send Registra Email ", "");
                 return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
             }
+        }
+        [HttpGet("GetDesignRefuseDate")]
+        public async Task<IActionResult> GetDesignRefuseDate([FromQuery] string ApplicationId)
+        {
+
+            var Result = (from p in _contex.DesignApplicationHistory
+
+                                    where p.ToStatus == STATUS.Refused && p.ToDataStatus == DATASTATUS.Examiner && p.DesignApplicationID == Convert.ToInt32(ApplicationId)
+                                    select p).FirstOrDefault();
+
+            return Ok(Result);
+
+
+        }
+
+
+        [HttpGet("GetPatentRefuseDate")]
+        public async Task<IActionResult> GetPatentRefuseDate([FromQuery] string ApplicationId)
+        {
+
+            var Result = (from p in _contex.PatentApplicationHistory
+
+                          where p.ToStatus == STATUS.Refused && p.ToDataStatus == DATASTATUS.Examiner && p.PatentApplicationID == Convert.ToInt32(ApplicationId)
+                          select p).FirstOrDefault();
+
+            return Ok(Result);
+
+
+        }
+
+        [HttpGet("GetDesignRefuseApplication")]
+        public async Task<IActionResult> GetDesignRefuseApplication([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designExaminerRepository.GetDesignRefuseApplication(RequestById);
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all refuse design successfully",
+                    Entity = "GetAllRefuseDesign",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "refuse Design Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
         }
 
         [HttpGet("GetDesignFreshApplication")]

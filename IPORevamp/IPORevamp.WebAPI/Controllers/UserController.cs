@@ -185,6 +185,21 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetUserFromDesignAppealDepartment")]
+        public async Task<IActionResult> GetUserFromDesignAppealDepartment()
+        {
+
+
+            var user = _userManager.Users.Where(x => x.IsDeleted != true && x.RolesId == Convert.ToInt32(IPORoles.Appeal_Officer_Design)).ToList();
+
+
+
+            return Ok(user);
+
+
+        }
+
+
         [HttpGet("GetUserFromId")]
         public async Task<IActionResult> GetUserFromId([FromQuery] string Id)
         {
