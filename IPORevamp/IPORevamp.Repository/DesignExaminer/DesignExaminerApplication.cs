@@ -63,7 +63,7 @@ namespace IPORevamp.Repository.DesignExaminer
 
 
 
-            var roleid = Convert.ToInt32(IPORoles.Registrar);
+            var roleid = Convert.ToInt32(IPORoles.RegistrarDesign);
 
             var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department == DEPARTMENT.Design select c).ToList();
             var Result = (from c in _contex.DesignInformation where c.DesignApplicationID == applicationId select c).FirstOrDefault();

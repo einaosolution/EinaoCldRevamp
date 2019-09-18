@@ -1280,8 +1280,23 @@ namespace IPORevamp.WebAPI.Controllers
             
             if (emailtemplate != null)
             {
+                int roleid = 0; ;
+                if (model.department == DEPARTMENT.Trademark)
+                {
+                     roleid = Convert.ToInt32(IPORoles.RegistrarTrademark);
+                }
 
-                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                else if (model.department == DEPARTMENT.Patent)
+                {
+                    roleid = Convert.ToInt32(IPORoles.RegistrarPatent);
+                }
+
+                else if (model.department == DEPARTMENT.Design)
+                {
+                    roleid = Convert.ToInt32(IPORoles.RegistrarDesign);
+                }
+
+
                 var user = _userManager.Users.Where(x => x.RolesId == roleid && x.department == model.department).ToList();
            
              if (user.Count() ==0 )

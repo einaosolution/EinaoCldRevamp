@@ -61,7 +61,10 @@ namespace EmailEngine.Base.Entities
         Design_Examiner = 29,
         Publication_Officer_Design = 30,
 
-        Registrar =8
+        RegistrarTrademark =8 ,
+        RegistrarPatent =23 ,
+        RegistrarDesign = 32,
+
 
 
     }
@@ -89,8 +92,9 @@ namespace EmailEngine.Base.Entities
         public const string ReconductSearch = "Reconduct-Search";
         public const string ApplicantKiv = "ApplicantKiv";
         public const string Recordal = "Recordal";
+        public const string Appeal = "Appeal";
 
-        
+
 
 
 
@@ -192,6 +196,7 @@ namespace EmailEngine.Base.Entities
         public const string RegistrartoAppealUnit = "ACP004";
         public const string ApplicationSentToOpposition = "ACP005";
         public const string AppealReply = "ACP006";
+        public const string FinishTreatingAppeal = "ACP020";
         public const string SentToKiv = "ACP010";
 
         public const string SendPatentExaminerEmail = "ACP011";

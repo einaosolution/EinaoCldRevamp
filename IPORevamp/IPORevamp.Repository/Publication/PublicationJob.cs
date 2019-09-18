@@ -202,7 +202,7 @@ namespace IPORevamp.Repository.Publication
 
 
 
-            var roleid = Convert.ToInt32(IPORoles.Registrar);
+            var roleid = Convert.ToInt32(IPORoles.RegistrarDesign);
 
             var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department == DEPARTMENT.Design select c).ToList();
           
@@ -269,7 +269,7 @@ namespace IPORevamp.Repository.Publication
 
             EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.PublicationDue_Mail select c).FirstOrDefault();
 
-            var user  = (from c in _contex.ApplicationUsers where (c.RolesId == Convert.ToInt32(IPORoles.Registrar) || c.RolesId == Convert.ToInt32(IPORoles.Publication_Officer_Trade_Mark)) && c.department == DEPARTMENT.Trademark select c).ToList();
+            var user  = (from c in _contex.ApplicationUsers where (c.RolesId == Convert.ToInt32(IPORoles.RegistrarTrademark) || c.RolesId == Convert.ToInt32(IPORoles.Publication_Officer_Trade_Mark)) && c.department == DEPARTMENT.Trademark select c).ToList();
             // var user = _userManager.Users.Where(x => x.RolesId == roleid && x.department == model.department).ToList();
             foreach (var users in user)
             {

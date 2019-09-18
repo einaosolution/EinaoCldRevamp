@@ -209,7 +209,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var App = (from p in _contex.Application where p.Id == Convert.ToInt32(Appid)  select p).FirstOrDefault();
-                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                var roleid = Convert.ToInt32(IPORoles.RegistrarTrademark);
                 var departmentid = DEPARTMENT.Trademark;
                 var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
                 EmailTemplate emailTemplate;

@@ -169,7 +169,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
                 var App = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(Appid) select p).FirstOrDefault();
-                var roleid = Convert.ToInt32(IPORoles.Registrar);
+                var roleid = Convert.ToInt32(IPORoles.RegistrarDesign);
                 var departmentid = DEPARTMENT.Design;
                 var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
                 EmailTemplate emailTemplate;
@@ -186,6 +186,71 @@ namespace IPORevamp.WebAPI.Controllers
                     mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
 
                     await _emailsender.SendEmailAsync(users.Email, "User Replies Appeal", mailContent);
+
+                }
+
+                //   var result = await _publicationRepository.GetFreshApplication();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Publication  Fresh Application   successfully",
+                    Entity = "User",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, "Success");
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Sent Email", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+        [HttpGet("SendRegistraAppealReply")]
+        public async Task<IActionResult> SendRegistraAppealReply([FromQuery] string RequestById, [FromQuery] string Appid)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+              //  var App = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(Appid) select p).FirstOrDefault();
+                var roleid = Convert.ToInt32(IPORoles.RegistrarDesign);
+                var departmentid = DEPARTMENT.Design;
+                var user2 = _userManager.Users.Where(x => x.RolesId == roleid && x.department == departmentid).ToList();
+                EmailTemplate emailTemplate;
+                emailTemplate = await _EmailTemplateRepository.GetEmailTemplateByCode(IPOCONSTANT.FinishTreatingAppeal);
+
+                foreach (var users in user2)
+                {
+
+                    string mailContent = emailTemplate.EmailBody;
+
+                    var vname = users.FirstName + " " + users.LastName;
+                    mailContent = mailContent.Replace("#Name", vname);
+                   // mailContent = mailContent.Replace("#transid", App.TransactionID);
+                    mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                    await _emailsender.SendEmailAsync(users.Email, emailTemplate.EmailSubject, mailContent);
 
                 }
 

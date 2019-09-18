@@ -220,7 +220,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
             var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
-            var roleid = Convert.ToInt32(IPORoles.Registrar);
+            var roleid = Convert.ToInt32(IPORoles.RegistrarTrademark);
             var Registrauser = _userManager.Users.Where(x => x.RolesId == roleid && x.department == DEPARTMENT.Patent).ToList();
 
            

@@ -24,10 +24,10 @@ declare var $ :any;
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
-//serviceBase = 'http://localhost:5000/';
+// serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
-//serviceBase2 = 'http://localhost:4200/#/';
+// serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
   invention :Invention[]=[]
   priority :Priority[]=[]
@@ -1464,6 +1464,21 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetDesignReceiveAppealApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDesignReceiveAppealApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     GetDesignRefuseApplication(pp2: string  ) {
       var data = {
@@ -1712,6 +1727,22 @@ RejectUser(pp: string,pp2: string ) {
 
       return this.http
         .get(this.serviceBase + 'api/DesignRegistra/GetDelegateApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDelegateAppeal(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDelegateAppeal', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -3716,7 +3747,22 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 			});
   }
 
+  SendRegistraAppealReply(pp2:string ,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
 
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      Appid:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignExaminer/SendRegistraAppealReply', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
 
   SendAppealUnitEmail(pp2:string ,pp:string) {
     var token = localStorage.getItem('access_tokenexpire');

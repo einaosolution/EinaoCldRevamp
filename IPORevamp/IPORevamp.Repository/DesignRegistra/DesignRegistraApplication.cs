@@ -69,6 +69,22 @@ namespace IPORevamp.Repository.DesignRegistra
         }
 
 
+        public async Task<List<DesignDataResult>> GetDelegateAppeal(string userid)
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"GetDesignCertificateById   @p0, @p1, @p2 ", parameters: new[] { DATASTATUS.Appeal, STATUS.Delegate, userid })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
+
         public async System.Threading.Tasks.Task<IPORevamp.Data.Entity.Interface.Entities.Certificate.PayCertificate> ProcessCertificatePayment(int NoticeAppID, string TransactionId)
         {
 
@@ -178,6 +194,20 @@ namespace IPORevamp.Repository.DesignRegistra
         }
 
         public async Task<List<DesignDataResult>> GetDesignAppealApplication()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Registra })
+           .ToList();
+
+
+
+            return details;
+        }
+
+        public async Task<List<DesignDataResult>> GetDesignReceiveAppealApplication()
         {
 
 

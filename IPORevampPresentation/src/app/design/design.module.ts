@@ -79,6 +79,8 @@ import { PublicationBatch2Component } from '../publication-batch2/publication-ba
 import { PublicationDetail2Component } from '../publication-detail2/publication-detail2.component';
 import { DesignAppealRefusalComponent } from '../design-appeal-refusal/design-appeal-refusal.component';
 import { DesignRegistraAppealComponent } from '../design-registra-appeal/design-registra-appeal.component';
+import { DesignAppealComponent } from '../design-appeal/design-appeal.component';
+import { DesignReceiveAppealComponent } from '../design-receive-appeal/design-receive-appeal.component';
 
 
 
@@ -212,6 +214,20 @@ const routes: Routes = [
                                 component:   DesignRegistraAppealComponent
                                 }
 
+                                ,
+                              {
+                                path:  'DesignAppeal',
+                                component:   DesignAppealComponent
+                                }
+
+                                ,
+                                {
+                                  path:  'DesignReceiveAppeal',
+                                  component:   DesignReceiveAppealComponent
+                                  }
+
+
+
 
 
 
@@ -247,7 +263,9 @@ const routes: Routes = [
    PublicationBatch2Component,
    PublicationDetail2Component,
    DesignAppealRefusalComponent,
-   DesignRegistraAppealComponent],
+   DesignRegistraAppealComponent,
+   DesignAppealComponent,
+   DesignReceiveAppealComponent],
   imports: [
     CommonModule ,
     SharedModule,

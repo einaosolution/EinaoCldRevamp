@@ -123,7 +123,7 @@ namespace IPORevamp.Repository.PatentExaminer
             
 
 
-            var roleid = Convert.ToInt32(IPORoles.Registrar);
+            var roleid = Convert.ToInt32(IPORoles.RegistrarPatent);
 
             var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department ==DEPARTMENT.Patent select c).ToList();
             var Result = (from c in _contex.PatentInformation where c.PatentApplicationID == applicationId select c).FirstOrDefault();
