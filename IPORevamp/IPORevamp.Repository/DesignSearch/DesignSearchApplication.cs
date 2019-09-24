@@ -6,6 +6,7 @@ using IPORevamp.Data.Entity.Interface;
 using IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService;
 using IPORevamp.Data.Entity.Interface.Entities.DesignApplication;
 using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
+using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
 using IPORevamp.Repository.Email;
@@ -229,6 +230,17 @@ namespace IPORevamp.Repository.DesignSearch
 
 
             return patentinventor;
+        }
+
+
+        public async Task<List<DesignCoApplicant>> GetCoApplicantById(int id)
+        {
+
+
+            var DesignCoApp = (from c in _contex.DesignCoApplicant where c.DesignApplicationID == id select c).ToList();
+
+
+            return DesignCoApp;
         }
 
 

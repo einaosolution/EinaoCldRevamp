@@ -23,6 +23,7 @@ export class AcceptancedesignLetterComponent implements OnInit {
   elementType = 'url';
   value = 'Federal Ministry Of Trade Nigeria';
   vshow :boolean = false;
+  show :boolean = false;
   busy: Promise<any>;
   public filepath
   appuser
@@ -167,6 +168,14 @@ export class AcceptancedesignLetterComponent implements OnInit {
 
 
       this.row2 = response.content;
+
+      if (this.row2.designCoApplicant) {
+  this.show = true
+      }
+
+      else {
+        this.show = false
+      }
 
       this.appuser =response.content.userid
 

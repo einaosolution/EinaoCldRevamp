@@ -59,6 +59,7 @@ export class ExaminerDesignFreshComponent implements OnInit {
   public row4 = [];
   public row5  = [];
   public row6  = [];
+  public coapplicant  = [];
   filepath:any ;
 
   public appcomment =""
@@ -185,7 +186,33 @@ this.pwalletid = kk.applicationId
 
 })
 
+this.busy =this.registerapi
+.GetDesignCoApplicantById(this.pwalletid ,userid  )
+.then((response: any) => {
 
+  console.log("co applicant")
+  this.coapplicant = response.content;
+  console.log(response.content)
+
+
+
+
+
+
+
+})
+         .catch((response: any) => {
+          this.spinner.hide();
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
 
 this.busy =   this.registerapi
 .GetExaminerPreviousComment2( userid ,this.pwalletid )

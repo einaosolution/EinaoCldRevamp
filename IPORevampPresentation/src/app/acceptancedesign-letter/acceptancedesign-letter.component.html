@@ -263,6 +263,52 @@
               </td>
     </tr>
 
+    <tr *ngIf="show" >
+        <td class="tbbg" colspan="2" align="center">
+            --- CO APPLICANT INFORMATION  ---</td>
+    </tr>
+    
+    <tr  *ngIf="show">
+        <td colspan="2" >
+            <table class="table"  width="100%"   >
+    
+                <thead>
+    
+    
+                    <tr>
+    
+                      <th>Full Name  </th>
+                      <th>Email</th>
+                        <th>Phone Number</th>
+    
+    
+    
+    
+                    </tr>
+                  </thead>
+                  <tbody>
+    
+                      <tr *ngFor="let emp of row2.designCoApplicant   let i = index">
+    
+    
+    
+                           <td>{{emp.fullname}}</td>
+                           <td>{{emp.email}}</td>
+                          <td> {{emp.phonenumber }}</td>
+    
+    
+    
+                          </tr>
+    
+    
+    
+                        </tbody>
+            </table>
+    
+        </td>
+    
+    </tr>
+
     <tr>
         <td colspan="2" class="tbbg">
             --- PRIORITY INFORMATION ---</td>

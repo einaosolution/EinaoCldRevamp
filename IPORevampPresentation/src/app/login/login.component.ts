@@ -116,6 +116,7 @@ this.getIpAddress();
      localStorage.setItem('Roles',JSON.stringify( response.content.dynamicMenu));
 
      localStorage.setItem('ExpiryTime', response.content.expiryTime);
+     localStorage.setItem('Roleid', response.content.roleId);
      if (response.content.profilepic ==null) {
       localStorage.setItem('profilepic', "");
     }
@@ -134,6 +135,7 @@ this.getIpAddress();
     localStorage.setItem('access_tokenexpire', response.content.token);
     localStorage.setItem('UserId', response.content.userId);
     localStorage.setItem('ExpiryTime', response.content.expiryTime);
+    localStorage.setItem('Roleid', response.content.roleId);
 
     localStorage.setItem('loggeduser', response.content.loggeduser);
     localStorage.setItem('Roles',JSON.stringify( response.content.dynamicMenu));

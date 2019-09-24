@@ -8,6 +8,7 @@ import * as jwt_decode from  "jwt-decode"
 import { Student } from './Student';
 import { Invention } from './Invention';
 import { Priority } from './Priority';
+import { CoApplicant } from './CoApplicant';
 import { Observable } from 'rxjs';
 import { UUID } from 'angular2-uuid';
 declare var $ :any;
@@ -24,13 +25,14 @@ declare var $ :any;
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
-// serviceBase = 'http://localhost:5000/';
+ //serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
 // serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
   invention :Invention[]=[]
   priority :Priority[]=[]
+  coApplicant :CoApplicant[]=[]
   students: Student[] = [{
     id: 1,
     name: 'Krunal',
@@ -85,6 +87,40 @@ public getPriority(): any {
   return priorityObservable;
 }
 
+
+public getCoApplicant(): any {
+  const coApplicantObservable = new Observable(observer => {
+         setTimeout(() => {
+             observer.next(this.coApplicant);
+         }, 1000);
+  });
+
+  return coApplicantObservable;
+}
+
+
+public RemoveCoApplicant (ids  ) {
+
+  for (let i = 0; i < this.coApplicant.length; i++) {
+
+    if(this.coApplicant[i].id === ids) {
+      this.coApplicant.splice(i,1);
+        return false;
+    }
+
+  }
+
+
+
+}
+
+public AddCoApplicant (CoApplicant ) {
+  this.coApplicant.push(CoApplicant)
+}
+
+public getCoApplicant2 ( ) {
+  return  this.coApplicant
+ }
 public AddInvention (Invention ) {
   this.invention.push(Invention)
 }
@@ -140,6 +176,7 @@ public Reset (  ) {
 
   this.priority = []
   this.invention =[]
+  this.coApplicant =[]
 
 }
 
@@ -2193,6 +2230,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+    GetDesignCoApplicantById(pp: string,pp2: string ) {
+
+      var data = {
+        Id: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignCoApplicantById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetPatentFreshApplication(pp: string ) {
 
       var data = {
@@ -2675,6 +2728,18 @@ RejectUser(pp: string,pp2: string ) {
                 .then(data => {  return data; });
 
   }
+
+
+  SaveDesignCoApplicant(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Design/SaveDesignCoApplicant', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
 
 
 

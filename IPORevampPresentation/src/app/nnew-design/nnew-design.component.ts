@@ -1,8 +1,10 @@
 import { Component, OnInit,ViewChild,OnDestroy } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import { Student } from '../Student';
+
 import { Invention } from '../Invention';
 import { Priority } from '../Priority';
+import { CoApplicant } from '../CoApplicant';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormGroup, FormControl , FormArray } from '@angular/forms';
 
@@ -53,6 +55,7 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   students: Student[] = [];
  invention:Invention[] = [];
  priority:Priority[] = [];
+ coApplicant:CoApplicant[] =[]
   modalRef: BsModalRef;
   dtTrigger: Subject<any> = new Subject();
   dataTable: any;
@@ -63,6 +66,7 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   userform: FormGroup;
   userform2: FormGroup;
   userform3: FormGroup;
+  userform4: FormGroup;
   Inventor: FormArray;
   Priority2: FormArray;
 
@@ -72,6 +76,7 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   submitted:boolean=false;
   submitted2:boolean=false;
   submitted3:boolean=false;
+  submitted4:boolean=false;
   busy: Promise<any>;
   Code: FormControl;
   Firstname: FormControl;
@@ -132,6 +137,7 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   public row501 =[];
 
   public row502  =[];
+  public row503  =[];
   public vid ="";
 
   public rrr ="";
@@ -558,19 +564,22 @@ return true;
        //   this.onSubmit101(this.pwalletid) ;
 
 
-let result2 = this.registerapi.getPriority2();
+//let result2 = this.registerapi.getPriority2();
+let result3 = this.registerapi.getCoApplicant2();
 
 
 
-if (result2.length == 0 ) {
+if (result3.length == 0 ) {
 
- this.onSubmit103(this.pwalletid)
+// this.onSubmit103(this.pwalletid)
+this.onSubmit101(this.pwalletid) ;
 
 }
 
 
 else {
- this.onSubmit101(this.pwalletid) ;
+  this.onSubmitSaveCoApplicant(pwalletid)
+ 
 }
 
 
@@ -626,6 +635,60 @@ else {
 
       }
 
+
+      onSubmitSaveCoApplicant(pwalletid) {
+
+
+        this.row102  = [];
+let result = this.registerapi.getCoApplicant2()
+
+       for (let i = 0; i < result.length; i++) {
+        let coaaplicant =  {
+          ApplicationID:pwalletid ,
+
+          Fullname :result[i].Fullname ,
+          email:result[i].email,
+          phonenumber : result[i].phonenumber
+
+
+
+         }
+
+        this.row102.push(coaaplicant)
+
+         // console.log(this.InventorFormGroup.controls[i].value.name)
+         }
+
+        if (this.row102.length > 0) {
+        this.busy =   this.registerapi
+        .SaveDesignCoApplicant(this.row102)
+        .then((response: any) => {
+
+
+          this.onSubmit101(this.pwalletid)
+
+        })
+                 .catch((response: any) => {
+
+                //  this.onSubmit103(this.pwalletid)
+                  this.onSubmit101(this.pwalletid) ;
+
+                //  Swal.fire(
+                 //   response.error.message,
+                 //   '',
+                 //   'error'
+                 // )
+
+     })
+
+    } 
+
+    else {
+      this.onSubmit101(this.pwalletid) ;
+    }
+
+      }
+
       onSubmit101(pwalletid) {
 
 
@@ -672,6 +735,10 @@ let result = this.registerapi.getPriority2()
 
     }
 
+    else {
+      this.onSubmit103(this.pwalletid)
+    }
+
       }
 
 
@@ -681,6 +748,32 @@ let result = this.registerapi.getPriority2()
 
     }
 
+
+    Onsubmit4001(emp) {
+
+      this.savemode = false;
+        this.updatemode = true;
+
+        console.log("emp value")
+
+         console.log(emp) ;
+
+
+
+
+
+
+       (<FormControl> this.userform4.controls['fullname']).setValue(emp.Fullname);
+       (<FormControl> this.userform4.controls['email']).setValue(emp.email);
+       (<FormControl> this.userform4.controls['phonenumber']).setValue(emp.phonenumber);
+
+
+        this.vid = emp.id ;
+
+       // (<FormControl> this.userform.controls['Description']).setValue("");
+        $("#createmodel3").modal('show');
+
+           }
 
          Onsubmit401(emp) {
 
@@ -710,10 +803,12 @@ this.savemode = false;
 
  ReintializeData() {
    var table = $('#myTable2').DataTable();
+   var table3 = $('#myTable3').DataTable();
    var table2 = $('#myTable').DataTable();
 
   table.destroy();
   table2.destroy();
+  table3.destroy();
 
 
 
@@ -729,6 +824,13 @@ this.savemode = false;
         inventionObservable.subscribe((inventionData: Invention[]) => {
             this.invention = inventionData;
         });
+
+
+        const coapplicantObservable = this.registerapi.getCoApplicant();
+        coapplicantObservable.subscribe((coapplicantData: CoApplicant[]) => {
+            this.coApplicant = coapplicantData;
+        });
+
 
 
 
@@ -801,6 +903,18 @@ this.savemode = false;
 
       }
 
+
+      Onsubmit2002(emp) {
+
+        this.registerapi.RemoveCoApplicant(emp.id)
+
+
+        this.ReintializeData() ;
+
+
+
+      }
+
        onSubmit500() {
 
         this.submitted=true;
@@ -858,6 +972,45 @@ this.savemode = false;
       }
 
 
+      onSubmitUpdateCoApplicant() {
+
+        this.submitted4=true;
+
+
+
+
+
+
+
+        if (this.userform4.valid) {
+          var CoApplicant = {
+            Fullname:this.userform4.value.fullname ,
+            email:this.userform4.value.email,
+            phonenumber:this.userform4.value.phonenumber ,
+
+
+            id:this.registerapi.GetRandomNumber()
+
+
+
+          }
+
+
+this.registerapi.RemoveCoApplicant(this.vid)
+  this.registerapi.AddCoApplicant(CoApplicant)
+
+  $("#createmodel3").modal('hide');
+
+  this.ReintializeData();
+
+
+
+        }
+
+
+
+
+      }
 
       onSubmit501() {
 
@@ -885,6 +1038,38 @@ this.registerapi.RemovePriority(this.vid)
   this.registerapi.AddPriority(priority)
 
   $("#createmodel2").modal('hide');
+
+  this.ReintializeData();
+
+
+
+        }
+
+
+
+
+      }
+
+      onSubmitAddCoApplicant() {
+
+        this.submitted4=true;
+
+        if (this.userform4.valid) {
+  var CoApplicant = {
+    Fullname:this.userform4.value.fullname ,
+    email:this.userform4.value.email,
+    phonenumber:this.userform4.value.phonenumber ,
+
+
+    id:this.registerapi.GetRandomNumber()
+
+
+
+  }
+
+  this.registerapi.AddCoApplicant(CoApplicant)
+
+  $("#createmodel3").modal('hide');
 
   this.ReintializeData();
 
@@ -1092,6 +1277,89 @@ catch(err) {
 }
 
 
+try {
+
+  let f3 = this.fileInput23.nativeElement;
+  if ((f3.files[0]  ||this.image7) ) {
+
+
+
+  }
+
+  else {
+
+    Swal.fire(
+      "Please Upload REPRESENTATION OF DESIGN 2",
+       '',
+       'error'
+     )
+
+     return;
+
+  }
+
+  }
+
+  catch(err) {
+
+  }
+
+
+  try {
+
+    let f3 = this.fileInput24.nativeElement;
+    if ((f3.files[0]  ||this.image8) ) {
+
+
+
+    }
+
+    else {
+
+      Swal.fire(
+        "Please Upload REPRESENTATION OF DESIGN 3",
+         '',
+         'error'
+       )
+
+       return;
+
+    }
+
+    }
+
+    catch(err) {
+
+    }
+
+
+    try {
+
+      let f3 = this.fileInput25.nativeElement;
+      if ((f3.files[0]  ||this.image9) ) {
+
+
+
+      }
+
+      else {
+
+        Swal.fire(
+          "Please Upload REPRESENTATION OF DESIGN 4",
+           '',
+           'error'
+         )
+
+         return;
+
+      }
+
+      }
+
+      catch(err) {
+
+      }
+
 
 try {
 
@@ -1119,6 +1387,37 @@ try {
   catch(err) {
 
   }
+
+
+
+  try {
+
+  let f22 = this.fileInput3.nativeElement;
+  if ((f22.files[0]  ||this.image5) ) {
+
+
+
+  }
+
+  else {
+
+    Swal.fire(
+      "Please Upload Priority Document ",
+       '',
+       'error'
+     )
+
+     return;
+
+  }
+
+  }
+
+  catch(err) {
+
+  }
+
+
 
 
 
@@ -1203,7 +1502,7 @@ if (this.userform.valid) {
   // }
 
   try {
-    let f2 = this.fileInput3.nativeElement;
+    let f2 = this.fileInput2.nativeElement;
    if (f2.files && f2.files[0]) {
     let fileToUpload = f2.files[0];
    formData.append("FileUpload2", fileToUpload);
@@ -1888,12 +2187,12 @@ loaddata() {
                  (<FormControl> this.userform.controls['PhoneNumber']).setValue(addressofservice[0].phoneNumber );
                  (<FormControl> this.userform.controls['Email']).setValue(addressofservice[0].email );
                  (<FormControl> this.userform.controls['State']).setValue(addressofservice[0].stateID );
-
+                 }
                   let obj2 = this.row33.find(o => o.id === ptifo[0].nationClassID);
 
 
   (<FormControl> this.userform.controls['DesignDescription']).setValue(obj2.description);
-                 }
+
 
                  this.Inventor = this.userform.get('Inventor') as FormArray;
 
@@ -1903,6 +2202,8 @@ loaddata() {
                  this.row501 = response.content.designInvention
 
                  this.row502 = response.content.designPriority
+                 this.row503 = response.content.designCoApplicant
+
 
 
 
@@ -1964,6 +2265,29 @@ loaddata() {
 
 
       }
+
+
+      for ( let i = 0; i <  this.row503.length; i++) {
+
+      
+
+
+        var CoApplicant = {
+          Fullname:this.row503[i].fullname,
+          email:this.row503[i].email,
+          phonenumber:this.row503[i].phonenumber ,
+
+        
+          id:this.registerapi.GetRandomNumber()
+
+
+
+        }
+
+        this.registerapi.AddCoApplicant(CoApplicant)
+
+
+  }
 
       this.ReintializeData();
 
@@ -2029,6 +2353,20 @@ this.userform3.reset()
 
 }
 
+showCoApplicant() {
+
+  this.savemode = true;
+   this.updatemode = false;
+   this.submitted4 = false ;
+ this.userform4.reset()
+
+  // (<FormControl> this.userform.controls['Code']).setValue("");
+
+  // (<FormControl> this.userform.controls['Description']).setValue("");
+   $("#createmodel3").modal('show');
+
+ }
+
 onChange($event) {
 
 
@@ -2084,6 +2422,11 @@ onChange($event) {
             this.priority = priorityData;
         });
 
+        const coapplicantObservable = this.registerapi.getCoApplicant();
+        coapplicantObservable.subscribe((coapplicantData: CoApplicant[]) => {
+            this.coApplicant = coapplicantData;
+        });
+
 
 
 
@@ -2129,6 +2472,15 @@ onChange($event) {
       applicationnumber: [null,Validators.required ],
       country: [null,Validators.required ],
       priodate: [null,Validators.required ]
+
+
+    });
+
+
+    this.userform4 = this.formBuilder.group({
+      fullname: [null,Validators.required ],
+      email: [null,Validators.required ],
+      phonenumber: [null,Validators.required ]
 
 
     });

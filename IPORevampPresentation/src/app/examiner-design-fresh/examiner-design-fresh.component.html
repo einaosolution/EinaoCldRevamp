@@ -274,12 +274,56 @@
 
                         </tr>
 
-                        <tr>
+
+                        <tr  *ngIf="coapplicant.length > 0 ">
+                            <td class="tbbg" colspan="2" align="center">
+                                --- CO APPLICANT INFORMATION  ---</td>
+                        </tr>
+
+                        <tr *ngIf="coapplicant.length > 0 ">
+                            <td colspan="2" >
+                                <table class="table"  width="100%"   >
+
+                                    <thead>
+
+
+                                        <tr>
+
+                                          <th>Full Name  </th>
+                                          <th>Email</th>
+                                            <th>Phone Number</th>
+
+
+
+
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+
+                                          <tr *ngFor="let emp of coapplicant  let i = index">
+
+
+
+                                               <td>{{emp.fullname}}</td>
+                                               <td>{{emp.email}}</td>
+                                              <td>  {{emp.phonenumber}}</td>
+
+
+
+                                              </tr>
+                                            </tbody>
+                                </table>
+
+                            </td>
+
+                        </tr>
+
+                        <tr *ngIf="row3.length > 0 ">
                             <td class="tbbg" colspan="2" align="center">
                                 --- PRIORITY INFORMATION  ---</td>
                         </tr>
 
-                        <tr>
+                        <tr *ngIf="row3.length > 0 ">
                             <td colspan="2" >
                                 <table class="table"  width="100%"   >
 

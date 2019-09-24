@@ -5,14 +5,14 @@
 
     <table class="form">
 
-        <tr>
-            <td colspan="2" align="center" width="1100px">
-              <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
-      COMMERCIAL LAW DEPARTMENT,
-      INDUSTRIAL PROPERTY OFFICE REGISTRY
-      </strong>
-            </td>
-        </tr>
+      <tr>
+        <td colspan="2" align="center" width="1100px">
+          <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
+  COMMERCIAL LAW DEPARTMENT,
+  INDUSTRIAL PROPERTY OFFICE REGISTRY
+  </strong>
+        </td>
+    </tr>
 
 
         <tr>
@@ -399,11 +399,57 @@
           </td>
 </tr>
 
-<tr>
+
+<tr *ngIf="!vshow3">
+    <td class="tbbg" colspan="2" align="center">
+        --- CO APPLICANT INFORMATION  ---</td>
+</tr>
+
+<tr *ngIf="!vshow3">
+    <td colspan="2" >
+        <table class="table"  width="100%"   >
+
+            <thead>
+
+
+                <tr>
+
+                  <th>Full Name  </th>
+                  <th>Email</th>
+                    <th>Phone Number</th>
+
+
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let emp of row2.designCoApplicant   let i = index">
+
+
+
+                       <td>{{emp.fullname}}</td>
+                       <td>{{emp.email}}</td>
+                      <td> {{emp.phonenumber }}</td>
+
+
+
+                      </tr>
+
+
+
+                    </tbody>
+        </table>
+
+    </td>
+
+</tr>
+<tr *ngIf="vshow3">
     <td colspan="2" class="tbbg">
         --- PRIORITY INFORMATION ---</td>
 </tr>
-<tr>
+<tr *ngIf="vshow3">
     <td colspan="2" style="border:0px outset silver; padding: 0px;">
         <table width="100%">
         <tr style="background-color:#999999;">
@@ -436,12 +482,12 @@
         </table></td>
 </tr>
 
-<tr>
+<tr *ngIf="vshow3">
     <td colspan="2" class="tbbg">
         --- ADDRESS OF SERVICE IN NIGERIA ---
     </td>
 </tr>
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
                         ATTORNEY CODE :
         </td>
@@ -451,7 +497,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
                         ATTORNEY NAME :</td>
     <td>
@@ -460,7 +506,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
         NATIONALITY :</td>
     <td>
@@ -469,7 +515,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
         COUNTRY :</td>
     <td>
@@ -478,7 +524,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
         STATE :</td>
     <td>
@@ -487,7 +533,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
         &nbsp;ADDRESS :
         </td>
@@ -500,7 +546,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
         PHONE NUMBER : </td>
     <td>
@@ -510,7 +556,7 @@
 </tr>
 
 
-<tr>
+<tr *ngIf="vshow3">
     <td align="right">
         E-MAIL : </td>
     <td>

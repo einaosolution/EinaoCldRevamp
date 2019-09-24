@@ -234,6 +234,54 @@
                                 </table>
                             </div>
 
+                            <br/>
+                            <div class="ml-auto" *ngIf="!vshow3"  >
+            <div class="btn-group float-right">
+                <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showCoApplicant()"   >
+                Create New Co Applicant
+                </button>
+            </div>
+            <div class="float-none"></div><br>
+        </div>
+
+                    <div class="table-responsive"  *ngIf="!vshow3">
+                      <table id="myTable3" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
+                          <thead>
+                              <tr>
+
+                                  <th>Full Name</th>
+
+                                  <th>Email</th>
+                                  <th>Phone Number</th>
+
+                                  <th> </th>
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of coApplicant  let i = index">
+
+
+                                     <td>{{emp.Fullname}}</td>
+
+                                      <td>{{emp.email}}</td>
+                                      <td>{{emp.phonenumber}}</td>
+
+
+                                      <td>
+                                        <button type="button" id="openModalButton"  (click)="Onsubmit4001(emp)"   class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                           <button type="button"  (click)="Onsubmit2002(emp)"     class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
+
+
+                                   </td>
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+                  </div>
+
 
   <br/>
                                       <div class="ml-auto"  *ngIf="vshow3">
@@ -623,12 +671,58 @@
 
                         </tr>
 
-                        <tr>
+                        <tr *ngIf="!vshow3">
+                          <td class="tbbg" colspan="2" align="center">
+                              --- CO APPLICANT INFORMATION  ---</td>
+                      </tr>
+
+                      <tr *ngIf="!vshow3">
+                          <td colspan="2" >
+                              <table class="table"  width="100%"   >
+
+                                  <thead>
+
+
+                                      <tr>
+
+                                        <th>Full Name  </th>
+                                        <th>Email</th>
+                                          <th>Phone Number</th>
+
+
+
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let emp of row500.designCoApplicant   let i = index">
+
+
+
+                                             <td>{{emp.fullname}}</td>
+                                             <td>{{emp.email}}</td>
+                                            <td> {{emp.phonenumber }}</td>
+
+
+
+                                            </tr>
+
+
+
+                                          </tbody>
+                              </table>
+
+                          </td>
+
+                      </tr>
+
+                        <tr *ngIf="vshow3">
                             <td class="tbbg" colspan="2" align="center">
                                 --- PRIORITY INFORMATION  ---</td>
                         </tr>
 
-                        <tr>
+                        <tr *ngIf="vshow3">
                             <td colspan="2" >
                                 <table class="table"  width="100%"   >
 
@@ -669,7 +763,7 @@
 
                         </tr>
 
-             
+
 <tr *ngIf="vshow3">
                           <td class="tbbg" colspan="2" align="center">
                               --- ADDRESS OF SERVICE  ---</td>
@@ -1201,6 +1295,116 @@
           </div>
       </div>
   </div>
+
+
+
+
+  <div class="modal fade" id="createmodel3" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card-body wizard-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Create New CoApplicant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" [formGroup]="userform4" class="tab-wizard wizard-circle" role="form">
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="wemailAddress2"> Full Name : <span class="danger">*</span> </label>
+                                <input type="text" formControlName="fullname" [ngClass]="{ 'is-invalid': submitted4 && userform4.controls['fullname'].hasError('required') }" class="form-control " id="fullname22" name="fullname2">
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="wphoneNumber2">Email :</label>
+
+
+
+                                    <input type="email" formControlName="email"  [pattern]="emailpattern" [ngClass]="{ 'is-invalid': submitted4 && userform4.controls['email'].hasError('required') }" class="form-control " id="email22" name="email2">
+
+                                    <div *ngIf="userform4.controls['email'].errors?.pattern" style="color:red">
+                                      Email   not valid.
+                                  </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="wphoneNumber2">Phone Number :</label>
+                                    <input type="text" formControlName="phonenumber" [pattern]="phonepattern" [ngClass]="{ 'is-invalid': submitted4 && userform4.controls['phonenumber'].hasError('required') }" class="form-control " id="phonenumber22" name="phonenumber2">
+
+                                    <div *ngIf="userform4.controls['phonenumber'].errors?.pattern" style="color:red">
+                                      Phone Number    not valid.
+                                  </div>
+                                  </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="savemode" (click)="onSubmitAddCoApplicant()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                    <button type="button" *ngIf="updatemode" (click)="onSubmitUpdateCoApplicant()" class="btn btn-success"><i class="ti-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
   </div>
 

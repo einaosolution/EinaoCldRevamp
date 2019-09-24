@@ -34,6 +34,8 @@ export class DesignFreshApplicationComponent implements OnInit {
   @ViewChild("fileInput") fileInput;
   dtOptions:any = {};
   modalRef: BsModalRef;
+  ShowPriority:boolean =false
+  ShowCoApplicant:boolean =false
   dtTrigger: Subject<any> = new Subject();
   public Status = Status;
   public DataStatus = DataStatus;
@@ -59,6 +61,8 @@ export class DesignFreshApplicationComponent implements OnInit {
   public row3 = [];
   public row4  = [];
   public row5  = [];
+  public coapplicant  = [];
+
   public row50  = [];
   uploads
   dataid
@@ -565,6 +569,34 @@ this.pwalletid = kk.applicationId
 
 })
 
+
+this.busy =this.registerapi
+.GetDesignCoApplicantById(this.pwalletid ,userid  )
+.then((response: any) => {
+
+  console.log("co applicant")
+  this.coapplicant = response.content;
+  console.log(response.content)
+
+
+
+
+
+
+
+})
+         .catch((response: any) => {
+          this.spinner.hide();
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
+})
 
    this.busy =   this.registerapi
    .GetDesignInventorById( this.pwalletid,userid )

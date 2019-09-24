@@ -41,6 +41,7 @@ using IPORevamp.Data.Entity.Interface.Entities.DesignInformation;
 using IPORevamp.Data.Entity.Interface.Entities.DesignApplication;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
+using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -117,13 +118,19 @@ namespace IPORevamp.WebAPI.Controllers
             {
 
                 EmailTemplate emailTemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.PatentFreshApplication && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+                EmailTemplate emailTemplate2 = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.CoApplicant && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
                 // check for user information before processing the request
                 _designRepository.updateDesignTransactionById(pwalletid, transid);
 
                 string mailContent = emailTemplate.EmailBody;
+                string mailContent2 = emailTemplate2.EmailBody;
 
 
                 mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+                mailContent2 = mailContent2.Replace("#path", _configuration["LOGOURL"]);
+
+                var  result = (from c in _contex.DesignInformation where c.DesignApplicationID == Convert.ToInt32(pwalletid)  select c).FirstOrDefault();
+                var coapplicant = (from c in _contex.DesignCoApplicant where c.DesignApplicationID == Convert.ToInt32(pwalletid) select c).ToList();
 
                 var roleid = Convert.ToInt32(IPORoles.Search_Officer_Design);
 
@@ -134,6 +141,16 @@ namespace IPORevamp.WebAPI.Controllers
                     mailContent = mailContent.Replace("#Name", users.FirstName + " " + users.LastName);
 
                     await _emailsender.SendEmailAsync(users.Email, emailTemplate.EmailSubject, mailContent);
+
+
+                }
+
+
+                foreach (var userdetail in coapplicant)
+                {
+                    mailContent2 = mailContent2.Replace("#title", result.TitleOfDesign);
+
+                    await _emailsender.SendEmailAsync(userdetail.email, emailTemplate2.EmailSubject, mailContent2);
 
 
                 }
@@ -177,6 +194,30 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+
+        [HttpPost("SaveDesignCoApplicant")]
+        public async Task<IActionResult> SaveDesignCoApplicant([FromBody] CoApplicantView[] coapplicantView)
+        {
+            CoApplicantView[] result = null;
+            try
+            {
+                result = await _designRepository.SaveCoApplicantInformation(coapplicantView, Convert.ToInt32(coapplicantView[0].ApplicationID));
+
+
+            }
+
+            catch (Exception ee)
+            {
+
+
+                return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, result);
+            }
+
+
+            return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, result);
+
+
+        }
 
         [HttpPost("SaveDesignPriority")]
         public async Task<IActionResult> SavePatentPriority([FromBody] PatentPriorityInformationView[] PatentPriority)

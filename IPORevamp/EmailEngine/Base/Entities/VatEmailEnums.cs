@@ -182,6 +182,7 @@ namespace EmailEngine.Base.Entities
         public const string NotifyUserOfOpposition = "ACP009";
         public const string PatentCertificateCollection = "ACP014";
         public const string PatentFreshApplication = "ACP015";
+        public const string CoApplicant = "ACP021";
 
 
 

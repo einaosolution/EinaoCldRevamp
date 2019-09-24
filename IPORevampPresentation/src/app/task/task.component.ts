@@ -54,6 +54,68 @@ this.getIpAddress()
       console.log(data);
   });
 }
+
+loginuser(username ,password) {
+  var kk = {
+    Username:username  ,
+    Password:password ,
+    RememberMe:true
+
+
+
+  }
+
+  this.registerapi
+  .Login(kk)
+  .then((response: any) => {
+
+ localStorage.setItem('username', this.userform.value.Email);
+
+localStorage.setItem('access_tokenexpire', response.content.token);
+localStorage.setItem('UserId', response.content.userId);
+localStorage.setItem('ExpiryTime', response.content.expiryTime);
+
+localStorage.setItem('loggeduser', response.content.loggeduser);
+localStorage.setItem('Roles',JSON.stringify( response.content.dynamicMenu));
+if (response.content.profilepic ==null) {
+  localStorage.setItem('profilepic', "");
+}
+
+else {
+  localStorage.setItem('profilepic', response.content.profilepic);
+}
+
+
+this.registerapi.settoken(response.content.token) ;
+localStorage.setItem('ChangePassword', "True");
+localStorage.setItem('lastpasswordchange', response.content.lastpasswordchange);
+
+console.log(response)
+
+//this.registerapi.VChangeEvent("Login");
+
+this.router.navigateByUrl('/redirect');
+
+
+
+  })
+           .catch((response: any) => {
+
+            console.log("response error")
+             console.log(response)
+
+
+            Swal.fire(
+              response.error.message,
+              '',
+              'error'
+            )
+   }
+   );
+
+
+
+}
   onSubmit(f) {
 
     this.submitted= true;
@@ -109,7 +171,9 @@ this.getIpAddress()
       // this.userform.reset();
      //  this.registerapi.changepassword2(true )
        //this.registerapi.VChangeEvent("kkkkk")
-       this.router.navigateByUrl('/home');
+
+       this.loginuser(localStorage.getItem('username')  ,this.account.newpassword )
+     //  this.router.navigateByUrl('/home');
      //  this.userform.reset();
 
         })

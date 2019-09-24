@@ -26,6 +26,7 @@ export class Invoice3Component implements OnInit {
   busy: Promise<any>;
   description :any;
   amount :any;
+  vshow3:boolean =false
   constructor(private registerapi :ApiClientService) { }
 
 
@@ -262,6 +263,7 @@ export class Invoice3Component implements OnInit {
 
   ngOnInit() {
     var vpayment= localStorage.getItem('Payment')
+    let email =localStorage.getItem('username');
     var self = this;
 
     this.row= JSON.parse(vpayment);
@@ -358,6 +360,49 @@ export class Invoice3Component implements OnInit {
 
 
 alert("error")
+})
+
+
+
+
+this.busy =   this.registerapi
+.GetEmail(email)
+.then((response: any) => {
+
+  console.log("User")
+
+  console.log(response)
+
+
+
+if (response.categoryId =="2") {
+  this.vshow3 = true
+
+
+}
+
+else {
+  this.vshow3 = false
+
+
+
+}
+
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
+
 })
 
 

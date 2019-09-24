@@ -19,6 +19,7 @@ using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
 using Microsoft.AspNetCore.Http;
+using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
 
 namespace IPORevamp.Repository.DesignSearch
 {
@@ -36,6 +37,7 @@ namespace IPORevamp.Repository.DesignSearch
         Task<List<DesignDataResult>> GetDesignReconductSearch();
         Task<List<DesignDataResult>> GetDesignKivSearch();
         Task<List<DesignDataResult>> GetDesignListing(string userid);
+        Task<List<DesignCoApplicant>> GetCoApplicantById(int id);
 
 
 

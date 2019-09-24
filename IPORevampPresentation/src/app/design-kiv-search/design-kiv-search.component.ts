@@ -61,6 +61,7 @@ export class DesignKivSearchComponent implements OnInit {
   public row5  = [];
   public row50  = [];
   public row6  = [];
+  public coapplicant  = [];
   uploads
   dataid
 
@@ -534,6 +535,35 @@ this.pwalletid = kk.applicationId
                '',
                'error'
              )
+
+})
+
+
+this.busy =this.registerapi
+.GetDesignCoApplicantById(this.pwalletid ,userid  )
+.then((response: any) => {
+
+  console.log("co applicant")
+  this.coapplicant = response.content;
+  console.log(response.content)
+
+
+
+
+
+
+
+})
+         .catch((response: any) => {
+          this.spinner.hide();
+           console.log(response)
+
+
+          Swal.fire(
+            response.error.message,
+            '',
+            'error'
+          )
 
 })
 

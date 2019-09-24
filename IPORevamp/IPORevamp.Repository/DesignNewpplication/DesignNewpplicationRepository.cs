@@ -19,6 +19,7 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
+using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
 
 namespace IPORevamp.Repository.DesignNewpplication
 {
@@ -66,7 +67,7 @@ namespace IPORevamp.Repository.DesignNewpplication
 
         public async Task<DesignApplication> GetDesignApplicationById(int id)
         {
-            var designApplication = (from c in _contex.DesignApplication where c.Id == id select c).Include(s => s.DesignAssignment).Include("DesignAssignment.AssigneeNationality2").Include("DesignAssignment.AssignorNationality2").Include(s => s.DesignInformation).Include("DesignInformation.DesignType").Include(s => s.DesignInvention).Include("DesignInvention.Country").Include(s => s.DesignPriority).Include("DesignPriority.Country").Include(s => s.DesignAddressOfService).Include("DesignAddressOfService.State").FirstOrDefault();
+            var designApplication = (from c in _contex.DesignApplication where c.Id == id select c).Include(s => s.DesignAssignment).Include("DesignAssignment.AssigneeNationality2").Include("DesignAssignment.AssignorNationality2").Include(s => s.DesignInformation).Include("DesignInformation.DesignType").Include(s => s.DesignInvention).Include("DesignInvention.Country").Include(s => s.DesignPriority).Include("DesignPriority.Country").Include(s => s.DesignAddressOfService).Include("DesignAddressOfService.State").Include(s => s.DesignCoApplicant).FirstOrDefault();
 
 
             return designApplication;
@@ -108,7 +109,7 @@ namespace IPORevamp.Repository.DesignNewpplication
 
         public async Task<DesignApplication> GetDesignApplicationByUserId(string userid)
         {
-            var designApplication = (from c in _contex.DesignApplication where c.userid == userid && c.ApplicationStatus == STATUS.Pending select c).Include("DesignAssignment.AssigneeNationality2").Include("DesignAssignment.AssignorNationality2").Include(s => s.DesignInformation).Include("DesignInformation.DesignType").Include(s => s.DesignInformation).Include("DesignInformation.NationalClass").Include(s => s.DesignInvention).Include("DesignInvention.Country").Include(s => s.DesignPriority).Include("DesignPriority.Country").Include(s => s.DesignAddressOfService).Include("DesignAddressOfService.State").FirstOrDefault();
+            var designApplication = (from c in _contex.DesignApplication where c.userid == userid && c.ApplicationStatus == STATUS.Pending select c).Include("DesignAssignment.AssigneeNationality2").Include("DesignAssignment.AssignorNationality2").Include(s => s.DesignInformation).Include("DesignInformation.DesignType").Include(s => s.DesignInformation).Include("DesignInformation.NationalClass").Include(s => s.DesignInvention).Include("DesignInvention.Country").Include(s => s.DesignPriority).Include("DesignPriority.Country").Include(s => s.DesignAddressOfService).Include("DesignAddressOfService.State").Include(s => s.DesignCoApplicant).FirstOrDefault();
 
 
             return designApplication;
@@ -155,6 +156,49 @@ namespace IPORevamp.Repository.DesignNewpplication
 
 
             return PatentPriorityInformationView;
+        }
+
+        public async Task<CoApplicantView[]> SaveCoApplicantInformation(CoApplicantView[] CoApplicantView, int ApplicationId)
+        {
+            List<DesignCoApplicant> DesignCoApplicantList = new List<DesignCoApplicant>();
+
+            foreach (var coApplicantView in CoApplicantView)
+            {
+                DesignCoApplicant designcoaaplicant = new DesignCoApplicant();
+                designcoaaplicant.Fullname = coApplicantView.Fullname;
+                designcoaaplicant.email = coApplicantView.email;
+                designcoaaplicant.DesignApplicationID = ApplicationId;
+                designcoaaplicant.phonenumber = coApplicantView.phonenumber;
+
+
+                designcoaaplicant.IsActive = true;
+                designcoaaplicant.IsDeleted = false;
+                designcoaaplicant.DateCreated = DateTime.Now;
+
+
+                DesignCoApplicantList.Add(designcoaaplicant);
+
+
+
+
+            }
+
+            var result = (from c in _contex.DesignCoApplicant where c.DesignApplicationID == ApplicationId select c).ToList();
+
+            if (result.Count() > 0)
+            {
+                _contex.DesignCoApplicant.RemoveRange(result);
+                _contex.SaveChanges();
+
+            }
+
+            _contex.DesignCoApplicant.AddRangeAsync(DesignCoApplicantList);
+
+
+            _contex.SaveChanges();
+
+
+            return CoApplicantView;
         }
         public async Task<DesignAssignment> SaveDesignAssignment(DesignAssignment designAssignment)
         {

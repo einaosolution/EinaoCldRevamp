@@ -1386,6 +1386,43 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("DesignAssignment");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant.DesignCoApplicant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<int>("DesignApplicationID");
+
+                    b.Property<string>("Fullname");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("email");
+
+                    b.Property<string>("phonenumber");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DesignApplicationID");
+
+                    b.ToTable("DesignCoApplicant");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignInformation.DesignInformation", b =>
                 {
                     b.Property<int>("Id")
@@ -3382,6 +3419,14 @@ namespace IPORevamp.Data.Migrations
 
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication", "DesignApplication")
                         .WithMany("DesignAssignment")
+                        .HasForeignKey("DesignApplicationID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant.DesignCoApplicant", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication", "DesignApplication")
+                        .WithMany("DesignCoApplicant")
                         .HasForeignKey("DesignApplicationID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -27,6 +27,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService.DesignAddressOfService> DesignAddressOfService { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.DelegateJob.DelegateDesignJob> DelegateDesignJob { get; set; }
 
+        public List<IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant.DesignCoApplicant> DesignCoApplicant { get; set; }
+
 
 
     }

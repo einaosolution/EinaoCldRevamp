@@ -206,6 +206,58 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetDesignCoApplicantById")]
+        public async Task<IActionResult> GetDesignCoApplicantById([FromQuery] string RequestById, [FromQuery] string Id)
+        {
+            string ip = "";
+
+
+            try
+            {
+                ip = Request.Headers["ip"];
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var patentinventor = await _designSearchRepository.GetCoApplicantById(Convert.ToInt32(Id));
+
+                if (patentinventor != null)
+                {
+
+                    // get User Information
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                    // Added A New Country 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all patentInventor  successfully",
+                        Entity = "GetAllDesignInventor",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "DesignInventor Returned Successfully", false, patentinventor);
+
+                }
+                else
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select PatentPriority", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
         [HttpPost("SaveDesignStateAppHistory")]
         [Consumes("multipart/form-data")]
 

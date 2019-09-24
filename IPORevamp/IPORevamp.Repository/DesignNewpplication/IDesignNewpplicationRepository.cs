@@ -3,6 +3,7 @@ using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
 using IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService;
 using IPORevamp.Data.Entity.Interface.Entities.DesignApplication;
 using IPORevamp.Data.Entity.Interface.Entities.DesignAssigment;
+using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInformation;
 using IPORevamp.Data.Entity.Interface.Entities.PatentApplication;
 using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
@@ -40,6 +41,7 @@ namespace IPORevamp.Repository.DesignNewpplication
        
         Task<DesignInformation> GetDesignApplication(int id);
         Task<DesignAssignment> UpdateDesignAssignment(int id, DesignAssignment designassignment);
+        Task<CoApplicantView[]> SaveCoApplicantInformation(CoApplicantView[] CoApplicantView, int ApplicationId);
 
 
 

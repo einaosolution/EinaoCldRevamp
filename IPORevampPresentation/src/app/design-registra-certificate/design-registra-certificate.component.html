@@ -69,24 +69,24 @@
                               <tr *ngFor="let emp of rows  let i = index">
 
                                 <td>{{i + 1}}</td>
-    
+
                                    <td>{{emp.filingDate|date}}</td>
                                     <td>{{emp.filenumber}}</td>
-    
+
                                     <td>{{emp.titleOfInvention }}</td>
                                     <td>{{emp.designType   }}</td>
                                     <td>{{emp.status}}</td>
-    
-    
+
+
                                     <td>
                                       <button type="button" id="openModalButton" (click) ="showdetail(emp)"  class="btn btn-success ">Details </button>
-    
-    
-    
+
+
+
                                  </td>
-    
-    
-    
+
+
+
                                   </tr>
                                   </tbody>
                       </table>
@@ -275,12 +275,12 @@
 
                    </tr>
 
-                   <tr>
+                   <tr *ngIf="row3.length > 0 ">
                        <td class="tbbg" colspan="2" align="center">
                            --- PRIORITY INFORMATION  ---</td>
                    </tr>
 
-                   <tr>
+                   <tr *ngIf="row3.length > 0 ">
                        <td colspan="2" >
                            <table class="table"  width="100%"   >
 

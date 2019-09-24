@@ -61,6 +61,7 @@ using IPORevamp.Data.Entity.Interface.Entities.DesignAssigment;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
 using IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService;
+using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
 
 namespace IPORevamp.Data
 {
@@ -155,6 +156,9 @@ namespace IPORevamp.Data
         public DbSet<DesignInformation> DesignInformation { get; set; }
         public DbSet<DesignApplicationHistory> DesignApplicationHistory { get; set; }
         public DbSet<DesignAssignment> DesignAssignment { get; set; }
+        public DbSet<DesignCoApplicant> DesignCoApplicant { get; set; }
+
+        
 
         public DbSet<DesignInvention> DesignInvention { get; set; }
 
