@@ -9,6 +9,7 @@ using System.IO;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Net;
+using System.Collections;
 
 namespace IPORevamp.Core.Utilities
 {
@@ -343,6 +344,41 @@ namespace IPORevamp.Core.Utilities
         public static string xTokenize(string amount)
         {
             return (amount.Replace(",", ""));
+        }
+
+        public static string DecryptString(string inputString, int dwKeySize, string xmlString)
+        {
+            try
+            {
+
+            
+            CspParameters _cpsParameter;
+            _cpsParameter = new CspParameters();
+            _cpsParameter.Flags = CspProviderFlags.UseMachineKeyStore;
+
+            RSACryptoServiceProvider rsaCryptoServiceProvider = new RSACryptoServiceProvider(dwKeySize, _cpsParameter);
+            rsaCryptoServiceProvider.FromXmlString(xmlString);
+            int base64BlockSize = ((dwKeySize / 8) % 3 != 0) ? (((dwKeySize / 8) / 3) * 4) + 4 : ((dwKeySize / 8) / 3) * 4;
+            int iterations = inputString.Length / base64BlockSize;
+            ArrayList arrayList = new ArrayList();
+            for (int i = 0; i < iterations; i++)
+            {
+                byte[] encryptedBytes = Convert.FromBase64String(inputString.Substring(base64BlockSize * i, base64BlockSize));
+                // Be aware the RSACryptoServiceProvider reverses the order of encrypted bytes after encryption and before decryption.
+                // If you do not require compatibility with Microsoft Cryptographic API (CAPI) and/or other vendors.
+                // Comment out the next line and the corresponding one in the EncryptString function.
+                Array.Reverse(encryptedBytes);
+                arrayList.AddRange(rsaCryptoServiceProvider.Decrypt(encryptedBytes, true));
+            }
+            return Encoding.UTF32.GetString(arrayList.ToArray(Type.GetType("System.Byte")) as byte[]);
+
+            }
+
+            catch(Exception ee)
+            {
+                var verror = ee.Message;
+                return null;
+            }
         }
 
         //This method generate random numbers

@@ -21,5 +21,7 @@ namespace IPORevamp.Repository.DesignRegistra
         Task<List<DesignDataResult>> GetDesignAppealApplication();
         Task<List<DesignDataResult>> GetDelegateAppeal(string userid);
         Task<List<DesignDataResult>> GetDesignReceiveAppealApplication();
+        int GetDesignAppealCount();
+        int GetReceiveAppealCount();
     }
 }

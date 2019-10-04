@@ -188,6 +188,20 @@ namespace IPORevamp.Repository.PatentExaminer
             return details;
         }
 
+        public int GetPatentAppealCount()
+        {
+            var model = (from c in _contex.PatentApplication
+                         join p in _contex.PatentApplicationHistory on new { a = c.Id } equals new { a = p.PatentApplicationID }
+
+
+                         where c.ApplicationStatus == STATUS.Registra && c.DataStatus == DATASTATUS.Examiner && p.ToStatus == STATUS.Registra && p.FromStatus == STATUS.Refused
+                         select c).Count();
+
+
+            return model;
+        }
+
+
 
         public async Task<List<PatentDataResult>> GetPatentAppeal()
         {
@@ -203,7 +217,18 @@ namespace IPORevamp.Repository.PatentExaminer
             return details;
         }
 
+        public int GetPatentTreatedAppealCount()
+        {
+            var model = (from c in _contex.PatentApplication
+                         join p in _contex.PatentApplicationHistory on new { a = c.Id } equals new { a = p.PatentApplicationID }
 
+
+                         where c.ApplicationStatus == STATUS.Registra && c.DataStatus == DATASTATUS.Examiner && p.ToStatus == STATUS.ReceiveAppeal && p.FromStatus == STATUS.Appeal
+                         select c).Count();
+
+
+            return model;
+        }
         public async Task<List<PatentDataResult>> GetPatentTreatedAppeal()
         {
 

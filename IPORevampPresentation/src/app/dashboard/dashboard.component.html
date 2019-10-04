@@ -67,7 +67,26 @@
         <!-- Info box -->
         <!-- ============================================================== -->
 
+       <div [ngSwitch]="loginrole">
+          <div *ngSwitchCase="registrarole">
+              <app-defaultdashboard2></app-defaultdashboard2>
+
+              </div>
+              <div *ngSwitchCase="patentregistrarole">
+                <app-defaultdashboard2></app-defaultdashboard2>
+
+                </div>
+                <div *ngSwitchCase="designregistrarole">
+                  <app-defaultdashboard2></app-defaultdashboard2>
+
+                  </div>
+<div *ngSwitchDefault>
         <app-default-dashboard> </app-default-dashboard>
+      </div>
+
+
+
+        </div>
 
         <!-- ============================================================== -->
         <!-- Top Selliing Products -->

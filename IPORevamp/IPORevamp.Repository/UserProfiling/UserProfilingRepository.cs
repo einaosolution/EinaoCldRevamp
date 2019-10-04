@@ -25,6 +25,8 @@ using IPORevamp.Data.Entities.Country;
 using IPORevamp.Data.Entities;
 using IPORevamp.Data.Entities.LGAs;
 using IPORevamp.Repository.Email;
+using IPORevamp.Data.Entity.Interface.Entities.Setting;
+using IPORevamp.Data.Entity.Interface.Entities.UserView;
 
 namespace IPORevamp.Repository.UserProfiling
 {
@@ -33,17 +35,19 @@ namespace IPORevamp.Repository.UserProfiling
         private IRepository<UserVerificationTemp> _userProfilingRepository;
 
         private IAuditTrailManager<AuditTrail> _auditTrailManager;
+        private IPOContext _dbcontext;
         private readonly IEmailTemplateRepository _EmailTemplateRepository;
         public UserProfilingRepository(IRepository<UserVerificationTemp> userProfilingrepository,
            
             IAuditTrailManager<AuditTrail> auditTrailManager,
            
-            IRepository<EmailTemplate> emailTemplaterepository)
+            IRepository<EmailTemplate> emailTemplaterepository, IPOContext dbcontext)
         {
            
             _userProfilingRepository = userProfilingrepository;
             _auditTrailManager = auditTrailManager;
-            
+            _dbcontext = dbcontext;
+
         }
         
         
@@ -57,6 +61,65 @@ namespace IPORevamp.Repository.UserProfiling
             return saveContent.Entity;
         }
 
+
+        public void  UpdateStatus()
+        {
+
+            var TrademarApplication = (from c in _dbcontext.Application  select c).ToList();
+
+            foreach(var application in TrademarApplication)
+            {
+                if ((application.ApplicationStatus =="1" && application.DataStatus == "Fresh") || (application.ApplicationStatus == "2" && application.DataStatus == "Valid"))
+                {
+                    application.ApplicationStatus = STATUS.Fresh;
+                    application.DataStatus = DATASTATUS.Search;
+
+                }
+
+                else if ((application.ApplicationStatus == "2" && application.DataStatus == "Re-conduct search") )
+                {
+                    application.ApplicationStatus = STATUS.ReconductSearch;
+                    application.DataStatus = DATASTATUS.ReconductSearch;
+
+                }
+
+               else if ((application.ApplicationStatus == "3" && application.DataStatus == "Search Conducted") || (application.ApplicationStatus == "33" && application.DataStatus == "Search 2 Conducted"))
+                {
+                    application.ApplicationStatus = STATUS.Fresh;
+                    application.DataStatus = DATASTATUS.Examiner;
+
+                }
+            }
+
+
+        }
+
+        public List<MigratedUsers>  MigrateAgentUser()
+        {
+            var details = _dbcontext.MigratedUsers
+             .FromSql($"MigrateAgentUsers  ")
+            .ToList();
+
+            return details;
+        }
+
+        public List<MigratedUsers> MigrateTrademarkUser()
+        {
+            var details = _dbcontext.MigratedUsers
+             .FromSql($"MigrateTrademarkUsers  ")
+            .ToList();
+
+            return details;
+        }
+
+        public List<MigratedUsers> MigratePatentUser()
+        {
+            var details = _dbcontext.MigratedUsers
+             .FromSql($"MigratePatentUsers  ")
+            .ToList();
+
+            return details;
+        }
 
         public Task<UserVerificationTemp> ValidateVerificationEmail(string Email)
         {
@@ -85,9 +148,28 @@ namespace IPORevamp.Repository.UserProfiling
             return model;
         }
 
+
+        public List<UserView> GetUserListings(string month,string year ,string departmentid)
+        {
+            var details = _dbcontext.UserView
+              .FromSql($"BackendUserReport   @p0, @p1, @p2", parameters: new[] { year, month, departmentid })
+             .ToList();
+
+            return details;
+            // return null;
+        }
+
         public List<UserVerificationTemp> GetAll2(string dept)
         {
-            var model = _userProfilingRepository.GetAll().Where(a => a.Status == "Pending" && a.department ==dept).ToList();
+            var model = _userProfilingRepository.GetAll().Where(a => a.Status == STATUS.Pending && a.department ==dept).ToList();
+
+            return model;
+        }
+
+
+        public int  GetAllCount(string dept)
+        {
+            var model = _userProfilingRepository.GetAll().Where(a => a.Status == STATUS.Pending && a.department == dept).Count();
 
             return model;
         }

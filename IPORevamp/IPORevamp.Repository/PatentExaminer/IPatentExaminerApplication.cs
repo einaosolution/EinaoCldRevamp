@@ -23,6 +23,8 @@ namespace IPORevamp.Repository.PatentExaminer
         Task<String> SendApplicationAmount(string transid);
         Task<List<PatentDataResult>> GetPatentAppealUnit();
         Task<List<PatentDataResult>> GetPatentTreatedAppeal();
+        int GetPatentAppealCount();
+        int GetPatentTreatedAppealCount();
 
 
     }

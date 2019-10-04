@@ -17,6 +17,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public int ?  BatchNo { get; set; }
 
         public string CertificatePayReference { get; set; }
+        public string migratedapplicationid { get; set; }
 
 
         public List<IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory.PatentApplicationHistory> PatentApplicationHistory { get; set; }

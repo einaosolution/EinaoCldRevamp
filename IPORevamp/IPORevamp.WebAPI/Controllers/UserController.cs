@@ -39,6 +39,7 @@ using IPORevamp.Data.Entities.Menus;
 using IPORevamp.Data.Entity.Interface.Entities.Role;
 using Newtonsoft.Json;
 using IPORevamp.Data.Entity.Interface.Entities.Sms;
+using IPORevamp.Data.Entity.Interface.Entities.Setting;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -227,6 +228,383 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetTrademarkUser")]
+        public List<UserView> GetTrademarkUser()
+        {
+            DateTime now = DateTime.Today;
+
+            var user  = _userProfilingRepository.GetUserListings(now.ToString("MMM"), now.ToString("yyyy"), DEPARTMENT.Trademark); ;
+            
+
+            return user;
+
+
+        }
+
+        [HttpGet("GetPatentUser")]
+        public async Task<IActionResult> GetPatentUser()
+        {
+            DateTime now = DateTime.Today;
+
+            var user = _userProfilingRepository.GetUserListings(now.ToString("MMM"), now.ToString("yyyy"), DEPARTMENT.Patent); ;
+
+            return Ok(user);
+
+
+        }
+
+
+        [HttpGet("GetDesignUser")]
+        public async Task<IActionResult> GetDesignUser()
+        {
+            DateTime now = DateTime.Today;
+
+            var user = _userProfilingRepository.GetUserListings(now.ToString("MMM"), now.ToString("yyyy"), DEPARTMENT.Design); ;
+
+            return Ok(user);
+
+
+        }
+
+
+        [HttpGet("MigrateAgentUser")]
+        public async Task<IActionResult> MigrateAgentUser()
+        {
+          
+
+            var userlist = _userProfilingRepository.MigrateAgentUser();
+           
+            foreach(var users in userlist)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = users.Email,
+                    Email = users.Email,
+                    FirstName = users.Firstname,
+                    LastName = users.Surname,
+                    MobileNumber = users.Phonenumber,
+                    Street = users.Address,
+                    RolesId = Convert.ToInt32(IPORoles.CorporateAgent_Trade_Mark),
+                    migratedagentcode = users.migratedagentcode,
+                    migrateduserid = Convert.ToString(users.migrateduserid)
+
+                };
+
+                var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                List<IdentityError> errors = userCreated.Errors.ToList();
+
+                foreach(var verror in errors)
+                {
+                    var description = verror.Description;
+                }
+
+
+            }
+
+
+
+            return Ok(userlist);
+
+
+        }
+
+
+        [HttpGet("MigrateTrademarkUser")]
+        public async Task<IActionResult> MigrateTrademarkUser()
+        {
+
+
+            var userlist = _userProfilingRepository.MigrateTrademarkUser();
+
+            
+
+            foreach (var users in userlist)
+            {
+                int  assignedrole = 0;
+
+ 
+
+                switch (users.roles)
+                {
+                    case "1":
+                        assignedrole=Convert.ToInt32(IPORoles.Administrator);
+                        break;
+
+                  
+
+                    case "3":
+
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                        break;
+
+                    case "4":
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                        break;
+
+                    case "5":
+                        assignedrole = Convert.ToInt32(IPORoles.Examination_Officer_Trade_Mark);
+                        break;
+
+                    case "6":
+                        assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark);
+                        break;
+
+                    case "7":
+                        assignedrole = Convert.ToInt32(IPORoles.Publication_Officer_Trade_Mark);
+                        break;
+
+                    case "8":
+                        assignedrole = Convert.ToInt32(IPORoles.Opposition_Officer_Trade_Mark);
+                        break;
+
+                    case "9":
+                        assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark);
+                        break;
+
+                    case "10":
+
+                        assignedrole = Convert.ToInt32(IPORoles.RegistrarTrademark);
+                        break;
+
+                  
+                    case "12":
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                        break;
+
+                    case "13":
+                        assignedrole = Convert.ToInt32(IPORoles.Recordals_Officers_Trade_Mark);
+                        break;
+
+                    case "14":
+                        assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                        break;
+
+                    case "15":
+                        assignedrole = Convert.ToInt32(IPORoles.Appeal_Officer_Trade_Mark);
+                        break;
+                }
+
+                var user = new ApplicationUser
+                {
+                    UserName = users.Email,
+                    Email = users.Email,
+                    FirstName = users.Firstname,
+                    LastName = users.Surname,
+                    MobileNumber = users.Phonenumber,
+                    Street = users.Address,
+                    RolesId = assignedrole,
+                    migratedagentcode = users.migratedagentcode,
+                    migrateduserid = Convert.ToString(users.migrateduserid) ,
+                    department = DEPARTMENT.Trademark
+
+                };
+
+                var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                List<IdentityError> errors = userCreated.Errors.ToList();
+
+                foreach (var verror in errors)
+                {
+                    var description = verror.Description;
+                }
+
+
+            }
+
+
+
+            return Ok(userlist);
+
+
+        }
+
+
+        [HttpGet("MigratePatentUser")]
+        public async Task<IActionResult> MigratePatentUser()
+        {
+
+
+            var userlist = _userProfilingRepository.MigratePatentUser();
+
+
+
+            foreach (var users in userlist)
+            {
+                int assignedrole = 0;
+
+
+
+                switch (users.roles)
+                {
+                    case "1":
+                        assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                        break;
+
+                    case "2":
+
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Patent);
+                        break;
+
+                    case "3":
+
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Patent);
+                        break;
+
+
+
+                    case "4":
+                        assignedrole = Convert.ToInt32(IPORoles.Patent_Examiner);
+                        break;
+
+                    case "8":
+                        assignedrole = Convert.ToInt32(IPORoles.Patent_Examiner);
+                        break;
+
+                    case "5":
+                        assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Patent);
+                        break;
+
+                    case "6":
+                        assignedrole = Convert.ToInt32(IPORoles.RegistrarPatent);
+                        break;
+
+                 
+
+                  
+
+
+                   
+                  
+                }
+
+                var user = new ApplicationUser
+                {
+                    UserName = users.Email,
+                    Email = users.Email,
+                    FirstName = users.Firstname,
+                    LastName = users.Surname,
+                    MobileNumber = users.Phonenumber,
+                    Street = users.Address,
+                    RolesId = assignedrole,
+                    migratedagentcode = users.migratedagentcode,
+                    migrateduserid = Convert.ToString(users.migrateduserid),
+                    department = DEPARTMENT.Trademark
+
+                };
+
+                var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                List<IdentityError> errors = userCreated.Errors.ToList();
+
+                foreach (var verror in errors)
+                {
+                    var description = verror.Description;
+                }
+
+
+            }
+
+
+
+            return Ok(userlist);
+
+
+        }
+
+
+        public async Task<IActionResult> MigrateDesignUser()
+        {
+
+
+            var userlist = _userProfilingRepository.MigrateDesignUser();
+
+
+
+            foreach (var users in userlist)
+            {
+                int assignedrole = 0;
+
+
+
+                switch (users.roles)
+                {
+                    case "1":
+                        assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                        break;
+
+                    case "2":
+
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Design);
+                        break;
+
+                    case "3":
+
+                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Design);
+                        break;
+
+
+
+                    case "5":
+                        assignedrole = Convert.ToInt32(IPORoles.Design_Examiner);
+                        break;
+
+                    case "6":
+                        assignedrole = Convert.ToInt32(IPORoles.Design_Examiner);
+                        break;
+
+                  
+
+
+                    case "10":
+                        assignedrole = Convert.ToInt32(IPORoles.RegistrarDesign);
+                        break;
+
+
+
+
+
+
+
+
+                }
+
+                var user = new ApplicationUser
+                {
+                    UserName = users.Email,
+                    Email = users.Email,
+                    FirstName = users.Firstname,
+                    LastName = users.Surname,
+                    MobileNumber = users.Phonenumber,
+                    Street = users.Address,
+                    RolesId = assignedrole,
+                    migratedagentcode = users.migratedagentcode,
+                    migrateduserid = Convert.ToString(users.migrateduserid),
+                    department = DEPARTMENT.Trademark
+
+                };
+
+                var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                List<IdentityError> errors = userCreated.Errors.ToList();
+
+                foreach (var verror in errors)
+                {
+                    var description = verror.Description;
+                }
+
+
+            }
+
+
+
+            return Ok(userlist);
+
+
+        }
+
+
+
 
         [HttpGet("GetAllTempUser")]
         public async Task<IActionResult> GetAllTempUser()
@@ -240,6 +618,23 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+
+
+        [HttpGet("GetAllTempCount")]
+        public async Task<IActionResult> GetAllTempCount([FromQuery] string Userid)
+        { 
+
+
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var tempuser = _userProfilingRepository.GetAllCount(user.department);
+
+
+
+            return Ok(tempuser);
+
+
+        }
 
         [HttpGet("GetAllTempUser2")]
         public async Task<IActionResult> GetAllTempUser2([FromQuery] string EmailAddress)
@@ -390,6 +785,87 @@ namespace IPORevamp.WebAPI.Controllers
 
             return PrepareResponse(HttpStatusCode.OK, "LogOut  Successful", false);
 
+
+        }
+
+
+        [HttpGet("TrademarkUserRoleCount")]
+         public   UserRoleCount  TrademarkUserRoleCount( )
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+          
+           
+
+            UserRoleCount userrole = new UserRoleCount();
+            userrole.AppealOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Appeal_Officer_Trade_Mark), DEPARTMENT.Trademark);
+            userrole.CertificateOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark), DEPARTMENT.Trademark);
+            userrole.ExaminerOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Examination_Officer_Trade_Mark), DEPARTMENT.Trademark);
+            userrole.PublicationOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Publication_Officer_Trade_Mark), DEPARTMENT.Trademark);
+            userrole.SearchOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark), DEPARTMENT.Trademark);
+
+
+
+
+    
+
+            return userrole;
+
+        }
+
+
+        [HttpGet("PatentUserRoleCount")]
+        public UserRoleCount PatentUserRoleCount()
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+
+
+            UserRoleCount userrole = new UserRoleCount();
+            userrole.AppealOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Appeal_Officer_Patent), DEPARTMENT.Patent);
+            userrole.CertificateOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Certificate_Officer_Patent), DEPARTMENT.Patent);
+            userrole.ExaminerOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Patent_Examiner), DEPARTMENT.Patent);
+            userrole.PublicationOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Publication_Officer_Patent), DEPARTMENT.Patent);
+            userrole.SearchOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Search_Officer_Patent), DEPARTMENT.Patent);
+
+
+
+
+
+
+            return userrole;
+
+        }
+
+
+        [HttpGet("DesignUserRoleCount")]
+        public UserRoleCount DesignUserRoleCount()
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+
+
+
+            UserRoleCount userrole = new UserRoleCount();
+            userrole.AppealOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Appeal_Officer_Design), DEPARTMENT.Design);
+            userrole.CertificateOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Certificate_Officer_Design), DEPARTMENT.Design);
+            userrole.ExaminerOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Design_Examiner), DEPARTMENT.Design);
+            userrole.PublicationOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Publication_Officer_Design), DEPARTMENT.Design);
+            userrole.SearchOfficerCount = this.getuserrolecount(Convert.ToInt32(IPORoles.Search_Officer_Design), DEPARTMENT.Design);
+
+
+
+
+
+
+            return userrole;
 
         }
 
@@ -1211,6 +1687,12 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        public int getuserrolecount(int  roleid ,string department)
+        {
+
+            var usercount = _userManager.Users.Where(x => x.RolesId == roleid && x.department == department).Count();
+            return usercount;
+        }
 
         [HttpGet("RejectUser")]
         public async Task<IActionResult> RejectUser([FromQuery] String Email, [FromQuery] String RequestedBy)

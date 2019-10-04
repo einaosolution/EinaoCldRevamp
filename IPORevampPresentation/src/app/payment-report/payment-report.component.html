@@ -1,0 +1,408 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">Application Payment Report</h4>
+          <div class="d-flex align-items-center">
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">Payment Report</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- Column -->
+      <div class="col-lg-12 col-xl-12 col-md-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex no-block align-items-center m-b-30">
+                      <h4 class="card-title">Payment Report</h4>
+                      <div [ngBusy]="busy"></div>
+
+                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
+                  </div>
+
+
+<div class="row d-flex align-items-center"  >
+
+  <table  class="col table" style="text-align: center; width: 50% !important;">
+    <tr>
+
+
+     <td colspan="2">
+        <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"  [(ngModel)]="start_date"   id="startdate"  placeholder="Start Date">
+
+     </td>
+
+    </tr>
+
+
+
+    <tr>
+
+
+        <td colspan="2">
+            <input type="text"  bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="end_date" id="enddate" placeholder="End Date">
+
+        </td>
+
+       </tr>
+
+       <tr>
+         <td>
+          <select   name="feetype"  [(ngModel)]="fee"     id="feetype2">
+            <option  value= "">
+              --Select  Fee Type
+              </option>
+              <option  value= "tm">
+               Trademark
+                </option>
+
+                <option  value= "pt">
+                 Patent
+                   </option>
+
+                   <option  value= "ds">
+                   Design
+                     </option>
+
+          </select>
+         </td>
+       </tr>
+
+
+       <tr>
+          <td colspan="2">
+               <button type="button"  (click) ="onSubmit()"   class="btn btn-success">Search </button>
+
+              </td>
+
+
+              </tr>
+
+
+
+  </table>
+
+  <br/>
+
+</div>
+
+                  <div class="table-responsive">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                          <thead>
+                              <tr>
+                                <th>SN</th>
+
+                                  <th>PAYMENT DATE</th>
+                                  <th>PAYER NAME</th>
+
+                                 <th>PAYER EMAIL </th>
+                                 <th>ITEM </th>
+                                 <th>AMOUNT</th>
+                                 <th>TECH FEE </th>
+                                 <th>TOTAL AMOUNT </th>
+                                 <th>ORDERID </th>
+                                 <th>RRR </th>
+
+
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of rows  let i = index">
+
+                                  <td>{{i + 1}}</td>
+
+                                     <td>{{emp.dateCreated|date}}</td>
+                                      <td>{{emp.payerName}}</td>
+
+                                      <td>{{emp.payerEmail }}</td>
+                                      <td>{{emp.feeItemName }}</td>
+                                      <td>   &#8358;{{emp.amount | number:'.2-2'}} </td>
+                                      <td> &#8358;{{emp.techFee | number:'.2-2'}} </td>
+                                      <td>  &#8358;{{emp.totalAmount | number:'.2-2'}} </td>
+                                      <td>{{emp.orderId }}</td>
+                                      <td>{{emp.rrr }}</td>
+
+
+
+
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column -->
+
+  </div>
+
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Data Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+
+                          <div class="Container">
+
+
+
+       </div>
+
+
+
+  </div>
+  <form>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit"  (click) ="onSubmit()"  class="btn btn-success"> Fail Formality Check</button>
+               <button type="submit" *ngIf="updatemode" (click) ="onSubmit4()"  class="btn btn-success"> Pass Formality Check</button>
+               <div [ngBusy]="busy"></div>
+              </div>
+</form>
+      </div>
+  </div>
+</div>
+
+
+<!-- Create Modal 2 -->
+<div class="modal fade" id="createmodel2" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-full" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>Fail Formality Check </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+                          <form name="form"  #f="ngForm" novalidate>
+
+                          <table class="table text-center">
+                              <tr>
+                             <td>
+                             Comments
+                             </td>
+
+                             <td>
+
+
+                                <textarea rows="4" class="form-control" required [(ngModel)]="appcomment3"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                  </textarea>
+
+
+
+                               </td>
+
+                              </tr>
+
+
+                             </table>
+
+
+                            </form>
+  </div>
+
+
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  (click) ="onSubmit5(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+<!-- Create Modal 3 -->
+<div class="modal fade" id="createmodel3" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Pass Formality Check </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <form name="form"  #f="ngForm" novalidate>
+<table class="table text-center"  >
+
+  <tr>
+      <td>
+       Mark Description
+      </td>
+
+      <td>
+
+
+          <select  name ="vselect3"  [(ngModel)]="appdescription" #device  (change)="onChange(device.value)" required class="form-control custom-select">
+              <option value="">Select Description</option>
+              <option value="Similar Marks Exist">Similar Marks Exist</option>
+              <option value="No Similar Marks">No Similar Marks</option>
+
+
+
+
+            </select>
+      </td>
+
+       </tr>
+<tr>
+<td>
+Comments
+</td>
+
+<td>
+  <textarea rows="4" required [(ngModel)]="appcomment2" id="classdescription" name="classdescription2"  cols="30" placeholder="Comment">
+
+    </textarea>
+
+</td>
+
+</tr>>
+
+<tr>
+<td>
+Upload
+</td>
+
+<td>
+  <input type="file" #fileInput class="form-control " id="uploadAddress2" name="uploadAddress">
+<span *ngIf="uploads && display">
+  <a  target="_blank"  href="{{filepath}}Upload/{{uploads}}">View Upload</a>   <br/>
+</span>
+
+</td>
+
+</tr>
+
+
+
+
+</table>
+
+
+</form>
+
+
+  </div>
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  (click) ="onSubmit2(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+                  <button type="submit"  (click) ="onSubmit20(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save And Continue Later</button>
+
+              </div>
+          </form>
+
+
+          <table id="myTable"  *ngIf="row50.length > 0"  class="table table-bordered">
+            <thead>
+                <tr>
+
+
+                    <th>Mark Description</th>
+                    <th>Comment</th>
+
+                   <th>Upload </th>
+
+
+                   <th> </th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let data of row50  let i = index">
+
+
+
+                       <td>{{data.description}}</td>
+                        <td>{{data.patentcomment}}</td>
+
+                        <td>{{data.uploadsPath1}}</td>
+
+
+
+
+                        <td>
+                          <button type="button" id="openModalButton"  (click) ="onSubmit22(data)"   class="btn btn-success ">Restore </button>
+
+
+
+                     </td>
+
+
+
+                      </tr>
+                    </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

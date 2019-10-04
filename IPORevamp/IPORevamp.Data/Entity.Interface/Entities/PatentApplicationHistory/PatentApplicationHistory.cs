@@ -30,6 +30,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory
 
         public string RefusalFilePath { get; set; }
         public string Role { get; set; }
+       
         public IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication PatentApplication { get; set; }
     }
 }

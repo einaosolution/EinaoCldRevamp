@@ -10,6 +10,8 @@ export class DefaultDashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  // let roleval =  localStorage.getItem('Roleid');
+
   }
 
 }

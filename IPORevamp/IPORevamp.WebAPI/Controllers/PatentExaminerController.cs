@@ -577,6 +577,38 @@ auditTrailManager
 
 
         }
+
+        [HttpGet("GetPatentAppealCount")]
+        public async Task<IActionResult> GetPatentAppealCount([FromQuery] string Userid)
+        {
+
+
+            //  var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var appealcount = _patentExaminerRepository.GetPatentAppealCount();
+
+
+
+            return Ok(appealcount);
+
+
+        }
+
+        [HttpGet("GetPatentTreatedAppealCount")]
+        public async Task<IActionResult> GetPatentTreatedAppealCount([FromQuery] string Userid)
+        {
+
+
+            //  var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var appealcount = _patentExaminerRepository.GetPatentTreatedAppealCount();
+
+
+
+            return Ok(appealcount);
+
+
+        }
         [HttpGet("GetPatentAppeal")]
         public async Task<IActionResult> GetPatentAppeal([FromQuery] string RequestById)
         {

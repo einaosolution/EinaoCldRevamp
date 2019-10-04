@@ -73,8 +73,26 @@ namespace IPORevamp.Repository.DesignNewpplication
             return designApplication;
         }
 
+        public void  GetCancelApplicationById(int id)
+        {
+            var designApplication = (from c in _contex.DesignApplication where c.Id == id select c).FirstOrDefault();
 
-      
+            _contex.DesignApplication.Remove(designApplication);
+
+            
+        }
+
+
+        public void GetCancelApplication2ById(int id)
+        {
+            var patentApplication = (from c in _contex.PatentApplication where c.Id == id select c).FirstOrDefault();
+
+            _contex.PatentApplication.Remove(patentApplication);
+
+
+        }
+
+
 
         public async Task<String> updateDesignTransactionById(string transactionid, string paymentid)
         {

@@ -401,6 +401,39 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetDesignAppealCount")]
+        public async Task<IActionResult> GetDesignAppealCount([FromQuery] string Userid)
+        {
+
+
+            //  var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var appealcount =  _designRegistraRepository.GetDesignAppealCount();
+
+
+
+
+            return Ok(appealcount);
+
+
+        }
+
+        [HttpGet("GetDesignReceiveAppealCount")]
+        public async Task<IActionResult> GetDesignReceiveAppealCount([FromQuery] string Userid)
+        {
+
+
+            //  var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var appealcount = _designRegistraRepository.GetReceiveAppealCount();
+
+
+
+
+            return Ok(appealcount);
+
+
+        }
         [HttpGet("GetDesignAppealApplication")]
         public async Task<IActionResult> GetDesignAppealApplication([FromQuery] string RequestById)
         {

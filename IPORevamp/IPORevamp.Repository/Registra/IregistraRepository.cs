@@ -11,5 +11,7 @@ namespace IPORevamp.Repository.Registra
         Task<List<Data.Entity.Interface.Entities.Search.DataResult>> GetUserAppeal();
         Task<List<Data.Entity.Interface.Entities.Search.DataResult>> GetAppeal();
         Task<List<Data.Entity.Interface.Entities.Search.DataResult>> TreatUserAppeal();
+        int GetAppealCount();
+        int GetReceiveAppealCount();
     }
 }

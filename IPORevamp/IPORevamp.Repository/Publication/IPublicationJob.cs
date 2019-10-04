@@ -10,6 +10,7 @@ namespace IPORevamp.Repository.Publication
         void CheckPublicationStatus();
         void CheckPublicationCount();
         void CheckPendingApplication();
+        void SendMonthyUserReport();
         void CheckDesignPublicationStatus();
 
         

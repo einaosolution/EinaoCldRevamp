@@ -133,7 +133,13 @@ namespace IPORevamp.Repository.Publication
             // return null;
         }
 
-        public void CheckPendingApplication()
+
+        public void SendMonthyUserReport()
+        {
+            this.MonthlymailtoRegistra();
+
+        }
+            public void CheckPendingApplication()
         {
             var DesignPending = (from p in _contex.DesignApplication
 
@@ -218,6 +224,94 @@ namespace IPORevamp.Repository.Publication
 
                 mailContent = mailContent.Replace("#Name", vname);
                 
+
+                await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+            }
+
+
+        }
+
+
+        public async void MonthlymailtoRegistra()
+        {
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.MonthlyMail && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+
+
+
+
+
+            var roleid = Convert.ToInt32(IPORoles.RegistrarTrademark);
+            var rolepatentid = Convert.ToInt32(IPORoles.RegistrarPatent);
+            var roledesignid = Convert.ToInt32(IPORoles.RegistrarDesign);
+
+            var ApplicationUser = (from c in _contex.Users where c.RolesId == roleid && c.department == DEPARTMENT.Trademark select c).ToList();
+            var ApplicationPatentUser = (from c in _contex.Users where c.RolesId == rolepatentid && c.department == DEPARTMENT.Patent select c).ToList();
+            var ApplicationDesignUser = (from c in _contex.Users where c.RolesId == roledesignid && c.department == DEPARTMENT.Design select c).ToList();
+
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+            DateTime now = DateTime.Today;
+
+            foreach (var users in ApplicationUser)
+            {
+                var vname = users.FirstName + " " + users.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+                mailContent = mailContent.Replace("#month", now.ToString("MMM"));
+                mailContent = mailContent.Replace("#year", now.ToString("yyyy"));
+
+                mailContent = mailContent.Replace("#Link", _configuration["PAGEURL"] + "Trademarkuserlisting");
+
+
+                await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+            }
+
+            foreach (var users in ApplicationPatentUser)
+            {
+                var vname = users.FirstName + " " + users.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+                mailContent = mailContent.Replace("#month", now.ToString("MMM"));
+                mailContent = mailContent.Replace("#year", now.ToString("yyyy"));
+
+                mailContent = mailContent.Replace("#Link", _configuration["PAGEURL"] + "Patentuserlisting");
+
+
+                await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+            }
+
+
+            foreach (var users in ApplicationDesignUser)
+            {
+                var vname = users.FirstName + " " + users.LastName;
+
+                string mailContent = emailtemplate.EmailBody;
+
+                mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+                mailContent = mailContent.Replace("#Name", vname);
+                mailContent = mailContent.Replace("#month", now.ToString("MMM"));
+                mailContent = mailContent.Replace("#year", now.ToString("yyyy"));
+
+                mailContent = mailContent.Replace("#Link", _configuration["PAGEURL"] + "Designuserlisting");
+
 
                 await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
 

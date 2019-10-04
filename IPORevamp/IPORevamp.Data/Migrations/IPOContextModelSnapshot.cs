@@ -1213,6 +1213,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("UpdatedBy");
 
+                    b.Property<string>("migratedapplicationid");
+
                     b.Property<string>("userid");
 
                     b.HasKey("Id");
@@ -1875,6 +1877,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("UpdatedBy");
 
+                    b.Property<string>("migratedapplicationid");
+
                     b.Property<string>("userid");
 
                     b.HasKey("Id");
@@ -2249,6 +2253,42 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("Payment");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Payment.PaymentReport", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("FeeId");
+
+                    b.Property<string>("FeeItemName");
+
+                    b.Property<string>("OrderId");
+
+                    b.Property<string>("PayerEmail");
+
+                    b.Property<string>("PayerName");
+
+                    b.Property<DateTime>("PaymentDate");
+
+                    b.Property<int>("PaymentStatus");
+
+                    b.Property<string>("RRR");
+
+                    b.Property<decimal>("TechFee");
+
+                    b.Property<string>("TotalAmount");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("PaymentReport");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Product.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -2317,6 +2357,8 @@ namespace IPORevamp.Data.Migrations
                     b.Property<string>("TransactionID");
 
                     b.Property<string>("UpdatedBy");
+
+                    b.Property<string>("migratedapplicationid");
 
                     b.Property<string>("userid");
 
@@ -2750,6 +2792,28 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("PreviousComments");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Setting.UserView", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("datecreated");
+
+                    b.Property<string>("description");
+
+                    b.Property<string>("firstname");
+
+                    b.Property<string>("lastname");
+
+                    b.Property<string>("mobileNumber");
+
+                    b.Property<string>("username");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("UserView");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Sms.SmsLog", b =>
                 {
                     b.Property<int>("Id")
@@ -2922,6 +2986,32 @@ namespace IPORevamp.Data.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Units");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.UserView.MigratedUsers", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Firstname");
+
+                    b.Property<string>("Phonenumber");
+
+                    b.Property<string>("Surname");
+
+                    b.Property<string>("migratedagentcode");
+
+                    b.Property<long?>("migrateduserid");
+
+                    b.Property<string>("roles");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("MigratedUsers");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.PreliminarySearch.PreliminarySearch", b =>
@@ -3183,6 +3273,10 @@ namespace IPORevamp.Data.Migrations
                     b.Property<string>("Website");
 
                     b.Property<string>("department");
+
+                    b.Property<string>("migratedagentcode");
+
+                    b.Property<string>("migrateduserid");
 
                     b.Property<string>("ministry");
 

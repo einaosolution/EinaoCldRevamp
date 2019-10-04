@@ -235,7 +235,7 @@
                             </div>
 
                             <br/>
-                            <div class="ml-auto" *ngIf="!vshow3"  >
+                            <div class="ml-auto"   >
             <div class="btn-group float-right">
                 <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showCoApplicant()"   >
                 Create New Co Applicant
@@ -244,7 +244,7 @@
             <div class="float-none"></div><br>
         </div>
 
-                    <div class="table-responsive"  *ngIf="!vshow3">
+                    <div class="table-responsive"  >
                       <table id="myTable3" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
                           <thead>
                               <tr>
@@ -671,12 +671,12 @@
 
                         </tr>
 
-                        <tr *ngIf="!vshow3">
+                        <tr >
                           <td class="tbbg" colspan="2" align="center">
                               --- CO APPLICANT INFORMATION  ---</td>
                       </tr>
 
-                      <tr *ngIf="!vshow3">
+                      <tr >
                           <td colspan="2" >
                               <table class="table"  width="100%"   >
 
@@ -1113,8 +1113,13 @@
                                     <div class="col">
                                       <div class="form-group">
                                           <label for="wphoneNumber2">Email :</label>
-                                          <input type="text"  autocomplete="nope" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('required' )    }"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('pattern' )    }" class="form-control " id="wemailAddress3" name="emailAddresss3">
-                                      </div>
+                                          <input type="text"  autocomplete="nope" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('required' )    }"  [pattern]="emailpattern" class="form-control " id="wemailAddress3" name="emailAddresss3">
+
+                                          <div *ngIf="userform2.controls['email'].errors?.pattern" style="color:red">
+                                            Email   not valid.
+                                        </div>
+
+                                        </div>
 
                                       <div *ngIf="submitted && userform2.controls['email'].hasError('pattern' ) " class="invalid-feedback">
 

@@ -157,6 +157,38 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetAppealCount")]
+        public async Task<IActionResult> GetAppealCount([FromQuery] string Userid)
+        {
+
+
+          //  var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var tempuser = _registraRepository.GetAppealCount();
+
+
+
+            return Ok(tempuser);
+
+
+        }
+
+        [HttpGet("GetReceiveAppealCount")]
+        public async Task<IActionResult> GetReceiveAppealCount([FromQuery] string Userid)
+        {
+
+
+            //  var user = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(Userid));
+
+            var tempuser = _registraRepository.GetReceiveAppealCount();
+
+
+
+            return Ok(tempuser);
+
+
+        }
+
 
         [HttpGet("GetUserAppeal")]
         public async Task<IActionResult> GetUserAppeal([FromQuery] string RequestById)

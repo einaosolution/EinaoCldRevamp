@@ -1726,6 +1726,22 @@ get PriorityFormGroup() {
   return this.userform.get('Priority') as FormArray;
 }
 
+cancelapplication(appid) {
+  var userid = localStorage.getItem('UserId');
+  this.registerapi
+  .CancelPatentApplicationById(userid,appid)
+  .then((response: any) => {
+
+
+
+  })
+          .catch((response: any) => {
+alert("error")
+            console.log(response)
+
+
+  })
+}
 
 loaddata() {
 
@@ -1737,9 +1753,9 @@ loaddata() {
 
           console.log("Patent Application")
           console.log(response.content)
-
+          var self = this;
           if (response.content) {
-
+       
             const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-success',
@@ -1901,6 +1917,7 @@ loaddata() {
                     result.dismiss === Swal.DismissReason.cancel
                   ) {
 
+                    self.cancelapplication(response.content.id) ;
                   }
                 })
 

@@ -33,6 +33,8 @@ namespace IPORevamp.Repository.DesignNewpplication
         Task<DesignApplication> GetDesignApplicationByUserId(string userid);
 
         Task<String> updateDesignTransactionById(string transactionid, string paymentid);
+        void GetCancelApplicationById(int id);
+        void GetCancelApplication2ById(int id);
 
 
         Task<DesignInformation> SaveDesignInformation(DesignInformation ptinfo);

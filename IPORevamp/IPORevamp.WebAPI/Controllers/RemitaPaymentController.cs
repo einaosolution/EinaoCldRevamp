@@ -47,6 +47,7 @@ using IPORevamp.Repository.RemitaLineItem;
 using System.Text;
 using IPORevamp.WebAPI.Utilities;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -62,6 +63,7 @@ namespace IPORevamp.WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRemitaPaymentRepository _remitaPaymentRepository;
         private readonly IFeeListRepository _feeRepository;
+        private readonly IPOContext _contex;
         private readonly IRemitaAccountSplitRepository _remitaSplitRepository;
         private readonly IEmailTemplateRepository _EmailTemplateRepository;
         private readonly IRemitaLineItemRepository _RemitaLineItemRepository;
@@ -70,6 +72,7 @@ namespace IPORevamp.WebAPI.Controllers
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
+            IPOContext contex ,
             IConfiguration configuration,
             IMapper mapper, ILogger<UserController> logger,
             IEmailManager<EmailLog, EmailTemplate> emailManager,
@@ -105,6 +108,7 @@ namespace IPORevamp.WebAPI.Controllers
             _httpContextAccessor = httpContextAccessor;
             _remitaPaymentRepository = remitaPaymentRepository;
             _feeRepository = feeRepository;
+            _contex = contex; 
             _remitaSplitRepository = remitaSplitRepository;
             _EmailTemplateRepository = EmailTemplateRepository;
             _RemitaLineItemRepository = RemitaLineItemRepository;
@@ -135,9 +139,84 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
+        [HttpGet("GetAllPayment")]
+        public async Task<IActionResult> GetAllPayment([FromQuery] string RequestById, [FromQuery] string startdate, [FromQuery] string enddate , [FromQuery] string Feeid)
+        {
+            try
+            {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+                if (Feeid == null)
+                {
+                    var result = await _remitaPaymentRepository.FetchPayments(startdate, enddate);
+
+
+                    // get User Information
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                    // Added A New Country 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Payment   successfully",
+                        Entity = "GetAllPayment",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+                }
+
+                else
+                {
+
+                    var result = await _remitaPaymentRepository.FetchPaymentsByFee(startdate, enddate,Feeid);
+
+
+                    // get User Information
+                    user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                    // Added A New Country 
+                    await _auditTrailManager.AddAuditTrail(new AuditTrail
+                    {
+                        ActionTaken = AuditAction.Create,
+                        DateCreated = DateTime.Now,
+                        Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Payment   successfully",
+                        Entity = "GetAllPayment",
+                        UserId = user.Id,
+                        UserName = user.UserName,
+                        IpAddress = ip
+                    });
+
+                    return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+                }
+        
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select All Payment", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+
+
+      
 
         // Generate Remita Payment RRR
+
 
         [HttpPost("InitiateRemitaPayment")]
         public async Task<IActionResult> InitiatePayment(RemitaPaymentModel remitaPaymentModelPost)

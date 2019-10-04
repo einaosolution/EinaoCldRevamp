@@ -194,6 +194,64 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("CancelDesignApplicationById")]
+        public async Task<IActionResult> CancelDesignApplicationById([FromQuery] string userid ,[FromQuery] string Applicationid)
+        {
+            string ip = "";
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(userid); ;
+
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+       _designRepository.GetCancelApplicationById(Convert.ToInt32(Applicationid));
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"User {user.FirstName + ' ' + user.LastName}  requested to cancel  Application   successfully",
+                Entity = "Cancel  Design",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, null);
+        }
+
+        [HttpGet("CancelPatentApplicationById")]
+        public async Task<IActionResult> CancelPatentApplicationById([FromQuery] string userid, [FromQuery] string Applicationid)
+        {
+            string ip = "";
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(userid); ;
+
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+            _designRepository.GetCancelApplication2ById(Convert.ToInt32(Applicationid));
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"User {user.FirstName + ' ' + user.LastName}  requested to cancel  Application   successfully",
+                Entity = "Cancel  Design",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, null);
+        }
+
+
+
 
         [HttpPost("SaveDesignCoApplicant")]
         public async Task<IActionResult> SaveDesignCoApplicant([FromBody] CoApplicantView[] coapplicantView)

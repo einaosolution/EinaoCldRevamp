@@ -275,9 +275,11 @@ namespace IPORevamp.WebAPI
            
             var cronsetting = Cron.Hourly();
            
-           // var cronsetting2 = Cron.DayInterval(1);
+            var cronsetting2 = Cron.DayInterval(27);
+           
 
             string cronExp = Cron.Daily();
+         
 
 
             app.UseHangfireDashboard();
@@ -287,6 +289,9 @@ namespace IPORevamp.WebAPI
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronExp);
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckDesignPublicationStatus(), cronExp);
+
+            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.SendMonthyUserReport(), cronsetting2);
+
 
 
             app.UseElmah();

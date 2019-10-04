@@ -51,9 +51,13 @@ namespace EmailEngine.Base.Entities
         Search_Officer_Design = 28,
         Examination_Officer_Trade_Mark = 6,
         Publication_Officer_Trade_Mark =7,
+        Publication_Officer_Patent = 25,
         Certificate_Officer_Trade_Mark =9,
+        Certificate_Officer_Patent = 24,
+        Certificate_Officer_Design = 33,
         Appeal_Officer_Trade_Mark = 10,
         Appeal_Officer_Design = 31,
+        Appeal_Officer_Patent = 26,
         Opposition_Officer_Trade_Mark =17,
         Recordals_Officers_Trade_Mark = 12  ,
         Individual =13,
@@ -204,6 +208,7 @@ namespace EmailEngine.Base.Entities
         public const string DelegateEmail = "ACP017";
         public const string ApplicationAccepted = "ACP012";
         public const string DesignPendingPublication = "ACP019";
+        public const string MonthlyMail = "ACP022";
 
 
         public const string PublicationMaxDay = "Pub";

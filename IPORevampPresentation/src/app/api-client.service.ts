@@ -1266,6 +1266,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetAllTempCount(pp: string) {
+
+      var data = {
+        Userid: pp
+
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/UserManagement/GetAllTempCount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
 
     DeleteDSApplicationStatus(pp: string,pp2: string ) {
@@ -1948,6 +1964,24 @@ RejectUser(pp: string,pp2: string ) {
 
 
 
+    GetAllPayment(pp: string ,pp2: string ,pp3: string ,pp4: string  ) {
+      var data = {
+
+        RequestById: pp ,
+        startdate: pp2 ,
+        enddate: pp3 ,
+        Feeid: pp4
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/RemitaPayment/GetAllPayment', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetPatentAppeal(pp2: string  ) {
       var data = {
 
@@ -1964,6 +1998,67 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetPatentAppealCount(pp2: string  ) {
+      var data = {
+
+        Userid: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentAppealCount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetDesignAppealCount(pp2: string  ) {
+      var data = {
+
+        Userid: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDesignAppealCount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignReceiveAppealCount(pp2: string  ) {
+      var data = {
+
+        Userid: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignRegistra/GetDesignReceiveAppealCount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetPatentTreatedAppealCount(pp2: string  ) {
+      var data = {
+
+        Userid: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentExaminer/GetPatentTreatedAppealCount', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
 
     GetPatentExaminerReconductSearch(pp2: string  ) {
       var data = {
@@ -3020,6 +3115,41 @@ RejectUser(pp: string,pp2: string ) {
 			});
   }
 
+
+  GetTrademarkUser() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetTrademarkUser')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetPatentUser() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetPatentUser')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetDesignUser() {
+
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/GetDesignUser')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetAknwoledgmentByUserid(pp: string) {
 
 		var data = {
@@ -3124,6 +3254,40 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 				return data;
 			});
   }
+
+
+  CancelDesignApplicationById(pp : string ,pp2 : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+      userid:pp ,
+      Applicationid:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Design/CancelDesignApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  CancelPatentApplicationById(pp : string ,pp2 : string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+      userid:pp ,
+      Applicationid:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Design/CancelPatentApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
 
   GetPatentApplicationByUserId(pp : string) {
     var token = localStorage.getItem('access_tokenexpire');
@@ -3474,6 +3638,84 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 				return data;
 			});
   }
+
+
+  GetAppealCount(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Registra/GetAppealCount', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+GetReceiveAppealCount(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Registra/GetReceiveAppealCount', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  TrademarkUserRoleCount() {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/TrademarkUserRoleCount')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  PatentUserRoleCount() {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/PatentUserRoleCount')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  DesignUserRoleCount() {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+
+		return this.http
+			.get(this.serviceBase + 'api/UserManagement/DesignUserRoleCount')
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
 
 
   GetAppeal(pp2:string) {
@@ -4583,6 +4825,8 @@ GetTradeMarkType(pp2:string) {
                 .then(data => {  return data; });
 
   }
+
+
 
   GetMap() {
 

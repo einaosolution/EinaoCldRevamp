@@ -65,12 +65,15 @@ namespace IPORevamp.Data.UserManagement.Model
         public string department { get; set; }
         public string unit { get; set; }
         public string staffid { get; set; }
+        public string migrateduserid { get; set; }
+        public string migratedagentcode { get; set; }
         public DateTime? LastPasswordChangDate { get; set; }
 
         public int CategoryId { get; set; }
         public bool ChangePasswordFirstLogin { get; set; }
 
         public DateTime DateCreated { get; set; } = DateTime.Now;
+
 
         [Timestamp]
         public byte[] RowVersion { get; set; }

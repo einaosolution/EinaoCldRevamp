@@ -261,7 +261,7 @@ onSubmit2() {
    formData.append("comment",this.appcomment3);
    formData.append("description","");
    formData.append("fromstatus",Status.Delegate);
-   formData.append("tostatus",Status.Registra);
+   formData.append("tostatus",Status.Appeal);
    formData.append("fromDatastatus",DataStatus.Appeal);
    formData.append("toDatastatus",DataStatus.Examiner);
    formData.append("userid",userid);
@@ -671,15 +671,15 @@ this.busy =   this.registerapi
   ngOnInit() {
     this.filepath = this.registerapi.GetFilepath2();
 
-    if (this.registerapi.checkAccess("#/Design/DesignAppeall"))  {
+    if (this.registerapi.checkAccess("#/Design/DesignAppeal"))  {
 
     }
 
     else {
       alert("Access Denied ")
 
-     // this.router.navigateByUrl('/logout');
-    //  return ;
+      this.router.navigateByUrl('/logout');
+      return ;
     }
 
     this.registerapi.setPage("TrademarkAppeal")

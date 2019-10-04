@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiClientService} from '../api-client.service';
 import {Router} from '@angular/router';
+import {Role} from '../Role';
 
 
 @Component({
@@ -11,6 +12,10 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit {
   subscription: any;
   vdate:any =new Date()
+  registrarole =""
+  patentregistrarole =""
+  designregistrarole =""
+  loginrole =""
   profilepic;
   constructor(private registerapi :ApiClientService ,private router: Router) {
 
@@ -52,10 +57,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-
+//alert(Role.RegistrarTrademark)
+this.loginrole = localStorage.getItem('Roleid');
+this.registrarole = Role.RegistrarTrademark;
+this.patentregistrarole = Role.RegistrarPatent;
+this.designregistrarole = Role.RegistrarDesign;
     this.profilepic=  localStorage.getItem('profilepic')
     this.registerapi.setPage("Country")
     this.registerapi.VChangeEvent("Dashboard");
+
   }
 
 }

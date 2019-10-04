@@ -171,7 +171,11 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
 
    phonepattern ="^[\s()+-]*([0-9][\s()+-]*){6,20}$";
 
-  emailpattern ="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+
+
+  //emailpattern ="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
+
+  emailpattern =/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
   settingcode
   vfilepath:string =""
   @ViewChild("fileInput") fileInput;
@@ -579,7 +583,7 @@ this.onSubmit101(this.pwalletid) ;
 
 else {
   this.onSubmitSaveCoApplicant(pwalletid)
- 
+
 }
 
 
@@ -681,7 +685,7 @@ let result = this.registerapi.getCoApplicant2()
 
      })
 
-    } 
+    }
 
     else {
       this.onSubmit101(this.pwalletid) ;
@@ -944,7 +948,7 @@ this.savemode = false;
 
 
 
-
+    if (this.userform2.valid) {
 
 
   var Invention = {
@@ -965,7 +969,7 @@ this.savemode = false;
   $("#createmodel").modal('hide');
   this.ReintializeData() ;
 
-
+    }
 
 
 
@@ -1137,15 +1141,6 @@ this.registerapi.RemovePriority(this.vid)
 
 
 
-        if (this.userform2.value.email.match(regexp) == null) {
-         Swal.fire(
-           "Invalid Email  ",
-            '',
-            'error'
-          )
-
-          return ;
-        }
 
 
         var regexp2 = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
@@ -1166,7 +1161,7 @@ this.registerapi.RemovePriority(this.vid)
 
 
 
-
+    if (this.userform2.valid) {
 
   var Invention = {
     Name:this.userform2.value.name ,
@@ -1187,7 +1182,7 @@ this.registerapi.RemovePriority(this.vid)
 
   this.ReintializeData();
 
-
+    }
 
 
 
@@ -1422,6 +1417,20 @@ try {
 
 
 if (this.categoryid =="2") {
+
+  let result = this.registerapi.getPriority2();
+  if (result.length == 0 ) {
+    Swal.fire(
+      "Add Priority Information  ",
+       '',
+       'error'
+     )
+
+     return;
+
+
+
+  }
 
   let f2 = this.fileInput2.nativeElement;
  // let f22 = this.fileInput22.nativeElement;
@@ -2080,18 +2089,35 @@ get PriorityFormGroup() {
   return this.userform.get('Priority') as FormArray;
 }
 
+cancelapplication(appid) {
+  var userid = localStorage.getItem('UserId');
+  this.registerapi
+  .CancelDesignApplicationById(userid,appid)
+  .then((response: any) => {
+
+
+
+  })
+          .catch((response: any) => {
+alert("error")
+            console.log(response)
+
+
+  })
+}
 
 loaddata() {
 
 
     var userid = localStorage.getItem('UserId');
+
     this.busy =   this.registerapi
         .GetDesignApplicationByUserId(userid)
         .then((response: any) => {
 
           console.log("Design  Application 2")
           console.log(response.content)
-
+          var self = this;
           if (response.content) {
 
             const swalWithBootstrapButtons = Swal.mixin({
@@ -2269,7 +2295,7 @@ loaddata() {
 
       for ( let i = 0; i <  this.row503.length; i++) {
 
-      
+
 
 
         var CoApplicant = {
@@ -2277,7 +2303,7 @@ loaddata() {
           email:this.row503[i].email,
           phonenumber:this.row503[i].phonenumber ,
 
-        
+
           id:this.registerapi.GetRandomNumber()
 
 
@@ -2304,9 +2330,10 @@ loaddata() {
 
               } else if (
                     // Read more about handling dismissals
+
                     result.dismiss === Swal.DismissReason.cancel
                   ) {
-
+                    self.cancelapplication(response.content.id) ;
                   }
                 })
 
@@ -2459,10 +2486,8 @@ onChange($event) {
       name: [null,Validators.required ],
       address: [null,Validators.required ],
       phone: ['',Validators.required] ,
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
- ])),
+      email: ['',Validators.required] ,
+     
       nationality: [null,Validators.required ]
 
     });

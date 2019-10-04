@@ -20,6 +20,28 @@ namespace IPORevamp.Repository.Publication
 
 
         }
+
+        public int GetAppealCount()
+        {
+            var model = (from c in _contex.Application where c.ApplicationStatus == STATUS.Registra && c.DataStatus == DATASTATUS.Examiner select c).Count();
+           
+
+            return model;
+        }
+
+
+        public int GetReceiveAppealCount()
+        {
+            var model = (from c in _contex.Application
+                         join p in _contex.TrademarkApplicationHistory on new { a = c.Id } equals new { a = p.ApplicationID }
+
+
+                         where c.ApplicationStatus == STATUS.Registra && c.DataStatus == DATASTATUS.Examiner  && p.ToStatus== STATUS.Registra && p.FromStatus == STATUS.Appeal
+                         select c).Count();
+
+
+            return model;
+        }
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetUserAppeal()
         {
 

@@ -56,6 +56,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ChartsModule } from 'ng2-charts';
 
 import {AuthGuard} from './auth.guard';
 
@@ -67,6 +68,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DefaultDashboardComponent } from './default-dashboard/default-dashboard.component';
+import { TrademarkuserlistingComponent } from './trademarkuserlisting/trademarkuserlisting.component';
+import { PatentuserlistingComponent } from './patentuserlisting/patentuserlisting.component';
+import { DesignuserlistingComponent } from './designuserlisting/designuserlisting.component';
+import { Defaultdashboard2Component } from './defaultdashboard2/defaultdashboard2.component';
+import { Defaultdashboard3Component } from './defaultdashboard3/defaultdashboard3.component';
 
 
 
@@ -75,8 +81,11 @@ import { DefaultDashboardComponent } from './default-dashboard/default-dashboard
 const routes: Routes = [
   { path: 'redirect', component: HomeComponent,   data: { animation: 'tiger1' } } ,
   { path: 'login', component: LoginComponent ,   data: { animation: 'tiger2' } } ,
-  { path: 'login', component: LoginComponent ,   data: { animation: 'tiger2' } } ,
+
   { path: 'register', component: RegisterComponent ,   data: { animation: 'tiger3' } } ,
+  { path: 'Trademarkuserlisting', component: TrademarkuserlistingComponent ,   data: { animation: 'tiger4' } } ,
+  { path: 'Patentuserlisting', component: PatentuserlistingComponent ,   data: { animation: 'tiger5' } } ,
+  { path: 'Designuserlisting', component: DesignuserlistingComponent ,   data: { animation: 'tiger6' } } ,
   {
     path:  'home',
     component:  DashboardComponent
@@ -100,6 +109,7 @@ const routes: Routes = [
 { path: 'Dashboard',canActivateChild: [AuthGuard] , loadChildren: './trademark/trademark.module#TrademarkModule' } ,
 { path: 'Patent',canActivateChild: [AuthGuard] , loadChildren: './patent/patent.module#PatentModule' } ,
 { path: 'Design',canActivateChild: [AuthGuard] , loadChildren: './design/design.module#DesignModule' } ,
+{ path: 'Reports',canActivateChild: [AuthGuard] , loadChildren: './reports/reports.module#ReportsModule' } ,
   { path: '',   redirectTo: 'redirect', pathMatch: 'full' }
 ];
 
@@ -127,7 +137,12 @@ const routes: Routes = [
     CorporateComponent ,
     IndividualComponent ,
     ForgetpasswordComponent,
-    DefaultDashboardComponent
+    DefaultDashboardComponent,
+    TrademarkuserlistingComponent,
+    PatentuserlistingComponent,
+    DesignuserlistingComponent,
+    Defaultdashboard2Component,
+    Defaultdashboard3Component
 
 
 
@@ -171,6 +186,7 @@ const routes: Routes = [
     NgBusyModule ,
     BsDatepickerModule.forRoot(),
     AlertModule.forRoot(),
+    ChartsModule,
     NgxSpinnerModule ,
 
     NgxQRCodeModule,

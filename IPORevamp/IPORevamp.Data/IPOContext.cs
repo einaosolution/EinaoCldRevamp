@@ -62,6 +62,8 @@ using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
 using IPORevamp.Data.Entity.Interface.Entities.DesignAddressOfService;
 using IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant;
+using IPORevamp.Data.Entity.Interface.Entities.Setting;
+using IPORevamp.Data.Entity.Interface.Entities.UserView;
 
 namespace IPORevamp.Data
 {
@@ -75,6 +77,9 @@ namespace IPORevamp.Data
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
         public DbSet<SmsLog> SmsLog { get; set; }
+        public DbSet<UserView> UserView { get; set; }
+        public DbSet<MigratedUsers> MigratedUsers { get; set; }
+        
         public DbSet<ApplicationUserClaim> ApplicationUserClaims { get; set; }
         public DbSet<ApplicationUserLogin> ApplicationUserLogins { get; set; }
         public DbSet<EmailLog> EmailLog { get; set; }
@@ -85,6 +90,7 @@ namespace IPORevamp.Data
         public DbSet<CounterOpposition> CounterOpposition { get; set; }
         public DbSet<BillLog> BillLogs { get; set; }
         public DbSet<PaymentLog> PaymentLogs { get; set; }
+        public DbSet<PaymentReport> PaymentReport { get; set; }
 
 
         public DbSet<AccountType> AccountTypes { get; set; }

@@ -20,6 +20,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Pwallet
         public string Batchno { get; set; }
         public string CertificatePayReference { get; set; }
 
+        public string migratedapplicationid { get; set; }
+
         public DateTime ? NextRenewalDate { get; set; }
 
         public string DataStatus { get; set; }

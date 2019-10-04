@@ -193,13 +193,41 @@ namespace IPORevamp.Repository.DesignRegistra
 
         }
 
+        public int GetDesignAppealCount()
+        {
+            var model = (from c in _contex.DesignApplication
+                         join p in _contex.DesignApplicationHistory on new { a = c.Id } equals new { a = p.DesignApplicationID }
+
+
+                         where c.ApplicationStatus == STATUS.Registra && c.DataStatus == DATASTATUS.Examiner && p.FromStatus == STATUS.Refused 
+                         select c).Count();
+
+
+
+            return model;
+        }
+
+        public int GetReceiveAppealCount()
+        {
+            var model = (from c in _contex.DesignApplication
+                         join p in _contex.DesignApplicationHistory on new { a = c.Id } equals new { a = p.DesignApplicationID }
+
+
+                         where c.ApplicationStatus == STATUS.Appeal && c.DataStatus == DATASTATUS.Examiner && p.FromStatus == STATUS.Delegate
+                         select c).Count();
+
+
+
+            return model;
+        }
+
         public async Task<List<DesignDataResult>> GetDesignAppealApplication()
         {
 
 
 
             var details = _contex.DesignDataResult
-            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Registra })
+            .FromSql($"DesignRefuseApplication   @p0, @p1 , @p2", parameters: new[] { DATASTATUS.Examiner, STATUS.Registra, STATUS.Refused })
            .ToList();
 
 
@@ -213,7 +241,7 @@ namespace IPORevamp.Repository.DesignRegistra
 
 
             var details = _contex.DesignDataResult
-            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Registra })
+            .FromSql($"DesignRefuseApplication   @p0, @p1 , @p2", parameters: new[] { DATASTATUS.Examiner, STATUS.Appeal , STATUS.Delegate })
            .ToList();
 
 
