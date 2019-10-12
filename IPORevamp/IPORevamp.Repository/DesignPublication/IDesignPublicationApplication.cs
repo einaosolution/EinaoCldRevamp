@@ -13,6 +13,7 @@ namespace IPORevamp.Repository.DesignPublication
         void UpdateApplicationBatch(int BatchNo, string userole, string userid);
         Task<List<Int32>> GetDesignApplicationBatch();
         Task<List<DesignDataResult>> GetPublicationById(String id);
+        Task<List<DesignDataResult>> GetDesignUnplishedApplication();
 
     }
 }

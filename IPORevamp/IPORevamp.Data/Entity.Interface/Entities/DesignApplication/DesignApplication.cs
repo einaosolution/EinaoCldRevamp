@@ -20,7 +20,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public string migratedapplicationid { get; set; }
 
 
-        public List<IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory.PatentApplicationHistory> PatentApplicationHistory { get; set; }
+
+        public List<IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory.DesignApplicationHistory> designApplicationHistories { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignInformation.DesignInformation> DesignInformation { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignAssigment.DesignAssignment> DesignAssignment { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignInvention.DesignInvention> DesignInvention { get; set; }
@@ -29,6 +30,7 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public List<IPORevamp.Data.Entity.Interface.Entities.DelegateJob.DelegateDesignJob> DelegateDesignJob { get; set; }
 
         public List<IPORevamp.Data.Entity.Interface.Entities.DesignCoApplicant.DesignCoApplicant> DesignCoApplicant { get; set; }
+        public List<IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalDesignRenewal> RecordalDesignRenewal { get; set; }
 
 
 

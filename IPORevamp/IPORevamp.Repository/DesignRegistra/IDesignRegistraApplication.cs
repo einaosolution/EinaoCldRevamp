@@ -23,5 +23,6 @@ namespace IPORevamp.Repository.DesignRegistra
         Task<List<DesignDataResult>> GetDesignReceiveAppealApplication();
         int GetDesignAppealCount();
         int GetReceiveAppealCount();
+        void SendEmailToCerticateOfficer();
     }
 }

@@ -300,6 +300,8 @@ onChange( deviceValue) {
       this.row10.push(this.rows[i].applicationId)
     }
 
+
+
     //Do something
 }
 
@@ -313,6 +315,17 @@ if ( this.row10.length > 0) {
 
   this.router.navigateByUrl('/Design/NoticeDesignCertificatePayment');
 
+
+}
+
+
+else {
+
+  Swal.fire(
+    "No Certificate Selected",
+    '',
+    'error'
+  )
 
 }
 

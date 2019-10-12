@@ -42,10 +42,6 @@ C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.Assemb
 C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CopyComplete
 C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.dll
 C:\IPOHub\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.pdb
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csprojAssemblyReference.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CoreCompileInputs.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.AssemblyInfoInputs.cache
-C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.AssemblyInfo.cs
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.deps.json
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Data.pdb
@@ -53,6 +49,10 @@ C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\EmailEngine.d
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Core.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\EmailEngine.pdb
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\bin\Debug\netcoreapp2.1\IPORevamp.Core.pdb
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csprojAssemblyReference.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CoreCompileInputs.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.AssemblyInfoInputs.cache
+C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.AssemblyInfo.cs
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.dll
 C:\EinaoCldRevamp\IPORevamp\IPORevamp.Data\obj\Debug\netcoreapp2.1\IPORevamp.Data.pdb

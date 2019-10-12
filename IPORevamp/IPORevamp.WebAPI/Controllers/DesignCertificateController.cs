@@ -126,7 +126,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
 
-                var result = (from p in _contex.PatentApplication where p.Id == Convert.ToInt32(applicationId) select p).FirstOrDefault();
+                var result = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(applicationId) select p).FirstOrDefault();
 
                 var users = (from p in _contex.Users where p.Id == Convert.ToInt32(result.userid) select p).FirstOrDefault();
                 var user2 = await _userManager.FindByIdAsync(Convert.ToString(users.Id)); ;
@@ -281,6 +281,93 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [HttpGet("GetApplicationById")]
+        public async Task<IActionResult> GetApplicationById([FromQuery] string RequestById , [FromQuery] string ApplicationID)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designCertificateRepository.GetApplicationByRegistrationId(ApplicationID);
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+               
+
+                return PrepareResponse(HttpStatusCode.OK, "Design By Id Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+
+        [HttpGet("GetApplicationByAppid")]
+        public async Task<IActionResult> GetApplicationByAppid([FromQuery] string RequestById, [FromQuery] string ApplicationID)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designCertificateRepository.GetApplicationByAppId(ApplicationID);
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Design By Id Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+
+
 
         [HttpGet("GetDateFormat")]
         public async Task<IActionResult> GetDateFormat([FromQuery] string ApplicationId)
@@ -289,13 +376,14 @@ namespace IPORevamp.WebAPI.Controllers
 
             ip = Request.Headers["ip"];
 
-            var result = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(ApplicationId) select p).FirstOrDefault();
-            DateTime dd2 = result.DateCreated;
+            //var result = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(ApplicationId) select p).FirstOrDefault();
+            var result2 = (from p in _contex.DesignApplicationHistory where p.DesignApplicationID == Convert.ToInt32(ApplicationId)  && p.ToStatus ==STATUS.Confirm && p.ToDataStatus == DATASTATUS.Certificate select p).FirstOrDefault();
+            DateTime dd2 = result2.DateCreated;
             DesignDateFormat DesignDate = new DesignDateFormat();
             DesignDate.registrationdate = dd2.Day.ToString() + getDayFormat(dd2.Day.ToString()) + " " +   dd2.ToString("MMM") + " " + dd2.Year.ToString(); ;
 
             DateTime Todaydate = DateTime.Now;
-            DateTime Expires = result.DateCreated.AddYears(5);
+            DateTime Expires = result2.DateCreated.AddYears(5);
             DesignDate.todaysdate = Todaydate.Day.ToString() + getDayFormat(Todaydate.Day.ToString()) + " " + Todaydate.ToString("MMM") + " " + Todaydate.Year.ToString();
             DesignDate.expiredate = Expires.Day.ToString() + getDayFormat(Expires.Day.ToString()) + " " + Expires.ToString("MMM") + " " + Expires.Year.ToString();
 
@@ -311,6 +399,37 @@ namespace IPORevamp.WebAPI.Controllers
                 return PrepareResponse(HttpStatusCode.OK, "Confirm  Returned Successfully", false, DesignDate);
 
            
+
+
+
+
+
+
+
+
+
+        }
+
+        [HttpGet("ApplicationCount")]
+        public async Task<IActionResult> ApplicationCount([FromQuery] string ApplicationId)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+            //var result = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(ApplicationId) select p).FirstOrDefault();
+            var result2 = (from p in _contex.DesignApplication join c in _contex.DesignInformation on p.Id equals c.DesignApplicationID join d in _contex.DesignApplicationHistory on p.Id equals d.DesignApplicationID where c.RegistrationNumber == ApplicationId && d.ToStatus == STATUS.Confirm && d.ToDataStatus == DATASTATUS.Certificate select p).Count();
+           
+
+
+
+
+            // Added A New Country 
+
+
+            return PrepareResponse(HttpStatusCode.OK, "Confirm  Returned Successfully", false, result2);
+
+
 
 
 

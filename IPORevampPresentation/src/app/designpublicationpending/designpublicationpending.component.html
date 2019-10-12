@@ -60,6 +60,7 @@
                                  <th>STATUS </th>
 
                                  <th> </th>
+                                 <th> </th>
 
 
                               </tr>
@@ -85,6 +86,13 @@
 
                                  </td>
 
+                                 <td>
+                                  <button type="button" id="openModalButton" (click) ="showdetail2(emp)"  class="btn btn-success ">View Certificate </button>
+
+
+
+                             </td>
+
 
 
                                   </tr>
@@ -103,6 +111,169 @@
       </div>
       <!-- Column -->
 
+  </div>
+
+</div>
+<!-- show design certificate -->
+<div class="modal fade" id="createmodel4" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+
+          <div class="card-body wizard-content">
+              <div class="modal-header">
+                      <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Certificate</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+
+
+                  <div class="container">
+
+                    <div id ="searchform">
+                <table class="table"  >
+
+                  <TR id="cert">
+
+                    <TD WIDTH=628 STYLE="border: none; padding: 0in">
+
+                      <P LANG="en-US" CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in">
+
+                      <IMG SRC="assets/coat_of_arms.png" NAME="Picture 1" ALIGN=BOTTOM WIDTH=97 HEIGHT=83 BORDER=0></P>
+
+
+
+                        <table class="table"  STYLE="  ALIGN: CENTER;"  CELLPADDING=1 CELLSPACING=0>
+
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                              <P CLASS="western" ALIGN=CENTER><FONT SIZE=5 STYLE="font-size: 16pt"><b>NIGERIA</b></FONT></P>
+                            </TD>
+                          </TR>
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                                            <P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in; line-height: 100%; page-break-after: avoid">
+                      <FONT COLOR="#00b050"><FONT FACE="Ink In The Meat, monospace"><FONT SIZE=6 style="font-weight: 700">Certificate
+                      of Registration of <br /> <br /> Designs </FONT></FONT></FONT></P>
+                              <P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in"><FONT COLOR="#00b050"><FONT FACE="Ink In The Meat, monospace"></FONT></FONT><FONT SIZE=3><B>
+                              <BR></B></FONT><FONT SIZE=4 STYLE="font-size: 15pt"><B>Patents
+                              and Designs Act.</B></FONT><FONT SIZE=3><B><BR></B></FONT><FONT SIZE=2 STYLE="font-size: 9pt"><B>(CAP
+                              344 Laws Of The Federation Of Nigeria 1990)</B></FONT><FONT SIZE=3><B>
+                              </B></FONT>
+                              </P>
+
+                            </TD>
+                          </TR>
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                              <P CLASS="western" ALIGN=RIGHT>&nbsp;
+                                                    <FONT ><FONT SIZE=3><B> {{row22.designInformation[0].registrationNumber}}</B></FONT></FONT>  <br />
+                                                  <FONT ><FONT SIZE=3><B>  {{row55.registrationdate }}</B></FONT></FONT></P>
+                            </TD>
+
+
+                          </TR>
+
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                              <P CLASS="western"><FONT SIZE=2 STYLE="font-size: 10pt"><B>This
+                              is to certify that in pursuance of and subject to the
+                              provisions of the Patents and Designs Act (CAP) 344 LFN 1990)
+                              the Design of which a representation is annexed has been
+                              registered in
+                              the name of </B></FONT>
+                              </P>
+                            </TD>
+                          </TR>
+
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                              <P CLASS="western" ALIGN=CENTER><FONT ><FONT SIZE=4 STYLE="font-size: 13pt"><B> {{row33.firstName + " " + row33.lastName}} </B></FONT></FONT></P>
+                            </TD>
+                          </TR>
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                              <P CLASS="western" ALIGN=CENTER STYLE="margin-bottom: 0in"><FONT SIZE=2 STYLE="font-size: 10pt"><B><BR></B></FONT><FONT ><FONT SIZE=2 STYLE="font-size: 10pt"><B>  {{row33.street }} </B></FONT></FONT></P>
+
+                            </TD>
+                          </TR>
+                                    </table>
+
+                             <br />
+                              <br />
+                              <br />
+                             <br />
+
+                            <br />
+
+
+                            <table class="table" >
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 STYLE="border: none; padding: 0in">
+                              <P CLASS="western" STYLE="margin-bottom: 0in"><FONT SIZE=2 STYLE="font-size: 10pt"><B>In
+                              Respect Of application for  {{row22.designInformation[0].titleOfDesign }}  </B></FONT></P>
+
+                              <P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+                              </P>
+                              <P CLASS="western" STYLE="margin-bottom: 0in"><FONT SIZE=2 STYLE="font-size: 10pt"><B>As
+                              of the </B></FONT><FONT ><FONT SIZE=2 STYLE="font-size: 10pt"><B> {{row55.registrationdate }} </B></FONT></FONT><FONT SIZE=2 STYLE="font-size: 10pt"><B>
+                               </B></FONT></P>
+                              <P CLASS="western"><FONT SIZE=2 STYLE="font-size: 10pt"><B>Dated
+                              this </B></FONT><FONT ><FONT SIZE=2 STYLE="font-size: 10pt"><B>{{row55.todaysdate}}
+                              </B></FONT></FONT><FONT SIZE=2 STYLE="font-size: 10pt"><B> </B></FONT><FONT ><FONT SIZE=2 STYLE="font-size: 10pt"><B>
+                               </B></FONT></FONT><FONT SIZE=2 STYLE="font-size: 10pt"><B></B></FONT></P>
+                            </TD>
+                          </TR>
+
+
+
+                          <TR>
+
+                            <TD WIDTH=20 STYLE="border: none; padding: 0in">
+                              <P CLASS="western">&nbsp;</P>
+                            </TD>
+                            <TD WIDTH=600 STYLE="border: none; padding: 0in">
+                              <P LANG="en-US" CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in">
+
+
+
+                              <P CLASS="western" ALIGN=RIGHT STYLE="margin-bottom: 0in"><IMG SRC="assets/Nkiru.jpg" ALIGN=BOTTOM WIDTH=624 HEIGHT=1></P>
+                              <P CLASS="western" ALIGN=RIGHT><FONT SIZE=3><B>Eno-obong Usen
+                              <BR>PAR I</B></FONT></P>
+                            </TD>
+                          </TR>
+                          <TR>
+                            <TD COLSPAN=2 WIDTH=622 BGCOLOR="#1c5e55" STYLE="border: none; padding: 0in">
+                              <P CLASS="western" ALIGN=CENTER><FONT COLOR="#ffffff">
+                              Copyright in this Design will normally expire on <FONT ><FONT SIZE=2 STYLE="font-size: 10pt"><B>{{row55.expiredate}} </B></FONT></FONT> but may  on application made in the prescribed
+                              manner, be extended for two further periods of five years
+                              each</FONT><FONT COLOR="#ffffff"><FONT SIZE=3>.</FONT></FONT></P>
+                            </TD>
+                          </TR>
+
+
+                        </table>
+
+
+
+                    </TD>
+                  </TR>
+                </table>
+                </div>
+                <div  class="d-flex justify-content-center">
+
+                  </div>
+
+                </div>
+
+
+
+
+
+          </div>
+
+
+      </div>
   </div>
 
 </div>

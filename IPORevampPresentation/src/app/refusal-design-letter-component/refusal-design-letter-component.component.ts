@@ -180,11 +180,39 @@ export class RefusalDesignLetterComponentComponent implements OnInit {
 
      var self = this;
 
-     $( document ).ready(function() {
 
-       self.onSubmit8();
+     this.busy = this.registerapi
+.GetDesignRefusalComment(userid,pwallet)
+.then((response: any) => {
 
-   });
+  console.log("Response Refusal Comment")
+ // this.row3= response;
+ this.comment = response.content.patentcomment
+
+
+ $( document ).ready(function() {
+
+  self.onSubmit8();
+
+});
+
+
+
+  console.log(response)
+
+
+
+
+
+
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+})
+
 
 
 
@@ -227,29 +255,7 @@ alert("error")
 
 
 
-this.busy =   this.registerapi
-.GetDesignRefusalComment(userid,pwallet)
-.then((response: any) => {
 
-  console.log("Response Refusal Comment")
- // this.row3= response;
- this.comment = response.content.patentcomment
-
-
-  console.log(response)
-
-
-
-
-
-
-
-})
-         .catch((response: any) => {
-
-           console.log(response)
-
-})
 
 
 }

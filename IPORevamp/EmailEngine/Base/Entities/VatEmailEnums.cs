@@ -113,6 +113,7 @@ namespace EmailEngine.Base.Entities
 
         public const string SaveMode = "SaveMode";
         public const string RecordalComment = "Recordal Merger";
+        public const string NotPublished = "NotPublished";
 
         
 
@@ -187,6 +188,7 @@ namespace EmailEngine.Base.Entities
         public const string PatentCertificateCollection = "ACP014";
         public const string PatentFreshApplication = "ACP015";
         public const string CoApplicant = "ACP021";
+        public const string CertificateOfficer = "ACP023";
 
 
 

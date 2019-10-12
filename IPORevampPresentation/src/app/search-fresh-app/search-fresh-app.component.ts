@@ -56,7 +56,7 @@ export class SearchFreshAppComponent implements OnInit {
   onSubmit() {
     this.appcomment3= ""
     $("#createmodel2").modal('show');
-    
+
 
 }
 
@@ -78,7 +78,7 @@ onChange( deviceValue) {
 }
 
   onSubmit2(f) {
-    console.log(this.model)
+
 
 
 

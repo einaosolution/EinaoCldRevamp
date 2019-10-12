@@ -76,7 +76,7 @@ namespace IPORevamp.Repository.Search_Unit
         }
 
 
-        public async void  SaveApplicationHistory(int id ,string userrole , HttpRequest request ,string tostatus ,string toDatastatus ,string fromDatastatus ,string fromstatus ,string comment ,string description ,string userid)
+        public async void  SaveApplicationHistory(int id ,string userrole , HttpRequest request ,string tostatus ,string toDatastatus ,string fromDatastatus ,string fromstatus ,string comment ,string description ,string userid,string uploadpath)
         {
 
             var vpwallet = (from c in _contex.Application where c.Id == id select c).FirstOrDefault();
@@ -105,29 +105,8 @@ namespace IPORevamp.Repository.Search_Unit
 
 
             // file upload
-            string msg = "";
+          //  string msg = "";
 
-            if (request.Form.Files.Count > 0)
-            {
-                try
-                {
-                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
-                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
-                    int result1 = Convert.ToInt32(oneMegaByte[0]);
-                    int result2 = Convert.ToInt32(fileMaxSize[0]);
-
-                    msg = await _fileUploadRespository.UploadFile(request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
-                      result2);
-
-                }
-
-                catch (Exception ee)
-                {
-                    var kk = ee.Message;
-                }
-
-
-            }
 
           
 
@@ -144,14 +123,14 @@ namespace IPORevamp.Repository.Search_Unit
                 ToDataStatus = toDatastatus,
                 FromStatus = prevappstatus,
                 ToStatus = tostatus,
-                UploadsPath1 = msg,
+                UploadsPath1 = uploadpath,
                 userid = Convert.ToInt32(userid),
                 Role = userrole
             });
 
 
 
-          //  _contex.SaveChanges();
+            _contex.SaveChanges();
 
 
 

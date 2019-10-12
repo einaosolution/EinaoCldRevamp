@@ -307,6 +307,21 @@ namespace IPORevamp.Repository.DesignSearch
         }
 
 
+        public async Task<List<DesignDataResult>> GetDesignKivExaminer()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Examiner, STATUS.Kiv })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
         public async Task<List<DesignDataResult>> GetDesignListing(string userid)
         {
 

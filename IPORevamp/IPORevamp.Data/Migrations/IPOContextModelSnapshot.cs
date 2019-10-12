@@ -1950,8 +1950,6 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("DeletedBy");
 
-                    b.Property<int?>("DesignApplicationId");
-
                     b.Property<string>("FromDataStatus");
 
                     b.Property<string>("FromStatus");
@@ -1989,8 +1987,6 @@ namespace IPORevamp.Data.Migrations
                     b.Property<int>("userid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DesignApplicationId");
 
                     b.HasIndex("PatentApplicationID");
 
@@ -2367,6 +2363,65 @@ namespace IPORevamp.Data.Migrations
                     b.HasIndex("Applicationtypeid");
 
                     b.ToTable("Application");
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalDesignRenewal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicantAddress");
+
+                    b.Property<string>("ApplicantName");
+
+                    b.Property<string>("CertificateOfTrademark");
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DeletedBy");
+
+                    b.Property<int?>("DesignapplicationId");
+
+                    b.Property<string>("DetailOfRequest");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastUpdateDate");
+
+                    b.Property<string>("PaymentReference");
+
+                    b.Property<string>("PowerOfAttorney");
+
+                    b.Property<string>("PreviousApplicationStatus");
+
+                    b.Property<string>("PreviousDataStatus");
+
+                    b.Property<DateTime?>("RenewalDueDate");
+
+                    b.Property<string>("RenewalType");
+
+                    b.Property<byte[]>("RowVersion");
+
+                    b.Property<string>("Status");
+
+                    b.Property<string>("TrademarkTitle");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<int>("applicationid");
+
+                    b.Property<string>("userid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DesignapplicationId");
+
+                    b.ToTable("RecordalDesignRenewal");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger", b =>
@@ -3494,7 +3549,7 @@ namespace IPORevamp.Data.Migrations
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory.DesignApplicationHistory", b =>
                 {
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication", "DesignApplication")
-                        .WithMany()
+                        .WithMany("designApplicationHistories")
                         .HasForeignKey("DesignApplicationID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -3607,10 +3662,6 @@ namespace IPORevamp.Data.Migrations
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.PatentApplicationHistory.PatentApplicationHistory", b =>
                 {
-                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication")
-                        .WithMany("PatentApplicationHistory")
-                        .HasForeignKey("DesignApplicationId");
-
                     b.HasOne("IPORevamp.Data.Entity.Interface.Entities.PatentApplication.PatentApplication", "PatentApplication")
                         .WithMany("PatentApplicationHistory")
                         .HasForeignKey("PatentApplicationID")
@@ -3688,6 +3739,13 @@ namespace IPORevamp.Data.Migrations
                         .WithMany("pwallet")
                         .HasForeignKey("Applicationtypeid")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalDesignRenewal", b =>
+                {
+                    b.HasOne("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignApplication", "Designapplication")
+                        .WithMany("RecordalDesignRenewal")
+                        .HasForeignKey("DesignapplicationId");
                 });
 
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger", b =>

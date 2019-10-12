@@ -62,7 +62,7 @@ namespace IPORevamp.Repository.UserProfiling
         }
 
 
-        public void  UpdateStatus()
+        public void  UpdateTrademarkStatus()
         {
 
             var TrademarApplication = (from c in _dbcontext.Application  select c).ToList();
@@ -116,6 +116,15 @@ namespace IPORevamp.Repository.UserProfiling
         {
             var details = _dbcontext.MigratedUsers
              .FromSql($"MigratePatentUsers  ")
+            .ToList();
+
+            return details;
+        }
+
+        public List<MigratedUsers> MigrateDesignUser()
+        {
+            var details = _dbcontext.MigratedUsers
+             .FromSql($"MigrateDesignUsers  ")
             .ToList();
 
             return details;

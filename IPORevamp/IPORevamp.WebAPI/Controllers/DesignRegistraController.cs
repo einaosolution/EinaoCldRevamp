@@ -214,6 +214,7 @@ namespace IPORevamp.WebAPI.Controllers
 
                 var result = _designRegistraRepository.ProcessCertificatePayment(Convert.ToInt32(ApplicationId), TransactionId);
 
+              //  _designRegistraRepository.SendEmailToCerticateOfficer();
 
 
                 //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));

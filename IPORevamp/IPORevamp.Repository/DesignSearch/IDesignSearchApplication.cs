@@ -37,6 +37,7 @@ namespace IPORevamp.Repository.DesignSearch
         Task<List<DesignDataResult>> GetDesignReconductSearch();
         Task<List<DesignDataResult>> GetDesignKivSearch();
         Task<List<DesignDataResult>> GetDesignListing(string userid);
+        Task<List<DesignDataResult>> GetDesignKivExaminer();
         Task<List<DesignCoApplicant>> GetCoApplicantById(int id);
 
 

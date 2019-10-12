@@ -111,27 +111,39 @@ namespace IPORevamp.WebAPI.Controllers
             // check for user information before processing the request
             int id = Convert.ToInt32(pwalletid);
             var userrole = Convert.ToString(user.RolesId);
-           
-                _searchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid);
+
+
+            string msg = "";
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                      result2);
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+            _searchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, msg);
 
  
 
 
 
-            var user3 = _userManager.Users.FirstOrDefault(x => x.Id == Convert.ToInt32(userid));
-
-            await _auditTrailManager.AddAuditTrail(new AuditTrail
-            {
-                ActionTaken = AuditAction.Update,
-                DateCreated = DateTime.Now,
-                Description = $"Application  has been Updated  successfully",
-                Entity = "Pwallet",
-                UserId = user.Id,
-                UserName = user.UserName,
-                IpAddress = ip,
-                RecordBefore = fromstatus,
-                RecordAfter = tostatus
-            });
+           
 
 
 
@@ -198,7 +210,31 @@ namespace IPORevamp.WebAPI.Controllers
             // check for user information before processing the request
             int id = Convert.ToInt32(pwalletid);
 
-            _searchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid);
+            string msg = "";
+
+            if (Request.Form.Files.Count > 0)
+            {
+                try
+                {
+                    String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                    String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                    int result1 = Convert.ToInt32(oneMegaByte[0]);
+                    int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                    msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                      result2);
+
+                }
+
+                catch (Exception ee)
+                {
+                    var kk = ee.Message;
+                }
+
+
+            }
+
+            _searchRepository.SaveApplicationHistory(id, userrole, Request, tostatus, toDatastatus, fromDatastatus, fromstatus, comment, description, userid, msg);
 
            
 

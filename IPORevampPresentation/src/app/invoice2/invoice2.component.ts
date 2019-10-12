@@ -80,6 +80,39 @@ public DataStatus = DataStatus;
   }
 
 
+  generateInvoice12() {
+    let  pwallet =  localStorage.getItem('NoticeAppID');
+    let  pwallet2 =  localStorage.getItem('Pwallet');
+
+
+    let  userid = localStorage.getItem('UserId');
+       this.registerapi
+       .UpdateRenewalDesignById( pwallet ,userid ,this.transactionid)
+       .then((response: any) => {
+
+         console.log("response after payment")
+         console.log(response.content)
+
+         this.router.navigateByUrl('/Dashboard/Invoice');
+
+
+
+
+
+       })
+                .catch((response: any) => {
+
+                  console.log(response)
+
+
+                 Swal.fire(
+                   response.error.message,
+                   '',
+                   'error'
+                 )
+
+   })
+     }
 
   generateInvoice11() {
     let  pwallet =  localStorage.getItem('NoticeAppID');
@@ -102,12 +135,12 @@ public DataStatus = DataStatus;
 
          for (let i = 0; i < array.length; i++) {
 
-
+let count = i + 1;
            array[i]
         // formData.append("pwalletid",pwallet2);
         formData.append("pwalletid",array[i]);
-        formData.append("comment","Certificate Payment Sucessful");
-        formData.append("description","");
+        formData.append("comment","Certificate Payment Item" + count);
+        formData.append("description","Certificate Payment Item" + count);
         formData.append("fromstatus","");
         formData.append("tostatus",Status.Paid);
         formData.append("fromDatastatus","");
@@ -814,6 +847,11 @@ context['msImageSmoothingEnabled'] = false;
 
 
 
+        if (paytype =="PayDesignRenewal") {
+          this.generateInvoice12()
+        }
+
+
 
 
 
@@ -966,7 +1004,9 @@ context['msImageSmoothingEnabled'] = false;
           this.generateInvoice11()
         }
 
-
+        if (paytype =="PayDesignRenewal") {
+          this.generateInvoice12()
+        }
 
 
 

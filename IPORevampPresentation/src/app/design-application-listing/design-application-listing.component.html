@@ -546,6 +546,7 @@
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit"  *ngIf="showbutton"  (click) ="onSubmit()"  class="btn btn-success"> Publish Application</button>
+          <button type="submit"  *ngIf="showbutton"  (click) ="onSubmit4()"  class="btn btn-success"> Do Not Publish Application</button>
 
                  <div [ngBusy]="busy"></div>
                 </div>
@@ -608,6 +609,62 @@
         </div>
     </div>
   </div>
+
+
+  <!-- Create Modal 4 -->
+  <div class="modal fade" id="createmodel4" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+                 <div class="card-body wizard-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>Do Not Publish Application </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form name="form"  #f="ngForm" novalidate>
+
+                            <table class="table text-center">
+                                <tr>
+                               <td>
+                               Comments
+                               </td>
+
+                               <td>
+
+
+                                  <textarea rows="4" class="form-control" required [(ngModel)]="appcomment4"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                    </textarea>
+
+
+
+                                 </td>
+
+                                </tr>
+
+
+                               </table>
+
+
+                              </form>
+    </div>
+
+
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit"  (click) ="onSubmit6(f.form.valid)"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
 
 
   <!-- Create Modal 3 -->

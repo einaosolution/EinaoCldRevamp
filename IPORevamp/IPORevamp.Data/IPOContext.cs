@@ -95,6 +95,10 @@ namespace IPORevamp.Data
 
         public DbSet<AccountType> AccountTypes { get; set; }
         public DbSet<RecordalMerger> RecordalMerger { get; set; }
+
+        public DbSet<RecordalDesignRenewal> RecordalDesignRenewal { get; set; }
+
+        
         public DbSet<Ministry> Ministry { get; set; }
         public DbSet<PreviousComments> PreviousComments { get; set; }
         public DbSet<Units> Units { get; set; }

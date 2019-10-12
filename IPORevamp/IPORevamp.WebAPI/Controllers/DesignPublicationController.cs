@@ -247,6 +247,60 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [HttpGet("GetDesignUnpublishedPublication")]
+        public async Task<IActionResult> GetDesignUnpublishedPublication([FromQuery] string RequestById)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designPublicationRepository.GetDesignUnplishedApplication();
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all fresh design successfully",
+                    Entity = "GetAllFreshDesign",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Fresh Design Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
         [HttpGet("GetDesignPendingPublication")]
         public async Task<IActionResult> GetDesignPendingPublication([FromQuery] string RequestById)
         {

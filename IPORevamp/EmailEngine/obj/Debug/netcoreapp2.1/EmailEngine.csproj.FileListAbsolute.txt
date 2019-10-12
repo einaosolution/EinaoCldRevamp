@@ -78,10 +78,6 @@ C:\IPOHub\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.AssemblyInfo
 C:\IPOHub\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.csproj.CopyComplete
 C:\IPOHub\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.dll
 C:\IPOHub\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.pdb
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.csprojAssemblyReference.cache
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.csproj.CoreCompileInputs.cache
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.AssemblyInfoInputs.cache
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.AssemblyInfo.cs
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\EmailEngine.deps.json
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\EmailEngine.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\EmailEngine.pdb
@@ -97,6 +93,10 @@ C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.AspNet
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Hosting.xml
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Stores.xml
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Debug\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.csprojAssemblyReference.cache
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.csproj.CoreCompileInputs.cache
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.AssemblyInfoInputs.cache
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.AssemblyInfo.cs
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Debug\netcoreapp2.1\EmailEngine.pdb

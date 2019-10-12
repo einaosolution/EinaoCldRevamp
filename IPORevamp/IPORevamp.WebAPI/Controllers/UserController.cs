@@ -512,7 +512,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
-
+        [HttpGet("MigrateDesignUser")]
         public async Task<IActionResult> MigrateDesignUser()
         {
 

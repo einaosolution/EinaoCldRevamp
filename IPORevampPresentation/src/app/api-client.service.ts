@@ -25,10 +25,10 @@ declare var $ :any;
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
- //serviceBase = 'http://localhost:5000/';
-serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
-serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
-// serviceBase2 = 'http://localhost:4200/#/';
+ serviceBase = 'http://localhost:5000/';
+//serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+//serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
+ serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
   invention :Invention[]=[]
   priority :Priority[]=[]
@@ -1563,6 +1563,20 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    GetDesignUnpublishedPublication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignPublication/GetDesignUnpublishedPublication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
 
 
     GetDesignReconductSearchApplication(pp2: string  ) {
@@ -1590,6 +1604,22 @@ RejectUser(pp: string,pp2: string ) {
 
       return this.http
         .get(this.serviceBase + 'api/DesignSearch/GetDesignKivSearchApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignKivExaminerApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignKivExaminerApplication', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2580,6 +2610,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+    UpdateRenewalDesignById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateRenewalDesignById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
     UpdateMergerFormById(pp: string,pp2: string ,pp3: string ) {
 
@@ -2864,6 +2910,17 @@ RejectUser(pp: string,pp2: string ) {
 
 
     return this.http.post( this.serviceBase + 'api/Recordal/SaveRenewalForm', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+  SaveRenewalDesignForm(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Recordal/SaveRenewalDesignForm', formData)
                 .toPromise()
 
                 .then(data => {  return data; });
@@ -3521,6 +3578,60 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+  GetDesignApplicationById3(pp2:string,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignCertificate/GetApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetApplicationByAppid(pp2:string,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignCertificate/GetApplicationByAppid', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetDesignApplicationByIdCount(pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignCertificate/ApplicationCount', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetByRegistrationId(pp2:string,pp:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3597,6 +3708,23 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalCertificate', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetRecordalRenewalDesignCertificate(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalDesignCertificate', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;

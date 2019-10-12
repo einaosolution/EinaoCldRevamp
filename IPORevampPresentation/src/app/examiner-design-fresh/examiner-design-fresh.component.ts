@@ -451,7 +451,7 @@ onSubmit44() {
    formData.append("fromstatus",Status.Fresh);
    formData.append("tostatus",Status.Kiv);
    formData.append("fromDatastatus",DataStatus.Examiner);
-   formData.append("toDatastatus",DataStatus.Search);
+   formData.append("toDatastatus",DataStatus.Examiner);
    formData.append("userid",userid);
 
 

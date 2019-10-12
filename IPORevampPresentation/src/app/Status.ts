@@ -6,6 +6,7 @@ export enum Status {
    Pending = "Pending" ,
   Batch = "Batch" ,
    Kiv = "Kiv" ,
+  NotPublished = "NotPublished" ,
    Counter = "Counter" ,
   Submitted = "Submitted" ,
   SaveMode = "SaveMode" ,

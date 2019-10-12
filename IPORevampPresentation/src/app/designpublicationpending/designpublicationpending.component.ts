@@ -54,6 +54,10 @@ export class DesignpublicationpendingComponent implements OnInit {
   public rows = [];
   public row2
   public row3 = [];
+  public row22
+  public row33
+  public row55
+  appuser:any
   public row4  = [];
   public row5  = [];
   public row6  = [];
@@ -62,6 +66,7 @@ export class DesignpublicationpendingComponent implements OnInit {
 
 
   vshow :boolean = false;
+  vshow2 :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
   onSubmit() {
@@ -353,6 +358,112 @@ onChange( deviceValue) {
   }
 
 
+  showdetail2(kk) {
+
+
+    this.registerapi
+    .GetDesignApplicationById(kk.applicationId)
+    .then((response: any) => {
+
+
+
+      this.row22 = response.content;
+
+      this.appuser =response.content.userid
+
+      let  transid =response.content.transactionID
+
+      console.log("design Application ")
+
+      console.log(response.content)
+
+
+
+
+
+
+
+   this.busy =   this.registerapi
+   .GetUserById(this.appuser)
+   .then((response: any) => {
+
+     console.log("Response Result")
+     this.row33= response;
+     console.log(this.row3)
+
+
+     var self = this;
+
+   })
+            .catch((response: any) => {
+
+              console.log(response)
+
+})
+
+
+
+this.busy =   this.registerapi
+.GetDesignDateFormat(kk.applicationId)
+.then((response: any) => {
+
+  console.log("Response Result")
+  this.row55= response.content;
+  console.log("format date")
+
+  console.log(this.row5)
+
+
+  var self = this;
+
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+})
+
+
+
+
+
+
+
+
+
+      this.vshow2 = true;
+      $("#createmodel4").modal('show');
+     // this.vimage  ="{{filepath}}Upload/" +this.row2.markinfo.logoPicture
+
+     // alert("Generating")
+
+     // this. generatePdf()
+
+
+
+      console.log("ack")
+
+      console.log(response)
+
+
+
+
+  })
+  .catch((response: any) => {
+
+    console.log(response)
+
+
+alert("error")
+})
+
+//this.pwalletid = kk.applicationId
+
+
+
+
+
+  }
 
 
   showdetail(kk) {

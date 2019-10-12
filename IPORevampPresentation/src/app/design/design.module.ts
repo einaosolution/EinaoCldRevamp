@@ -81,6 +81,11 @@ import { DesignAppealRefusalComponent } from '../design-appeal-refusal/design-ap
 import { DesignRegistraAppealComponent } from '../design-registra-appeal/design-registra-appeal.component';
 import { DesignAppealComponent } from '../design-appeal/design-appeal.component';
 import { DesignReceiveAppealComponent } from '../design-receive-appeal/design-receive-appeal.component';
+import { DesignKivApplicationComponent } from '../design-kiv-application/design-kiv-application.component';
+import { RenewDesignComponentComponent } from '../renew-design-component/renew-design-component.component';
+import { PayRenewalDesignComponent } from '../pay-renewal-design/pay-renewal-design.component';
+import { GenRecordalRenewDesignComponentComponent } from '../gen-recordal-renew-design-component/gen-recordal-renew-design-component.component';
+import { DesignunplishedapplicationComponent } from '../designunplishedapplication/designunplishedapplication.component';
 
 
 
@@ -227,6 +232,45 @@ const routes: Routes = [
                                   }
 
 
+                                  ,
+                                  {
+                                    path:  'ExaminerKiv',
+                                    component:   DesignKivApplicationComponent
+                                    }
+
+                                    ,
+                                  {
+                                    path:  'RenewDesign',
+                                    component:   RenewDesignComponentComponent
+                                    }
+
+                                    ,
+                                    {
+                                      path:  'PayRenewal',
+                                      component:   PayRenewalDesignComponent
+                                      }
+
+
+                                      ,
+                                      {
+                                        path:  'GenRecordalRenewDesign',
+                                        component:   GenRecordalRenewDesignComponentComponent
+                                        }
+
+                                        ,
+                                      {
+                                        path:  'GenRecordalRenewDesign',
+                                        component:   GenRecordalRenewDesignComponentComponent
+                                        }
+
+                                        ,
+                                        {
+                                          path:  'Designunplishedapplication',
+                                          component:    DesignunplishedapplicationComponent
+                                          }
+
+
+
 
 
 
@@ -265,7 +309,12 @@ const routes: Routes = [
    DesignAppealRefusalComponent,
    DesignRegistraAppealComponent,
    DesignAppealComponent,
-   DesignReceiveAppealComponent],
+   DesignReceiveAppealComponent,
+   DesignKivApplicationComponent,
+   RenewDesignComponentComponent,
+   PayRenewalDesignComponent,
+   GenRecordalRenewDesignComponentComponent,
+   DesignunplishedapplicationComponent],
   imports: [
     CommonModule ,
     SharedModule,

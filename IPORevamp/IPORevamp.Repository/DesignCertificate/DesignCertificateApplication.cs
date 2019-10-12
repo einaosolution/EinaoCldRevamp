@@ -9,6 +9,7 @@ using IPORevamp.Data.Entity.Interface.Entities.DesignApplication;
 using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
 using IPORevamp.Data.Entity.Interface.Entities.DesignInvention;
 using IPORevamp.Data.Entity.Interface.Entities.DesignPriority;
+using IPORevamp.Data.Entity.Interface.Entities.Search;
 using IPORevamp.Repository.Email;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,97 @@ namespace IPORevamp.Repository.DesignCertificate
 
             return details;
         }
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByRegistrationId(String id)
+        {
+
+            var details = await (from p in _contex.DesignApplication
+                                 join c in _contex.DesignInformation
+                                  on p.Id equals c.DesignApplicationID
+                                 join d in _contex.ApplicationUsers
+                                  on Convert.ToInt32(p.userid) equals d.Id
+
+                                 join e in _contex.DesignType
+                                 on c.DesignTypeID equals e.Id
+
+
+
+
+
+                                 where c.RegistrationNumber == id 
+
+                                 select new DataResult
+                                 {
+                                     FilingDate = p.DateCreated,
+                                     Filenumber = c.RegistrationNumber,
+                                     ApplicantName = d.FirstName + " " + d.LastName,
+                                     ProductTitle = c.TitleOfDesign,
+                                     Applicationclass = Convert.ToString(c.NationClassID),
+                                     status = p.ApplicationStatus,
+                                     Transactionid = p.TransactionID,
+                                     trademarktype = e.Description,
+                                     classdescription = c.DesignDescription,
+                                     phonenumber = d.MobileNumber,
+                                     email = d.UserName,
+                                     userid = p.userid,
+                                     logo_pic = "",
+                                     auth_doc = "",
+                                     sup_doc1 = "",
+                                     sup_doc2 = "",
+
+
+                                     pwalletid = p.Id
+
+                                 }).ToListAsync();
+            return details;
+            // return null;
+        }
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByAppId(String id)
+        {
+
+            var details = await (from p in _contex.DesignApplication
+                                 join c in _contex.DesignInformation
+                                  on p.Id equals c.DesignApplicationID
+                                 join d in _contex.ApplicationUsers
+                                  on Convert.ToInt32(p.userid) equals d.Id
+
+                                 join e in _contex.DesignType
+                                 on c.DesignTypeID equals e.Id
+
+
+
+
+
+                                 where p.Id == Convert.ToInt32( id)
+
+                                 select new DataResult
+                                 {
+                                     FilingDate = p.DateCreated,
+                                     Filenumber = c.RegistrationNumber,
+                                     ApplicantName = d.FirstName + " " + d.LastName,
+                                     ProductTitle = c.TitleOfDesign,
+                                     Applicationclass = Convert.ToString(c.NationClassID),
+                                     status = p.ApplicationStatus,
+                                     Transactionid = p.TransactionID,
+                                     trademarktype = e.Description,
+                                     classdescription = c.DesignDescription,
+                                     phonenumber = d.MobileNumber,
+                                     email = d.UserName,
+                                     userid = p.userid,
+                                     logo_pic = "",
+                                     auth_doc = "",
+                                     sup_doc1 = "",
+                                     sup_doc2 = "",
+
+
+                                     pwalletid = p.Id
+
+                                 }).ToListAsync();
+            return details;
+            // return null;
+        }
+
 
         public async Task<List<DesignDataResult>> GetDesignFreshApplication()
         {

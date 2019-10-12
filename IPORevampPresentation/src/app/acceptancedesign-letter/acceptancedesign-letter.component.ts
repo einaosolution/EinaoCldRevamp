@@ -24,6 +24,7 @@ export class AcceptancedesignLetterComponent implements OnInit {
   value = 'Federal Ministry Of Trade Nigeria';
   vshow :boolean = false;
   show :boolean = false;
+  showpriority:boolean = false;
   busy: Promise<any>;
   public filepath
   appuser
@@ -175,6 +176,14 @@ export class AcceptancedesignLetterComponent implements OnInit {
 
       else {
         this.show = false
+      }
+
+       if (this.row2.designPriority.length > 0 ) {
+  this.showpriority = true
+      }
+
+      else {
+        this.showpriority = false
       }
 
       this.appuser =response.content.userid

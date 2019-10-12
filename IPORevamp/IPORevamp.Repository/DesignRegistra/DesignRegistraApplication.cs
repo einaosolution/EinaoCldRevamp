@@ -108,9 +108,32 @@ namespace IPORevamp.Repository.DesignRegistra
 
                 App.CertificatePayReference = TransactionId;
                 // App.RtNumber = Convert.ToString(getMaxRtNo() + 1);
-                _contex.SaveChanges();
+              
             }
 
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.CertificateOfficer && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+            var roleid = Convert.ToInt32(IPORoles.Certificate_Officer_Design);
+            //  var vpwallet = (from c in _contex.DesignApplication where c.Id == appid select c).FirstOrDefault();
+            var users = (from c in _contex.Users where c.RolesId == Convert.ToInt32(roleid) select c).FirstOrDefault();
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+
+            var vname = users.FirstName + " " + users.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+            //  mailContent = mailContent.Replace("#comment", comment);
+
+            //  mailContent = mailContent.Replace("#Name", vname);
+
+
+
+            await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+            _contex.SaveChanges();
 
 
 
@@ -137,6 +160,37 @@ namespace IPORevamp.Repository.DesignRegistra
             mailContent = mailContent.Replace("#comment", comment);
 
             mailContent = mailContent.Replace("#Name", vname);
+
+
+
+            await _emailsender.SendEmailAsync(users.Email, emailtemplate.EmailSubject, mailContent);
+
+
+
+
+
+
+        }
+
+        public async void SendEmailToCerticateOfficer()
+        {
+
+            EmailTemplate emailtemplate = (from c in _contex.EmailTemplates where c.EmailName == IPOCONSTANT.CertificateOfficer && c.IsActive == true && c.IsDeleted == false select c).FirstOrDefault();
+             var roleid = Convert.ToInt32(IPORoles.Certificate_Officer_Design);
+          //  var vpwallet = (from c in _contex.DesignApplication where c.Id == appid select c).FirstOrDefault();
+            var users = (from c in _contex.Users where c.RolesId == Convert.ToInt32(roleid) select c).FirstOrDefault();
+            // ApplicationUser[] currentUser = _contex.Users.FirstOrDefault(x => x.RolesId == roleid);
+
+
+            var vname = users.FirstName + " " + users.LastName;
+
+            string mailContent = emailtemplate.EmailBody;
+
+            mailContent = mailContent.Replace("#path", _configuration["LOGOURL"]);
+
+          //  mailContent = mailContent.Replace("#comment", comment);
+
+          //  mailContent = mailContent.Replace("#Name", vname);
 
 
 

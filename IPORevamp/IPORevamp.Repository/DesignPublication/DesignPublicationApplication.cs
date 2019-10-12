@@ -141,6 +141,20 @@ namespace IPORevamp.Repository.DesignPublication
             return details;
         }
 
+        public async Task<List<DesignDataResult>> GetDesignUnplishedApplication()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Publication, STATUS.NotPublished })
+           .ToList();
+
+
+
+            return details;
+        }
+
         public async System.Threading.Tasks.Task<List<DesignDataResult>> GetPublicationById(String id)
         {
             List<DesignDataResult> DataResult = new List<DesignDataResult>();

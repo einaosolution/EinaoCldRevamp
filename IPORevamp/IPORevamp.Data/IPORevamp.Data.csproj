@@ -29,6 +29,7 @@
     <Compile Remove="Migrations\20190629231823_MarkInformation.cs" />
     <Compile Remove="Migrations\20190629232324_ChangesToTable2.cs" />
     <Compile Remove="Migrations\20190712111746_PayCertificate.cs" />
+    <Compile Remove="Migrations\20191008093600_PatenApplicationHistory3.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 

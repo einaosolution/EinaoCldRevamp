@@ -23,6 +23,10 @@ import 'datatables.net-dt'
 
 declare var $;
 
+import * as jspdf from 'jspdf';
+
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-design-registra-certificate2',
   templateUrl: './design-registra-certificate2.component.html',
@@ -50,6 +54,7 @@ export class DesignRegistraCertificate2Component implements OnInit {
   appdescription:string ;
   appcomment3:string ;
   appcomment2:string ;
+  appcomment4:string ;
   Description: FormControl;
   public rows = [];
   public row2
@@ -58,7 +63,11 @@ export class DesignRegistraCertificate2Component implements OnInit {
   public row5  = [];
   public row6  = [];
   public row7  = [];
+  row22:any;
+  row33:any;
+  appuser:any;
   filepath:any ;
+  showrefusal:boolean = false;
 
 
   vshow :boolean = false;
@@ -69,6 +78,193 @@ export class DesignRegistraCertificate2Component implements OnInit {
 
 }
 
+
+senddata (dd:FormData) {
+
+  $(document).scrollTop(0);
+ this.registerapi.SendAttachmentRefusal(dd)
+.then((response: any) => {
+
+
+//  alert("success")
+
+
+//   this.msgs = [];
+//  this.msgs2 = [];
+//    this.msgs2.push({severity:'success', summary:'Success', detail:'Registered  Successfully,Confirmation email sent to you email '});
+
+   // this.router.navigateByUrl('/');
+})
+         .catch((response: any) => {
+console.log(response)
+var  ppr = response.json() ;
+
+$(document).scrollTop(0);
+//  alert("error")
+ }
+ );
+}
+
+onSubmit8(){
+
+
+  // var doc = new jspdf('p', 'mm', "a4");
+   var data2 = new FormData();
+
+  // alert( pfile +  " 1")
+  var userid =localStorage.getItem('UserId');
+
+  data2.append('userid' ,this.appuser);
+  var d = new Date()
+  data2.append('message' ,"Refusal Letter  Generated on " + d);
+   var AgentsData = {
+
+     email: this.appuser
+
+
+ };
+
+ //console.log(AgentsData)
+
+ data2.append("RegisterBindingModel", JSON.stringify(AgentsData));
+ var self = this;
+
+
+
+   html2canvas(document.getElementById('report')).then(function(canvas) {
+    // alert(self)
+
+    const context = canvas.getContext('2d');
+    context.scale(2, 2);
+    context['dpi'] = 144;
+    context['imageSmoothingEnabled'] = false;
+    context['mozImageSmoothingEnabled'] = false;
+    context['oImageSmoothingEnabled'] = false;
+    context['webkitImageSmoothingEnabled'] = false;
+    context['msImageSmoothingEnabled'] = false;
+
+    var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
+    // var img = canvas.toDataURL("image/png");
+    var img = canvas.toDataURL("image/png", 1.0);
+
+  //  var doc = new jsPDF();
+
+
+  //  var doc = new jsPDF('p', 'mm', "a4");
+
+ // doc.setFont("courier");
+
+  var width = doc.internal.pageSize.width;
+  var height = doc.internal.pageSize.height;
+
+
+
+ // doc.addImage(img, 'JPEG', 0, 0, width, height);
+ doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+
+
+
+   var pdf = doc.output('blob');
+   console.log(pdf)
+
+
+ data2.append('FileUpload' , pdf);
+
+ //formData.append("FileUpload", fileToUpload);
+
+ self.senddata(data2)
+
+ self.showrefusal =false;
+
+
+
+ });
+ }
+
+sendrefusal(pwalletid)  {
+
+  this.registerapi
+  .GetDesignApplicationById(pwalletid)
+  .then((response: any) => {
+
+console.log("design data")
+
+
+
+    this.row22 = response.content;
+
+    console.log(response.content)
+
+   this.appuser =response.content.userid
+
+
+
+ this.busy =   this.registerapi
+ .GetUserById(this.appuser)
+ .then((response: any) => {
+
+   console.log("Response Result")
+   this.row33= response;
+   console.log(this.row33)
+
+
+   var self = this;
+
+   this.showrefusal = true;
+
+   $( document ).ready(function() {
+
+    self.onSubmit8();
+
+    });
+
+
+
+
+
+
+
+ })
+          .catch((response: any) => {
+
+            console.log(response)
+
+})
+
+
+
+
+    this.vshow = true;
+   // this.vimage  ="{{filepath}}Upload/" +this.row2.markinfo.logoPicture
+
+   // alert("Generating")
+
+   // this. generatePdf()
+
+
+
+    console.log("ack")
+
+    console.log(response)
+
+
+
+
+})
+.catch((response: any) => {
+
+  console.log(response)
+
+
+alert("error")
+})
+}
+
+onSubmit22() {
+  $("#createmodel4").modal('show');
+
+}
+
 valuechange(een ) {
 
 
@@ -76,6 +272,79 @@ valuechange(een ) {
 
   }
 
+
+  onSubmit55(f) {
+    this.submitted = true;
+
+
+
+
+
+
+
+   if (!this.appcomment4) {
+
+    Swal.fire(
+      "Comment Required",
+      '',
+      'error'
+    )
+
+    return;
+   }
+
+
+
+    var  formData = new FormData();
+    var userid = localStorage.getItem('UserId');
+
+    let table = $('#myTable').DataTable();
+
+    formData.append("pwalletid",this.pwalletid);
+   formData.append("comment",this.appcomment4);
+   formData.append("description",this.appdescription);
+   formData.append("fromstatus",this.Status.Fresh);
+   formData.append("tostatus",this.Status.Refused);
+   formData.append("fromDatastatus",this.DataStatus.Acceptance);
+   formData.append("toDatastatus",this.DataStatus.Examiner);
+   formData.append("userid",userid);
+
+
+   this.busy =  this.registerapi
+   .SaveDesignFreshAppHistory(formData)
+   .then((response: any) => {
+
+     this.submitted=false;
+     this.sendrefusal(this.pwalletid)
+
+
+
+  //  this.router.navigate(['/Emailverification']);
+
+   this.showrefusal =false;
+  $("#createmodel4").modal('hide');
+  $("#createmodel").modal('hide');
+  table.destroy();
+
+  this.getallApplication2()
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
+
+
+
+  }
 
 onSubmit4() {
   $("#createmodel3").modal('show');

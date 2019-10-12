@@ -321,6 +321,51 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetRecordalRenewalDesignCertificate")]
+        public async Task<IActionResult> GetRecordalRenewalDesignCertificate([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _recordalRepository.GetRecordalRenewalDesignCertificate();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Recordal renewal    successfully",
+                    Entity = "GetRenewalAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Paid Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpPost("SaveRenewalForm")]
         public async Task<IActionResult> SaveRenewalForm([FromForm] string userId,
 [FromForm] string Name, [FromForm] string Address, [FromForm] string Comment, [FromForm] string Title, [FromForm] string Type, [FromForm] string NextRenewal, [FromForm] string AppID, [FromForm] string NoticeAppID)
@@ -469,6 +514,191 @@ namespace IPORevamp.WebAPI.Controllers
                     _recordalRepository.Updateform(Name, Address, Comment, filepath, filepath2, Type, Convert.ToInt32(NoticeAppID));
 
                    
+
+                }
+
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName} add a new  RecordalRenewal   successfully",
+                    Entity = "RecordalRenewal",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip,
+                    RecordAfter = json2
+                });
+
+
+
+
+                // get User Information
+                //  user = await _userManager.FindByIdAsync(SectorViewModel.CreatedBy.ToString());
+
+
+                // Added A New Sector 
+
+
+                return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, NoticeAppID);
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Save RecordalRenewal", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.FailSaveRequest);
+            }
+        }
+
+
+        [HttpPost("SaveRenewalDesignForm")]
+        public async Task<IActionResult> SaveRenewalDesignForm([FromForm] string userId,
+[FromForm] string Name, [FromForm] string Address, [FromForm] string Comment, [FromForm] string Title, [FromForm] string Type, [FromForm] string NextRenewal, [FromForm] string AppID, [FromForm] string NoticeAppID)
+        {
+            string pwalletid2 = "";
+            string filepath = "";
+            string filepath2 = "";
+
+            Boolean FileUpload = false;
+            Boolean FileUpload1 = false;
+            Boolean FileUpload2 = false;
+            Boolean FileUpload3 = false;
+
+            try
+            {
+
+
+
+
+
+
+
+
+
+
+
+                if (Request.Form.Files.Count > 0)
+                {
+                    foreach (var file in Request.Form.Files)
+                    {
+
+                        var files = new List<string>();
+                        if (file.Name == "FileUpload")
+                        {
+                            FileUpload = true;
+                            var postedFile = Request.Form.Files["FileUpload"];
+
+                            string msg = "";
+                            try
+                            {
+                                String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                                String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                                int result1 = Convert.ToInt32(oneMegaByte[0]);
+                                int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                                msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                                  result2);
+
+                                filepath = msg;
+
+                            }
+
+                            catch (Exception ee)
+                            {
+                                var kk = ee.Message;
+                            }
+
+
+
+
+
+                        }
+
+                        if (file.Name == "FileUpload2")
+                        {
+                            FileUpload = true;
+                            var postedFile = Request.Form.Files["FileUpload2"];
+
+                            string msg = "";
+                            try
+                            {
+                                String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                                String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                                int result1 = Convert.ToInt32(oneMegaByte[0]);
+                                int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                                msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload2"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                                  result2);
+
+                                filepath2 = msg;
+
+                            }
+
+                            catch (Exception ee)
+                            {
+                                var kk = ee.Message;
+                            }
+
+
+
+
+
+                        }
+
+
+                    }
+
+                }
+
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(userId); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+                string json2 = "";
+                if (NoticeAppID == null)
+                {
+                    // attempt to save
+                    RecordalDesignRenewal content = new RecordalDesignRenewal();
+                    content.applicationid = Convert.ToInt32(AppID);
+                    content.DateCreated = DateTime.Now;
+                    content.ApplicantName = Name;
+                    content.ApplicantAddress = Address;
+                    content.DetailOfRequest = Comment;
+                    content.PowerOfAttorney = filepath;
+                    content.CertificateOfTrademark = filepath2;
+                   // content.RenewalDueDate = Convert.ToDateTime(NextRenewal);
+                    content.RenewalDueDate = DateTime.Now.AddYears(4);
+                    content.userid = userId;
+                    content.Status = STATUS.Pending;
+                    content.RenewalType = Type;
+                    //  content.transactionid = transactionid;
+
+                    content.IsActive = true;
+
+                    content.IsDeleted = false;
+
+                    var save = _recordalRepository.SaveDesignform(content);
+
+
+
+                    NoticeAppID = Convert.ToString(save.Result);
+
+
+                }
+
+                else
+                {
+
+                    //  var RenewalApplication = await _recordalRepository.GetRenewalApplicationById(Convert.ToInt32(NoticeAppID));
+
+                    _recordalRepository.UpdateDesignform(Name, Address, Comment, filepath, filepath2, Type, Convert.ToInt32(NoticeAppID));
+
+
 
                 }
 
@@ -773,7 +1003,56 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("UpdateRenewalDesignById")]
+        public async Task<IActionResult> UpdateRenewalDesignById([FromQuery] string RequestById, [FromQuery] string ApplicationId, [FromQuery] string TransactionId)
+        {
+            try
+            {
+                string ip = "";
 
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                var roleid = user.RolesId;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+                var save = _recordalRepository.UpdateDesignRecord(Convert.ToString(roleid), TransactionId, Convert.ToInt32(ApplicationId), user.Id);
+
+
+
+
+                //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for Renew Application By Id   successfully",
+                    Entity = "GetRenewAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, save);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Fresh Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+        
 
         [HttpGet("UpdateMergerFormById")]
         public async Task<IActionResult> UpdateMergerFormById([FromQuery] string RequestById, [FromQuery] string ApplicationId, [FromQuery] string TransactionId)

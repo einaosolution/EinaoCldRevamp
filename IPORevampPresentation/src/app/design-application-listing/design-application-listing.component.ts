@@ -51,6 +51,7 @@ export class DesignApplicationListingComponent implements OnInit {
   appdescription:string ="" ;
   display =false
   appcomment3:string ;
+  appcomment4:string ;
   appcomment2:string ;
   Description: FormControl;
   markdescription =[{ title: "Similar Marks Exist", value: "Similar Marks Exist" },
@@ -77,6 +78,13 @@ export class DesignApplicationListingComponent implements OnInit {
 
 }
 
+
+onSubmit4() {
+  this.appcomment3 = ""
+  $("#createmodel4").modal('show');
+
+}
+
 valuechange(een ) {
 
 
@@ -85,7 +93,7 @@ valuechange(een ) {
   }
 
 
-onSubmit4() {
+onSubmit4a() {
   this.appdescription =""
   this.display = false;
   this.onChange("")
@@ -440,6 +448,77 @@ this. getallApplication2()
 
 
   }
+
+
+  onSubmit6(f) {
+    this.submitted = true;
+
+
+
+   if (!this.appcomment4) {
+
+    Swal.fire(
+      "Comment Required",
+      '',
+      'error'
+    )
+
+    return;
+   }
+
+
+
+    var  formData = new FormData();
+    var userid = localStorage.getItem('UserId');
+
+    var table = $('#myTable').DataTable();
+
+    formData.append("pwalletid",this.pwalletid);
+   formData.append("comment",this.appcomment4);
+   formData.append("description",this.appdescription);
+   formData.append("fromstatus",this.Status.Confirm);
+   formData.append("tostatus",this.Status.NotPublished);
+   formData.append("fromDatastatus",this.DataStatus.Certificate);
+   formData.append("toDatastatus",this.DataStatus.Publication);
+   formData.append("userid",userid);
+
+
+   this.busy =  this.registerapi
+   .SaveDesignFreshAppHistory(formData)
+   .then((response: any) => {
+
+     this.submitted=false;
+
+
+
+
+  //  this.router.navigate(['/Emailverification']);
+
+
+  $("#createmodel4").modal('hide');
+  $("#createmodel").modal('hide');
+  table.destroy();
+
+  this.getallApplication2()
+
+   })
+            .catch((response: any) => {
+             this.spinner.hide();
+              console.log(response)
+
+
+             Swal.fire(
+               response.error.message,
+               '',
+               'error'
+             )
+
+})
+
+
+
+  }
+
 
 
   onSubmit3(kk) {

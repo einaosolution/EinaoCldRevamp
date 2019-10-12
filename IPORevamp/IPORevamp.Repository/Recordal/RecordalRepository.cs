@@ -10,6 +10,8 @@ using System.IO;
 using System.Net;
 using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
 using EmailEngine.Base.Entities;
+using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
+using IPORevamp.Data.Entity.Interface.Entities.Recordal;
 
 namespace IPORevamp.Repository.Recordal
 {
@@ -69,6 +71,9 @@ namespace IPORevamp.Repository.Recordal
             return details;
             // return null;
         }
+
+
+
 
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByRegistrationId2(String id)
         {
@@ -236,6 +241,18 @@ namespace IPORevamp.Repository.Recordal
            
         }
 
+        public async System.Threading.Tasks.Task<Int32> SaveDesignform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalDesignRenewal RecordalRenewal)
+        {
+
+            _contex.RecordalDesignRenewal.Add(RecordalRenewal);
+
+            _contex.SaveChanges();
+
+
+            return RecordalRenewal.Id;
+
+        }
+
         public async System.Threading.Tasks.Task<Int32> Saveform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger RecordalMerger)
         {
 
@@ -253,6 +270,33 @@ namespace IPORevamp.Repository.Recordal
 
 
             var details = await (from p in _contex.RecordalRenewal
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.ApplicantName = Name;
+            details.ApplicantAddress = Address;
+            details.DetailOfRequest = Comment;
+            details.PowerOfAttorney = filepath;
+            details.CertificateOfTrademark = filepath2;
+            details.RenewalType = Type;
+
+            _contex.SaveChanges();
+
+
+            return details.Id;
+
+        }
+
+        public async System.Threading.Tasks.Task<Int32> UpdateDesignform(string Name, string Address, string Comment, string filepath, string filepath2, string Type, int NoticeAppID)
+        {
+
+
+            var details = await (from p in _contex.RecordalDesignRenewal
 
 
 
@@ -391,6 +435,78 @@ namespace IPORevamp.Repository.Recordal
             return details.Id;
 
         }
+
+        public async System.Threading.Tasks.Task<Int32> UpdateDesignRecord(string roleid, string TransactionId, int NoticeAppID, int userid)
+        {
+
+
+            var details = await (from p in _contex.RecordalDesignRenewal
+
+
+
+
+                                 where p.Id == NoticeAppID
+
+                                 select p).FirstOrDefaultAsync();
+
+            details.PaymentReference = TransactionId;
+            details.Status = STATUS.Paid;
+
+            var appid = details.applicationid;
+
+            var vpwallet = (from c in _contex.DesignApplication where c.Id == appid select c).FirstOrDefault();
+
+
+            string prevappstatus = vpwallet.ApplicationStatus;
+            string prevDatastatus = vpwallet.DataStatus;
+
+
+
+            if (vpwallet != null)
+            {
+
+                vpwallet.ApplicationStatus = STATUS.Renewal;
+                vpwallet.DataStatus = DATASTATUS.Recordal;
+
+
+
+                // get User Information
+
+
+
+
+            }
+
+
+
+            // file upload
+            string msg = "";
+
+
+
+            await _contex.AddAsync(new DesignApplicationHistory
+            {
+                DesignApplicationID = appid,
+                DateCreated = DateTime.Now,
+                TransactionID = TransactionId,
+                FromDataStatus = prevDatastatus,
+                patentcomment = STATUS.RecordalRenewalComment,
+                description = "",
+
+                ToDataStatus = DATASTATUS.Recordal,
+                FromStatus = prevappstatus,
+                ToStatus = STATUS.Renewal,
+                UploadsPath1 = "",
+                userid = userid,
+                Role = Convert.ToString(roleid)
+            });
+            _contex.SaveChanges();
+
+            return details.Id;
+
+        }
+
+        
 
         public async System.Threading.Tasks.Task<Int32> UpdateMergerRecord(string roleid, string TransactionId, int NoticeAppID, int userid)
         {
@@ -551,7 +667,57 @@ namespace IPORevamp.Repository.Recordal
             // return null;
         }
 
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetRecordalRenewalDesignCertificate()
+        {
 
+            var details = await (from p in _contex.DesignApplication
+                                 join c in _contex.DesignInformation
+                                  on p.Id equals c.DesignApplicationID
+                                 join d in _contex.ApplicationUsers
+                                  on Convert.ToInt32(p.userid) equals d.Id
+
+                                 join e in _contex.DesignType
+                                 on c.DesignTypeID equals e.Id
+
+                                 join f in _contex.RecordalDesignRenewal
+
+                                  on p.Id equals f.applicationid
+
+
+
+
+
+                                 where f.Status==STATUS.Paid
+
+                                 select new DataResult
+                                 {
+                                     FilingDate = p.DateCreated,
+                                     Filenumber = c.RegistrationNumber,
+                                     ApplicantName = f.ApplicantName,
+                                     ApplicantAddress = f.ApplicantAddress,
+                                     renewalstatus = f.Status,
+                                     ProductTitle = c.TitleOfDesign,
+                                     Applicationclass = Convert.ToString(c.NationClassID),
+                                     status = p.ApplicationStatus,
+                                     Transactionid = p.TransactionID,
+                                     trademarktype = e.Description,
+                                     classdescription = c.DesignDescription,
+                                     phonenumber = d.MobileNumber,
+                                     email = d.UserName,
+                                     userid = p.userid,
+                                     logo_pic = f.CertificateOfTrademark,
+                                     auth_doc = f.PowerOfAttorney,
+                                     sup_doc1 = c.RepresentationOfDesign1,
+                                     sup_doc2 = c.RepresentationOfDesign2,
+
+                                     certificatePaymentReference = p.CertificatePayReference,
+                                     NextrenewalDate = Convert.ToString(f.RenewalDueDate),
+                                     pwalletid = p.Id
+
+                                 }).ToListAsync();
+            // return null;
+            return details;
+        }
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetRecordalRenewalCertificate()
         {
 
