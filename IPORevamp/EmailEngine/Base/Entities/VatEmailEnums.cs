@@ -215,6 +215,7 @@ namespace EmailEngine.Base.Entities
 
         public const string PublicationMaxDay = "Pub";
         public const string PublicationDesignPending = "Pub2";
+        public const string PublicationDesignNumberOfDays = "Pub3";
         public const string PublicationCount = "PubCount";
 
         

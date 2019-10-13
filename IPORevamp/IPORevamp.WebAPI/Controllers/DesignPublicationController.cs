@@ -193,6 +193,19 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetPubCount")]
+        public async Task<IActionResult> GetPubCount()
+        {
+            var details = _contex.DesignDataCount
+          .FromSql($"GetDesignPublicationCount   @p0, @p1, @p2", parameters: new[] { DATASTATUS.Publication, STATUS.Pending, "10" }).FirstOrDefault();
+        ;
+
+            int vcount = Convert.ToInt32(details.datacount);
+
+            return Ok();
+
+        }
+
         [HttpGet("GetDesignBatches")]
         public async Task<IActionResult> GetDesignBatches([FromQuery] string RequestById)
         {

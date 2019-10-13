@@ -416,6 +416,9 @@ this.busy =   this.registerapi
 
   var self = this;
 
+  this.vshow2 = true;
+  $("#createmodel4").modal('show');
+
 })
          .catch((response: any) => {
 
@@ -431,8 +434,7 @@ this.busy =   this.registerapi
 
 
 
-      this.vshow2 = true;
-      $("#createmodel4").modal('show');
+
      // this.vimage  ="{{filepath}}Upload/" +this.row2.markinfo.logoPicture
 
      // alert("Generating")

@@ -1222,6 +1222,17 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("DesignApplication");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignDataCount", b =>
+                {
+                    b.Property<int>("datacount")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("datacount");
+
+                    b.ToTable("DesignDataCount");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignDataResult", b =>
                 {
                     b.Property<string>("sn")

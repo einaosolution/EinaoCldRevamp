@@ -29,6 +29,7 @@ namespace IPORevamp.Repository.Recordal
         Task<Int32> UpdateDesignRecord(string roleid, string TransactionId, int NoticeAppID, int userid);
         Task<Int32> SaveDesignform(IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalDesignRenewal RecordalRenewal);
         Task<Int32> UpdateDesignform(string Name, string Address, string Comment, string filepath, string filepath2, string Type, int NoticeAppID);
+        Task<String> UpdateRennewalRecord(int NoticeAppID);
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetRecordalRenewalDesignCertificate();
 
     }

@@ -25,10 +25,10 @@ declare var $ :any;
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
- serviceBase = 'http://localhost:5000/';
-//serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
-//serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
- serviceBase2 = 'http://localhost:4200/#/';
+ //serviceBase = 'http://localhost:5000/';
+serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
+serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
+// serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
   invention :Invention[]=[]
   priority :Priority[]=[]
@@ -3730,6 +3730,25 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 				return data;
 			});
   }
+
+
+  GetRecordalUpdateRenewalDesign(pp:string,pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp ,
+      AppId:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalUpdateRenewalDesign', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
 
 
 

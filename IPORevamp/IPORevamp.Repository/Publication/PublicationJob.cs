@@ -9,6 +9,7 @@ using IPORevamp.Repository.Email;
 using IPORevamp.Data.Entities.Email;
 using Microsoft.Extensions.Configuration;
 using IPORevamp.Data.Entity.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace IPORevamp.Repository.Publication
 {
@@ -110,15 +111,19 @@ namespace IPORevamp.Repository.Publication
         public void CheckDesignPublicationStatus()
         {
             var settings = (from c in _contex.Settings where c.SettingCode == IPOCONSTANT.PublicationDesignPending select c).FirstOrDefault();
+            var settingsDays = (from c in _contex.Settings where c.SettingCode == IPOCONSTANT.PublicationDesignNumberOfDays select c).FirstOrDefault();
 
 
+
+            var details = _contex.DesignDataCount
+         .FromSql($"GetDesignPublicationCount   @p0, @p1, @p2", parameters: new[] { DATASTATUS.Publication, STATUS.Pending, settingsDays.ItemValue })
+        .FirstOrDefault();
+
+            int resultcount = Convert.ToInt32(details.datacount);
 
             //  settings.ItemValue
-            var result = (from p in _contex.DesignApplication
-                        
-                          where p.DataStatus == DATASTATUS.Publication && p.ApplicationStatus == STATUS.Pending 
-                          select p).Count();
-            if (result >= Convert.ToInt32(settings.ItemValue))
+           
+            if (resultcount >= Convert.ToInt32(settings.ItemValue))
             {
                 SendPublicationOfficer();
                 SendRegistraEmail();

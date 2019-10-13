@@ -86,6 +86,10 @@ namespace IPORevamp.Data
         public DbSet<EmailTemplate> EmailTemplates { get; set; }
         public DbSet<TrademarkType> TrademarkType { get; set; }
 
+        public DbSet<DesignDataCount> DesignDataCount { get; set; }
+
+        
+
         public DbSet<AuditTrail> AuditTrails { get; set; }
         public DbSet<CounterOpposition> CounterOpposition { get; set; }
         public DbSet<BillLog> BillLogs { get; set; }

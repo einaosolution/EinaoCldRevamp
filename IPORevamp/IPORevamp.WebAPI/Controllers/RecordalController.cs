@@ -366,6 +366,51 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetRecordalUpdateRenewalDesign")]
+        public async Task<IActionResult> GetRecordalUpdateRenewalDesign([FromQuery] string RequestById, [FromQuery] string AppId)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result = await _recordalRepository.UpdateRennewalRecord(Convert.ToInt32(AppId));
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _contex.AddAsync(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all Recordal renewal    successfully",
+                    Entity = "GetRenewalAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Paid Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpPost("SaveRenewalForm")]
         public async Task<IActionResult> SaveRenewalForm([FromForm] string userId,
 [FromForm] string Name, [FromForm] string Address, [FromForm] string Comment, [FromForm] string Title, [FromForm] string Type, [FromForm] string NextRenewal, [FromForm] string AppID, [FromForm] string NoticeAppID)

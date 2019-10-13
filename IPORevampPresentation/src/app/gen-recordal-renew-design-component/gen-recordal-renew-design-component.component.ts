@@ -92,27 +92,30 @@ export class GenRecordalRenewDesignComponentComponent implements OnInit {
 
 
 onSubmit2() {
-  //  $("#createmodel2").modal('show');
- // $("#createmodel").modal('hide');
- // var userid = localStorage.getItem('UserId');
+  $("#createmodel2").modal('show');
+  $("#createmodel").modal('hide');
+  var userid = localStorage.getItem('UserId');
 
- // this.busy =   this.registerapi
-//.UpdateApplicationById(this.pwalletid,userid)
-//.then((response: any) => {
+  this.busy =   this.registerapi
+.GetRecordalUpdateRenewalDesign(userid,this.pwalletid)
+.then((response: any) => {
 
-  //var table = $('#myTable').DataTable();
-  //table.destroy();
+  var table = $('#myTable').DataTable();
+  table.destroy();
 
- // this.getallApplication()
+  $("#createmodel2").modal('hide');
+  $("#createmodel").modal('hide');
 
-
-//})
-  //       .catch((response: any) => {
-
-   //        console.log(response)
+  this.getallApplication()
 
 
-   //      })
+})
+         .catch((response: any) => {
+
+           console.log(response)
+
+
+         })
  // this.router.navigateByUrl("/Dashboard/Certificate")
 
 
@@ -417,7 +420,7 @@ showcountry2() {
   getallApplication() {
     var userid = localStorage.getItem('UserId');
     this.busy =   this.registerapi
-    .GetRecordalRenewalCertificate(userid)
+    .GetRecordalRenewalDesignCertificate(userid)
     .then((response: any) => {
 
       console.log("Fresh Response")

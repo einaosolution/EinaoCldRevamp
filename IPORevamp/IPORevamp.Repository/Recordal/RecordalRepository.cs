@@ -579,6 +579,36 @@ namespace IPORevamp.Repository.Recordal
 
         }
 
+
+        public async System.Threading.Tasks.Task<String> UpdateRennewalRecord(int NoticeAppID)
+        {
+
+            var details = await (from p in _contex.RecordalDesignRenewal
+
+
+
+
+                                 where p.applicationid == NoticeAppID && p.Status == STATUS.Paid
+
+                                 select p).FirstOrDefaultAsync();
+            var pid = details.applicationid;
+            details.Status = STATUS.Approved;
+
+            _contex.SaveChanges();
+
+
+            //  SendOppositionOfficerEmail(Convert.ToString(result.ApplicationId));
+
+            // get User Information
+
+
+
+
+
+            return "success";
+
+        }
+
         public async System.Threading.Tasks.Task<Int32> UpdateRennewalRecord( int NoticeAppID, int userid)
         {
 
