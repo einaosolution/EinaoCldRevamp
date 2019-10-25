@@ -13,6 +13,7 @@ import Swal from 'sweetalert2' ;
 import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
+import {Fee2} from '../Fee2';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {formatDate} from '@angular/common';
@@ -1331,7 +1332,7 @@ console.log(this.row101)
 
 
 
-         this.row.push(8)
+       //  this.row.push(8)
 
 
     var kk = {
@@ -1444,11 +1445,16 @@ else {
    // this.makePayment()
    this.row = []
    if (this.userform.value.patenttype =="1") {
- this.row.push(18)
+
+ //this.row.push(18)
+
+ this.row.push(parseInt(Fee2.REGISTRATIONOFPATENTCONVENTIONAL))
+
    }
 
    if (this.userform.value.patenttype =="2") {
- this.row.push(19)
+ //this.row.push(19)
+ this.row.push(parseInt(Fee2.REGISTRATIONOFPATENTNONCONVENTIONAL))
    }
 
    var userid = localStorage.getItem('UserId');
@@ -1755,7 +1761,7 @@ loaddata() {
           console.log(response.content)
           var self = this;
           if (response.content) {
-       
+
             const swalWithBootstrapButtons = Swal.mixin({
               customClass: {
                 confirmButton: 'btn btn-success',

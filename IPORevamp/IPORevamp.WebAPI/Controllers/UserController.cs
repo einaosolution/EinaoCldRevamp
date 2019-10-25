@@ -317,100 +317,111 @@ namespace IPORevamp.WebAPI.Controllers
 
             var userlist = _userProfilingRepository.MigrateTrademarkUser();
 
-            
 
-            foreach (var users in userlist)
-            {
-                int  assignedrole = 0;
-
- 
-
-                switch (users.roles)
+           
+                foreach (var users in userlist)
                 {
-                    case "1":
-                        assignedrole=Convert.ToInt32(IPORoles.Administrator);
-                        break;
+                try
+                {
+                    int assignedrole = 0;
 
-                  
 
-                    case "3":
 
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
-                        break;
+                    switch (users.roles)
+                    {
+                        case "1":
+                            assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                            break;
 
-                    case "4":
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
-                        break;
 
-                    case "5":
-                        assignedrole = Convert.ToInt32(IPORoles.Examination_Officer_Trade_Mark);
-                        break;
 
-                    case "6":
-                        assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark);
-                        break;
+                        case "3":
 
-                    case "7":
-                        assignedrole = Convert.ToInt32(IPORoles.Publication_Officer_Trade_Mark);
-                        break;
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                            break;
 
-                    case "8":
-                        assignedrole = Convert.ToInt32(IPORoles.Opposition_Officer_Trade_Mark);
-                        break;
+                        case "4":
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                            break;
 
-                    case "9":
-                        assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark);
-                        break;
+                        case "5":
+                            assignedrole = Convert.ToInt32(IPORoles.Examination_Officer_Trade_Mark);
+                            break;
 
-                    case "10":
+                        case "6":
+                            assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark);
+                            break;
 
-                        assignedrole = Convert.ToInt32(IPORoles.RegistrarTrademark);
-                        break;
+                        case "7":
+                            assignedrole = Convert.ToInt32(IPORoles.Publication_Officer_Trade_Mark);
+                            break;
 
-                  
-                    case "12":
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
-                        break;
+                        case "8":
+                            assignedrole = Convert.ToInt32(IPORoles.Opposition_Officer_Trade_Mark);
+                            break;
 
-                    case "13":
-                        assignedrole = Convert.ToInt32(IPORoles.Recordals_Officers_Trade_Mark);
-                        break;
+                        case "9":
+                            assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Trade_Mark);
+                            break;
 
-                    case "14":
-                        assignedrole = Convert.ToInt32(IPORoles.Administrator);
-                        break;
+                        case "10":
 
-                    case "15":
-                        assignedrole = Convert.ToInt32(IPORoles.Appeal_Officer_Trade_Mark);
-                        break;
+                            assignedrole = Convert.ToInt32(IPORoles.RegistrarTrademark);
+                            break;
+
+
+                        case "12":
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Trade_Mark);
+                            break;
+
+                        case "13":
+                            assignedrole = Convert.ToInt32(IPORoles.Recordals_Officers_Trade_Mark);
+                            break;
+
+                        case "14":
+                            assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                            break;
+
+                        case "15":
+                            assignedrole = Convert.ToInt32(IPORoles.Appeal_Officer_Trade_Mark);
+                            break;
+                    }
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = users.Email,
+                        Email = users.Email,
+                        FirstName = users.Firstname,
+                        LastName = users.Surname,
+                        MobileNumber = users.Phonenumber,
+                        Street = users.Address,
+                        RolesId = assignedrole,
+                        migratedagentcode = users.migratedagentcode,
+                        migrateduserid = Convert.ToString(users.migrateduserid),
+                        department = DEPARTMENT.Trademark
+
+                    };
+
+                    var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                    List<IdentityError> errors = userCreated.Errors.ToList();
+
+                    foreach (var verror in errors)
+                    {
+                        var description = verror.Description;
+                    }
+
+
                 }
 
-                var user = new ApplicationUser
+                catch (Exception ee)
                 {
-                    UserName = users.Email,
-                    Email = users.Email,
-                    FirstName = users.Firstname,
-                    LastName = users.Surname,
-                    MobileNumber = users.Phonenumber,
-                    Street = users.Address,
-                    RolesId = assignedrole,
-                    migratedagentcode = users.migratedagentcode,
-                    migrateduserid = Convert.ToString(users.migrateduserid) ,
-                    department = DEPARTMENT.Trademark
 
-                };
-
-                var userCreated = await _userManager.CreateAsync(user, "password100");
-
-                List<IdentityError> errors = userCreated.Errors.ToList();
-
-                foreach (var verror in errors)
-                {
-                    var description = verror.Description;
                 }
-
 
             }
+
+           
 
 
 
@@ -523,74 +534,84 @@ namespace IPORevamp.WebAPI.Controllers
 
             foreach (var users in userlist)
             {
-                int assignedrole = 0;
-
-
-
-                switch (users.roles)
+                try
                 {
-                    case "1":
-                        assignedrole = Convert.ToInt32(IPORoles.Administrator);
-                        break;
-
-                    case "2":
-
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Design);
-                        break;
-
-                    case "3":
-
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Design);
-                        break;
+                    int assignedrole = 0;
 
 
 
-                    case "5":
-                        assignedrole = Convert.ToInt32(IPORoles.Design_Examiner);
-                        break;
+                    switch (users.roles)
+                    {
+                        case "1":
+                            assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                            break;
 
-                    case "6":
-                        assignedrole = Convert.ToInt32(IPORoles.Design_Examiner);
-                        break;
+                        case "2":
 
-                  
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Design);
+                            break;
+
+                        case "3":
+
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Design);
+                            break;
 
 
-                    case "10":
-                        assignedrole = Convert.ToInt32(IPORoles.RegistrarDesign);
-                        break;
 
+                        case "5":
+                            assignedrole = Convert.ToInt32(IPORoles.Design_Examiner);
+                            break;
+
+                        case "6":
+                            assignedrole = Convert.ToInt32(IPORoles.Design_Examiner);
+                            break;
 
 
 
 
+                        case "10":
+                            assignedrole = Convert.ToInt32(IPORoles.RegistrarDesign);
+                            break;
 
+
+
+
+
+
+
+
+                    }
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = users.Email,
+                        Email = users.Email,
+                        FirstName = users.Firstname,
+                        LastName = users.Surname,
+                        MobileNumber = users.Phonenumber,
+                        Street = users.Address,
+                        RolesId = assignedrole,
+                        migratedagentcode = users.migratedagentcode,
+                        migrateduserid = Convert.ToString(users.migrateduserid),
+                        department = DEPARTMENT.Trademark
+
+                    };
+
+                    var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                    List<IdentityError> errors = userCreated.Errors.ToList();
+
+                    foreach (var verror in errors)
+                    {
+                        var description = verror.Description;
+                    }
 
 
                 }
 
-                var user = new ApplicationUser
+                catch(Exception ee)
                 {
-                    UserName = users.Email,
-                    Email = users.Email,
-                    FirstName = users.Firstname,
-                    LastName = users.Surname,
-                    MobileNumber = users.Phonenumber,
-                    Street = users.Address,
-                    RolesId = assignedrole,
-                    migratedagentcode = users.migratedagentcode,
-                    migrateduserid = Convert.ToString(users.migrateduserid),
-                    department = DEPARTMENT.Trademark
-
-                };
-
-                var userCreated = await _userManager.CreateAsync(user, "password100");
-
-                List<IdentityError> errors = userCreated.Errors.ToList();
-
-                foreach (var verror in errors)
-                {
-                    var description = verror.Description;
+                    var msg = ee.Message;
                 }
 
 

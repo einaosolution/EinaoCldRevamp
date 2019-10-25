@@ -10,6 +10,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Fee} from '../Fee';
+
+import {Fee2} from '../Fee2';
 
 
 import { map } from 'rxjs/operators';
@@ -554,11 +557,11 @@ else {
     this.row = []
     let designtype =localStorage.getItem('designtype');
     if (designtype =="Textile") {
-      this.row.push(29)
+    //  this.row.push(29)
     }
 
     else {
-      this.row.push(28)
+    //  this.row.push(28)
     }
 
 
@@ -603,11 +606,13 @@ else {
     this.row = []
     let designtype =localStorage.getItem('designtype');
     if (designtype =="Textile") {
-      this.row.push(29)
+    //  this.row.push(29)
+    this.row.push(parseInt(Fee2.RENEWALOFTEXTILEDESIGNCERTIFICATE))
     }
 
     else {
-      this.row.push(28)
+    //  this.row.push(28)
+    this.row.push(parseInt(Fee2.RENEWALOFNONTEXTILEDESIGN))
     }
 
 

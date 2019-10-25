@@ -16,6 +16,8 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import {Fee} from '../Fee';
 
+import {Fee2} from '../Fee2';
+
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {formatDate} from '@angular/common';
 
@@ -168,6 +170,7 @@ export class NnewDesignComponent implements OnDestroy ,OnInit {
   vshow2:boolean =false
   vshow3:boolean =false
   settingoff:boolean =false
+
 
    phonepattern ="^[\s()+-]*([0-9][\s()+-]*){6,20}$";
 
@@ -1694,7 +1697,7 @@ console.log(this.row101)
 
 
 
-         this.row.push(8)
+//         this.row.push(8)
 
 
     var kk = {
@@ -1807,11 +1810,13 @@ else {
    // this.makePayment()
    this.row = []
    if (this.userform.value.patenttype =="1") {
- this.row.push(24)
+    this.row.push(parseInt(Fee2.REGISTRATIONOFDESIGNSTEXTILE))
+ //this.row.push(24)
    }
 
    if (this.userform.value.patenttype =="2") {
- this.row.push(26)
+ //this.row.push(26)
+ this.row.push(parseInt(Fee2.REGISTRATIONOFDESIGNSNONTEXTILE))
    }
 
    var userid = localStorage.getItem('UserId');
@@ -2487,7 +2492,7 @@ onChange($event) {
       address: [null,Validators.required ],
       phone: ['',Validators.required] ,
       email: ['',Validators.required] ,
-     
+
       nationality: [null,Validators.required ]
 
     });

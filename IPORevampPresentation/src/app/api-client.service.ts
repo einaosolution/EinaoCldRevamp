@@ -25,7 +25,7 @@ declare var $ :any;
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
- //serviceBase = 'http://localhost:5000/';
+// serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
 // serviceBase2 = 'http://localhost:4200/#/';

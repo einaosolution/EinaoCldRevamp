@@ -285,9 +285,9 @@ namespace IPORevamp.WebAPI
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
-           // RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronsetting);
-            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronExp);
-            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
+          
+           RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronExp);
+           RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckDesignPublicationStatus(), cronExp);
 
             RecurringJob.AddOrUpdate<IPublicationJob>(j => j.SendMonthyUserReport(), cronsetting2);

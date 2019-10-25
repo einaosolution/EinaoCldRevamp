@@ -13,6 +13,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 
 import { map } from 'rxjs/operators';
+import {Fee} from '../Fee';
+
+import {Fee2} from '../Fee2';
 
 import 'datatables.net'
 import 'datatables.net-dt'
@@ -561,7 +564,7 @@ else {
   onSubmit33() {
     // this.makePayment()
     this.row = []
-    this.row.push(8)
+   // this.row.push(8)
     var userid = localStorage.getItem('UserId');
 
 
@@ -600,7 +603,8 @@ else {
   onSubmit3() {
     // this.makePayment()
     this.row = []
-    this.row.push(11)
+    //this.row.push(11)
+    this.row.push(parseInt(Fee2.CounterStatement))
     var userid = localStorage.getItem('UserId');
 
     var kk = {

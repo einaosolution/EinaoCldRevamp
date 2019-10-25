@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Fee2} from '../Fee2';
 
 
 import { map } from 'rxjs/operators';
@@ -654,7 +655,8 @@ this.trademarklogo =this.row11[parseInt(response.content.markinfo.logo_descripti
 
 
 
-         this.row.push(8)
+       //  this.row.push(8)
+         this.row.push(parseInt(Fee2.APPLICATIONFORREGISTRATIONOFTRADESERVICE))
 
 
     var kk = {
@@ -720,7 +722,8 @@ else {
   onSubmit33() {
     // this.makePayment()
     this.row = []
-    this.row.push(8)
+   // this.row.push(8)
+   this.row.push(parseInt(Fee2.APPLICATIONFORREGISTRATIONOFTRADESERVICE))
     var userid = localStorage.getItem('UserId');
 
 
@@ -760,7 +763,8 @@ else {
   onSubmit3() {
    // this.makePayment()
    this.row = []
-   this.row.push(8)
+   //this.row.push(8)
+   this.row.push(parseInt(Fee2.APPLICATIONFORREGISTRATIONOFTRADESERVICE))
    var userid = localStorage.getItem('UserId');
 
    var kk = {

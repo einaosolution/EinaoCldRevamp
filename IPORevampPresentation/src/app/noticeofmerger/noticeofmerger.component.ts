@@ -11,6 +11,9 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {formatDate} from '@angular/common';
+import {Fee} from '../Fee';
+
+import {Fee2} from '../Fee2';
 
 
 import { map } from 'rxjs/operators';
@@ -625,7 +628,7 @@ else {
   onSubmit33() {
     // this.makePayment()
     this.row = []
-    this.row.push(8)
+   // this.row.push(8)
     var userid = localStorage.getItem('UserId');
 
 
@@ -665,7 +668,8 @@ else {
   onSubmit3() {
     // this.makePayment()
     this.row = []
-    this.row.push(17)
+    //this.row.push(17)
+    this.row.push(parseInt(Fee2.REGISTRATIONOFASSIGNMENTMERGER))
     var userid = localStorage.getItem('UserId');
 
     var kk = {

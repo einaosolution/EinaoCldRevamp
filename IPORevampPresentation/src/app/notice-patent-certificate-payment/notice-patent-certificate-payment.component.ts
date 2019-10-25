@@ -10,6 +10,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Fee} from '../Fee';
+
+import {Fee2} from '../Fee2';
 
 
 import { map } from 'rxjs/operators';
@@ -561,7 +564,7 @@ var userid = localStorage.getItem('UserId');
   onSubmit33() {
     // this.makePayment()
     this.row = []
-    this.row.push(8)
+   // this.row.push(8)
     var userid = localStorage.getItem('UserId');
 
     let qty =   parseInt( localStorage.getItem('quantity'));
@@ -610,7 +613,8 @@ var userid = localStorage.getItem('UserId');
    // let qty = parseInt(this.account.quantity)
 
     for (let i = 0; i < qty; i++) {
-      this.row.push(21)
+    //  this.row.push(21)
+    this.row.push(parseInt(Fee2.CTCOFPATENTCERTIFICATE))
     }
 
 
