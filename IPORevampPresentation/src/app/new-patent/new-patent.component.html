@@ -1,0 +1,1115 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">New Patent Application</h4>
+          <div class="d-flex align-items-center">
+
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">New Application</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- ============================================================== -->
+      <!-- Example -->
+      <!-- ============================================================== -->
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body wizard-content">
+
+                  <div [ngBusy]="busy"></div>
+
+                  <form action="#" [formGroup]="userform" class="validation-wizard wizard-circle m-t-40"  >
+                      <!-- Step 1 -->
+                      <h6>Step 1</h6>
+                      <section>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wfirstName2"> Patent  Type : <span class="danger">*</span> </label>
+
+
+                                      <select (change)="onChange2($event.target.value)"     formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class="custom-select form-control-lg "    id="Month">
+                                        <option  value= "">
+                                          --Select Patent Type--
+                                          </option>
+                                        <option *ngFor="let country2 of row100" value= {{country2.id}}>
+                                          {{country2.description}}
+                                        </option>
+                                      </select>
+
+
+
+
+                              </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="wemailAddress2"> Title Of Invention  : <span class="danger">*</span> </label>
+                                    <input type="text"    formControlName="titleofinvention"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['titleofinvention'].hasError('required') }"  class="form-control " id="wemailAddress2" name="emailAddresss2">
+
+
+                                    </div>
+
+                                  </div>
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="wlocation2"> Description : <span class="danger">*</span> </label> <br/>
+                                  <textarea rows="4"   class="form-control "   formControlName="description"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['description'].hasError('required') }"   id="description" name="classdescription2"   cols="30" placeholder="Description">
+
+
+
+                                  </textarea>
+
+
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="wemailAddress2"> Assignee Name : <span class="danger">*</span> </label>
+                              <input type="text"    formControlName="AssigneeName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeName'].hasError('required') }" class="form-control " id="AssigneeName22" name="AssigneeName2">
+
+                                </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="wlocation2"> Assignee Address  : <span class="danger">*</span> </label> <br/>
+                                <input type="text"    formControlName="AssigneeAddress"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeAddress'].hasError('required') }" class="form-control " id="AssigneeAddress22" name="AssigneeAddress">
+                          </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="wemailAddress2"> Assignee Nationality : <span class="danger">*</span> </label>
+
+
+
+                            <select   name="AssigneeNationality"  formControlName="AssigneeNationality"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeNationality'].hasError('required') }"        class="custom-select form-control-lg "    id="Month">
+                              <option  value= "">
+                                --Select Country--
+                                </option>
+                              <option *ngFor="let country2 of row11" value= {{country2.id}}>
+                                {{country2.name}}
+                              </option>
+                            </select>
+
+                              </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="wlocation2">Assignor Name  : <span class="danger">*</span> </label> <br/>
+                              <input type="text"    formControlName="AssignorName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorName'].hasError('required') }" class="form-control " id="AssignorName22" name="AssignorName">
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="wemailAddress2"> Assignor Address : <span class="danger">*</span> </label>
+                          <input type="text"    formControlName="AssignorAddress"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorAddress'].hasError('required') }" class="form-control " id="AssignorAddress22" name="AssignorAddress">
+
+                            </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="wlocation2">Assignor Nationality  : <span class="danger">*</span> </label> <br/>
+
+                            <select   name="AssignorNationality"  formControlName="AssignorNationality" [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorNationality'].hasError('required') }"        class="custom-select form-control-lg "    id="Month2">
+                              <option  value= "">
+                                --Select Country--
+                                </option>
+                              <option *ngFor="let country2 of row11" value= {{country2.id}}>
+                                {{country2.name}}
+                              </option>
+                            </select>
+
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+
+
+                          </div>
+                  </div>
+
+
+
+                  <div class="ml-auto">
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showInventor()"   >
+                        Create New Inventor
+                        </button>
+                    </div>
+                    <div class="float-none"></div><br>
+                </div>
+
+                            <div class="table-responsive">
+                              <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
+                                  <thead>
+                                      <tr>
+
+                                          <th>Name</th>
+
+                                          <th>Address</th>
+                                          <th>PhoneNumber</th>
+                                          <th>Email</th>
+                                          <th>Nationality</th>
+                                          <th> </th>
+
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let emp of invention  let i = index">
+
+
+                                             <td>{{emp.Name}}</td>
+
+                                              <td>{{emp.Address}}</td>
+                                              <td>{{emp.phonenumber}}</td>
+                                              <td>{{emp.Email}}</td>
+                                              <td>{{emp.Nationality}}</td>
+
+                                              <td>
+                                                <button type="button" id="openModalButton"  (click)="Onsubmit400(emp)"   class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                                   <button type="button"  (click)="Onsubmit200(emp)"     class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
+
+
+                                           </td>
+
+                                            </tr>
+                                          </tbody>
+                              </table>
+                          </div>
+
+
+<br/>
+                                    <div class="ml-auto"  *ngIf="vshow3">
+                    <div class="btn-group float-right">
+                        <button type="button" class="btn btn-dark" data-toggle="modal"  (click) ="showPriority()"   >
+                        Create New Priority Information
+                        </button>
+                    </div>
+                    <div class="float-none"></div><br>
+                </div>
+
+                            <div class="table-responsive"  *ngIf="vshow3">
+                              <table id="myTable2" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-bordered nowrap display">
+                                  <thead>
+                                      <tr>
+
+                                          <th>Application Number</th>
+
+                                          <th>Country</th>
+                                          <th>Date</th>
+
+                                          <th> </th>
+
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let emp of priority  let i = index">
+
+
+                                             <td>{{emp.ApplicationNumber}}</td>
+
+                                              <td>{{emp.Nationality}}</td>
+                                              <td>{{emp.RegistrationDate}}</td>
+
+
+                                              <td>
+                                                <button type="button" id="openModalButton"  (click)="Onsubmit401(emp)"   class="btn btn-success btn-circle"><i class="fa fa-edit"></i> </button>
+                                                   <button type="button"  (click)="Onsubmit202(emp)"     class="btn btn-danger btn-circle" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash"></i> </button>
+
+
+                                           </td>
+
+                                            </tr>
+                                          </tbody>
+                              </table>
+                          </div>
+
+
+                          <fieldset  *ngIf="vshow3">
+                            <legend>ADDRESS OF SERVICES IN NIGERIA</legend>
+                          <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="wlocation2">Attorney Code  : <span class="danger">*</span> </label> <br/>
+                                  <input type="text"    formControlName="AttorneyCode"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AttorneyCode'].hasError('required') }" class="form-control " id="AttorneyCode22" name="AttorneyCode">
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                              <label for="wemailAddress2"> Attorney Name : <span class="danger">*</span> </label>
+                              <input type="text"    formControlName="AttorneyName"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AttorneyName'].hasError('required') }" class="form-control " id="AttorneyName22" name="AttorneyName">
+
+                                </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="wlocation2">Address  : <span class="danger">*</span> </label> <br/>
+                                <input type="text"    formControlName="Address"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['Address'].hasError('required') }" class="form-control " id="Address22" name="Address">
+                          </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="wemailAddress2"> Phone Number : <span class="danger">*</span> </label>
+                            <input type="text" type="tel"    formControlName="PhoneNumber" [pattern]="phonepattern"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['PhoneNumber'].hasError('required') }" class="form-control " id="PhoneNumber22" name="PhoneNumber">
+
+
+                            <div *ngIf="userform.controls['PhoneNumber'].errors?.pattern" style="color:red">
+                             Phone Number  not valid.
+                         </div>
+
+
+                              </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="wlocation2">Email  : <span class="danger">*</span> </label> <br/>
+                              <input type="text"    formControlName="Email"  [pattern]="emailpattern"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['Email'].hasError('required') }" class="form-control " id="Email22" name="Email">
+                              <div *ngIf="userform.controls['Email'].errors?.pattern" style="color:red">
+                               Email   not valid.
+                            </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="wemailAddress2"> State : <span class="danger">*</span> </label>
+
+                          <select   name="Identification"  formControlName="State" [ngClass]="{ 'is-invalid': submitted2 && userform.controls['State'].hasError('required') }"       class="custom-select form-control-lg "    id="Month">
+                            <option  value= "">
+                              --Select State--
+                              </option>
+                            <option *ngFor="let country2 of row600" value= {{country2.id}}>
+                              {{country2.stateName}}
+                            </option>
+                          </select>
+
+
+                            </div>
+                    </div>
+
+                  </fieldset>
+
+
+
+                          <div class="row">
+
+                              <div class="col-md-6"  *ngIf="vshow3">
+
+                                  <div class="form-group">
+                                      <label for="wlocation2"> Letter of Authorization : <span class="danger">*</span> </label>
+                                      <input type="file" (change)="chng2()"  #fileInput2 class="form-control " id="uploadAddress22" name="uploadAddresss">
+                                      <a *ngIf="image2 && savemode2" target="_blank"  href="{{filepath}}Upload/{{ image2}}">View Upload</a>
+                                    </div>
+
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                        <label for="wlocation2"> Claims  : <span class="danger">*</span> </label>
+
+                                        <input type="file" (change)="chng4()" #fileInput4 class="form-control " id="uploadAddress2" name="uploadAddress">
+                                        <a *ngIf="image3 && savemode2" target="_blank"  href="{{filepath}}Upload/{{ image3}}">View Upload</a>
+                                      </div>
+                        </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6"  *ngIf="vshow">
+                                  <div class="form-group">
+                                      <label for="wlocation2"> PCT Document : <span class="danger">*</span> </label>
+                                      <input type="file" (change)="chng()" #fileInput class="form-control "  accept="image/*" id="uploadAddress2" name="uploadAddress">
+                                      <a *ngIf="image1" target="_blank"  href="{{filepath}}Upload/{{ image1}}">View Upload</a>
+                                    </div>
+                              </div>
+                              <div class="col-md-6">
+                                      <div class="form-group">
+                                              <label for="wlocation2"> Complete Specification (Form 3)  : <span class="danger">*</span> </label>
+                                              <input type="file" (change)="chng3()" #fileInput3 class="form-control " id="uploadAddress2" name="uploadAddress" >
+                                              <a *ngIf="image5" target="_blank"  href="{{filepath}}Upload/{{ image5}}">View Upload</a>
+                                          </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"  >
+                                    <div class="form-group">
+                                        <label for="wlocation2"> Deed of Assignment : <span class="danger">*</span> </label>
+                                        <input type="file" (change)="chng22()" #fileInput22 class="form-control "   id="uploadAddress2" name="uploadAddress">
+                                        <a *ngIf="image6" target="_blank"  href="{{filepath}}Upload/{{ image6}}">View Upload</a>
+                                      </div>
+                                </div>
+                              </div>
+
+
+                            <div class="row">
+                              <div class="col_md_6">
+                                  <div class="modal-footer">
+
+
+
+                                  </div>
+
+                              </div>
+
+
+                              <div class="col_md_6">
+                                  <div class="row">
+
+                                      <div class="col_md_6 col_md_offset_6">
+
+                                      <button type="button"  (click) ="onSubmit()" class="btn btn-success"> Next</button>
+
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                            </div>
+                      </section>
+
+
+                         <!-- Step 2 -->
+                         <h6>Step 2</h6>
+                         <section>
+
+
+                  <div class="Container">
+
+                           <table  class="table-grid"     *ngIf="savemode" align="center" >
+                          <!--    <table  class="table form"   width="100%"  *ngIf="savemode3" >  -->
+
+
+                                <tr >
+                                     <td width="22%" colspan="2" class="tbbg" align="center">
+                                         <strong>DATA DETAILS FOR {{row500.patentInformation[0].titleOfInvention.toUpperCase()}}</strong></td>
+                                 </tr>
+                                  <tr>
+                                     <td align="right">
+                                         &nbsp;PATENT TYPE :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{row500.patentInformation[0].patentType.description                   }}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                                <tr>
+                                     <td  align="right">
+                                         &nbsp;TITLE OF INVENTION  :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{row500.patentInformation[0].titleOfInvention}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                          <tr>
+                                     <td  align="right">
+                                         &nbsp;DESCRIPTION :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{row500.patentInformation[0].inventionDescription}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                           <tr>
+                                     <td align="right">
+                                         &nbsp;ASSIGNEE NAME&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{row500.patentAssignment[0].assigneeName}}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                         <tr>
+                                     <td align="right">
+                                         &nbsp;ASSIGNEE ADDRESS :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         {{row500.patentAssignment[0].assigneeAddress  }}
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+                                 <tr>
+                                  <td align="right">
+                                      &nbsp;ASSIGNEE NATIONALITY :&nbsp;&nbsp;
+                                  </td>
+                                  <td>
+                                      {{row500.patentAssignment[0].assigneeNationality.name}}
+                                     &nbsp;
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                <td align="right" >
+                                    &nbsp;ASSIGNOR NAME :&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    {{row500.patentAssignment[0].assignorName         }}
+                                   &nbsp;
+                                </td>
+                            </tr>
+
+                            <tr>
+                              <td align="right">
+                                  &nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp;
+                              </td>
+                              <td>
+                                  {{row500.patentAssignment[0].assignorAddress}}
+                                 &nbsp;
+                              </td>
+                          </tr>
+
+                          <tr>
+                            <td  align="right">
+                                &nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                {{row500.patentAssignment[0].assignorNationality.name}}
+                               &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tbbg" colspan="2" align="center">
+                                --- INVENTOR INFORMATION  ---</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                          <td colspan="2" >
+
+                              <table  class="table"   width="100%">
+
+
+                                  <thead>
+
+
+                                      <tr>
+
+                                        <th>Name Of Invention </th>
+                                        <th>Address</th>
+                                          <th>Phone</th>
+                                          <th>Email</th>
+                                          <th>Nationality</th>
+
+
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        <tr *ngFor="let emp of row500.patentInvention  let i = index">
+
+
+
+                                             <td>{{emp.inventorName}}</td>
+                                             <td>{{emp.inventorAddress}}</td>
+                                            <td>  {{emp.inventorMobileNumber}}</td>
+                                            <td>  {{emp.inventorEmail}}</td>
+                                            <td>{{emp.country.name}}  </td>
+
+
+
+
+                                            </tr>
+                                          </tbody>
+                              </table>
+
+                          </td>
+
+                      </tr>
+
+                      <tr>
+                          <td class="tbbg" colspan="2" align="center">
+                              --- PRIORITY INFORMATION  ---</td>
+                      </tr>
+
+                      <tr>
+                          <td colspan="2" >
+                              <table class="table"  width="100%"   >
+
+                                  <thead>
+
+
+                                      <tr>
+
+                                        <th>ApplicationNumber  </th>
+                                        <th>Registration Date</th>
+                                          <th>Country</th>
+
+
+
+
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let emp of row500.patentPriorityInformation  let i = index">
+
+
+
+                                             <td>{{emp.applicationNumber}}</td>
+                                             <td>{{emp.registrationDate|date}}</td>
+                                            <td>  {{emp.country.name }}</td>
+
+
+
+                                            </tr>
+                                          </tbody>
+                              </table>
+
+                          </td>
+
+                      </tr>
+
+                      <tr *ngIf="vshow3">
+                        <td class="tbbg" colspan="2" align="center">
+                            --- ADDRESS OF SERVICE  ---</td>
+                    </tr>
+
+
+                    <tr *ngIf="vshow3"  >
+                      <td align="right">
+                          &nbsp;Attorney Code:&nbsp;&nbsp;
+                      </td>
+                      <td>
+
+                       {{row500.addressOfService[0].attorneyCode}}
+
+                      </td>
+                  </tr>
+
+                  <tr *ngIf="vshow3"  >
+                    <td align="right" >
+                        &nbsp;Attorney Name:&nbsp;&nbsp;
+                    </td>
+                    <td>
+
+                      {{row500.addressOfService[0].attorneyName}}
+
+
+                    </td>
+                </tr>
+
+                <tr  *ngIf="vshow3" >
+                  <td align="right">
+                      &nbsp;Email:&nbsp;&nbsp;
+                  </td>
+                  <td>
+
+                    {{row500.addressOfService[0].email}}
+
+
+
+                  </td>
+              </tr>
+
+              <tr  *ngIf="vshow3">
+                <td align="right" >
+                    &nbsp;Phone Number:&nbsp;&nbsp;
+                </td>
+                <td>
+
+                  {{row500.addressOfService[0].phoneNumber}}
+
+
+
+
+                </td>
+            </tr>
+
+
+            <tr *ngIf="vshow3" >
+              <td align="right" >
+                  &nbsp;State:&nbsp;&nbsp;
+              </td>
+              <td>
+
+                {{row500.addressOfService[0].state.stateName}}
+
+
+
+
+              </td>
+          </tr>
+
+
+                      <tr>
+                          <td class="tbbg" colspan="2" align="center">
+                              --- UPLOADS  ---</td>
+                      </tr>
+
+                        <tr  *ngIf="row500.patentInformation[0].claims">
+                                     <td align="right">
+                                         &nbsp;Claims:&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                        <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].claims}}">View Upload</a>
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+       <tr *ngIf="row500.patentInformation[0].deedOfAssignment">
+                                     <td align="right" >
+                                         &nbsp;Deed Of Assignment :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].deedOfAssignment}}">View Upload</a>
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+      <tr *ngIf="row500.patentInformation[0].letterOfAuthorization && vshow3 ">
+                                     <td align="right" >
+                                         &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
+
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+
+
+                                 <tr *ngIf="row500.patentInformation[0].pctDocument">
+                                    <td align="right">
+                                        &nbsp;PCT Document :&nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].pctDocument}}">View Upload</a>   <br/>
+
+                                       &nbsp;
+                                    </td>
+                                </tr>
+
+
+
+                                <tr *ngIf="row500.patentInformation[0].completeSpecificationForm">
+                                    <td  align="right" >
+                                        &nbsp;Complete Specification Form :&nbsp;&nbsp;
+                                    </td>
+                                    <td>
+                                        <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].completeSpecificationForm}}">View Upload</a>   <br/>
+
+                                       &nbsp;
+                                    </td>
+                                </tr>
+
+
+
+
+     </table>
+
+    </div>
+
+                               <div class="row">
+                                 <div class="col_md_6">
+                                     <div class="modal-footer">
+
+
+
+                                     </div>
+
+                                 </div>
+
+
+                                 <div class="col_md_6">
+                                     <div class="row">
+
+                                         <div class="col_md_6 col_md_offset_6">
+                                            <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
+                                          <button type="button" (click) ="onSubmit4a()"   class="btn btn-success"> Next</button> &nbsp;&nbsp;&nbsp;
+                                         <button type="button" (click) ="onSubmit3a()"   class="btn btn-success"><i class="ti-save"></i> Save And Continue Later</button>
+
+
+                                         </div>
+                                     </div>
+
+                                 </div>
+
+                               </div>
+                         </section>
+
+                         <h6>Step 3</h6>
+                         <section>
+                            <div class="align-items-center justify-content-center row" >
+                       <table class="table" >
+
+                        <tr>
+                          <td colspan="2">
+                            <h6>Terms of Use</h6>
+                            These terms and conditions shall govern your use of our website.
+
+                            <h6>Eligibility and Identity.</h6>
+                            By using our website, you accept these terms and conditions in full; accordingly, if you disagree with these terms and conditions or any part of these terms and conditions, you must not use our website.
+
+
+                            <h6>Use of Services & Account</h6>
+                            If you register with our website, submit any material to our website or use any of our website services], we will ask you to expressly agree to these terms and conditions.
+
+
+
+                            <h6>Intellectual Property Ownership</h6>
+                            All Materials, Services, Accounts, and content, including, but not limited to, policy information, text, software, music, sound, photographs, video, graphics, the arrangement of text and images, commercially produced information, and other material contained on the Site or through the Services (“Content”), are provided by The Company unless indicated otherwise. Welsh onion tigernut broccoli asparagus brussels sprout jícama eggplant earthnut pea cress chickpea gourd zucchini. Radicchio lentil cucumber groundnut endive kohlrabi winter purslane. Seakale plantain quandong celtuce shallot fennel seakale epazote groundnut dandelion.
+
+                            <h6>Privacy</h6>
+                            You must be at least [18] years of age to use our website; by using our website or agreeing to these terms and conditions, you warrant and represent to us that you are at least [18] years of age.
+                          </td>
+
+                        </tr>
+
+                          <tr >
+                            <td colspan="2"> <span> Do You  Accept Our Terms And Condition </span> <span> <input  formControlName="terms"    (change)="FieldsChange($event)" type="checkbox"/> </span> </td>
+
+
+                          </tr>
+
+                          <tr>
+                           <td *ngIf="!settingoff">
+                              <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
+                           </td>
+
+                           <td *ngIf="settingoff">
+                            <button *ngIf="checkboxFlag"  (click) ="onSubmit33()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Offline Payment</button>
+                         </td>
+
+                          </tr>
+
+
+                       </table>
+
+                       </div>
+
+                          </section>
+
+
+
+
+
+
+                      <h6>Step 4</h6>
+                      <section>
+                     <p>Thank You </p>
+
+                      </section>
+
+
+
+                                    </form>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+  <!-- ============================================================== -->
+  <!-- End PAge Content -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Right sidebar -->
+  <!-- ============================================================== -->
+  <!-- .right-sidebar -->
+  <!-- ============================================================== -->
+  <!-- End Right sidebar -->
+  <!-- ============================================================== -->
+
+
+  <div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                 <div class="card-body wizard-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Create New Inventor</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form class="form-horizontal" [formGroup]="userform2" class="tab-wizard wizard-circle" role="form" >
+
+
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wemailAddress2"> Name Of Inventor  :  </label>
+                                        <input type="text" autocomplete="nope" formControlName="name" class="form-control "   [ngClass]="{ 'is-invalid': submitted && userform2.controls['name'].hasError('required') }" id="wemailAddress2" name="emailAddresss2">
+
+
+
+
+                                    </div>
+
+                                </div>
+                              </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Address</label>
+
+
+                                        <textarea rows="4" formControlName="address"  class="form-control "  [ngClass]="{ 'is-invalid': submitted && userform2.controls['address'].hasError('required') }" id="address33" name="address" cols="20" placeholder="Address">
+
+                                                                                              </textarea>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+                                <div class="row">
+                                  <div  class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Phone :</label>
+
+
+
+                                        <input type="text" required type="text" autocomplete="nope"    formControlName="phone" [pattern]="phonepattern"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['phone'].hasError('required') }" class="form-control " id="PhoneNumber222" name="PhoneNumber221">
+
+
+                                        <div *ngIf="userform2.controls['phone'].errors?.pattern" style="color:red">
+                                         Phone Number  not valid.
+                                     </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+                                <div class="row">
+
+
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Email :</label>
+                                        <input type="text"  autocomplete="nope" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('required' )    }"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['email'].hasError('pattern' )    }" class="form-control " id="wemailAddress3" name="emailAddresss3">
+                                    </div>
+
+                                    <div *ngIf="submitted && userform2.controls['email'].hasError('pattern' ) " class="invalid-feedback">
+
+                                      <div *ngIf="submitted && userform2.controls['email'].hasError('pattern' ) ">Email must be a valid email address</div>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+                                <div class="row">
+                                  <div class="col">
+                                    <div class="form-group">
+                                        <label for="wphoneNumber2">Nationality :</label>
+
+
+                                        <select name="nationality" formControlName="nationality"  [ngClass]="{ 'is-invalid': submitted && userform2.controls['nationality'].hasError('required') }" class="custom-select form-control-lg " id="Month3">
+                                            <option value="">
+                                                --Select Country--
+                                            </option>
+                                            <option *ngFor="let country2 of row11" value={{country2.id}}>
+                                                {{country2.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </form>
+    </div>
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="savemode" (click) ="onSubmit100()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                    <button type="button" *ngIf="updatemode" (click) ="onSubmit500()"  class="btn btn-success"><i class="ti-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="createmodel2" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card-body wizard-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Create New Priority</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-horizontal" [formGroup]="userform3" class="tab-wizard wizard-circle" role="form">
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="wemailAddress2"> Application Number : <span class="danger">*</span> </label>
+                                <input type="text" formControlName="applicationnumber" [ngClass]="{ 'is-invalid': submitted3 && userform3.controls['applicationnumber'].hasError('required') }" class="form-control " id="applicationnumber22" name="applicationnumber2">
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="wphoneNumber2">Country :</label>
+
+
+
+                                    <select name="country" formControlName="country" [ngClass]="{ 'is-invalid': submitted3 && userform3.controls['country'].hasError('required') }" class="custom-select form-control-lg " id="Month4">
+                                        <option value="">
+                                            --Select Country--
+                                        </option>
+                                        <option *ngFor="let country2 of row11" value={{country2.id}}>
+                                            {{country2.name}}
+                                        </option>
+                                    </select>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="wphoneNumber2">Date :</label>
+                                    <input type="text" formControlName="priodate" [ngClass]="{ 'is-invalid': submitted3 && userform3.controls['priodate'].hasError('required') }" class="form-control " id="priodate2" name="priodate22" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" *ngIf="savemode" (click)="onSubmit1000()" class="btn btn-success"><i class="ti-save"></i> Save</button>
+                    <button type="button" *ngIf="updatemode" (click)="onSubmit501()" class="btn btn-success"><i class="ti-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+

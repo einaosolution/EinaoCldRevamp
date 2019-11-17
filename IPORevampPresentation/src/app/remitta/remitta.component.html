@@ -1,0 +1,10 @@
+<div *ngIf="vshow">
+    <form ngNoForm action="https://remitademo.net/remita/ecomm/finalize.reg" name="SubmitRemitaForm" method="POST">
+    <input name="merchantId" value="{{row2.merchantId}}" type="hidden">
+    <input name="hash" value="{{row2.hash}}" type="hidden">
+    <input name="rrr" value="{{row2.rrr}}" type="hidden">
+    <input name="responseurl" value="http://localhost:4200/#/Remitta" type="hidden">
+    <input type ="submit" name="submit_btn" value="Pay Via Remita">
+    </form>
+
+</div>

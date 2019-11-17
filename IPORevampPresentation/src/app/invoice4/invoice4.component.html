@@ -1,0 +1,707 @@
+
+<div class="container">
+  <div [ngBusy]="busy"></div>
+  <div class="container-fluid"   >
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row  "   >
+        <div class="col-md-12  "   id="report">
+            <div class="card card-body printableArea"  >
+                <h3 align="center"><b>FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
+COMMERCIAL LAW DEPARTMENT,
+INDUSTRIAL PROPERTY OFFICE REGISTRY</b></h3>
+<h3 align="center"><img alt="" src="assets/coat_of_arms.png" style="width: 80px; height: 80px" /></h3>
+                <hr>
+                <div class="row ">
+     <div class="col-md-6">
+          <div class="pull-left">
+                            <address>
+
+                                <p class="text-muted m-l-5">
+         <ngx-qrcode
+  [qrc-element-type]="elementType"
+  [qrc-value] = "value"
+  qrc-class = "aclass"
+  qrc-errorCorrectionLevel = "L">
+</ngx-qrcode>
+          </p>
+          <h4>Order Status Notification</h4>
+
+<p>
+<br />
+Your {{row.description}} ₦{{row.amount| number:'.2-2'}} order  was successful.
+<br />
+Your transaction id is {{row.transactionid}}. The details of the order are shown below:
+<br />
+<br />
+</p>
+                            </address>
+                        </div>
+      </div>
+       <div class="col-md-6">
+          <div class="pull-right text-right">
+                            <address>
+          <p class="font-weight-bold mb-1">Transaction Id {{row.transactionid}}</p>
+
+                                <p class="m-t-30"><b>Transaction Date :</b>  {{vdate| date}}</p>
+  <p><b>Remitta Retrival Number(RRR) :</b>  {{row.paymentref}}</p>
+                            </address>
+                        </div>
+      </div>
+                    <div class="col-md-12">
+
+
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="table-responsive m-t-40" style="clear: both;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th>Description</th>
+
+                                        <th class="text-right"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">1</td>
+                                        <td>Order</td>
+
+                                        <td class="text-right">{{row.description}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">2</td>
+                                        <td>Order Date:</td>
+
+                                        <td class="text-right">  {{vdate| date}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">3</td>
+                                        <td>Remitta RRR:</td>
+
+                                        <td class="text-right">{{row.paymentref}} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">4</td>
+                                        <td>Transaction Amount</td>
+
+                                        <td class="text-right">   {{row.amount| number:'.2-2'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-right m-t-30 text-right">
+                            <p>Sub - Total amount:   {{row.amount| number:'.2-2'}}</p>
+
+                            <hr>
+                            <h3><b>Total :</b>   {{row.amount| number:'.2-2'}}</h3>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="text-right">
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+
+            <div class="text-right">
+
+
+              <form  >
+
+
+
+<button id="print" class="btn btn-default btn-outline no-print" type="submit" (click) ="print2()"   > <span><i class="fa fa-print"></i> Print</span> </button>
+</form>
+
+
+</div>
+        </div>
+    </div>
+  </div>
+
+<br/>
+<div class="align-items-center justify-content-center row" >
+
+  <button type="submit"  (click) ="print()"  class="btn btn-info">Print </button>
+
+</div>
+<br/>
+
+<div id="report2" class="pp" >
+
+  <table align="center"  style="width:100%;" class="form" >
+    <tr id="xdets">
+    <td>
+    <table align="center" width="1000px" class="form" >
+<tr>
+    <td colspan="2" align="center" >
+     <img alt="Coat Of Arms" height="79" src="assets/coat_of_arms.png"
+                width="85" /><br />
+      FEDERAL REPUBLIC OF NIGERIA<br />
+            FEDERAL MINISTRY OF INDUSTRY, TRADE AND INVESTMENT<br />
+            COMMERCIAL LAW DEPARTMENT<br />
+            TRADEMARKS, PATENTS AND DESIGNS REGISTRY<br />
+            PATENTS AND DESIGNS DECREE NO 60 OF 1970<br />
+            <div style="font-size:20px;"><strong>ACKNOWLEDGMENT FORM</strong></div>
+    </td>
+</tr>
+
+<tr>
+    <td width="100%" align="right" colspan="2" class="sub_header">
+        </td>
+</tr>
+
+<tr>
+    <td width="50%" align="right">
+        &nbsp;FILING/APPLICATION DATE :             </td>
+    <td>
+{{row2.dateCreated|date}}
+       </td>
+</tr>
+
+<tr>
+    <td align="right">
+        REGISTRATION NUMBER :
+    </td>
+        <td>
+          {{row2.designInformation[0].registrationNumber}}
+            </td>
+</tr>
+ <tr>
+    <td align="right">
+                        &nbsp;
+                        ONLINE APPLICATION ID : </td>
+    <td>
+      {{row2.transactionID}}
+        </td>
+</tr>
+
+
+<tr>
+  <td align="right">
+                      &nbsp;
+                      TRANSACTION AMOUNT : </td>
+  <td>
+    {{row.amount| number:'.2-2'}}
+      </td>
+</tr>
+ <tr>
+    <td colspan="2" class="tbbg">
+        ---
+        DESIGN INFORMATION --- </td>
+</tr>
+
+<tr>
+    <td align="right">
+        &nbsp;DESIGN TYPE :</td>
+        <td>
+          {{row2.designInformation[0].designType.description }}
+          </td>
+</tr>
+<tr>
+    <td align="right">
+        &nbsp;TITLE OF DESIGN :
+    </td>
+    <td>
+        {{row2.designInformation[0].titleOfDesign }}
+       </td>
+</tr>
+
+<tr>
+    <td align="right">
+        &nbsp;CLASS :
+    </td>
+    <td>
+        {{row2.designInformation[0].nationClassID
+}}
+       </td>
+</tr>
+<tr>
+    <td align="right">
+        TRANSACTION ID :
+        </td>
+    <td>
+        {{row2.transactionID}}
+       </td>
+</tr>
+
+
+
+<tr>
+    <td class="tbbg" colspan="2">
+        --- APPLICANT INFORMATION ---</td>
+</tr>
+
+<tr>
+    <td align="left" colspan="2" style="background-color:#999999;">
+        <strong>APPLICANT </strong></td>
+</tr>
+
+<tr>
+    <td align="right">
+        NAME :</td>
+        <td>
+        {{row3.firstName + " " + row3.lastName}}
+           </td>
+</tr>
+
+<tr>
+    <td align="right">
+        ADDRESS :</td>
+        <td>
+            {{row3.street }}
+
+
+           </td>
+</tr>
+
+<tr>
+    <td align="right">
+        PHONE NUMBER :
+    </td>
+        <td>
+            {{row3.mobileNumber }}
+           </td>
+</tr>
+
+<tr>
+    <td align="right">
+        E-MAILS :</td>
+        <td>
+            {{row3.email }}
+          </td>
+</tr>
+
+
+
+<tr>
+    <td class="tbbg" colspan="2">
+        --- TRUE INVENTOR INFORMATION ---</td>
+</tr>
+
+<tr>
+    <td align="left" colspan="2" style="background-color:#999999;">
+        <strong>INVENTOR </strong></td>
+</tr>
+
+<ng-container *ngFor="let invention of row2.designInvention">
+
+<tr>
+    <td align="right">
+        NAME :</td>
+        <td>
+          {{invention.inventorName}}
+           </td>
+</tr>
+
+<tr>
+    <td align="right">
+        ADDRESS :</td>
+        <td>
+
+            {{invention.inventorAddress}}
+          </td>
+</tr>
+
+<tr>
+    <td align="right">
+        PHONE NUMBER :
+    </td>
+        <td>
+
+            {{invention.inventorMobileNumber}}
+          </td>
+</tr>
+
+<tr>
+    <td align="right">
+        E-MAILS :</td>
+        <td>
+            {{invention.inventorEmail}}
+          </td>
+</tr>
+<tr>
+    <td align="right">
+        NATIONALITY :</td>
+        <td>
+            {{invention.country.name}}
+          </td>
+</tr>
+
+</ng-container>
+
+<tr>
+    <td class="tbbg" colspan="2">
+        --- ASSIGNMENT INFORMATION ---</td>
+</tr>
+ <tr>
+    <td align="right">
+        DATE OF ASSIGNMENT :</td>
+        <td>
+
+          {{row2.designAssignment[0].dateOfAssignment |date}}
+           </td>
+</tr>
+<tr>
+    <td align="left" colspan="2" style="background-color:#999999;">
+        <strong>ASSIGNEE >></strong></td>
+</tr>
+
+<tr>
+    <td align="right">
+        NAME :</td>
+        <td>
+            {{row2.designAssignment[0].assigneeName }}
+          </td>
+</tr>
+
+<tr>
+    <td align="right">
+        ADDRESS :</td>
+        <td>
+            {{row2.designAssignment[0].assigneeAddress }}
+           </td>
+</tr>
+<tr>
+    <td align="right">
+        NATIONALITY :</td>
+        <td>
+            {{row2.designAssignment[0].assigneeNationality2.name}}
+          </td>
+</tr>
+<tr>
+    <td align="left" colspan="2" style="background-color:#999999;">
+        <strong>ASSIGNOR >></strong></td>
+</tr>
+
+<tr>
+    <td align="right">
+        NAME :</td>
+        <td>
+            {{row2.designAssignment[0].assignorName}}
+           </td>
+</tr>
+
+
+
+<tr>
+    <td align="right">
+        ADDRESS&nbsp; :</td>
+        <td>
+            {{row2.designAssignment[0].assignorAddress}}
+            </td>
+</tr>
+  <tr>
+    <td align="right">
+        NATIONALITY :</td>
+        <td>
+            {{row2.designAssignment[0].assignorNationality2.name}}
+          </td>
+</tr>
+
+
+<tr >
+    <td class="tbbg" colspan="2" align="center">
+        --- CO APPLICANT INFORMATION  ---</td>
+</tr>
+
+<tr >
+    <td colspan="2" >
+        <table class="table"  width="100%"   >
+
+            <thead>
+
+
+                <tr>
+
+                  <th>Full Name  </th>
+                  <th>Email</th>
+                    <th>Phone Number</th>
+
+
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngFor="let emp of row2.designCoApplicant   let i = index">
+
+
+
+                       <td>{{emp.fullname}}</td>
+                       <td>{{emp.email}}</td>
+                      <td> {{emp.phonenumber }}</td>
+
+
+
+                      </tr>
+
+
+
+                    </tbody>
+        </table>
+
+    </td>
+
+</tr>
+<tr *ngIf="vshow3">
+    <td colspan="2" class="tbbg">
+        --- PRIORITY INFORMATION ---</td>
+</tr>
+<tr *ngIf="vshow3">
+    <td colspan="2" style="border:0px outset silver; padding: 0px;">
+        <table width="100%">
+        <tr style="background-color:#999999;">
+        <td style="width:10%;">
+            <strong>S/N</strong></td>
+        <td style="width:30%;">
+            <strong>COUNTRY</strong></td>
+        <td style="width:30%;">
+            <strong>APPLICATION NUMBER</strong></td>
+        <td style="width:30%;">
+            <strong>DATE</strong></td>
+        </tr>
+
+
+        <tr  *ngFor="let priority of row2.designPriority let i = index" >
+        <td>
+            {{i + 1}}
+        </td>
+        <td>
+          {{priority.country.name}}
+           </td>
+        <td>
+            {{priority.applicationNumber}}
+           </td>
+        <td>
+            {{priority.dateCreated|date  }}
+          </td>
+        </tr>
+
+        </table></td>
+</tr>
+
+<tr *ngIf="vshow3">
+    <td colspan="2" class="tbbg">
+        --- ADDRESS OF SERVICE IN NIGERIA ---
+    </td>
+</tr>
+<tr *ngIf="vshow3">
+    <td align="right">
+                        ATTORNEY CODE :
+        </td>
+    <td>
+{{ row2.designAddressOfService[0].attorneyCode}}
+             </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+                        ATTORNEY NAME :</td>
+    <td>
+        {{ row2.designAddressOfService[0].attorneyName }}
+       </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+        NATIONALITY :</td>
+    <td>
+        {{ row2.designAddressOfService[0].state.country.name }}
+       </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+        COUNTRY :</td>
+    <td>
+        {{ row2.designAddressOfService[0].state.country.name }}
+      </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+        STATE :</td>
+    <td>
+        {{ row2.designAddressOfService[0].state.stateName}}
+     </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+        &nbsp;ADDRESS :
+        </td>
+    <td>
+
+
+        {{row2.designAddressOfService[0].address}}
+
+       </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+        PHONE NUMBER : </td>
+    <td>
+        {{row2.designAddressOfService[0].phoneNumber}}
+
+       </td>
+</tr>
+
+
+<tr *ngIf="vshow3">
+    <td align="right">
+        E-MAIL : </td>
+    <td>
+      {{row2.designAddressOfService[0].email}}         </td>
+</tr>
+<tr>
+    <td colspan="2" class="tbbg">
+        --- DOCUMENTS ATTACHED DURING APPLICATION FILING---
+    </td>
+</tr>
+<tr *ngIf="row2.designInformation[0].letterOfAuthorization">
+    <td align="right">
+       LETTER OF AUTHORIZATION
+    </td>
+    <td >
+      ATTACHED
+  </td>
+</tr>
+
+<tr *ngIf="row2.designInformation[0].noveltyStatement">
+    <td align="right">
+        NOVELTY STATEMENT
+    </td>
+    <td >
+
+      ATTACHED
+       </td>
+</tr>
+
+<tr *ngIf="row2.designInformation[0].priorityDocument">
+    <td align="right">
+        PRIORITY DOCUMENT
+    </td>
+    <td >
+      ATTACHED
+         </td>
+</tr>
+
+<tr  *ngIf="row2.designInformation[0].representationOfDesign1">
+    <td align="right">
+       REPRESENTATION OF DESIGN 1
+    </td>
+    <td >
+
+      ATTACHED
+          </td>
+</tr>
+
+
+<tr  *ngIf="row2.designInformation[0].representationOfDesign2">
+  <td align="right">
+     REPRESENTATION OF DESIGN 2
+  </td>
+  <td >
+
+    ATTACHED
+        </td>
+</tr>
+
+<tr  *ngIf="row2.designInformation[0].representationOfDesign3">
+  <td align="right">
+     REPRESENTATION OF DESIGN 3
+  </td>
+  <td >
+
+    ATTACHED
+        </td>
+</tr>
+
+<tr  *ngIf="row2.designInformation[0].representationOfDesign4">
+  <td align="right">
+     REPRESENTATION OF DESIGN 4
+  </td>
+  <td >
+
+    ATTACHED
+        </td>
+</tr>
+
+<tr>
+  <td class="tbbg" colspan="2" style="color: #fff; background-color: #006600; text-align: center; font-weight: bold;">
+
+      &nbsp;</td>
+</tr>
+
+<tr>
+  <td align="center" colspan="4">
+
+      <strong>YOUR APPLICATION HAS BEEN RECEIVED AND IS RECEIVING DUE ATTENTION</strong><br />
+      <strong>TRADEMARKS, PATENTS AND DESIGNS REGISTRY
+         <br />
+         COMMERCIAL LAW DEPARTMENT
+         <br />
+         FEDERAL MINISTRY OF INDUSTRY, TRADE AND INVESTMENT
+         </strong>
+   </td>
+
+</tr>
+
+<tr >
+    <td colspan="2">
+        &nbsp;</td>
+</tr>
+
+<tr>
+    <td align="center" colspan="2">
+
+        <br />
+
+        <ngx-qrcode
+      [qrc-element-type]="elementType"
+      [qrc-value] = "value"
+      qrc-class = "aclass"
+      qrc-errorCorrectionLevel = "L">
+</ngx-qrcode>
+
+
+
+    </td>
+</tr>
+
+
+</table>
+    </td>
+    </tr>
+
+    </table>
+
+  </div>
+</div>
+
+

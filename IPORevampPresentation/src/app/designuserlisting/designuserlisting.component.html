@@ -1,0 +1,133 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title"> Design User</h4>
+          <div class="d-flex align-items-center">
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- Column -->
+      <div class="col-lg-12 col-xl-12 col-md-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex no-block align-items-center m-b-30">
+                      <h4 class="card-title">Design </h4>
+                      <div [ngBusy]="busy"></div>
+
+                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
+                  </div>
+<br/>
+
+
+                  <div class="table-responsive">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                          <thead>
+                              <tr>
+                                <th>SN</th>
+                                <th>Date Created </th>
+                                <th>FirstName</th>
+                                  <th>LastName</th>
+                                  <th>MobileNumber</th>
+                                 <th>Email </th>
+
+                                 <th>Role </th>
+
+
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of rows  let i = index">
+
+                                  <td>{{i + 1}}</td>
+
+                                     <td>{{emp.datecreated|date}}</td>
+                                      <td>{{emp.firstname }}</td>
+                                      <td>{{emp.lastname  }}</td>
+                                      <td>{{emp.mobileNumber}}</td>
+                                      <td>{{emp.username}}</td>
+                                      <td>{{emp.description  }}</td>
+
+
+
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column -->
+
+  </div>
+
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Data Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+
+
+  </div>
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                         <div [ngBusy]="busy"></div>
+                        </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

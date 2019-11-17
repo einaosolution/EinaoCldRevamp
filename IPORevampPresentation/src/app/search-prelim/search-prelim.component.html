@@ -1,0 +1,174 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">Search Unit</h4>
+          <div class="d-flex align-items-center">
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">Preliminary Search Application</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- Column -->
+      <div class="col-lg-12 col-xl-12 col-md-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex no-block align-items-center m-b-30">
+                      <h4 class="card-title">Preliminary Search Application</h4>
+                      <div [ngBusy]="busy"></div>
+
+                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
+                  </div>
+<br/>
+
+
+                  <div class="table-responsive">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered ">
+                          <thead>
+                              <tr>
+                                <th>SN</th>
+                                <th>FirstName</th>
+                                  <th>LastName</th>
+                                  <th>Email</th>
+                                  <th>Product</th>
+                                  <th>Sector </th>
+                                 <th>Payment Reference </th>
+                                 <th>Date</th>
+
+                                 <th> </th>
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of rows  let i = index">
+
+                                  <td>{{i + 1}}</td>
+                                  <td>{{emp.first_name}}</td>
+
+                                      <td>{{emp.last_name}}</td>
+                                      <td>{{emp.email}}</td>
+                                      <td>{{emp.product}}</td>
+                                      <td>{{emp.sector.description}}</td>
+                                      <td>{{emp.payment_reference}}</td>
+
+                                      <td>{{emp.dateCreated|date}}</td>
+
+                                      <td>
+                                        <button type="button" id="openModalButton" (click) ="onSubmit(emp)"   class="btn btn-success ">Treat </button>
+
+
+
+                                   </td>
+
+
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column -->
+
+  </div>
+
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Preliminary Search</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <form class="form-horizontal" [formGroup]="userform"   class="tab-wizard wizard-circle" role="form" >
+
+
+                            <div class="row">
+                              <div class="col-md-3 field-label-responsive d-flex justify-content-end">
+                                  <label for="email">Template</label>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+
+                                         <div  [ngxSummernote] ="config"   formControlName="Code"  ></div>
+
+
+
+
+                                                </div>
+
+                                      </div>
+                                  </div>
+                              </div>
+
+
+
+
+
+
+
+
+
+
+                        </form>
+
+  </div>
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button"  (click) ="onSubmit2()" class="btn btn-success"> Send Email</button>
+
+                         <div [ngBusy]="busy"></div>
+                        </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+
+strong {
+  font-weight: bold;
+}
+      hr {
+        width:100%;
+        height:2px;
+        background-color:gray;
+        border:1px dotted green;
+        }
+
+
+

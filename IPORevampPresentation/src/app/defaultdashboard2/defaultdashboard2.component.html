@@ -1,0 +1,358 @@
+<div *ngIf="trademarkregistra">
+<div class="card-group">
+  <!-- Card -->
+
+  <div class="card" (click) ="approveuser()">
+      <div class="card-body">
+          <div class="d-flex align-items-center">
+              <div class="m-r-10">
+                  <span class="btn btn-circle btn-lg bg-success">
+                      <i class="ti-clipboard text-white"></i>
+                  </span>
+              </div>
+              <div>
+                Approve User
+              </div>
+              <div class="ml-auto">
+                  <h2 class="m-b-0 font-light">{{tempuserapprovalcount}}</h2>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Card -->
+  <!-- Card -->
+  <div class="card" (click) ="userappeal()">
+      <div class="card-body">
+          <div class="d-flex align-items-center">
+              <div class="m-r-10">
+                  <span class="btn btn-circle btn-lg bg-success">
+                      <i class="ti-wallet text-white"></i>
+                  </span>
+              </div>
+              <div>
+                 User Appeal
+              </div>
+              <div class="ml-auto">
+                  <h2 class="m-b-0 font-light">{{appealCount}}</h2>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Card -->
+  <!-- Card -->
+  <div class="card" (click) ="receiveappeal()">
+      <div class="card-body">
+          <div class="d-flex align-items-center">
+              <div class="m-r-10">
+                  <span class="btn btn-circle btn-lg bg-success">
+                      <i class="ti-shopping-cart text-white"></i>
+                  </span>
+              </div>
+              <div>
+                Receive Appeal
+
+              </div>
+              <div class="ml-auto">
+                  <h2 class="m-b-0 font-light">{{ReceiveappealCount}}</h2>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Card -->
+  <!-- Card -->
+
+  <!-- Card -->
+  <!-- Column -->
+
+  <div [ngBusy]="busy"></div>
+</div>
+<!-- ============================================================== -->
+<!-- Info box -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Email campaign chart -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Email campaign chart -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Top Selliing Products -->
+<!-- ============================================================== -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Number Of Officer Per Unit</h4>
+
+                    </div>
+                    <div class="ml-auto">
+
+                    </div>
+                </div>
+
+                <div style="display: block;">
+                    <canvas baseChart  height="100"  *ngIf="bb"
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [colors]="barColors2"
+                      [plugins]="barChartPlugins"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+                    </canvas>
+                  </div>
+                <!-- title -->
+
+                <!-- title -->
+            </div>
+
+            </div>
+    </div>
+</div>
+</div>
+
+
+<div *ngIf="patentregistra">
+  <div class="card-group">
+    <!-- Card -->
+
+    <div class="card" (click) ="approveuser()">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="m-r-10">
+                    <span class="btn btn-circle btn-lg bg-success">
+                        <i class="ti-clipboard text-white"></i>
+                    </span>
+                </div>
+                <div>
+                  Approve User
+                </div>
+                <div class="ml-auto">
+                    <h2 class="m-b-0 font-light">{{tempuserapprovalcount}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card -->
+    <!-- Card -->
+    <div class="card" (click) ="assignappeal()">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="m-r-10">
+                    <span class="btn btn-circle btn-lg bg-success">
+                        <i class="ti-wallet text-white"></i>
+                    </span>
+                </div>
+                <div>
+                  Assign  Appeal
+                </div>
+                <div class="ml-auto">
+                    <h2 class="m-b-0 font-light">{{patentappealCount}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card -->
+    <!-- Card -->
+    <div class="card" (click) ="receiveappeal2()">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div class="m-r-10">
+                    <span class="btn btn-circle btn-lg bg-success">
+                        <i class="ti-shopping-cart text-white"></i>
+                    </span>
+                </div>
+                <div>
+                  Receive  Appeal
+
+                </div>
+                <div class="ml-auto">
+                    <h2 class="m-b-0 font-light">{{PatentTreatedAppealCount}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card -->
+    <!-- Card -->
+
+    <!-- Card -->
+    <!-- Column -->
+
+    <div [ngBusy]="busy"></div>
+  </div>
+  <!-- ============================================================== -->
+  <!-- Info box -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Email campaign chart -->
+  <!-- ============================================================== -->
+
+  <!-- ============================================================== -->
+  <!-- Email campaign chart -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Top Selliing Products -->
+  <!-- ============================================================== -->
+
+  <div class="row">
+      <div class="col-sm-12">
+          <div class="card">
+              <div class="card-body">
+
+                  <div class="d-md-flex align-items-center">
+                      <div>
+                          <h4 class="card-title">Number Of Officer Per Unit</h4>
+
+                      </div>
+                      <div class="ml-auto">
+
+                      </div>
+                  </div>
+
+                  <div style="display: block;">
+                      <canvas baseChart  height="100"  *ngIf="bb2"
+                        [datasets]="barChartData2"
+                        [labels]="barChartLabels"
+                        [options]="barChartOptions"
+                        [colors]="barColors2"
+                        [plugins]="barChartPlugins"
+                        [legend]="barChartLegend"
+                        [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  <!-- title -->
+
+                  <!-- title -->
+              </div>
+
+              </div>
+      </div>
+  </div>
+  </div>
+
+
+  <div *ngIf="designregistra">
+    <div class="card-group">
+      <!-- Card -->
+
+      <div class="card" (click) ="approveuser()">
+          <div class="card-body">
+              <div class="d-flex align-items-center">
+                  <div class="m-r-10">
+                      <span class="btn btn-circle btn-lg bg-success">
+                          <i class="ti-clipboard text-white"></i>
+                      </span>
+                  </div>
+                  <div>
+                    Approve User
+                  </div>
+                  <div class="ml-auto">
+                      <h2 class="m-b-0 font-light">{{tempuserapprovalcount}}</h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Card -->
+      <!-- Card -->
+      <div class="card" (click) ="assignappeal2()">
+          <div class="card-body">
+              <div class="d-flex align-items-center">
+                  <div class="m-r-10">
+                      <span class="btn btn-circle btn-lg bg-success">
+                          <i class="ti-wallet text-white"></i>
+                      </span>
+                  </div>
+                  <div>
+                    Assign  Appeal
+                  </div>
+                  <div class="ml-auto">
+                      <h2 class="m-b-0 font-light">{{designappealCount}}</h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Card -->
+      <!-- Card -->
+      <div class="card" (click) ="receiveappeal3()">
+          <div class="card-body">
+              <div class="d-flex align-items-center">
+                  <div class="m-r-10">
+                      <span class="btn btn-circle btn-lg bg-success">
+                          <i class="ti-shopping-cart text-white"></i>
+                      </span>
+                  </div>
+                  <div>
+                    Receive  Appeal
+
+                  </div>
+                  <div class="ml-auto">
+                      <h2 class="m-b-0 font-light">{{DesignTreatedAppealCount}}</h2>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Card -->
+      <!-- Card -->
+
+      <!-- Card -->
+      <!-- Column -->
+
+      <div [ngBusy]="busy"></div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Info box -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Email campaign chart -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Email campaign chart -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Top Selliing Products -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="d-md-flex align-items-center">
+                        <div>
+                            <h4 class="card-title">Number Of Officer Per Unit</h4>
+
+                        </div>
+                        <div class="ml-auto">
+
+                        </div>
+                    </div>
+
+                    <div style="display: block;">
+                        <canvas baseChart  height="100"  *ngIf="bb3"
+                          [datasets]="barChartData3"
+                          [labels]="barChartLabels"
+                          [options]="barChartOptions"
+                          [colors]="barColors2"
+                          [plugins]="barChartPlugins"
+                          [legend]="barChartLegend"
+                          [chartType]="barChartType">
+                        </canvas>
+                      </div>
+                    <!-- title -->
+
+                    <!-- title -->
+                </div>
+
+                </div>
+        </div>
+    </div>
+    </div>
+
+
+

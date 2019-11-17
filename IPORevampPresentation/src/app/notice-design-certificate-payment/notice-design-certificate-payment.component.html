@@ -1,0 +1,271 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">Pay For Certificate</h4>
+          <div class="d-flex align-items-center">
+
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">Certificate Payment</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- ============================================================== -->
+      <!-- Example -->
+      <!-- ============================================================== -->
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body wizard-content">
+
+                  <div [ngBusy]="busy"></div>
+
+                  <form action="#" class="validation-wizard wizard-circle m-t-40"  #f="ngForm">
+                      <!-- Step 1 -->
+                      <h6>Step 1</h6>
+                      <section>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wfirstName2"> Applicant Name : <span class="danger">*</span> </label>
+                                      <input type="text"  required disabled [(ngModel)]="account.name" class="form-control" id="wemailAddress2" name="emailAddress">
+
+                              </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label for="wlastName2"> Applicant Address : <span class="danger">*</span> </label>
+
+                                      <input type="text" required disabled [(ngModel)]="account.address" class="form-control " id="wemailAddress3" name="emailAddress3">
+
+                              </div>
+                          </div>
+                          </div>
+
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="wlocation2"> Quantity : <span class="danger">*</span> </label> <br/>
+                                    <input type="text" required disabled   [(ngModel)]="account.quantity" class="form-control " id="quantity3" name="quantity3">
+
+
+
+                                  </div>
+                              </div>
+
+                            </div>
+
+
+
+                            <div class="row">
+                              <div class="col_md_6">
+                                  <div class="modal-footer">
+
+
+
+                                  </div>
+
+                              </div>
+
+
+                              <div class="col_md_6">
+                                  <div class="row">
+
+                                      <div class="col_md_6 col_md_offset_6">
+
+                                      <button type="button"  (click) ="onSubmit(f.form.valid)" class="btn btn-success"> Next</button>
+
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                            </div>
+                      </section>
+
+
+                         <!-- Step 2 -->
+                         <h6>Step 2</h6>
+                         <section>
+                          <table  class="table form"   width="100%" >
+
+
+                            <tr *ngIf="savemode">
+                                 <td width="22%" colspan="2" class="tbbg" align="center">
+                                     <strong>DATA PREVIEW</strong></td>
+                             </tr>
+                              <tr>
+                                 <td align="right" >
+                                     &nbsp;Applicant Name :&nbsp;&nbsp;
+                                 </td>
+                                 <td>
+                                     {{account.name}}
+                                    &nbsp;
+                                 </td>
+                             </tr>
+
+                            <tr>
+                                 <td align="right" >
+                                     &nbsp;Applicant Address  :&nbsp;&nbsp;
+                                 </td>
+                                 <td>
+                                     {{account.address}}
+                                    &nbsp;
+                                 </td>
+                             </tr>
+
+                      <tr>
+                                 <td  align="right">
+                                     &nbsp;Quantity :&nbsp;&nbsp;
+                                 </td>
+                                 <td>
+                                     {{account.quantity}}
+                                    &nbsp;
+                                 </td>
+                             </tr>
+
+
+
+
+
+
+
+
+
+
+ </table>
+
+
+
+                               <div class="row">
+                                 <div class="col_md_6">
+                                     <div class="modal-footer">
+
+
+
+                                     </div>
+
+                                 </div>
+
+
+                                 <div class="col_md_6">
+                                     <div class="row">
+
+                                         <div class="col_md_6 col_md_offset_6">
+                                            <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
+                                          <button type="button"  (click) ="onSubmit2(f.form.valid)" class="btn btn-success"> Next</button> &nbsp;&nbsp;&nbsp;
+                                         <button type="button"  (click) ="onSubmit3a()"   class="btn btn-success"><i class="ti-save"></i> Save And Continue Later</button>
+
+
+                                         </div>
+                                     </div>
+
+                                 </div>
+
+                               </div>
+                         </section>
+
+                         <h6>Step 3</h6>
+                         <section>
+                            <div class="align-items-center justify-content-center row" >
+                       <table class="table" >
+
+                        <tr>
+                          <td colspan="2">
+                            <h6>Terms of Use</h6>
+                            These terms and conditions shall govern your use of our website.
+
+                            <h6>Eligibility and Identity.</h6>
+                            By using our website, you accept these terms and conditions in full; accordingly, if you disagree with these terms and conditions or any part of these terms and conditions, you must not use our website.
+
+
+                            <h6>Use of Services & Account</h6>
+                            If you register with our website, submit any material to our website or use any of our website services], we will ask you to expressly agree to these terms and conditions.
+
+
+
+                            <h6>Intellectual Property Ownership</h6>
+                            All Materials, Services, Accounts, and content, including, but not limited to, policy information, text, software, music, sound, photographs, video, graphics, the arrangement of text and images, commercially produced information, and other material contained on the Site or through the Services (“Content”), are provided by The Company unless indicated otherwise. Welsh onion tigernut broccoli asparagus brussels sprout jícama eggplant earthnut pea cress chickpea gourd zucchini. Radicchio lentil cucumber groundnut endive kohlrabi winter purslane. Seakale plantain quandong celtuce shallot fennel seakale epazote groundnut dandelion.
+
+                            <h6>Privacy</h6>
+                            You must be at least [18] years of age to use our website; by using our website or agreeing to these terms and conditions, you warrant and represent to us that you are at least [18] years of age.
+                          </td>
+
+                        </tr>
+
+                          <tr >
+                            <td colspan="2"> <span> Do You  Accept Our Terms And Condition </span> <span> <input [(ngModel)]="checkboxFlag"  (change)="FieldsChange($event)" type="checkbox"/> </span> </td>
+
+
+                          </tr>
+                          <tr>
+                            <td *ngIf="!settingoff">
+                               <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
+                            </td>
+
+                            <td *ngIf="settingoff">
+                             <button *ngIf="checkboxFlag"  (click) ="onSubmit33()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Offline Payment</button>
+                          </td>
+
+                           </tr>
+
+
+                       </table>
+
+                       </div>
+
+                          </section>
+
+                      <!-- Step 3 -->
+                      <h6>Step 4</h6>
+                      <section>
+                        <p>Thank You </p>
+
+                      </section>
+
+
+
+                                    </form>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+  <!-- ============================================================== -->
+  <!-- End PAge Content -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Right sidebar -->
+  <!-- ============================================================== -->
+  <!-- .right-sidebar -->
+  <!-- ============================================================== -->
+  <!-- End Right sidebar -->
+  <!-- ============================================================== -->
+</div>
+
+
+

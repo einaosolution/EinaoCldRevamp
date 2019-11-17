@@ -1,0 +1,237 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">All Trademark Application</h4>
+          <div class="d-flex align-items-center">
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">Trademark Application</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- Column -->
+      <div class="col-lg-12 col-xl-12 col-md-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex no-block align-items-center m-b-30">
+                      <h4 class="card-title">Trademark Application</h4>
+                      <div [ngBusy]="busy"></div>
+
+                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
+                  </div>
+<br/>
+
+
+                  <div class="table-responsive">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                          <thead>
+                              <tr>
+                                <th>SN</th>
+                                <th>OAI NO</th>
+                                  <th>FILING DATE</th>
+                                  <th>FILE NO.</th>
+                                 <th>APPLICANT NAME </th>
+                                 <th>PRODUCT TITLE </th>
+                                 <th>CLASS </th>
+                                 <th>STATUS </th>
+                                 <th>OFFICE </th>
+                                 <th> </th>
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of rows  let i = index">
+
+                                  <td>{{i + 1}}</td>
+                                  <td>{{emp.transactionid}}</td>
+                                     <td>{{emp.filingDate|date}}</td>
+                                      <td>{{emp.filenumber}}</td>
+                                      <td>{{emp.applicantName}}</td>
+                                      <td>{{emp.productTitle}}</td>
+                                      <td>{{emp.applicationclass}}</td>
+                                      <td>{{emp.status}}</td>
+                                      <td>{{emp.datastatus}}</td>
+
+                                      <td>
+                                        <button type="button" id="openModalButton" (click) ="showcountry(emp)"  class="btn btn-success ">Details </button>
+
+
+
+                                   </td>
+
+
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column -->
+
+  </div>
+
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+                          <div class="container-fluid">
+                                <div class="row">
+                                   <div class="col-12">
+                                      <!-- Column -->
+                                      <!-- Column -->
+                                      <div class="card">
+                                         <div class="card-body">
+                                            <h4 class="card-title">DATA PREVIEW
+                                               <br /><br />
+                                               <strong>DATA DETAILS FOR {{row2.productTitle}}</strong>
+                                            </h4>
+                                            <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                                               <tbody>
+                                                  <tr>
+                                                     <td width="269" style="width:250px"><strong>FILLING/APPLICATION DATE :&nbsp;</strong></td>
+                                                     <td width="217"> {{row2.filingDate|date}}</td>
+                                                     <td width="241"><span style="width:250px"><strong>REGISTRATION NUMBER : </strong></span></td>
+                                                     <td width="260"> {{row2.filenumber}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>SYSTEM APPLICATION NUMBER:</strong></td>
+                                                     <td>OAI/TM/{{row2.transactionid}} </td>
+                                                     <td><strong>NAME : </strong></td>
+                                                     <td>{{row2.applicantName}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TELEPHONE:</strong></td>
+                                                     <td>{{row2.phonenumber}}</td>
+                                                     <td><strong>E-MAIL:</strong></td>
+                                                     <td>{{row2.email}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000"> TRADEMARK INFORMATION </h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TRADEMARK TYPE : </strong></td>
+                                                     <td>{{row2.trademarktype}}</td>
+                                                     <td><strong>LOGO DESCRIPTION :&nbsp; </strong></td>
+                                                     <td>{{row2.applicationclass}} </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TRADEMARK :&nbsp;&nbsp; </strong></td>
+                                                     <td>{{row2.productTitle}} </td>
+                                                     <td><strong>DESCRIPTION OF SPECIFICATION OF GOODS/SERVICES :&nbsp;&nbsp;</strong></td>
+                                                     <td>{{row2.classdescription}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000"> PREVIOUS COMMENTS</h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4">
+                                                        <table>
+                                                           <app-comments [vrow2]=row4></app-comments>
+                                                        </table>
+                                                     </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000">PAYMENT INFORMATION </h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TRANSACTION ID : </strong></td>
+                                                     <td>{{row2.transactionid}} </td>
+                                                     <td>&nbsp;</td>
+                                                     <td>&nbsp;</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000">SUPPORTING DOCUMENTS </h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr *ngIf="vshow">
+                                                     <td  *ngIf="row2.logo_pic "><strong>
+                                                        IMAGE:                                </strong>
+                                                     </td>
+                                                     <td *ngIf="row2.logo_pic" >
+                                                        <a href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{row2.logo_pic}}">View</a>
+                                                     </td>
+                                                     <td  *ngIf="row2.auth_doc "><strong>
+                                                        AUTHORIZATION:                                </strong>
+                                                     </td>
+                                                     <td *ngIf="row2.auth_doc " >
+                                                        <a href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{row2.auth_doc}}">View</a>
+                                                     </td>
+                                                  </tr>
+                                                 <tr *ngIf="vshow">
+                                                     <td  *ngIf="row2.sup_doc1 "><strong>
+                                                        DOCUMENT 1:                                </strong>
+                                                     </td>
+                                                     <td *ngIf="row2.sup_doc1 " >
+                                                        <a href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{row2.sup_doc1}}">View</a>
+                                                     </td>
+                                                     <td *ngIf="row2.sup_doc2 " ><strong> DOCUMENT&nbsp; 2: </strong></td>
+                                                     <td  *ngIf="row2.sup_doc2 "  >
+                                                        <a href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{row2.sup_doc2}}">View</a>
+                                                     </td>
+                                                  </tr>
+                                               </tbody>
+                                            </table>
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+
+  </div>
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                         <div [ngBusy]="busy"></div>
+                        </div>
+          </form>
+      </div>
+  </div>
+</div>
