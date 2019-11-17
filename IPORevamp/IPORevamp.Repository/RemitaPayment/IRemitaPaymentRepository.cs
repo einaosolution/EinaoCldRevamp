@@ -18,6 +18,7 @@ namespace IPORevamp.Repository.RemittaPayment
         Task<List<RemitaPayment>> FetchByRRRCode(string RRR);
         Task<List<PaymentReport>> FetchPayments(string startdate, string enddate);
         Task<List<PaymentReport>> FetchPaymentsByFee(string startdate, string enddate, string fee);
+        RemitaPayment UpdatePaymentWithInvoice(string RRR);
         Task<RemitaPayment> UpdateRemitaPayment(RemitaPayment model);
 
         

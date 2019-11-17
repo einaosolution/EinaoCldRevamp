@@ -128,13 +128,27 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("TestSms")]
         public async Task<IActionResult> TestSms()
           {
-            var Registrar = "Anthony Dolo";
-            var firstname = "Fred";
-            var lastname = "agbaje";
-            var Department = "Trademark";
+            try
+            {
 
-            var template = $"Hello {Registrar},{Environment.NewLine} A request to create admin user has been initiated.  Find below the login details {Environment.NewLine} Firstname :{firstname} {Environment.NewLine} Lastname :{lastname} {Environment.NewLine} Department :{Department} {Environment.NewLine} Kindly login to the portal to approve or reject this request.";
-          var status = IPORevamp.Core.Utilities.Utilities.SMSServicesmsprovider("bolajiworld@gmail.com", "password", template, "IpoNigeria", "07059394683");
+                var Registrar = "Anthony Dolo";
+                var firstname = "Fred";
+                var lastname = "agbaje";
+                var Department = "Trademark";
+
+              //  throw new ApplicationException("Invalid sms ");
+
+                var template = $"Hello {Registrar},{Environment.NewLine} A request to create admin user has been initiated.  Find below the login details {Environment.NewLine} Firstname :{firstname} {Environment.NewLine} Lastname :{lastname} {Environment.NewLine} Department :{Department} {Environment.NewLine} Kindly login to the portal to approve or reject this request.";
+                var status = IPORevamp.Core.Utilities.Utilities.SMSServicesmsprovider("bolajiworld@gmail.com", "password", template, "IpoNigeria", "07059394683");
+
+            }
+
+            catch(Exception ee)
+            {
+                var errormessage = ee.Message;
+              
+            }
+            
 
    
 
@@ -781,6 +795,100 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpPost("UpdateProfile")]
+
+        public async Task<IActionResult> UpdateProfile([FromForm] string UserId,
+      [FromForm] string RoleId, [FromForm] string RequestedBy, [FromForm] string Firstname, [FromForm] string Lastname, [FromForm] string PhoneNumber, [FromForm] string Occupation, [FromForm] string StaffId, [FromForm] string Gender
+            , [FromForm] string Street, [FromForm] string City, [FromForm] string Postal, [FromForm] string Country, [FromForm] string State, [FromForm] string Ministry, [FromForm] string Department, [FromForm] string Unit)
+        {
+            var user = await _userManager.FindByIdAsync(UserId); ;
+            string json = JsonConvert.SerializeObject(user, Newtonsoft.Json.Formatting.Indented);
+            var user2 = await _userManager.FindByIdAsync(RequestedBy); ;
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+            string msg = "";
+            Boolean fileupload = false;
+            try
+            {
+                String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                int result1 = Convert.ToInt32(oneMegaByte[0]);
+                int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                if (Request.Form.Files[0] != null) {
+
+                msg = await _fileUploadRespository.UploadFile(Request.Form.Files[0], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                  result2);
+                    fileupload = true;
+
+                }
+
+            }
+
+            catch (Exception ee)
+            {
+                fileupload = false;
+                var kk = ee.Message;
+            }
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.OK, "User Does not  Exist", true, null); ;
+            }
+
+            user.RolesId = Convert.ToInt32(RoleId);
+            if (Convert.ToInt32(RoleId) == Convert.ToInt32(IPORoles.Individual))
+            {
+                user.CategoryId = Convert.ToInt32(IPOCategory.Individual);
+            }
+
+            if (Convert.ToInt32(RoleId) == Convert.ToInt32(IPORoles.CorporateAgent_Trade_Mark))
+            {
+                user.CategoryId = Convert.ToInt32(IPOCategory.Agent); ;
+            }
+
+
+
+            user.FirstName = Firstname;
+            user.LastName = Lastname;
+            user.PhoneNumber = PhoneNumber;
+           user.PostalCode = Postal;
+            user.Occupation = Occupation;
+            if (fileupload) { 
+            user.ProfilePicLoc = msg;
+            }
+            // user.ministry = Ministry;
+            // user.department = Department;
+            //  user.unit = Unit;
+            user.State = State;
+           // user.staffid = StaffId;
+            user.Street = Street;
+            user.City = City;
+            user.CountryCode = Country;
+            user.Gender = Gender == "0" ? Data.UserManagement.Model.Gender.Male : Data.UserManagement.Model.Gender.Female;
+
+            await _userManager.UpdateAsync(user);
+            var user3 = await _userManager.FindByIdAsync(UserId); ;
+            string json2 = JsonConvert.SerializeObject(user3, Newtonsoft.Json.Formatting.Indented);
+
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Update,
+                DateCreated = DateTime.Now,
+                Description = $"Update    for  {user.FirstName + ' ' + user.LastName} by  { user2.FirstName + " " + user2.LastName} ",
+                Entity = "User",
+                UserId = 0,
+                UserName = user.Email,
+                IpAddress = ip,
+                RecordBefore = json,
+                RecordAfter = json2
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+
+        }
+
         [HttpGet("Logout")]
 
         public async Task<IActionResult> Logout(  [FromQuery] string RequestedBy)
@@ -1239,36 +1347,78 @@ namespace IPORevamp.WebAPI.Controllers
         {
             string ip = "";
 
+            string message = "";
+
             ip = Request.Headers["ip"];
             var corporatelink = _configuration["CORPORATEREDIRECTURL"] + code;
             var individuallink = _configuration["INDIVIDUALREDIRECTURL"] + code;
 
+            var errorlink = _configuration["ERRORREDIRECTURL"] + message;
+
             if (code == null)
             {
                 var error = "";
-                 return PrepareResponse(HttpStatusCode.BadRequest, "not found", true, error);
+
+                message = "Invalid Code";
+                return Redirect(errorlink);
+               // return PrepareResponse(HttpStatusCode.BadRequest, "not found", true, error);
             }
             else
             {
                 // try to decrypt the code 
+                string convertString = "";
+                try { 
 
-            string convertString = IPORevamp.Core.Utilities.Utilities.Decrypt(code);
+        convertString = IPORevamp.Core.Utilities.Utilities.Decrypt(code);
+
+                }
+
+                catch(Exception ee)
+                {
+                    var errormessage = ee.Message;
+
+                    message = errormessage;
+                    errorlink = _configuration["ERRORREDIRECTURL"] + message;
+                    return Redirect(errorlink);
+
+                  //  return PrepareResponse(HttpStatusCode.NotFound, errormessage, true, null);
+                }
 
                 // confirm if the email address exist and the date as not expired
 
                 UserVerificationTemp model = await _userProfilingRepository.EmailConfirmation(convertString);
 
+                if(model == null)
+
+                {
+                    message = "Email " + convertString + " Cannot be use ";
+                    errorlink = _configuration["ERRORREDIRECTURL"] + message;
+
+                    return Redirect(errorlink);
+
+                    //  return PrepareResponse(HttpStatusCode.NotFound, "Email " + convertString + " Cannot be use ";
+                    //  return PrepareResponse(HttpStatusCode.NotFound, "Email " + convertString + " Does not exist", true, null);
+                }
+
                 var expiredate = model.ExpiringDate;
                 if (DateTime.Now > expiredate)
                 {
-                    return PrepareResponse(HttpStatusCode.NotFound, "This Link has expired", true, null);
+                    message = "This Link has expired ";
+                    errorlink = _configuration["ERRORREDIRECTURL"] + message;
+
+                    return Redirect(errorlink);
+                  //  return PrepareResponse(HttpStatusCode.NotFound, "This Link has expired", true, null);
                 }
 
 
                 if (model == null)
                 {
+                    message = "The confirmation was not successful or record not existing ";
+                    errorlink = _configuration["ERRORREDIRECTURL"] + message;
 
-                    return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing", true, null);
+                    return Redirect(errorlink);
+
+                  //  return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing", true, null);
 
                 }
                 else
@@ -1278,7 +1428,11 @@ namespace IPORevamp.WebAPI.Controllers
 
                     if (userExisting.IsCompletedSuccessfully)
                     {
-                        return PrepareResponse(HttpStatusCode.Found, "Account Currently Exist", false);
+                        message = "Account Currently Exist ";
+                        errorlink = _configuration["ERRORREDIRECTURL"] + message;
+
+                        return Redirect(errorlink);
+                      //  return PrepareResponse(HttpStatusCode.Found, "Account Currently Exist", false);
                     }
 
                 }
@@ -1367,13 +1521,21 @@ namespace IPORevamp.WebAPI.Controllers
 
                     else
                     {
-                        return PrepareResponse(HttpStatusCode.NotFound, userCreated.Errors.FirstOrDefault().Description, true, null);
+                        message = userCreated.Errors.FirstOrDefault().Description;
+                        errorlink = _configuration["ERRORREDIRECTURL"] + message;
+
+                        return Redirect(errorlink);
+                     //   return PrepareResponse(HttpStatusCode.NotFound, userCreated.Errors.FirstOrDefault().Description, true, null);
 
                     }
                 }
                 else
                 {
-                    return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing 1", true, null);
+                    message = "The confirmation was not successful or record not existing 1";
+                    errorlink = _configuration["ERRORREDIRECTURL"] + message;
+
+                    return Redirect(errorlink);
+                  //  return PrepareResponse(HttpStatusCode.NotFound, "The confirmation was not successful or record not existing 1", true, null);
 
                 }
 
@@ -1708,6 +1870,7 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [NonAction]
         public int getuserrolecount(int  roleid ,string department)
         {
 

@@ -30,6 +30,7 @@ using System.IO;
 using IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory;
 using System.Net.Mail;
 using Microsoft.EntityFrameworkCore;
+using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
 
 namespace IPORevamp.WebAPI.Controllers
 {
@@ -960,6 +961,32 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetAllApplicationUserCount")]
+        public async Task<IActionResult> GetAllApplicationUserCount( [FromQuery] string userid)
+        {
+            try
+            {
+                // check for user information before processing the request
+                Task<AppCount> result = null;
+                try
+                {
+                  result = _newApplicationRepository.AllApplicationUserCount(userid);
+                }
+                catch(Exception ee )
+                {
+
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Occured", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpGet("GetApplicationUserCount")]
         public async Task<IActionResult> GetApplicationUserCount([FromQuery] string applicationid, [FromQuery] string userid)
         {
@@ -1083,7 +1110,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
 
-
+        [NonAction]
         public async  void UpdateMarkInfo(int id )
 
         {
@@ -1105,7 +1132,7 @@ namespace IPORevamp.WebAPI.Controllers
 
 
         }
-
+        [NonAction]
         public async void  SaveMarkInfo(IPORevamp.Data.Entity.Interface.Entities.MarkInfo.MarkInfo_View markInfo_View)
         {
             try

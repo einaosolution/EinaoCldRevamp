@@ -48,6 +48,8 @@ namespace IPORevamp.WebAPI.Models
 
         public List<MenuManager> DynamicMenu { get; set; }
         public string menuString { get; set; }
+
+        public string Profilepic { get; set; }
         public int RolesId { get; set;  }
     }
 

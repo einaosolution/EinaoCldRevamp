@@ -16,6 +16,7 @@ using IPORevamp.Data.Entity.Interface.Entities.PatentAssignment;
 using IPORevamp.Data.Entity.Interface.Entities.PatentInvention;
 using IPORevamp.Data.Entity.Interface.Entities.PatentPriorityInformation;
 using IPORevamp.Data.Entity.Interface.Entities.AddressOfService;
+using IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory;
 
 namespace IPORevamp.Repository.FileNewApplication
 {
@@ -83,6 +84,49 @@ namespace IPORevamp.Repository.FileNewApplication
            
         }
 
+
+        public async Task<AppCount> AllApplicationUserCount( string  userid)
+        {
+            AppCount ApplicationCount = new AppCount();
+            var result = 0;
+            try { 
+           result = (from c in _contex.Application where c.userid == userid select c).Count();
+            ApplicationCount.trademarkcount = result;
+
+            }
+
+            catch(Exception ee)
+            {
+                ApplicationCount.trademarkcount = 0;
+            }
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.userid == userid select c).Count();
+            ApplicationCount.patentcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.patentcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.userid == userid select c).Count();
+            ApplicationCount.designcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.designcount = 0;
+            }
+
+            return ApplicationCount;
+
+
+        }
 
         public async Task<Int32> ApplicationUserCount(int  ApplicationId,int  userid)
         {

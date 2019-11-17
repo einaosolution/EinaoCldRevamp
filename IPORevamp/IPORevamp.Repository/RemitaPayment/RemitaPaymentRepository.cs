@@ -61,6 +61,21 @@ namespace IPORevamp.Repository.RemitaPaymentRepository
             return details;
         }
 
+
+        public RemitaPayment UpdatePaymentWithInvoice(string RRR)
+        {
+            var InvoiceNumber = "IPONMW" + DateTime.Now.Ticks;
+            var details =  (from p in _contex.RemitaPayments
+                                                                                                
+                                 where p.RRR == RRR
+
+                                 select p).FirstOrDefault();
+            details.InvoiceNumber = InvoiceNumber;
+            _contex.SaveChanges();
+
+            return details;
+        }
+
         public async Task<List<RemitaPayment>> FetchByRRRCode(string RRR)
         {
             var payments = await _remitapaymentrepository.GetAllListAsync(x => x.RRR == RRR);

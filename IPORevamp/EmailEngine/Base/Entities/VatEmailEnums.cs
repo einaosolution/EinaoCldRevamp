@@ -60,7 +60,7 @@ namespace EmailEngine.Base.Entities
         Appeal_Officer_Patent = 26,
         Opposition_Officer_Trade_Mark =17,
         Recordals_Officers_Trade_Mark = 12  ,
-        Individual =13,
+        Individual =18,
         Patent_Examiner =15,
         Design_Examiner = 29,
         Publication_Officer_Design = 30,

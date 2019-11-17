@@ -501,17 +501,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
-        public long  getMaxRtNo()
-        {
-            long  MaxRt;
-        lock (_syncRoot)
-        {
-                return  MaxRt = _contex.Application.ToList().Max(e => Convert.ToInt64(e.RtNumber));
-                //Body function
-            }
 
-
-}
 
         [HttpGet("GetApplicationByAppId")]
         public async Task<IActionResult> GetApplicationByAppId([FromQuery] string RequestById, [FromQuery] string ApplicationId)

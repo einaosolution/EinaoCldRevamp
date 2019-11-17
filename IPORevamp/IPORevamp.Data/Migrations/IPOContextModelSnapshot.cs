@@ -2655,6 +2655,8 @@ namespace IPORevamp.Data.Migrations
 
                     b.Property<string>("FeeItemName");
 
+                    b.Property<string>("InvoiceNumber");
+
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");

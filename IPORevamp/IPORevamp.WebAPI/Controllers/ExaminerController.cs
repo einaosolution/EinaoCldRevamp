@@ -244,7 +244,7 @@ namespace IPORevamp.WebAPI.Controllers
                 }
 
 
-                var result = await _examinerRepository.GetUserKiv();
+                var result = await _examinerRepository.GetUserKiv(RequestById);
 
 
                 // get User Information
@@ -257,6 +257,52 @@ namespace IPORevamp.WebAPI.Controllers
                     DateCreated = DateTime.Now,
                     Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all User Kiv Application   successfully",
                     Entity = "GetUserKivAppliction",
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    IpAddress = ip
+                });
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Kiv  Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetUserKivApplicationCount")]
+        public async Task<IActionResult> GetUserKivApplicationCount([FromQuery] string RequestById)
+        {
+            try
+            {
+                string ip = "";
+
+                ip = Request.Headers["ip"];
+
+                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+                if (user == null)
+                {
+                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+                }
+
+
+                var result =  _examinerRepository.GetUserKiv(RequestById).Result.Count();
+
+
+                // get User Information
+                user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+                await _auditTrailManager.AddAuditTrail(new AuditTrail
+                {
+                    ActionTaken = AuditAction.Create,
+                    DateCreated = DateTime.Now,
+                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all User Kiv Application   successfully",
+                    Entity = "GetUserKivApplictionCount",
                     UserId = user.Id,
                     UserName = user.UserName,
                     IpAddress = ip

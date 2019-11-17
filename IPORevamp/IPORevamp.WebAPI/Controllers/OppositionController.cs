@@ -672,7 +672,7 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
-
+        [NonAction]
         public async void SendOppositionOfficerEmail(string Appid)
         {
             EmailTemplate emailTemplate;

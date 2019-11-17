@@ -499,6 +499,13 @@ namespace IPORevamp.WebAPI.Controllers
             return errorresult;
         }
 
+        [HttpPost("UpdatePaymentWithInvoice")]
+        public RemitaPayment UpdatePaymentWithInvoice(RequeryRemitaModel requeryModel)
+        {
+            var paymentDetails = _remitaPaymentRepository.UpdatePaymentWithInvoice(requeryModel.RRR);
+
+            return paymentDetails;
+        }
 
 
         [HttpPost("RemitaTransactionRequeryPayment")]

@@ -34,6 +34,7 @@ bld/
 # NUNIT
 *.VisualState.xml
 TestResult.xml
+IPORevampPresentation/node_modules.rar
 
 # Build Results of an ATL Project
 [Dd]ebugPS/
@@ -83,6 +84,7 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+*.rar
 
 # Visual Studio profiler
 *.psess

@@ -144,7 +144,7 @@ namespace IPORevamp.Repository.UserProfiling
         public Task<UserVerificationTemp> EmailConfirmation(string Code)
         {
             var model = _userProfilingRepository.FirstOrDefaultAsync(a => a.Email.ToLower()
-                  == Code.ToLower() && a.ExpiringDate > DateTime.Now && a.ConfirmationDate == null);
+                  == Code.ToLower() && a.ConfirmationDate == null);
 
             return model;
         }

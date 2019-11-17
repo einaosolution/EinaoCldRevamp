@@ -22,11 +22,11 @@ namespace IPORevamp.Repository.Examiner
         }
 
 
-        public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetUserKiv()
+        public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetUserKiv(string userid)
         {
 
             var details = _contex.DataResult
-            .FromSql($"GetUserKivApplication   @p0, @p1", parameters: new[] { DATASTATUS.ApplicantKiv , STATUS.ApplicantKiv  })
+            .FromSql($"GetUserKivApplication   @p0, @p1,@p2", parameters: new[] { DATASTATUS.ApplicantKiv , STATUS.ApplicantKiv , userid })
            .ToList();
         
             return details;

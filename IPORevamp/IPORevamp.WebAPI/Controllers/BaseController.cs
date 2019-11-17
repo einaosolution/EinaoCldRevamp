@@ -223,7 +223,9 @@ namespace IPORevamp.WebAPI.Controllers
                 loggeduser = loggedinuser ,
                DynamicMenu = menuManager,
                 menuString = menuString,
+                Profilepic = user.ProfilePicLoc,
                 lastpasswordchange = lastpasswordchange
+               
 
             };
             return auth;

@@ -37,6 +37,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.RemitaPayment
         public DateTime TransactionInitiatedDate { get; set; } 
         public DateTime TransactionCompletedDate { get; set; }
 
+        public string InvoiceNumber { get; set; }
+
         [NotMapped]
         public List<RemitaLineItem> RemitaPaymentLinkItems { get; set; }
 

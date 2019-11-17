@@ -9,7 +9,7 @@ namespace IPORevamp.Repository.Examiner
   public   interface IExaminerRepository : IAutoDependencyRegister
     {
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetFreshApplication();
-        Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetUserKiv();
+        Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetUserKiv(string userid);
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetExaminerKiv();
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetTreatedApplication();
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetExaminerReconductSearch();
