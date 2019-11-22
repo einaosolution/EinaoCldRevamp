@@ -1,0 +1,84 @@
+﻿@model  ipowebportal.Models.MessageBody
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_LayoutContact.cshtml";
+}
+
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+        alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+    }
+}
+
+
+
+
+@using (Html.BeginForm("SendMessage", "Contact", FormMethod.Post))
+{
+    <div class="connect-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-7 connect-left">
+                    <h3><span>Connect</span> With Us</h3>
+                    <form class="connect-form">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input type="text" id="Name" name="Name" class="form-control" placeholder="Johan Smith" required>
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input type="text" id="Email" name="Email" class="form-control" placeholder="imaobong@yahoo.com" required>
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Phone:</label>
+                                    <input type="text" id="Phone" name="Phone" class="form-control" placeholder="080 5870 3247" required>
+                                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Subject:</label>
+                                    <input type="text" id="Phone" name="Subject" class="form-control" placeholder="Message Subject" required>
+                                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Message:</label>
+                                    <textarea type="text" id="Message" name="Message" class="form-control" placeholder="Type..."></textarea>
+                                    @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success" value="Send Message">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-5 connect-ryt">
+                    <figure><img src="images/client.png" alt=""></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

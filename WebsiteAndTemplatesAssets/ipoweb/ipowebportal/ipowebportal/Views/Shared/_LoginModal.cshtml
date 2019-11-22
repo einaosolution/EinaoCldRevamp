@@ -1,0 +1,239 @@
+﻿<!--Reference to jQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!--Reference to Bootstrap core JavaScript-->
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<!--config-->
+
+<style>
+    #submitButton.nohover:hover {
+        border: 0;        background: #ff7800;        width: 500px;        padding: 8px 10px;        text-transform: capitalize;        font-weight: 100;
+ 
+    }
+</style>
+<script>
+    function close() {
+        alert(":");
+    }
+    var apiUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiAPI"]';
+var APIBaseURL = '@System.Configuration.ConfigurationManager.AppSettings["APIBaseURL"]';
+
+</script>
+
+<div class="alert alert-primary alert-dismissible fade show" id="successful" data-delay="100" style="80%">
+    <strong></strong> <div id="messageSpan"></div>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+
+<div class="alert alert-danger  alert-dismissible fade show" id="fail" data-delay="100" style="80%">
+    <strong></strong> <div id="messageSpanError"></div>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+
+<!-- login modal content -->
+<div class="modal-content" id="login-modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+        <h2>
+            Hello. Welcome back
+            @Html.Partial("~/Views/Shared/pageLoader.cshtml")
+        
+        </h2>
+        <form id="Login-Form" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="UserName" placeholder="Email " value="">
+                <label class="float__label">Email</label>
+                <span id="UserNameSpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="Password" placeholder="Password" value="">
+                <label class="float__label">Password</label>
+                <span id="PasswordSpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+            </div>
+            <div class="form-group checkbox">
+                <label class="filled-in">
+                    Remember Me
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <button id="submitLogin" class="btn btn-outline-primary">Login</button>
+
+        </form>
+    </div>
+    <div class="modal-footer text-center">
+        <div>
+            <a id="FPModal" href="javascript:void(0);">Forgot Password?</a>
+            <p>New to Iponigeria?</p>
+            <a id="signupModal" href="javascript:void(0);"> Sign Up here</a>
+        </div>
+    </div>
+
+</div>
+<!-- login modal content -->
+<!-- signup modal content -->
+
+<div class="modal-content" id="signup-modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+        <h2>Welcome to Iponigeria <span>Individual/Corporate Sign Up </span></h2>
+        <br>
+        <form id="Signin-Form" role="form">
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="FirstName" placeholder="First Name" required>
+                <label class="float__label">First Name</label>
+                <span id="FirstNameSpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Last Name" id="LastName" required>
+                <label class="float__label">Last Name</label>
+                <span id="LastNameSpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email" id="Email" required>
+                <label class="float__label">Email</label>
+                <span id="EmailSpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+            </div>
+
+            <div class="form-group">
+                <select type="text" class="form-control" name="CategoryType" id="CategoryType">
+                    <option value=""> Select Option </option>
+                    <option value="1"> Applicant/Individual </option>
+                    <option value="2"> Corporate/Agent </option>
+
+                </select>
+                <span id="CategorySpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+                <label class="float__label">Category</label>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="AcceptTerms" id="AcceptTerms">
+                        <label class="custom-control-label" for="AcceptTerms" style="color:wheat">I have read and agree to the <a href="" style="color:black" data-toggle="modal" data-target="#terms">Terms & Condition</a></label>
+
+                    </div>
+                </div>
+            </div>
+            <button class="btn" id="submitButton" style=" border: 0;        background: #ff7800; width: 100%; padding: 8px 10px;text-transform: capitalize; font-weight: 100;" name="submitButton">Register</button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <p class="w-100">Already have an account? <a id="loginModal" href="javascript:void(0);"> Login</a></p>
+    </div>
+</div>
+<!-- signup modal content -->
+<!-- forgot password content -->
+<div class="modal-content" id="forgot-password-modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    </div>
+    <div class="modal-body">
+        <h2>Reset Your Password</h2>
+        <form id="Forgot-Password-Form" role="form">
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email" id="ForgetPasswordEmail">
+                <label class="float__label">Email</label>
+                <span id="ForgetPasswordSpan" style="font-family:FontAwesome;font-style:normal;font-weight:600;speak:none;display:inline-block;color: #D8000C;background-color: #FFD2D2;"></span>
+
+            </div>
+
+            <button id="btnForgetPassword" class="btn btn-default">Get Password</button>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <p class="w-100">I remember now? <a id="loginModal1" href="javascript:void(0);"><span>LogIn</span></div></a></p>
+    </div>
+
+<div class="modal fade" id="terms" style="background-color:white;color:black;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;font-weight:bold" id="exampleModalLongTitle">Terms & Condition</h5>
+
+                </div>
+                <div class="modal-body">
+                    <div style="height: 500px;overflow-y: auto;">
+
+                        <p style="text-align:justify">
+                            (this should be replace before go live or remove if not accepted by the)
+                            CONTRACT TERMS & CONDITIONS
+
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+                            It is agreed that this contract shall be construed in accordance with the laws of Nigeria
+                            and the execution hereof shall be deemed to have taken place within Nigeria. Each
+                            party hereby agrees that jurisdiction for the resolution of any dispute shall be in the
+                            Courts of the Federal Republic of Nigeria.<br><br>
+
+                        </p>
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="submitClose" onclick="close()">Close</button>
+
+                    </div>
+                </div>
+        </div>
+        </div>
+   
+<script>
+    $('#AcceptTerms').change(function () {
+        
+        $('#submitButton').attr('disabled', !this.checked);
+        if (this.checked == false) {
+            $('#submitButton').css("background-color", "#0e6267");
+        }
+        else {
+            $('#submitButton').css("background-color", "#ff7801");
+        }
+    
+    }).change();
+
+</script>
+
+<!-- forgot password content -->
