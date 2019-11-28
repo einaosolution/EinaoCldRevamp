@@ -722,13 +722,7 @@ let count = i + 1;
      html2canvas(document.getElementById('report')).then(function(canvas) {
 
       const context = canvas.getContext('2d');
-context.scale(2, 2);
-context['dpi'] = 144;
-context['imageSmoothingEnabled'] = false;
-context['mozImageSmoothingEnabled'] = false;
-context['oImageSmoothingEnabled'] = false;
-context['webkitImageSmoothingEnabled'] = false;
-context['msImageSmoothingEnabled'] = false;
+
       // alert(self)
       var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
      //  var img = canvas.toDataURL("image/png");

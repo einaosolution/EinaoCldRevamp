@@ -1,71 +1,60 @@
+ <div [ngBusy]="busy"></div>
+
+
 <div *ngIf="trademarkregistra">
-<div class="card-group">
-  <!-- Card -->
+  <div>
+    <div class="Container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                    <div style="background-color: #70AD47; color: #ffffff" class="grid-style" >
+                      <p class="d-flex justify-content-end">{{tempuserapprovalcount| number}}</p>
+                      <h6 class="d-flex justify-content-end">Approve User </h6>
 
-  <div class="card" (click) ="approveuser()">
-      <div class="card-body">
-          <div class="d-flex align-items-center">
-              <div class="m-r-10">
-                  <span class="btn btn-circle btn-lg bg-success">
-                      <i class="ti-clipboard text-white"></i>
-                  </span>
-              </div>
-              <div>
-                Approve User
-              </div>
-              <div class="ml-auto">
-                  <h2 class="m-b-0 font-light">{{tempuserapprovalcount}}</h2>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- Card -->
-  <!-- Card -->
-  <div class="card" (click) ="userappeal()">
-      <div class="card-body">
-          <div class="d-flex align-items-center">
-              <div class="m-r-10">
-                  <span class="btn btn-circle btn-lg bg-success">
-                      <i class="ti-wallet text-white"></i>
-                  </span>
-              </div>
-              <div>
-                 User Appeal
-              </div>
-              <div class="ml-auto">
-                  <h2 class="m-b-0 font-light">{{appealCount}}</h2>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- Card -->
-  <!-- Card -->
-  <div class="card" (click) ="receiveappeal()">
-      <div class="card-body">
-          <div class="d-flex align-items-center">
-              <div class="m-r-10">
-                  <span class="btn btn-circle btn-lg bg-success">
-                      <i class="ti-shopping-cart text-white"></i>
-                  </span>
-              </div>
-              <div>
-                Receive Appeal
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                    <div class="grid-style" style="background-color: #ED7D31; color: #ffffff">
+                      <p class="d-flex justify-content-end">{{appealCount| number}}</p>
+                      <h6 class="d-flex justify-content-end">User Appeal</h6>
 
-              </div>
-              <div class="ml-auto">
-                  <h2 class="m-b-0 font-light">{{ReceiveappealCount}}</h2>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- Card -->
-  <!-- Card -->
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                    <div class="grid-style" style="background-color: #5B9BD5; color: white;">
+                      <p class="d-flex justify-content-end">{{ReceiveappealCount| number}}</p>
+                      <h6 class="d-flex justify-content-end">Receive Appeal</h6>
 
-  <!-- Card -->
-  <!-- Column -->
+                    </div>
+                </div>
 
-  <div [ngBusy]="busy"></div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                  <div class="grid-style" style="background-color: #EF4836; color: white;">
+                    <p class="d-flex justify-content-end">{{ReceiveappealCount + appealCount + tempuserapprovalcount | number}}</p>
+                    <h6 class="d-flex justify-content-end">Total Pending</h6>
+
+                  </div>
+              </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                    <div>
+                       <div id="chartdiv" style="width: 100%; height: 500px"  ></div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                    <div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
+
+
+<!--<div id="chartdiv" style="width: 100%; height: 500px"  *ngIf="trademarkregistra"></div> -->
 <!-- ============================================================== -->
 <!-- Info box -->
 <!-- ============================================================== -->
@@ -80,111 +69,58 @@
 <!-- Top Selliing Products -->
 <!-- ============================================================== -->
 
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-body">
-
-                <div class="d-md-flex align-items-center">
-                    <div>
-                        <h4 class="card-title">Number Of Officer Per Unit</h4>
-
-                    </div>
-                    <div class="ml-auto">
-
-                    </div>
-                </div>
-
-                <div style="display: block;">
-                    <canvas baseChart  height="100"  *ngIf="bb"
-                      [datasets]="barChartData"
-                      [labels]="barChartLabels"
-                      [options]="barChartOptions"
-                      [colors]="barColors2"
-                      [plugins]="barChartPlugins"
-                      [legend]="barChartLegend"
-                      [chartType]="barChartType">
-                    </canvas>
-                  </div>
-                <!-- title -->
-
-                <!-- title -->
-            </div>
-
-            </div>
-    </div>
-</div>
-</div>
 
 
 <div *ngIf="patentregistra">
-  <div class="card-group">
-    <!-- Card -->
+  <div>
+    <div class="Container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                    <div style="background-color: #70AD47; color: #ffffff" class="grid-style" >
+                      <p class="d-flex justify-content-end">{{tempuserapprovalcount| number}}</p>
+                      <h6 class="d-flex justify-content-end">Approve User </h6>
 
-    <div class="card" (click) ="approveuser()">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <div class="m-r-10">
-                    <span class="btn btn-circle btn-lg bg-success">
-                        <i class="ti-clipboard text-white"></i>
-                    </span>
+                    </div>
                 </div>
-                <div>
-                  Approve User
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                    <div class="grid-style" style="background-color: #ED7D31; color: #ffffff">
+                      <p class="d-flex justify-content-end">{{patentappealCount| number}}</p>
+                      <h6 class="d-flex justify-content-end">User Appeal</h6>
+
+                    </div>
                 </div>
-                <div class="ml-auto">
-                    <h2 class="m-b-0 font-light">{{tempuserapprovalcount}}</h2>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                    <div class="grid-style" style="background-color: #5B9BD5; color: white;">
+                      <p class="d-flex justify-content-end">{{PatentTreatedAppealCount| number}}</p>
+                      <h6 class="d-flex justify-content-end">Receive Appeal</h6>
+
+                    </div>
                 </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                  <div class="grid-style" style="background-color: #EF4836; color: white;">
+                    <p class="d-flex justify-content-end">{{PatentTreatedAppealCount + patentappealCount + tempuserapprovalcount | number}}</p>
+                    <h6 class="d-flex justify-content-end">Total Pending</h6>
+
+                  </div>
+              </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                    <div>
+                       <div id="chartdiv2" style="width: 100%; height: 500px"  ></div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                    <div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- Card -->
-    <!-- Card -->
-    <div class="card" (click) ="assignappeal()">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <div class="m-r-10">
-                    <span class="btn btn-circle btn-lg bg-success">
-                        <i class="ti-wallet text-white"></i>
-                    </span>
-                </div>
-                <div>
-                  Assign  Appeal
-                </div>
-                <div class="ml-auto">
-                    <h2 class="m-b-0 font-light">{{patentappealCount}}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Card -->
-    <!-- Card -->
-    <div class="card" (click) ="receiveappeal2()">
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <div class="m-r-10">
-                    <span class="btn btn-circle btn-lg bg-success">
-                        <i class="ti-shopping-cart text-white"></i>
-                    </span>
-                </div>
-                <div>
-                  Receive  Appeal
 
-                </div>
-                <div class="ml-auto">
-                    <h2 class="m-b-0 font-light">{{PatentTreatedAppealCount}}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Card -->
-    <!-- Card -->
 
-    <!-- Card -->
-    <!-- Column -->
 
-    <div [ngBusy]="busy"></div>
-  </div>
   <!-- ============================================================== -->
   <!-- Info box -->
   <!-- ============================================================== -->
@@ -199,159 +135,63 @@
   <!-- Top Selliing Products -->
   <!-- ============================================================== -->
 
-  <div class="row">
-      <div class="col-sm-12">
-          <div class="card">
-              <div class="card-body">
 
-                  <div class="d-md-flex align-items-center">
-                      <div>
-                          <h4 class="card-title">Number Of Officer Per Unit</h4>
-
-                      </div>
-                      <div class="ml-auto">
-
-                      </div>
-                  </div>
-
-                  <div style="display: block;">
-                      <canvas baseChart  height="100"  *ngIf="bb2"
-                        [datasets]="barChartData2"
-                        [labels]="barChartLabels"
-                        [options]="barChartOptions"
-                        [colors]="barColors2"
-                        [plugins]="barChartPlugins"
-                        [legend]="barChartLegend"
-                        [chartType]="barChartType">
-                      </canvas>
-                    </div>
-                  <!-- title -->
-
-                  <!-- title -->
-              </div>
-
-              </div>
-      </div>
   </div>
-  </div>
+
+
 
 
   <div *ngIf="designregistra">
-    <div class="card-group">
-      <!-- Card -->
 
-      <div class="card" (click) ="approveuser()">
-          <div class="card-body">
-              <div class="d-flex align-items-center">
-                  <div class="m-r-10">
-                      <span class="btn btn-circle btn-lg bg-success">
-                          <i class="ti-clipboard text-white"></i>
-                      </span>
-                  </div>
-                  <div>
-                    Approve User
-                  </div>
-                  <div class="ml-auto">
-                      <h2 class="m-b-0 font-light">{{tempuserapprovalcount}}</h2>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Card -->
-      <!-- Card -->
-      <div class="card" (click) ="assignappeal2()">
-          <div class="card-body">
-              <div class="d-flex align-items-center">
-                  <div class="m-r-10">
-                      <span class="btn btn-circle btn-lg bg-success">
-                          <i class="ti-wallet text-white"></i>
-                      </span>
-                  </div>
-                  <div>
-                    Assign  Appeal
-                  </div>
-                  <div class="ml-auto">
-                      <h2 class="m-b-0 font-light">{{designappealCount}}</h2>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Card -->
-      <!-- Card -->
-      <div class="card" (click) ="receiveappeal3()">
-          <div class="card-body">
-              <div class="d-flex align-items-center">
-                  <div class="m-r-10">
-                      <span class="btn btn-circle btn-lg bg-success">
-                          <i class="ti-shopping-cart text-white"></i>
-                      </span>
-                  </div>
-                  <div>
-                    Receive  Appeal
 
-                  </div>
-                  <div class="ml-auto">
-                      <h2 class="m-b-0 font-light">{{DesignTreatedAppealCount}}</h2>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Card -->
-      <!-- Card -->
 
-      <!-- Card -->
-      <!-- Column -->
-
-      <div [ngBusy]="busy"></div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- Info box -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Email campaign chart -->
-    <!-- ============================================================== -->
-
-    <!-- ============================================================== -->
-    <!-- Email campaign chart -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Top Selliing Products -->
-    <!-- ============================================================== -->
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-
-                    <div class="d-md-flex align-items-center">
-                        <div>
-                            <h4 class="card-title">Number Of Officer Per Unit</h4>
+      <div>
+        <div class="Container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                        <div style="background-color: #70AD47; color: #ffffff" class="grid-style" >
+                          <p class="d-flex justify-content-end">{{tempuserapprovalcount| number}}</p>
+                          <h6 class="d-flex justify-content-end">Approve User </h6>
 
                         </div>
-                        <div class="ml-auto">
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                        <div class="grid-style" style="background-color: #ED7D31; color: #ffffff">
+                          <p class="d-flex justify-content-end">{{designappealCount| number}}</p>
+                          <h6 class="d-flex justify-content-end">User Appeal</h6>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                        <div class="grid-style" style="background-color: #5B9BD5; color: white;">
+                          <p class="d-flex justify-content-end">{{DesignTreatedAppealCount| number}}</p>
+                          <h6 class="d-flex justify-content-end">Receive Appeal</h6>
 
                         </div>
                     </div>
 
-                    <div style="display: block;">
-                        <canvas baseChart  height="100"  *ngIf="bb3"
-                          [datasets]="barChartData3"
-                          [labels]="barChartLabels"
-                          [options]="barChartOptions"
-                          [colors]="barColors2"
-                          [plugins]="barChartPlugins"
-                          [legend]="barChartLegend"
-                          [chartType]="barChartType">
-                        </canvas>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  >
+                      <div class="grid-style" style="background-color: #EF4836; color: white;">
+                        <p class="d-flex justify-content-end">{{DesignTreatedAppealCount + designappealCount + tempuserapprovalcount | number}}</p>
+                        <h6 class="d-flex justify-content-end">Total Pending</h6>
+
                       </div>
-                    <!-- title -->
+                  </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                        <div>
+                           <div id="chartdiv3" style="width: 100%; height: 500px"  ></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                        <div>
 
-                    <!-- title -->
-                </div>
+                        </div>
+                    </div>
 
                 </div>
+            </div>
         </div>
-    </div>
+
     </div>
 
 

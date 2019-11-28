@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -81,6 +81,7 @@ import { PatentSearchKivComponent } from '../patent-search-kiv/patent-search-kiv
 import { Invoice3Component } from '../invoice3/invoice3.component';
 import { PatentRegistraCertificateComponent } from '../patent-registra-certificate/patent-registra-certificate.component';
 import { Patentregistracertificate2Component } from '../patentregistracertificate2/patentregistracertificate2.component';
+import { PatentPreviewComponent } from '../patent-preview/patent-preview.component';
 
 
 
@@ -284,7 +285,8 @@ const routes: Routes = [
     PatentSearchKivComponent,
     Invoice3Component,
     PatentRegistraCertificateComponent,
-    Patentregistracertificate2Component
+    Patentregistracertificate2Component,
+    PatentPreviewComponent
 
 
 
@@ -331,6 +333,7 @@ const routes: Routes = [
 
 
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ] ,
   providers: [],
 
 })

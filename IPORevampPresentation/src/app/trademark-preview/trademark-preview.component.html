@@ -1,0 +1,131 @@
+
+
+       <table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                                               <tbody>
+                                                  <tr>
+                                                     <td width="269" style="width:250px"><strong>FILLING/APPLICATION DATE :&nbsp;</strong></td>
+                                                     <td width="217">{{row2.filingDate|date}}</td>
+                                                     <td width="241"><span style="width:250px"><strong>REGISTRATION NUMBER : </strong></span></td>
+                                                     <td width="260"> {{row2.filenumber}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>SYSTEM APPLICATION NUMBER:</strong></td>
+                                                     <td>OAI/TM/{{row2.transactionid}} </td>
+                                                     <td><strong>NAME : </strong></td>
+                                                     <td>{{row2.applicantName}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TELEPHONE:</strong></td>
+                                                     <td>{{row2.phonenumber}}</td>
+                                                     <td><strong>E-MAIL:</strong></td>
+                                                     <td>{{row2.email}}</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000"> TRADEMARK INFORMATION </h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TRADEMARK TYPE : </strong></td>
+                                                     <td>{{row2.trademarktype}}</td>
+                                                     <td><strong>LOGO DESCRIPTION :&nbsp; </strong></td>
+                                                     <td>{{row2.applicationclass}} </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TRADEMARK :&nbsp;&nbsp; </strong></td>
+                                                     <td>{{row2.productTitle}} </td>
+                                                     <td><strong>DESCRIPTION OF SPECIFICATION OF GOODS/SERVICES :&nbsp;&nbsp;</strong></td>
+                                                     <td>{{row2.classdescription}}</td>
+                                                  </tr>
+
+
+
+                                                  <tr>
+                                                      <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>PREVIOUS COMMENT </strong></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                       <td colspan="4">
+                                                          <table  class="table"   width="100%">
+                      <tr>
+                          <th>Treated By</th>
+                          <th>Comment</th>
+                          <th>Upload</th>
+                          <th>Role</th>
+                        </tr>
+
+
+                                                <tr *ngFor="let val of row4 " >
+
+
+
+
+                                                  <td> {{val.users}}</td>
+
+                                                  <td> {{val.comments}}</td>
+
+
+                                                  <td>  <a *ngIf="val.uploadPath" target="_blank" href="{{filepath}}Upload/{{val.uploadPath}}">View</a></td>
+
+
+                                                  <td>{{val.role}} </td>
+                                                </tr>
+                                              </table>                                                  </td>
+                                                    </tr>
+
+
+
+
+
+
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000">PAYMENT INFORMATION </h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td><strong>TRANSACTION ID : </strong></td>
+                                                     <td>{{row2.transactionid}} </td>
+                                                     <td>&nbsp;</td>
+                                                     <td>&nbsp;</td>
+                                                  </tr>
+                                                  <tr>
+                                                     <td colspan="4" align="center">
+                                                        <h4 class="card-title" style="color:#FF0000">SUPPORTING DOCUMENTS </h4>
+                                                     </td>
+                                                  </tr>
+                                                  <tr *ngIf="vshow">
+                                                     <td  *ngIf="row2.logo_pic "><strong>
+                                                        IMAGE:                                </strong>
+                                                     </td>
+                                                     <td *ngIf="row2.logo_pic" >
+                                                        <a href="{{filepath}}Upload/{{row2.logo_pic}}">View</a>
+                                                     </td>
+                                                     <td  *ngIf="row2.auth_doc "><strong>
+                                                        AUTHORIZATION:                                </strong>
+                                                     </td>
+                                                     <td *ngIf="row2.auth_doc " >
+                                                        <a href="{{filepath}}Upload/{{row2.auth_doc}}">View</a>
+                                                     </td>
+                                                  </tr>
+                                                  <tr *ngIf="vshow">
+                                                     <td  *ngIf="row2.sup_doc1 "><strong>
+                                                        DOCUMENT 1:                                </strong>
+                                                     </td>
+                                                     <td *ngIf="row2.sup_doc1 " >
+                                                        <a href="{{filepath}}Upload/{{row2.sup_doc1}}">View</a>
+                                                     </td>
+                                                     <td *ngIf="row2.sup_doc2 " ><strong> DOCUMENT&nbsp; 2: </strong></td>
+                                                     <td  *ngIf="row2.sup_doc2 "  >
+                                                        <a href="{{filepath}}Upload/{{row2.sup_doc2}}">View</a>
+                                                     </td>
+                                                  </tr>
+                                               </tbody>
+                                            </table>
+
+
+
+
+
+
+
+

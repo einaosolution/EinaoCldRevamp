@@ -40,6 +40,7 @@ export class DesignPaidCertificateComponentComponent implements OnInit {
   dataTable: any;
   savemode:boolean = true;
   updatemode:boolean = false;
+  public coapplicant  = [];
   userform: FormGroup;
   submitted:boolean=false;
   busy: Promise<any>;

@@ -161,6 +161,10 @@ export class Invoice3Component implements OnInit {
   //  doc.addImage(img, 'JPEG', 0, 0, width, height);
     doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
 
+    doc.addFont('verdana', 'verdana', 'normal');
+    doc.setFont('verdana', 'normal')
+    doc.setFontSize(12)
+
   //  doc.addImage(img,0,0,canvas.width, canvas.height);
 
 
@@ -245,6 +249,9 @@ export class Invoice3Component implements OnInit {
 
   //  doc.addImage(img, 'JPEG', 0, 0, width, height);
     doc.addImage(img, 'JPEG', 0, 0, width,  canvas.height);
+    doc.addFont('verdana', 'verdana', 'normal');
+    doc.setFont('verdana', 'normal')
+    doc.setFontSize(12)
 
   //  doc.addImage(img,0,0,canvas.width, canvas.height);
 

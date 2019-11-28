@@ -510,430 +510,249 @@
 
                     <div class="Container">
 
-                             <table  class="table-grid"  *ngIf="savemode"    align="center" >
-                            <!--    <table  class="table form"   width="100%"  *ngIf="savemode3" >  -->
-
-
-                                  <tr >
-                                       <td width="22%" colspan="2" class="tbbg" align="center">
-                                           <strong>DATA DETAILS FOR {{row500.designInformation[0].titleOfDesign.toUpperCase()}}</strong></td>
-                                   </tr>
-                                    <tr>
-                                       <td align="right">
-                                           &nbsp;PATENT TYPE :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           {{row500.designInformation[0].designType.description                   }}
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-                                  <tr>
-                                       <td  align="right">
-                                           &nbsp;TITLE OF INVENTION  :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           {{row500.designInformation[0].titleOfDesign}}
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-
-                                    <tr>
-                                       <td  align="right">
-                                           &nbsp;CLASS  :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           {{row500.designInformation[0].nationClassID}}
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-                            <tr>
-                                       <td  align="right">
-                                           &nbsp;DESCRIPTION :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           {{row500.designInformation[0].designDescription}}
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-                             <tr>
-                                       <td align="right">
-                                           &nbsp;ASSIGNEE NAME&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           {{row500.designAssignment[0].assigneeName}}
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-                           <tr>
-                                       <td align="right">
-                                           &nbsp;ASSIGNEE ADDRESS :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           {{row500.designAssignment[0].assigneeAddress  }}
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-                                   <tr>
-                                    <td align="right">
-                                        &nbsp;ASSIGNEE NATIONALITY :&nbsp;&nbsp;
-                                    </td>
-                                    <td>
-                                        {{row500.designAssignment[0].assigneeNationality2.name}}
-                                       &nbsp;
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                  <td align="right" >
-                                      &nbsp;ASSIGNOR NAME :&nbsp;&nbsp;
-                                  </td>
-                                  <td>
-                                      {{row500.designAssignment[0].assignorName         }}
+                        <table *ngIf="savemode" class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                            <tbody>
+                               <tr>
+                                  <td width="269" style="width:250px"><strong>&nbsp;DESIGN TYPE :&nbsp;</strong></td>
+                                  <td width="217">{{row500.designInformation[0].designType.description }}</td>
+                                  <td width="241"><span style="width:250px"><strong>CLASS : </strong></span></td>
+                                  <td width="260">{{row500.designInformation[0].nationClassID }}</td>
+                               </tr>
+                               <tr>
+                                  <td><strong>TITLE OF INVENTION:</strong></td>
+                                  <td>{{row500.designInformation[0].titleOfDesign }}</td>
+                                  <td><strong>DESCRIPTION : </strong></td>
+                                  <td>{{row500.designInformation[0].designDescription }}</td>
+                               </tr>
+                               <tr>
+                                  <td><strong>ASSIGNEE NAME:</strong></td>
+                                  <td>{{row500.designAssignment[0].assigneeName }}
                                      &nbsp;
                                   </td>
-                              </tr>
-
-                              <tr>
-                                <td align="right">
-                                    &nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    {{row500.designAssignment[0].assignorAddress}}
-                                   &nbsp;
-                                </td>
-                            </tr>
-
-                            <tr>
-                              <td  align="right">
-                                  &nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp;
-                              </td>
-                              <td>
-                                  {{row500.designAssignment[0].assignorNationality2.name}}
-                                 &nbsp;
-                              </td>
-                          </tr>
-                          <tr>
-                              <td class="tbbg" colspan="2" align="center">
-                                  --- INVENTOR INFORMATION  ---</td>
-                          </tr>
-
-
-
-                          <tr>
-
-                            <td colspan="2" >
-
-                                <table  class="table"   width="100%">
-
-
-                                    <thead>
-
-
-                                        <tr>
-
-                                          <th>Name Of Invention </th>
-                                          <th>Address</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Nationality</th>
-
-
-
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-
-
-                                          <tr *ngFor="let emp of row500.designInvention  let i = index">
-
-
-
-                                               <td>{{emp.inventorName}}</td>
-                                               <td>{{emp.inventorAddress}}</td>
+                                  <td><strong>ASSIGNEE ADDRESS:</strong></td>
+                                  <td>{{row500.designAssignment[0].assigneeAddress  }} </td>
+                               </tr>
+                               <tr>
+                                  <td><strong>ASSIGNEE NATIONALITY:</strong></td>
+                                  <td>{{row500.designAssignment[0].assigneeNationality2.name}}
+                                     &nbsp;
+                                  </td>
+                                  <td><strong>&nbsp;ASSIGNOR NAME:</strong></td>
+                                  <td>{{row500.designAssignment[0].assignorName  }}
+                                     &nbsp;
+                                  </td>
+                               </tr>
+                               <tr>
+                                  <td><strong>ASSIGNOR ADDRESS:</strong></td>
+                                  <td>{{row500.designAssignment[0].assignorAddress}}</td>
+                                  <td><strong>&nbsp;ASSIGNOR NATIONALITY:</strong></td>
+                                  <td>{{row500.designAssignment[0].assignorNationality2.name}}</td>
+                               </tr>
+                               <tr>
+                                  <td colspan="4" align="center">
+                                     <h4 class="card-title" style="color:#FF0000"> INVENTOR INFORMATION </h4>
+                                  </td>
+                               </tr>
+                               <tr>
+                                  <td colspan="4">
+                                     <table  class="table"   width="100%">
+                                        <thead>
+                                           <tr>
+                                              <th>INVENTOR NAME </th>
+                                              <th>ADDRESS</th>
+                                              <th>PHONE</th>
+                                              <th>EMAIL</th>
+                                              <th><strong>NATIONALITY</strong></th>
+                                           </tr>
+                                        </thead>
+                                        <tbody>
+                                           <tr *ngFor="let emp of row500.designInvention  let i = index">
+                                              <td>{{emp.inventorName}}</td>
+                                              <td>{{emp.inventorAddress}}</td>
                                               <td>  {{emp.inventorMobileNumber}}</td>
                                               <td>  {{emp.inventorEmail}}</td>
                                               <td>{{emp.country.name}}  </td>
+                                           </tr>
+                                        </tbody>
+                                     </table>
+                                  </td>
+                               </tr>
+                               <tr  *ngIf="coApplicant.length > 0 ">
+                                  <td colspan="4" align="center">
+                                     <h4 class="card-title" style="color:#FF0000"> CO APPLICANT INFORMATION  </h4>
+                                  </td>
+                               </tr>
 
 
+                               <tr *ngIf="coApplicant.length > 0 ">
+                                <td colspan="4">
+                                   <table  class="table"   width="100%">
+                                      <thead>
+                                         <tr>
+                                            <th>Full Name  </th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
 
-
-                                              </tr>
-                                            </tbody>
-                                </table>
-
-                            </td>
-
-                        </tr>
-
-                        <tr >
-                          <td class="tbbg" colspan="2" align="center">
-                              --- CO APPLICANT INFORMATION  ---</td>
-                      </tr>
-
-                      <tr >
-                          <td colspan="2" >
-                              <table class="table"  width="100%"   >
-
-                                  <thead>
-
-
-                                      <tr>
-
-                                        <th>Full Name  </th>
-                                        <th>Email</th>
-                                          <th>Phone Number</th>
-
-
-
-
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr *ngFor="let emp of row500.designCoApplicant   let i = index">
-
-
-
-                                             <td>{{emp.fullname}}</td>
-                                             <td>{{emp.email}}</td>
-                                            <td> {{emp.phonenumber }}</td>
-
-
-
-                                            </tr>
-
-
-
-                                          </tbody>
-                              </table>
-
-                          </td>
-
-                      </tr>
-
-                        <tr *ngIf="vshow3">
-                            <td class="tbbg" colspan="2" align="center">
-                                --- PRIORITY INFORMATION  ---</td>
-                        </tr>
-
-                        <tr *ngIf="vshow3">
-                            <td colspan="2" >
-                                <table class="table"  width="100%"   >
-
-                                    <thead>
-
-
-                                        <tr>
-
-                                          <th>ApplicationNumber  </th>
-                                          <th>Registration Date</th>
-                                            <th>Country</th>
-
-
-
-
-                                        </tr>
+                                         </tr>
                                       </thead>
                                       <tbody>
+                                         <tr *ngFor="let emp of row500.designCoApplicant  let i = index">
+                                            <td>{{emp.fullname}}</td>
+                                            <td>{{emp.email}}</td>
+                                            <td>  {{emp.phonenumber}}</td>
 
-                                          <tr *ngFor="let emp of row500.designPriority   let i = index">
+                                         </tr>
+                                      </tbody>
+                                   </table>
+                                </td>
+                             </tr>
 
 
-
-                                               <td>{{emp.applicationNumber}}</td>
-                                               <td>{{emp.registrationDate|date}}</td>
+                               <tr *ngIf="row3.length > 0 ">
+                                  <td colspan="4" align="center">
+                                     <h4 class="card-title" style="color:#FF0000"> PRIORITY INFORMATION  </h4>
+                                  </td>
+                               </tr>
+                               <tr *ngIf="row3.length > 0 ">
+                                  <td colspan="4">
+                                     <table class="table"  width="100%"   >
+                                        <thead>
+                                           <tr>
+                                              <th>APPLICATION DATE </th>
+                                              <th>REGISTRATION DATE </th>
+                                              <th><strong>NATIONALITY</strong></th>
+                                           </tr>
+                                        </thead>
+                                        <tbody>
+                                           <tr *ngFor="let emp of row500.designPriority  let i = index">
+                                              <td>{{emp.applicationNumber}}</td>
+                                              <td>{{emp.registrationDate|date}}</td>
                                               <td>  {{emp.country.name }}</td>
+                                           </tr>
+                                        </tbody>
+                                     </table>
+                                  </td>
+                               </tr>
+                               <tr *ngIf="row5.length > 0 ">
+                                  <td colspan="4" align="center"   >
+                                     <h4 class="card-title" style="color:#FF0000"><span class="tbbg">ADDRESS OF SERVICE</span></h4>
+                                  </td>
+                               </tr>
+                               <tr *ngIf="row5.length > 0 ">
+                                  <td><strong> ATTORNEY CODE: </strong></td>
+                                  <td>row500.designAddressOfService[0].attorneyCode</td>
+                                  <td><strong>ATTORNEY NAME:</strong></td>
+                                  <td>{{row500.designAddressOfService[0].attorneyName}} </td>
+                               </tr>
+                               <tr  *ngIf="row5.length > 0 ">
+                                  <td><strong> ATTORNEY EMAIL: </strong></td>
+                                  <td>{{row500.designAddressOfService[0].email}} </td>
+                                  <td><strong>ATTORNEY PHONE NUMBER:</strong></td>
+                                  <td>{{row500.designAddressOfService[0].phoneNumber}} </td>
+                               </tr>
+                               <tr *ngIf="row5.length > 0 ">
+                                  <td><strong> ATTORNEY STATE: </strong></td>
+                                  <td>{{row500.designAddressOfService[0].state.stateName}} </td>
+                                  <td>&nbsp;</td>
+                                  <td>&nbsp;</td>
+                               </tr>
+
+
+                               <tr>
+                                  <td colspan="4" align="center">
+                                     <h4 class="card-title" style="color:#FF0000"><span class="tbbg">UPLOADED</span> DOCUMENTS </h4>
+                                  </td>
+                               </tr>
+                               <tr  *ngIf="row500.designInformation[0].noveltyStatement">
+                                  <td align="right" >
+                                     <strong>&nbsp;NOVELTY STATEMENT:&nbsp;&nbsp;                                 </strong>
+                                  </td>
+                                  <td colspan="3"  >
+                                     <a  target="_blank"  href="{{filepath}}Upload/{{ row500.designInformation[0].noveltyStatement}}">View Upload</a>
+                                  </td>
+                               </tr>
+                               <tr *ngIf="row500.designInformation[0].deedOfAssignment">
+                                                                 <td align="right" >
+                                                                     &nbsp;Deed Of Assignment :&nbsp;&nbsp;
+                                                                 </td>
+                                                                 <td>
+                                                                     <a  target="_blank"  href="{{filepath}}Upload/{{ row500.designInformation[0].deedOfAssignment}}">View Upload</a>
+                                                                    &nbsp;
+                                                                 </td>
+                                                             </tr>
+
+                                  <tr *ngIf="row500.designInformation[0].letterOfAuthorization && vshow3 ">
+                                                                 <td align="right" >
+                                                                     &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
+                                                                 </td>
+                                                                 <td>
+                                                                     <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
+
+                                                                    &nbsp;
+                                                                 </td>
+                                                             </tr>
+
+
+                                                             <tr *ngIf="row500.designInformation[0].priorityDocument">
+                                                                <td align="right">
+                                                                    &nbsp;PRIORITY DOCUMENT :&nbsp;&nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].priorityDocument}}">View Upload</a>   <br/>
+
+                                                                   &nbsp;
+                                                                </td>
+                                                            </tr>
 
 
 
-                                              </tr>
+                                                            <tr *ngIf="row500.designInformation[0].representationOfDesign1">
+                                                                <td  align="right" >
+                                                                    &nbsp;REPRESENTATION OF DESIGN 1 :&nbsp;&nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign1}}">View Upload</a>   <br/>
+
+                                                                   &nbsp;
+                                                                </td>
+                                                            </tr>
+
+                                                                  <tr *ngIf="row500.designInformation[0].representationOfDesign2">
+                                                                <td  align="right" >
+                                                                    &nbsp;REPRESENTATION OF DESIGN 2 :&nbsp;&nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign2}}">View Upload</a>   <br/>
+
+                                                                   &nbsp;
+                                                                </td>
+                                                            </tr>
 
 
+                                                                  <tr *ngIf="row500.designInformation[0].representationOfDesign3">
+                                                                <td  align="right" >
+                                                                    &nbsp;REPRESENTATION OF DESIGN 3 :&nbsp;&nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign3}}">View Upload</a>   <br/>
 
-                                            </tbody>
-                                </table>
+                                                                   &nbsp;
+                                                                </td>
+                                                            </tr>
 
-                            </td>
+                                                                                  <tr *ngIf="row500.designInformation[0].representationOfDesign4">
+                                                                <td  align="right" >
+                                                                    &nbsp;REPRESENTATION OF DESIGN 4 :&nbsp;&nbsp;
+                                                                </td>
+                                                                <td>
+                                                                    <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign4}}">View Upload</a>   <br/>
 
-                        </tr>
+                                                                   &nbsp;
+                                                                </td>
+                                                            </tr>
+                            </tbody>
+                          </table>
 
-
-<tr *ngIf="vshow3">
-                          <td class="tbbg" colspan="2" align="center">
-                              --- ADDRESS OF SERVICE  ---</td>
-                      </tr>
-
-
-                      <tr *ngIf="vshow3"  >
-                        <td align="right">
-                            &nbsp;Attorney Code:&nbsp;&nbsp;
-                        </td>
-                        <td>
-
-                         {{row500.designAddressOfService[0].attorneyCode}}
-
-                        </td>
-                    </tr>
-
-                    <tr *ngIf="vshow3"  >
-                      <td align="right" >
-                          &nbsp;Attorney Name:&nbsp;&nbsp;
-                      </td>
-                      <td>
-
-                        {{row500.designAddressOfService[0].attorneyName}}
-
-
-                      </td>
-                  </tr>
-
-                  <tr  *ngIf="vshow3" >
-                    <td align="right">
-                        &nbsp;Email:&nbsp;&nbsp;
-                    </td>
-                    <td>
-
-                      {{row500.designAddressOfService[0].email}}
-
-
-
-                    </td>
-                </tr>
-
-                <tr  *ngIf="vshow3">
-                  <td align="right" >
-                      &nbsp;Phone Number:&nbsp;&nbsp;
-                  </td>
-                  <td>
-
-                    {{row500.designAddressOfService[0].phoneNumber}}
-
-
-
-
-                  </td>
-              </tr>
-
-
-              <tr *ngIf="vshow3" >
-                <td align="right" >
-                    &nbsp;State:&nbsp;&nbsp;
-                </td>
-                <td>
-
-                  {{row500.designAddressOfService[0].state.stateName}}
-
-
-
-
-                </td>
-            </tr>
-
-
-             <tr>
-                            <td class="tbbg" colspan="2" align="center">
-                                --- UPLOADS  ---</td>
-                        </tr>
-
-                          <tr  *ngIf="row500.designInformation[0].noveltyStatement">
-                                       <td align="right">
-                                           &nbsp;NOVELTY STATEMENT:&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{ row500.designInformation[0].noveltyStatement}}">View Upload</a>
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-         <tr *ngIf="row500.designInformation[0].deedOfAssignment">
-                                       <td align="right" >
-                                           &nbsp;Deed Of Assignment :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           <a  target="_blank"  href="{{filepath}}Upload/{{ row500.designInformation[0].deedOfAssignment}}">View Upload</a>
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-        <tr *ngIf="row500.designInformation[0].letterOfAuthorization && vshow3 ">
-                                       <td align="right" >
-                                           &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
-                                       </td>
-                                       <td>
-                                           <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
-
-                                          &nbsp;
-                                       </td>
-                                   </tr>
-
-
-                                   <tr *ngIf="row500.designInformation[0].priorityDocument">
-                                      <td align="right">
-                                          &nbsp;PRIORITY DOCUMENT :&nbsp;&nbsp;
-                                      </td>
-                                      <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].priorityDocument}}">View Upload</a>   <br/>
-
-                                         &nbsp;
-                                      </td>
-                                  </tr>
-
-
-
-                                  <tr *ngIf="row500.designInformation[0].representationOfDesign1">
-                                      <td  align="right" >
-                                          &nbsp;REPRESENTATION OF DESIGN 1 :&nbsp;&nbsp;
-                                      </td>
-                                      <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign1}}">View Upload</a>   <br/>
-
-                                         &nbsp;
-                                      </td>
-                                  </tr>
-
-                                        <tr *ngIf="row500.designInformation[0].representationOfDesign2">
-                                      <td  align="right" >
-                                          &nbsp;REPRESENTATION OF DESIGN 2 :&nbsp;&nbsp;
-                                      </td>
-                                      <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign2}}">View Upload</a>   <br/>
-
-                                         &nbsp;
-                                      </td>
-                                  </tr>
-
-
-                                        <tr *ngIf="row500.designInformation[0].representationOfDesign3">
-                                      <td  align="right" >
-                                          &nbsp;REPRESENTATION OF DESIGN 3 :&nbsp;&nbsp;
-                                      </td>
-                                      <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign3}}">View Upload</a>   <br/>
-
-                                         &nbsp;
-                                      </td>
-                                  </tr>
-
-                                                        <tr *ngIf="row500.designInformation[0].representationOfDesign4">
-                                      <td  align="right" >
-                                          &nbsp;REPRESENTATION OF DESIGN 4 :&nbsp;&nbsp;
-                                      </td>
-                                      <td>
-                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.designInformation[0].representationOfDesign4}}">View Upload</a>   <br/>
-
-                                         &nbsp;
-                                      </td>
-                                  </tr>
-
-
-
-       </table>
 
       </div>
 
@@ -1001,10 +820,12 @@
 
                             <tr>
                              <td *ngIf="!settingoff">
+                                <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
                                 <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
                              </td>
 
                              <td *ngIf="settingoff">
+                                <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
                               <button *ngIf="checkboxFlag"  (click) ="onSubmit33()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Offline Payment</button>
                            </td>
 

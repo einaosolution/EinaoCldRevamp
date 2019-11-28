@@ -1,0 +1,249 @@
+<table class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+  <tbody>
+     <tr>
+        <td width="269" style="width:250px"><strong>&nbsp;DESIGN TYPE :&nbsp;</strong></td>
+        <td width="217">{{row4.designType}}</td>
+        <td width="241"><span style="width:250px"><strong>CLASS : </strong></span></td>
+        <td width="260">{{row4.nationClassID }}</td>
+     </tr>
+     <tr>
+        <td><strong>TITLE OF INVENTION:</strong></td>
+        <td>{{row4.titleOfInvention }}</td>
+        <td><strong>DESCRIPTION : </strong></td>
+        <td>{{row4.designDescription }}</td>
+     </tr>
+     <tr>
+        <td><strong>ASSIGNEE NAME:</strong></td>
+        <td>{{row4.assigneeName }}
+           &nbsp;
+        </td>
+        <td><strong>ASSIGNEE ADDRESS:</strong></td>
+        <td>{{row4.assigneeAddress  }} </td>
+     </tr>
+     <tr>
+        <td><strong>ASSIGNEE NATIONALITY:</strong></td>
+        <td>{{row4.assigneeCountry}}
+           &nbsp;
+        </td>
+        <td><strong>&nbsp;ASSIGNOR NAME:</strong></td>
+        <td>{{row4.assignorName }}
+           &nbsp;
+        </td>
+     </tr>
+     <tr>
+        <td><strong>ASSIGNOR ADDRESS:</strong></td>
+        <td>{{row4.assignorAddress}}</td>
+        <td><strong>&nbsp;ASSIGNOR NATIONALITY:</strong></td>
+        <td>{{row4.assignorCountry}}</td>
+     </tr>
+     <tr>
+        <td colspan="4" align="center">
+           <h4 class="card-title" style="color:#FF0000"> INVENTOR INFORMATION </h4>
+        </td>
+     </tr>
+     <tr>
+        <td colspan="4">
+           <table  class="table"   width="100%">
+              <thead>
+                 <tr>
+                    <th>INVENTOR NAME </th>
+                    <th>ADDRESS</th>
+                    <th>PHONE</th>
+                    <th>EMAIL</th>
+                    <th><strong>NATIONALITY</strong></th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let emp of row2  let i = index">
+                    <td>{{emp.inventorName}}</td>
+                    <td>{{emp.inventorAddress}}</td>
+                    <td>  {{emp.inventorMobileNumber}}</td>
+                    <td>  {{emp.inventorEmail}}</td>
+                    <td>{{emp.country.name}}  </td>
+                 </tr>
+              </tbody>
+           </table>
+        </td>
+     </tr>
+     <tr  *ngIf="coapplicant.length > 0 ">
+        <td colspan="4" align="center">
+           <h4 class="card-title" style="color:#FF0000"> CO APPLICANT INFORMATION  </h4>
+        </td>
+     </tr>
+
+
+     <tr *ngIf="coapplicant.length > 0 ">
+      <td colspan="4">
+         <table  class="table"   width="100%">
+            <thead>
+               <tr>
+                  <th>Full Name  </th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor="let emp of coapplicant  let i = index">
+                  <td>{{emp.fullname}}</td>
+                  <td>{{emp.email}}</td>
+                  <td>  {{emp.phonenumber}}</td>
+
+               </tr>
+            </tbody>
+         </table>
+      </td>
+   </tr>
+
+
+     <tr *ngIf="row3.length > 0 ">
+        <td colspan="4" align="center">
+           <h4 class="card-title" style="color:#FF0000"> PRIORITY INFORMATION  </h4>
+        </td>
+     </tr>
+     <tr *ngIf="row3.length > 0 ">
+        <td colspan="4">
+           <table class="table"  width="100%"   >
+              <thead>
+                 <tr>
+                    <th>APPLICATION DATE </th>
+                    <th>REGISTRATION DATE </th>
+                    <th><strong>NATIONALITY</strong></th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let emp of row3  let i = index">
+                    <td>{{emp.applicationNumber}}</td>
+                    <td>{{emp.registrationDate|date}}</td>
+                    <td>  {{emp.country.name }}</td>
+                 </tr>
+              </tbody>
+           </table>
+        </td>
+     </tr>
+     <tr *ngIf="row5.length > 0 ">
+        <td colspan="4" align="center"   >
+           <h4 class="card-title" style="color:#FF0000"><span class="tbbg">ADDRESS OF SERVICE</span></h4>
+        </td>
+     </tr>
+     <tr *ngIf="row5.length > 0 ">
+        <td><strong> ATTORNEY CODE: </strong></td>
+        <td>{{row5[0].attorneyCode}} </td>
+        <td><strong>ATTORNEY NAME:</strong></td>
+        <td>{{row5[0].attorneyName}} </td>
+     </tr>
+     <tr  *ngIf="row5.length > 0 ">
+        <td><strong> ATTORNEY EMAIL: </strong></td>
+        <td>{{row5[0].email}} </td>
+        <td><strong>ATTORNEY PHONE NUMBER:</strong></td>
+        <td>{{row5[0].phoneNumber}} </td>
+     </tr>
+     <tr *ngIf="row5.length > 0 ">
+        <td><strong> ATTORNEY STATE: </strong></td>
+        <td>{{row5[0].state.stateName}} </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+     </tr>
+
+     <tr>
+        <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>PREVIOUS COMMENT </strong></span></td>
+      </tr>
+      <tr>
+         <td colspan="4">
+            <table  class="table"   width="100%">
+<tr>
+<th>Treated By</th>
+<th>Comment</th>
+<th>Upload</th>
+<th>Role</th>
+</tr>
+
+
+  <tr *ngFor="let val of row6 " >
+
+
+
+
+    <td> {{val.users}}</td>
+
+    <td> {{val.comments}}</td>
+
+
+    <td>  <a *ngIf="val.uploadPath" target="_blank" href="{{filepath}}Upload/{{val.uploadPath}}">View</a></td>
+
+
+    <td>{{val.role}} </td>
+  </tr>
+</table>                                                  </td>
+      </tr>
+     <tr>
+        <td colspan="4" align="center">
+           <h4 class="card-title" style="color:#FF0000"><span class="tbbg">UPLOADED</span> DOCUMENTS </h4>
+        </td>
+     </tr>
+     <tr  *ngIf="row4.noveltyStatement">
+        <td align="right" >
+           <strong>&nbsp;NOVELTY STATEMENT:&nbsp;&nbsp;                                 </strong>
+        </td>
+        <td colspan="3"  >
+           <a  target="_blank"  href="{{filepath}}Upload/{{ row4.noveltyStatement}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.deedOfAssignment">
+        <td align="right" >
+           <strong>DEED OF ASSIGNMENT :&nbsp;&nbsp;                                 </strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{ row4.deedOfAssignment}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.letterOfAuthorization">
+        <td align="right" >
+           <strong>&nbsp;LETTER OF AUTHORIZATION :&nbsp;&nbsp;                                 </strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{row4.letterOfAuthorization}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.priorityDocument">
+        <td align="right">
+           <strong>&nbsp;PRIORITY DOCUMENT :&nbsp;&nbsp;</strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{row4.priorityDocument}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.representationOfDesign1">
+        <td align="right">
+           <strong>&nbsp;REPRESENTATION OF DESIGN 1:&nbsp;&nbsp;                               </strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{row4.representationOfDesign1}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.representationOfDesign2">
+        <td align="right">
+           <strong>&nbsp;REPRESENTATION OF DESIGN 2:&nbsp;&nbsp;                            </strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{row4.representationOfDesign2}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.representationOfDesign3">
+        <td align="right">
+           <strong>&nbsp;REPRESENTATION OF DESIGN 3:&nbsp;&nbsp;                          </strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{row4.representationOfDesign3}}">View Upload</a>
+        </td>
+     </tr>
+     <tr *ngIf="row4.representationOfDesign4">
+        <td align="right">
+           <strong>&nbsp;REPRESENTATION OF DESIGN 4:&nbsp;&nbsp;                        </strong>
+        </td>
+        <td colspan="3">
+           <a  target="_blank"  href="{{filepath}}Upload/{{row4.representationOfDesign4}}">View Upload</a>
+        </td>
+     </tr>
+  </tbody>
+</table>

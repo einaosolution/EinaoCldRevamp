@@ -1,0 +1,541 @@
+﻿'dotnet.exe' (CoreCLR: DefaultDomain): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Private.CoreLib.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Release\netcoreapp2.1\IPORevamp.WebAPI.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Hosting.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\netstandard.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Hosting.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.DependencyInjection.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Hosting.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.FileProviders.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Collections.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.EnvironmentVariables.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.Tasks.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.Extensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Linq.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Server.Kestrel.Core.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Server.Kestrel.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.IO.FileSystem.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Logging.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Server.IISIntegration.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.DependencyInjection.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.CommandLine.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.ComponentModel.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Logging.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Http.Features.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Diagnostics.DiagnosticSource.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Http.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Http.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.ObjectPool.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.Core.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Razor.Runtime.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.UserSecrets.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.FileProviders.Physical.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.IO.FileSystem.Watcher.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.ComponentModel.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Collections.Concurrent.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.FileSystemGlobbing.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.FileExtensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.Json.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.InteropServices.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Diagnostics.Tracing.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.Overlapped.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Newtonsoft.Json.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Linq.Expressions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.ComponentModel.TypeConverter.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.ObjectModel.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.Numerics.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Options.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Logging.Configuration.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Options.ConfigurationExtensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Logging.Console.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Logging.Debug.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.HostFiltering.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Console.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.Thread.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Configuration.Binder.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.InteropServices.RuntimeInformation.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\hangfire.core\1.6.22\lib\netstandard1.3\Hangfire.Core.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\autofac\4.9.0\lib\netstandard2.0\Autofac.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.CookiePolicy.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.EntityFrameworkCore.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Release\netcoreapp2.1\IPORevamp.Data.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Identity.Stores.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Identity.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Identity.Core.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Security.Claims.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\elmahcore.common\1.2.4\lib\netstandard2.0\ElmahCore.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\elmahcore\1.2.4\lib\netstandard2.0\ElmahCore.Mvc.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authentication.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authentication.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authentication.JwtBearer.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Release\netcoreapp2.1\EmailEngine.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authorization.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Release\netcoreapp2.1\IPORevamp.Repository.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\swashbuckle.aspnetcore.swaggergen\4.0.1\lib\netstandard2.0\Swashbuckle.AspNetCore.SwaggerGen.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.DataProtection.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\hangfire.aspnetcore\1.6.22\lib\netstandard1.3\Hangfire.AspNetCore.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Cors.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.Formatters.Json.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\automapper.extensions.microsoft.dependencyinjection\6.0.0\lib\netstandard2.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\autofac.extensions.dependencyinjection\4.3.1\lib\netstandard2.0\Autofac.Extensions.DependencyInjection.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Caching.Memory.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Caching.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authentication.Core.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.DataProtection.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Cryptography.Internal.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.WebEncoders.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.Text.Encodings.Web.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authentication.Cookies.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\swashbuckle.aspnetcore.swagger\4.0.1\lib\netstandard2.0\Swashbuckle.AspNetCore.Swagger.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.DependencyModel.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.AppContext.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.IO.FileSystem.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.IO.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Private.Uri.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Release\netcoreapp2.1\IPORevamp.WebAPI.Views.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.Razor.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.authentication.azureadb2c.ui\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.AzureADB2C.UI.Views.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.RazorPages.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Resources.ResourceManager.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.authentication.azureadb2c.ui\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.AzureADB2C.UI.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\swashbuckle.aspnetcore\4.0.1\lib\netstandard2.0\Swashbuckle.AspNetCore.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Identity.UI.Views.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Identity.UI.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.SpaServices.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.SpaServices.Extensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Routing.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Buffers.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Routing.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.ApiExplorer.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authorization.Policy.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.TagHelpers.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Razor.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.ViewFeatures.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.DataAnnotations.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Antiforgery.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.CodeAnalysis.Razor.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Razor.Language.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.CodeAnalysis.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Mvc.Cors.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\automapper\8.0.0\lib\netstandard2.0\AutoMapper.dll'. Symbols loaded.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Net.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.IO.Pipelines.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Memory.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Security.Cryptography.X509Certificates.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Connections.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Net.WebSockets.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.WebUtilities.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.Tasks.Extensions.dll'. Cannot find or open the PDB file.
+The thread 0x28fc has exited with code 0 (0x0).
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Collections.NonGeneric.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.Serialization.Formatters.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Diagnostics.TraceSource.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Xml.ReaderWriter.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Private.Xml.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Drawing.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Collections.Specialized.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.Interactive.Async.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Remotion.Linq.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.ComponentModel.Annotations.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.EntityFrameworkCore.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.EntityFrameworkCore.Relational.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Security.Principal.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Net.Mail.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Xml.XDocument.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Private.Xml.Linq.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.Security.Cryptography.Xml.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Security.Cryptography.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Html.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.CodeAnalysis.CSharp.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Diagnostics.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.StaticFiles.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Collections.Immutable.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.Metadata.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.Primitives.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Security.Cryptography.Algorithms.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Text.Encoding.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.IO.Compression.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.ValueTuple.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'Anonymously Hosted DynamicMethods Assembly'. 
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Net.Http.Headers.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\Microsoft.Win32.Registry.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Diagnostics.Debug.dll'. Cannot find or open the PDB file.
+Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager:Information: User profile is available. Using 'C:\Users\Einao2\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Text.Encoding.Extensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Text.RegularExpressions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.Emit.ILGeneration.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.Emit.Lightweight.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\hangfire.sqlserver\1.6.22\lib\netstandard1.3\Hangfire.SqlServer.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Data.Common.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.Data.SqlClient.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Transactions.Local.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.Timer.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Threading.ThreadPool.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.Text.Encoding.CodePages.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\dapper\1.50.1\lib\netstandard1.3\Dapper.dll'. Cannot find or open the PDB file.
+Hangfire.SqlServer.SqlServerObjectsInstaller:Information: Start installing Hangfire SQL objects...
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.TypeExtensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Globalization.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Xml.XmlDocument.dll'. Cannot find or open the PDB file.
+Hangfire.SqlServer.SqlServerObjectsInstaller:Information: Hangfire SQL objects installed.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Diagnostics.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.HttpsPolicy.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\swashbuckle.aspnetcore.swaggerui\4.0.1\lib\netstandard2.0\Swashbuckle.AspNetCore.SwaggerUI.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll'. Cannot find or open the PDB file.
+Hangfire.BackgroundJobServer:Information: Starting Hangfire Server
+Hangfire.BackgroundJobServer:Information: Using job storage: 'SQL Server: 5.77.54.44@IPORevampDB'
+Hangfire.BackgroundJobServer:Information: Using the following options for SQL Server job storage:
+Hangfire.BackgroundJobServer:Information:     Queue poll interval: 00:00:15.
+Hangfire.BackgroundJobServer:Information: Using the following options for Hangfire Server:
+Hangfire.BackgroundJobServer:Information:     Worker count: 10
+Hangfire.BackgroundJobServer:Information:     Listening queues: 'default'
+Hangfire.BackgroundJobServer:Information:     Shutdown timeout: 00:00:15
+Hangfire.BackgroundJobServer:Information:     Schedule polling interval: 00:00:15
+Hangfire.Server.BackgroundProcessingServer:Debug: Background process 'BackgroundProcessingServer' started.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Reflection.Extensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Runtime.Serialization.Primitives.dll'. Cannot find or open the PDB file.
+Hangfire.Server.ServerHeartbeat:Debug: Background process 'ServerHeartbeat' started.
+Hangfire.Server.ServerWatchdog:Debug: Background process 'ServerWatchdog' started.
+Hangfire.SqlServer.ExpirationManager:Debug: Background process 'Hangfire.SqlServer.ExpirationManager' started.
+Hangfire.SqlServer.CountersAggregator:Debug: Background process 'Hangfire.SqlServer.CountersAggregator' started.
+Hangfire.SqlServer.CountersAggregator:Debug: Aggregating records in 'Counter' table...
+Hangfire.Server.Worker:Debug: Background process 'Worker #a2dd2bd2' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #96d06f20' started.
+Hangfire.SqlServer.ExpirationManager:Debug: Removing outdated records from the 'AggregatedCounter' table...
+Hangfire.Server.Worker:Debug: Background process 'Worker #3504e86b' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #5c12d03c' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #5399e068' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #85fbb9b2' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #b3bac626' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #d976a2f4' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #0aa37293' started.
+Hangfire.Server.Worker:Debug: Background process 'Worker #930af941' started.
+Hangfire.Server.DelayedJobScheduler:Debug: Background process 'DelayedJobScheduler' started.
+Hangfire.Server.RecurringJobScheduler:Debug: Background process 'RecurringJobScheduler' started.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Dynamic.Runtime.dll'. Cannot find or open the PDB file.
+Hangfire.SqlServer.ExpirationManager:Debug: Removing outdated records from the 'Job' table...
+Hangfire.SqlServer.ExpirationManager:Debug: Removing outdated records from the 'List' table...
+Hangfire.SqlServer.ExpirationManager:Debug: Removing outdated records from the 'Set' table...
+Hangfire.SqlServer.ExpirationManager:Debug: Removing outdated records from the 'Hash' table...
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.Localization.Abstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.JsonPatch.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.Extensions.FileProviders.Embedded.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Net.Sockets.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Net.NameResolution.dll'. Cannot find or open the PDB file.
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Diagnostics.StackTrace.dll'. Cannot find or open the PDB file.
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'EmailManager.SendPendingMails' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'ReadEmailService.ReadMailItems' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.InvalidOperationException' in Hangfire.Core.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'IpublicationRepository.CheckPublicationStatus' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.InvalidOperationException: The type `IPORevamp.Repository.Publication.IpublicationRepository` does not contain a method with signature `CheckPublicationStatus()`
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\mscorlib.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.EntityFrameworkCore.SqlServer.dll'. Cannot find or open the PDB file.
+The thread 0x2a28 has exited with code 0 (0x0).
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Linq.Queryable.dll'. Cannot find or open the PDB file.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'TechnologyFee' on entity type 'FeeList'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'init_amt' on entity type 'FeeList'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'Amount' on entity type 'BillLog'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'Amount' on entity type 'PaymentLog'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'FinalAmount' on entity type 'PaymentLog'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'GateWayAmount' on entity type 'PaymentLog'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'PaymentCharges' on entity type 'PaymentLog'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'TechFee' on entity type 'PaymentLog'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'Amount' on entity type 'PaymentReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'TechFee' on entity type 'PaymentReport'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'Amount' on entity type 'RemitaPayment'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Model.Validation:Warning: No type was specified for the decimal column 'TechFee' on entity type 'RemitaPayment'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'ForHasColumnType()'.
+Microsoft.EntityFrameworkCore.Infrastructure:Information: Entity Framework Core 2.1.11-servicing-32099 initialized 'IPOContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IPORevamp.Data 
+Microsoft.EntityFrameworkCore.Infrastructure:Information: Entity Framework Core 2.1.11-servicing-32099 initialized 'IPOContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IPORevamp.Data 
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (125ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[CreatedBy], [c].[DateCreated], [c].[DeletedBy], [c].[IsActive], [c].[IsDeleted], [c].[ItemName], [c].[ItemValue], [c].[LastUpdateDate], [c].[RowVersion], [c].[SettingCode], [c].[UpdatedBy]
+FROM [Settings] AS [c]
+WHERE [c].[SettingCode] = N'Pub'
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (123ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[CreatedBy], [c].[DateCreated], [c].[DeletedBy], [c].[IsActive], [c].[IsDeleted], [c].[ItemName], [c].[ItemValue], [c].[LastUpdateDate], [c].[RowVersion], [c].[SettingCode], [c].[UpdatedBy]
+FROM [Settings] AS [c]
+WHERE [c].[SettingCode] = N'PubCount'
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (136ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Application] AS [p]
+WHERE (([p].[ApplicationStatus] = N'Fresh') AND ([p].[DataStatus] = N'Publication')) AND [p].[Batchno] IS NULL
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (157ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [f].[Id], [f].[AcceptanceFilePath], [f].[ApplicationID], [f].[CreatedBy], [f].[DateCreated], [f].[DeletedBy], [f].[FromDataStatus], [f].[FromStatus], [f].[IsActive], [f].[IsDeleted], [f].[LastUpdateDate], [f].[RefusalFilePath], [f].[Role], [f].[RowVersion], [f].[ToDataStatus], [f].[ToStatus], [f].[TransactionID], [f].[UpdatedBy], [f].[UploadsPath1], [f].[UploadsPath2], [f].[description], [f].[trademarkcomment], [f].[userid]
+FROM [Application] AS [p]
+INNER JOIN [TrademarkApplicationHistory] AS [f] ON [p].[Id] = [f].[ApplicationID]
+WHERE ((([f].[ToDataStatus] = N'Publication') AND ([f].[ToStatus] = N'Batch')) AND ([p].[DataStatus] = N'Publication')) AND ([p].[ApplicationStatus] = N'Batch')
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'EmailManager.SendPendingMails' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'ReadEmailService.ReadMailItems' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.InvalidOperationException' in Hangfire.Core.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'IpublicationRepository.CheckPublicationStatus' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.InvalidOperationException: The type `IPORevamp.Repository.Publication.IpublicationRepository` does not contain a method with signature `CheckPublicationStatus()`
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Microsoft.EntityFrameworkCore.Infrastructure:Information: Entity Framework Core 2.1.11-servicing-32099 initialized 'IPOContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IPORevamp.Data 
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (130ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[CreatedBy], [c].[DateCreated], [c].[DeletedBy], [c].[IsActive], [c].[IsDeleted], [c].[ItemName], [c].[ItemValue], [c].[LastUpdateDate], [c].[RowVersion], [c].[SettingCode], [c].[UpdatedBy]
+FROM [Settings] AS [c]
+WHERE [c].[SettingCode] = N'Pub'
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (146ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [f].[Id], [f].[AcceptanceFilePath], [f].[ApplicationID], [f].[CreatedBy], [f].[DateCreated], [f].[DeletedBy], [f].[FromDataStatus], [f].[FromStatus], [f].[IsActive], [f].[IsDeleted], [f].[LastUpdateDate], [f].[RefusalFilePath], [f].[Role], [f].[RowVersion], [f].[ToDataStatus], [f].[ToStatus], [f].[TransactionID], [f].[UpdatedBy], [f].[UploadsPath1], [f].[UploadsPath2], [f].[description], [f].[trademarkcomment], [f].[userid]
+FROM [Application] AS [p]
+INNER JOIN [TrademarkApplicationHistory] AS [f] ON [p].[Id] = [f].[ApplicationID]
+WHERE ((([f].[ToDataStatus] = N'Publication') AND ([f].[ToStatus] = N'Batch')) AND ([p].[DataStatus] = N'Publication')) AND ([p].[ApplicationStatus] = N'Batch')
+The thread 0x248c has exited with code 0 (0x0).
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'EmailManager.SendPendingMails' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'ReadEmailService.ReadMailItems' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.InvalidOperationException' in Hangfire.Core.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'IpublicationRepository.CheckPublicationStatus' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.InvalidOperationException: The type `IPORevamp.Repository.Publication.IpublicationRepository` does not contain a method with signature `CheckPublicationStatus()`
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Microsoft.EntityFrameworkCore.Infrastructure:Information: Entity Framework Core 2.1.11-servicing-32099 initialized 'IPOContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IPORevamp.Data 
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (134ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[CreatedBy], [c].[DateCreated], [c].[DeletedBy], [c].[IsActive], [c].[IsDeleted], [c].[ItemName], [c].[ItemValue], [c].[LastUpdateDate], [c].[RowVersion], [c].[SettingCode], [c].[UpdatedBy]
+FROM [Settings] AS [c]
+WHERE [c].[SettingCode] = N'Pub'
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (146ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [f].[Id], [f].[AcceptanceFilePath], [f].[ApplicationID], [f].[CreatedBy], [f].[DateCreated], [f].[DeletedBy], [f].[FromDataStatus], [f].[FromStatus], [f].[IsActive], [f].[IsDeleted], [f].[LastUpdateDate], [f].[RefusalFilePath], [f].[Role], [f].[RowVersion], [f].[ToDataStatus], [f].[ToStatus], [f].[TransactionID], [f].[UpdatedBy], [f].[UploadsPath1], [f].[UploadsPath2], [f].[description], [f].[trademarkcomment], [f].[userid]
+FROM [Application] AS [p]
+INNER JOIN [TrademarkApplicationHistory] AS [f] ON [p].[Id] = [f].[ApplicationID]
+WHERE ((([f].[ToDataStatus] = N'Publication') AND ([f].[ToStatus] = N'Batch')) AND ([p].[DataStatus] = N'Publication')) AND ([p].[ApplicationStatus] = N'Batch')
+The thread 0x1c34 has exited with code 0 (0x0).
+The thread 0x1e0c has exited with code 0 (0x0).
+The thread 0x2af8 has exited with code 0 (0x0).
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'EmailManager.SendPendingMails' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.IO.FileNotFoundException' in System.Private.CoreLib.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'ReadEmailService.ReadMailItems' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.IO.FileNotFoundException: Could not load file or assembly 'IPOMVCAPPFramework.Repository, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMarkHandle stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName, ObjectHandleOnStack type, ObjectHandleOnStack keepalive)
+   at System.RuntimeTypeHandle.GetTypeByName(String name, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean loadTypeFromPartialName)
+   at System.RuntimeType.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase, Boolean reflectionOnly, StackCrawlMark& stackMark)
+   at System.Type.GetType(String typeName, Boolean throwOnError, Boolean ignoreCase)
+   at Hangfire.Storage.InvocationData.DefaultTypeResolver(String typeName)
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Exception thrown: 'System.InvalidOperationException' in Hangfire.Core.dll
+Exception thrown: 'Hangfire.Common.JobLoadException' in Hangfire.Core.dll
+Hangfire.Server.RecurringJobScheduler:Warning: Recurring job 'IpublicationRepository.CheckPublicationStatus' can not be scheduled due to job load exception.
+
+Hangfire.Common.JobLoadException: Could not load the job. See inner exception for the details. ---> System.InvalidOperationException: The type `IPORevamp.Repository.Publication.IpublicationRepository` does not contain a method with signature `CheckPublicationStatus()`
+   at Hangfire.Storage.InvocationData.Deserialize()
+   --- End of inner exception stack trace ---
+   at Hangfire.Storage.InvocationData.Deserialize()
+   at Hangfire.Server.RecurringJobScheduler.TryScheduleJob(JobStorage storage, IStorageConnection connection, String recurringJobId, IReadOnlyDictionary`2 recurringJob)
+   at Hangfire.Server.RecurringJobScheduler.<>c__DisplayClass8_0.<Execute>b__0(IStorageConnection connection)
+Microsoft.EntityFrameworkCore.Infrastructure:Information: Entity Framework Core 2.1.11-servicing-32099 initialized 'IPOContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IPORevamp.Data 
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (135ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[CreatedBy], [c].[DateCreated], [c].[DeletedBy], [c].[IsActive], [c].[IsDeleted], [c].[ItemName], [c].[ItemValue], [c].[LastUpdateDate], [c].[RowVersion], [c].[SettingCode], [c].[UpdatedBy]
+FROM [Settings] AS [c]
+WHERE [c].[SettingCode] = N'Pub'
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (141ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [f].[Id], [f].[AcceptanceFilePath], [f].[ApplicationID], [f].[CreatedBy], [f].[DateCreated], [f].[DeletedBy], [f].[FromDataStatus], [f].[FromStatus], [f].[IsActive], [f].[IsDeleted], [f].[LastUpdateDate], [f].[RefusalFilePath], [f].[Role], [f].[RowVersion], [f].[ToDataStatus], [f].[ToStatus], [f].[TransactionID], [f].[UpdatedBy], [f].[UploadsPath1], [f].[UploadsPath2], [f].[description], [f].[trademarkcomment], [f].[userid]
+FROM [Application] AS [p]
+INNER JOIN [TrademarkApplicationHistory] AS [f] ON [p].[Id] = [f].[ApplicationID]
+WHERE ((([f].[ToDataStatus] = N'Publication') AND ([f].[ToStatus] = N'Batch')) AND ([p].[DataStatus] = N'Publication')) AND ([p].[ApplicationStatus] = N'Batch')
+The thread 0x2a14 has exited with code 0 (0x0).
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\System.Numerics.Vectors.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.Runtime.CompilerServices.Unsafe.dll'. Cannot find or open the PDB file.
+Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/1.1 GET http://localhost:5000/api/UserManagement/GetAgent  
+Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware:Warning: Failed to determine the https port for redirect.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.AspNetCore.Http.Extensions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.IdentityModel.Tokens.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\System.IdentityModel.Tokens.Jwt.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.IdentityModel.Logging.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\2.1.11\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Users\Einao2\.nuget\packages\microsoft.extensions.platformabstractions\1.1.0\lib\netstandard1.3\Microsoft.Extensions.PlatformAbstractions.dll'. Cannot find or open the PDB file.
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\EinaoCldRevamp\IPORevamp\IPORevamp.WebAPI\bin\Release\netcoreapp2.1\IPORevamp.Core.dll'. Symbols loaded.
+Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Route matched with {action = "GetAgent", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAgent() on controller IPORevamp.WebAPI.Controllers.UserController (IPORevamp.WebAPI).
+Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executing action method IPORevamp.WebAPI.Controllers.UserController.GetAgent (IPORevamp.WebAPI) - Validation state: Valid
+Microsoft.EntityFrameworkCore.Infrastructure:Information: Entity Framework Core 2.1.11-servicing-32099 initialized 'IPOContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IPORevamp.Data 
+Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (153ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [x].[Id], [x].[AccessFailedCount], [x].[Bio], [x].[CategoryId], [x].[ChangePassword], [x].[ChangePasswordFirstLogin], [x].[City], [x].[CompleteRegistration], [x].[ConcurrencyStamp], [x].[CountryCode], [x].[CreatedBy], [x].[DateCreated], [x].[DateOfBirth], [x].[DeletedBy], [x].[Email], [x].[EmailConfirmed], [x].[EmployerName], [x].[FirstName], [x].[Gender], [x].[IsActive], [x].[IsDeleted], [x].[LastName], [x].[LastPasswordChangDate], [x].[LastUpdateDate], [x].[Lga_Id], [x].[LockoutEnabled], [x].[LockoutEnd], [x].[MeansOfIdentification_value], [x].[MiddleName], [x].[MobileNumber], [x].[Nationality], [x].[NormalizedEmail], [x].[NormalizedUserName], [x].[Occupation], [x].[PasswordHash], [x].[PhoneNumber], [x].[PhoneNumberConfirmed], [x].[PostalCode], [x].[ProfilePicLoc], [x].[Rcno], [x].[ResidentialAddress], [x].[RolesId], [x].[RowVersion], [x].[SecurityStamp], [x].[State], [x].[Street], [x].[Title], [x].[TwoFactorEnabled], [x].[UpdatedBy], [x].[UserName], [x].[Website], [x].[department], [x].[migratedagentcode], [x].[migrateduserid], [x].[ministry], [x].[staffid], [x].[unit]
+FROM [AspNetUsers] AS [x]
+WHERE CONVERT(VARCHAR(11), [x].[CategoryId]) IN (N'1', N'2') AND ([x].[IsDeleted] <> 1)
+Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executed action method IPORevamp.WebAPI.Controllers.UserController.GetAgent (IPORevamp.WebAPI), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 634.2842ms.
+Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor:Information: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[IPORevamp.Data.UserManagement.Model.ApplicationUser, IPORevamp.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executed action IPORevamp.WebAPI.Controllers.UserController.GetAgent (IPORevamp.WebAPI) in 1795.5078ms
+Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 4085.2818ms 200 application/json; charset=utf-8
+Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/1.1 GET http://localhost:5000/favicon.ico  
+Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 386.2289ms 404 
+The thread 0x2bf8 has exited with code 0 (0x0).
+Hangfire.BackgroundJobServer:Debug: Hangfire Server is stopping...
+Hangfire.Server.ServerHeartbeat:Debug: Background process 'ServerHeartbeat' stopped.
+Hangfire.Server.ServerWatchdog:Debug: Background process 'ServerWatchdog' stopped.
+Hangfire.SqlServer.ExpirationManager:Debug: Background process 'Hangfire.SqlServer.ExpirationManager' stopped.
+Hangfire.Server.DelayedJobScheduler:Debug: Background process 'DelayedJobScheduler' stopped.
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Hangfire.SqlServer.CountersAggregator:Debug: Background process 'Hangfire.SqlServer.CountersAggregator' stopped.
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Hangfire.Server.Worker:Debug: Background process 'Worker #3504e86b' stopped.
+Hangfire.Server.Worker:Debug: Background process 'Worker #5c12d03c' stopped.
+Hangfire.Server.Worker:Debug: Background process 'Worker #5399e068' stopped.
+Hangfire.Server.Worker:Debug: Background process 'Worker #b3bac626' stopped.
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+'dotnet.exe' (CoreCLR: clrhost): Loaded 'C:\Program Files\dotnet\shared\Microsoft.NETCore.App\2.1.11\Microsoft.Win32.Primitives.dll'. Cannot find or open the PDB file.
+Hangfire.Server.Worker:Debug: Background process 'Worker #d976a2f4' stopped.
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Hangfire.Server.Worker:Debug: Background process 'Worker #96d06f20' stopped.
+Exception thrown: 'System.OperationCanceledException' in Hangfire.Core.dll
+Hangfire.Server.Worker:Debug: Background process 'Worker #85fbb9b2' stopped.
+Hangfire.Server.Worker:Debug: Background process 'Worker #0aa37293' stopped.
+Hangfire.Server.RecurringJobScheduler:Debug: Background process 'RecurringJobScheduler' stopped.
+Hangfire.Server.Worker:Debug: Background process 'Worker #930af941' stopped.
+Hangfire.Server.Worker:Debug: Background process 'Worker #a2dd2bd2' stopped.
+Exception thrown: 'System.Net.Sockets.SocketException' in System.Private.CoreLib.dll
+Exception thrown: 'System.Net.Sockets.SocketException' in System.Private.CoreLib.dll
+Hangfire.Server.BackgroundProcessingServer:Debug: Background process 'BackgroundProcessingServer' stopped.
+Hangfire.BackgroundJobServer:Information: Hangfire Server stopped.
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+Exception thrown: 'System.OperationCanceledException' in System.Private.CoreLib.dll
+The program '[8688] dotnet.exe' has exited with code -1073741510 (0xc000013a).

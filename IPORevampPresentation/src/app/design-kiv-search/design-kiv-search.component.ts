@@ -580,7 +580,6 @@ this.busy =   this.registerapi
 
 
 
-
 })
          .catch((response: any) => {
           this.spinner.hide();
@@ -646,7 +645,8 @@ this.busy =   this.registerapi
 
        this.savemode = true;
 
-       $("#createmodel").modal('show');
+
+
 
 
 
@@ -666,7 +666,7 @@ this.busy =   this.registerapi
   })
 
 
-
+  $("#createmodel").modal('show');
 
    })
             .catch((response: any) => {

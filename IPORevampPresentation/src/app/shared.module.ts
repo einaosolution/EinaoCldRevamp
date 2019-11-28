@@ -47,6 +47,7 @@ import { IndividualComponent } from './individual/individual.component';
 
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 
+
 @NgModule({
   declarations: [
     FilterPipe,
@@ -79,7 +80,8 @@ import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.compone
     ReactiveFormsModule,
 
     CalendarModule,
-    FormsModule ,
+    FormsModule
+
 
 
 

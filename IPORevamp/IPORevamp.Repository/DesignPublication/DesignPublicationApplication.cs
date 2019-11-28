@@ -179,6 +179,32 @@ namespace IPORevamp.Repository.DesignPublication
             // return null;
         }
 
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication>> GetDesignPublication()
+        {
+            List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication> DataResult = new List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication>();
+            var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+
+            var details = _contex.DesignPublication
+          .FromSql($"GetDesignPublication    @p0, @p1  ", parameters: new[] { DATASTATUS.Publication, STATUS.Fresh })
+         .ToList();
+
+            foreach (var detail in details)
+            {
+
+              var   result = (from c in _contex.DesignApplicationHistory where c.FromDataStatus == DATASTATUS.Acceptance && c.ToDataStatus == DATASTATUS.Acceptance && c.FromStatus ==STATUS.Fresh && c.ToStatus ==STATUS.Approved  select c).FirstOrDefault();
+                detail.acceptance_date = result.DateCreated.ToString();
+
+                //  detail.RepresentationOfDesign1 = detail.RepresentationOfDesign1 == null ? detail.RepresentationOfDesign1 : GetBaseImage(detail.RepresentationOfDesign1);
+                DataResult.Add(detail);
+
+            }
+
+
+            return DataResult;
+
+            // return null;
+        }
         private byte[] GetImage(string url)
         {
             Stream stream = null;

@@ -106,15 +106,16 @@ export class InvoiceComponent implements OnInit {
      html2canvas(document.getElementById('report')).then(function(canvas) {
 
       const context = canvas.getContext('2d');
-      context.scale(2, 2);
-      context['dpi'] = 144;
-      context['imageSmoothingEnabled'] = false;
-      context['mozImageSmoothingEnabled'] = false;
-      context['oImageSmoothingEnabled'] = false;
-      context['webkitImageSmoothingEnabled'] = false;
-      context['msImageSmoothingEnabled'] = false;
+     // context.scale(2, 2);
+     // context['dpi'] = 144;
+     // context['imageSmoothingEnabled'] = false;
+     // context['mozImageSmoothingEnabled'] = false;
+     // context['oImageSmoothingEnabled'] = false;
+     // context['webkitImageSmoothingEnabled'] = false;
+     // context['msImageSmoothingEnabled'] = false;
 
       // alert(self)
+     // new jspdf('p', 'pt', 'a4');
       var doc = new jspdf('p', 'pt', [canvas.width, canvas.height]);
      // var doc = new jspdf("p", "mm", "a4");
      //  var img = canvas.toDataURL("image/png");
@@ -143,7 +144,7 @@ export class InvoiceComponent implements OnInit {
 
  //doc.save('converteddoc.pdf');
    var pdf = doc.output('blob');
-   //  console.log(pdf)
+
 
 
    data2.append('FileUpload' , pdf);
@@ -168,9 +169,16 @@ export class InvoiceComponent implements OnInit {
 
     $( document ).ready(function() {
 
-      self.onSubmit8()
+     self.onSubmit8()
 
   });
+
+
+
+
+
+
+
 
 
 

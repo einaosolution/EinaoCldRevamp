@@ -285,7 +285,7 @@ this.row2 = kk;
 this.vshow = true;
 var userid = localStorage.getItem('UserId');
 this.pwalletid = kk.pwalletid
-    $("#createmodel").modal('show');
+
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );
 
@@ -298,6 +298,7 @@ this.pwalletid = kk.pwalletid
  this.row4 = response.content;
  console.log(response)
 
+ $("#createmodel").modal('show');
 
 
 })

@@ -34,6 +34,8 @@ export class DesignAppealRefusalComponent implements OnInit {
   @ViewChild('dataTable') table;
   @ViewChild("fileInput") fileInput;
   dtOptions:any = {};
+  public coapplicant  = [];
+
   modalRef: BsModalRef;
   dtTrigger: Subject<any> = new Subject();
   public Status = Status;

@@ -83,6 +83,32 @@ namespace IPORevamp.Repository.Publication
             // return null;
         }
 
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication>> GetPublication()
+        {
+            List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication> DataResult = new List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication>();
+            var BatchCount = (from p in _contex.PublicationBatch select p).Count() + 1;
+
+            var details = _contex.DesignPublication
+          .FromSql($"GetPublication    @p0, @p1 ", parameters: new[] { DATASTATUS.Publication, STATUS.Batch })
+         .ToList();
+
+            foreach (var detail in details)
+            {
+                // detail.BatCount = Convert.ToString(BatchCount);
+                var result = (from c in _contex.TrademarkApplicationHistory where c.FromDataStatus == DATASTATUS.Examiner && c.ToDataStatus == DATASTATUS.Publication && c.FromStatus == STATUS.Fresh && c.ToStatus == STATUS.Fresh select c).FirstOrDefault();
+                detail.acceptance_date = result.DateCreated.ToString();
+
+                //  detail.logo_pic = detail.logo_pic == null ? detail.logo_pic : GetBaseImage(detail.logo_pic);
+                DataResult.Add(detail);
+
+            }
+
+
+            return DataResult;
+
+            // return null;
+        }
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPublicationByRegistrationId(String id)
         {
             List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult> DataResult = new List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>();

@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -82,7 +82,7 @@ import { SearchPrelimComponent } from '../search-prelim/search-prelim.component'
 import { SearchtreatedComponent } from '../searchtreated/searchtreated.component';
 import { ExaminerFreshComponent } from '../examiner-fresh/examiner-fresh.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { CommentsComponent } from '../comments/comments.component';
+
 import { AcceptanceLetterComponent } from '../acceptance-letter/acceptance-letter.component';
 import { RefusalLetterComponent } from '../refusal-letter/refusal-letter.component';
 import { UserKivComponent } from '../user-kiv/user-kiv.component';
@@ -122,7 +122,7 @@ import { SearchDbComponent } from '../search-db/search-db.component';
 import {AuthGuard} from '../auth.guard';
 import { TrademarkApplicationComponent } from '../trademark-application/trademark-application.component';
 import { ViewPreliminarySearchComponent } from '../view-preliminary-search/view-preliminary-search.component';
-
+import { CommentsComponent } from '../comments/comments.component';
 
 import { SharedModule } from '../shared.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -131,6 +131,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AlertModule } from 'ngx-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { BackEndUserProfileComponent } from '../back-end-user-profile/back-end-user-profile.component';
+import { TrademarkPreviewComponent } from '../trademark-preview/trademark-preview.component';
 
 
 
@@ -417,7 +418,7 @@ const routes: Routes = [
     SearchPrelimComponent,
     SearchtreatedComponent,
     ExaminerFreshComponent,
-    CommentsComponent,
+    CommentsComponent ,
     AcceptanceLetterComponent,
     RefusalLetterComponent,
     UserKivComponent,
@@ -454,7 +455,8 @@ const routes: Routes = [
     SearchDbComponent,
     TrademarkApplicationComponent,
     ViewPreliminarySearchComponent,
-    BackEndUserProfileComponent
+    BackEndUserProfileComponent,
+    TrademarkPreviewComponent
 
 
 
@@ -500,6 +502,7 @@ const routes: Routes = [
 
 
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ] ,
   providers: [],
 
 })

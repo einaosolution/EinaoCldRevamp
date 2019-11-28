@@ -128,6 +128,547 @@ namespace IPORevamp.Repository.FileNewApplication
 
         }
 
+        public async Task<DashBoardDesignCount> AllSearchDesignCount()
+        {
+            DashBoardDesignCount ApplicationCount = new DashBoardDesignCount();
+            var result = 0;
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.ApplicationStatus == STATUS.Fresh && c.DataStatus == DATASTATUS.Search select c).Count();
+                ApplicationCount.newapplicationcount = result;
+
+
+
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.newapplicationcount = 0;
+            }
+            try
+            {
+                result = (from c in _contex.DesignApplicationHistory where c.FromDataStatus == DATASTATUS.Search && c.ToDataStatus == DATASTATUS.Examiner select c).Count();
+                ApplicationCount.treatedApplicationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.treatedApplicationcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.ApplicationStatus == STATUS.ReconductSearch && c.DataStatus == DATASTATUS.ReconductSearch select c).Count();
+                ApplicationCount.ResearchApplicationcount = result;
+
+
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.ResearchApplicationcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.ApplicationStatus == STATUS.Fresh && c.DataStatus == DATASTATUS.Examiner select c).Count();
+                ApplicationCount.DesignExaminerFreshcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignExaminerFreshcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.DesignApplicationHistory where c.FromDataStatus == DATASTATUS.Examiner && c.ToDataStatus == DATASTATUS.Acceptance select c).Count();
+                ApplicationCount.DesignExaminerTreatedcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignExaminerTreatedcount = 0;
+            }
+
+
+
+            try
+            {
+                result = (from p in _contex.DesignApplication
+                          join f in _contex.DesignApplicationHistory
+                               on p.Id equals f.DesignApplicationID
+
+                          where f.ToStatus == STATUS.Paid && p.DataStatus == DATASTATUS.Certificate && p.ApplicationStatus == STATUS.Paid
+                          select f).Count(); ;
+                ApplicationCount.DesignPaidCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignPaidCertificatecount = 0;
+            }
+
+
+
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.ApplicationStatus == STATUS.Paid && c.DataStatus == DATASTATUS.Certificate && c.CertificatePayReference != null select c).Count();
+                ApplicationCount.DesignIssuedCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignIssuedCertificatecount = 0;
+            }
+
+
+            try
+            {
+                result = (from p in _contex.DesignApplication
+                          join f in _contex.DesignApplicationHistory
+                               on p.Id equals f.DesignApplicationID
+
+                          where f.ToDataStatus == DATASTATUS.Opposition && p.DataStatus == DATASTATUS.Opposition && p.ApplicationStatus == STATUS.Fresh
+                          select f).Count(); ;
+                ApplicationCount.DesignOppositionFreshCount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignOppositionFreshCount = 0;
+            }
+
+            try
+            {
+                result = (from p in _contex.DesignApplication
+                          join f in _contex.DesignApplicationHistory
+                               on p.Id equals f.DesignApplicationID
+
+                          where f.ToDataStatus == DATASTATUS.Opposition && f.ToStatus == STATUS.Judgement && p.DataStatus == DATASTATUS.Opposition && p.ApplicationStatus == STATUS.Judgement
+                          select f).Count(); ;
+                ApplicationCount.DesignOppositionJudgementCount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignOppositionJudgementCount = 0;
+            }
+
+
+            try
+            {
+                result = (from p in _contex.DesignApplication
+                          
+
+                          where p.DataStatus == DATASTATUS.Publication && p.ApplicationStatus == STATUS.Pending 
+                          select p).Count(); ;
+                ApplicationCount.DesignPublicationFreshcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignPublicationFreshcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.DesignApplicationHistory where c.FromDataStatus == DATASTATUS.Publication && c.ToDataStatus == DATASTATUS.Publication && c.FromStatus == STATUS.Pending && c.ToStatus == STATUS.Fresh select c).Count();
+                ApplicationCount.DesignPublicationPublishcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignExaminerTreatedcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.RecordalDesignRenewal where c.Status == STATUS.Paid select c).Count();
+                ApplicationCount.DesignRenewedCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignRenewedCertificatecount = 0;
+            }
+
+
+
+            return ApplicationCount;
+
+
+        }
+
+        public async Task<DashBoardPatentCount> AllSearchPatentCount()
+        {
+            DashBoardPatentCount ApplicationCount = new DashBoardPatentCount();
+            var result = 0;
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.ApplicationStatus == STATUS.Fresh && c.DataStatus == DATASTATUS.Search select c).Count();
+                ApplicationCount.newapplicationcount = result;
+
+
+
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.newapplicationcount = 0;
+            }
+            try
+            {
+                result = (from c in _contex.PatentApplicationHistory where c.FromDataStatus == DATASTATUS.Search && c.ToDataStatus == DATASTATUS.Examiner select c).Count();
+                ApplicationCount.treatedApplicationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.treatedApplicationcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.ApplicationStatus == STATUS.ReconductSearch && c.DataStatus == DATASTATUS.ReconductSearch select c).Count();
+                ApplicationCount.ResearchApplicationcount = result;
+
+
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.ResearchApplicationcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.ApplicationStatus == STATUS.Fresh && c.DataStatus == DATASTATUS.Examiner select c).Count();
+                ApplicationCount.PatentExaminerFreshcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.PatentExaminerFreshcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.PatentApplicationHistory where c.FromDataStatus == DATASTATUS.Examiner && c.ToDataStatus == DATASTATUS.Acceptance select c).Count();
+                ApplicationCount.PatentExaminerTreatedcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.PatentExaminerTreatedcount = 0;
+            }
+
+
+
+            try
+            {
+                result = (from p in _contex.PatentApplication
+                          join f in _contex.PatentApplicationHistory
+                               on p.Id equals f.PatentApplicationID
+
+                          where f.ToStatus == STATUS.Paid && p.DataStatus == DATASTATUS.Certificate && p.ApplicationStatus == STATUS.Paid
+                          select f).Count(); ;
+                ApplicationCount.PatentPaidCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.PatentPaidCertificatecount = 0;
+            }
+
+
+
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.ApplicationStatus == STATUS.Paid && c.DataStatus == DATASTATUS.Certificate && c.CertificatePayReference != null select c).Count();
+                ApplicationCount.PatentIssuedCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.PatentIssuedCertificatecount = 0;
+            }
+
+
+            try
+            {
+                result = (from p in _contex.Application
+                          join c in _contex.MarkInformation
+                           on p.Id equals c.applicationid
+                          join d in _contex.ApplicationUsers
+                           on Convert.ToInt32(p.userid) equals d.Id
+
+                          join e in _contex.TrademarkType
+                          on c.TradeMarkTypeID equals e.Id
+
+                          join f in _contex.TrademarkApplicationHistory
+                          on p.Id equals f.ApplicationID
+
+
+                          where p.ApplicationStatus == STATUS.Appeal && p.DataStatus == DATASTATUS.Examiner && f.ToStatus == STATUS.Appeal
+                          select p).Count();
+                ApplicationCount.TrademarkAppealcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkAppealcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.ApplicationStatus == STATUS.Appeal && c.DataStatus == DATASTATUS.Examiner  select c).Count();
+                ApplicationCount.PatentAppealcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.PatentAppealcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.ApplicationStatus == STATUS.Delegate && c.DataStatus == DATASTATUS.Appeal select c).Count();
+                ApplicationCount.DesignAppealcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.DesignAppealcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.ApplicationUsers where c.IsDeleted != true  select c).Count();
+                ApplicationCount.Usercount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.Usercount = 0;
+            }
+
+
+
+
+            return ApplicationCount;
+
+
+        }
+
+        public async Task<DashBoardCount> AllSearchApplicationCount()
+        {
+            DashBoardCount ApplicationCount = new DashBoardCount();
+            var result = 0;
+            try
+            {
+                result = (from c in _contex.Application where c.ApplicationStatus == STATUS.Fresh && c.DataStatus == DATASTATUS.Search  select c).Count();
+                ApplicationCount.newapplicationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.newapplicationcount = 0;
+            }
+            try
+            {
+                result = (from c in _contex.TrademarkApplicationHistory where c.FromDataStatus == DATASTATUS.Search && c.ToDataStatus == DATASTATUS.Examiner  select c).Count();
+                ApplicationCount.treatedApplicationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.treatedApplicationcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.Application where c.ApplicationStatus == STATUS.ReconductSearch && c.DataStatus == DATASTATUS.ReconductSearch select c).Count();
+                ApplicationCount.ResearchApplicationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.ResearchApplicationcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.Application where c.ApplicationStatus == STATUS.Fresh && c.DataStatus == DATASTATUS.Examiner select c).Count();
+                ApplicationCount.TrademarkExaminerFreshcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkExaminerFreshcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.TrademarkApplicationHistory where c.FromDataStatus == DATASTATUS.Examiner && c.ToDataStatus == DATASTATUS.Publication select c).Count();
+                ApplicationCount.TrademarkExaminerTreatedcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkExaminerTreatedcount = 0;
+            }
+
+
+            try
+            {
+                result = (from p in _contex.Application
+                          join f in _contex.TrademarkApplicationHistory
+                               on p.Id equals f.ApplicationID
+
+                          where f.ToDataStatus == DATASTATUS.Publication &&  p.DataStatus == DATASTATUS.Publication && p.ApplicationStatus == STATUS.Fresh
+                          select f).Count(); ;
+                ApplicationCount.TrademarkPublicationFreshcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkPublicationFreshcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.TrademarkApplicationHistory where c.FromDataStatus == DATASTATUS.Publication && c.ToDataStatus == DATASTATUS.Publication  && c.FromStatus ==STATUS.Fresh  && c.ToStatus == STATUS.Batch  select c).Count();
+                ApplicationCount.TrademarkPublicationPublishcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkExaminerTreatedcount = 0;
+            }
+
+
+            try
+            {
+                result = (from p in _contex.Application
+                          join f in _contex.TrademarkApplicationHistory
+                               on p.Id equals f.ApplicationID
+
+                          where f.ToStatus == STATUS.Paid && p.DataStatus == DATASTATUS.Certificate && p.ApplicationStatus == STATUS.Paid
+                          select f).Count(); ;
+                ApplicationCount.TrademarkPaidCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkPaidCertificatecount = 0;
+            }
+
+
+
+            try
+            {
+                result = (from c in _contex.Application where c.ApplicationStatus == STATUS.Paid && c.DataStatus == DATASTATUS.Certificate  && c.CertificatePayReference !=null select c).Count();
+                ApplicationCount.TrademarkIssuedCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkIssuedCertificatecount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.RecordalRenewal where c.Status == STATUS.Paid select c).Count();
+                ApplicationCount.TrademarkRenewedCertificatecount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkRenewedCertificatecount = 0;
+            }
+
+
+            try
+            {
+                result = (from p in _contex.Application
+                          join f in _contex.TrademarkApplicationHistory
+                               on p.Id equals f.ApplicationID
+
+                          where f.ToDataStatus == DATASTATUS.Opposition && p.DataStatus == DATASTATUS.Opposition && p.ApplicationStatus == STATUS.Fresh
+                          select f).Count(); ;
+                ApplicationCount.TrademarkOppositionFreshCount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkOppositionFreshCount = 0;
+            }
+
+            try
+            {
+                result = (from p in _contex.Application
+                          join f in _contex.TrademarkApplicationHistory
+                               on p.Id equals f.ApplicationID
+
+                          where f.ToDataStatus == DATASTATUS.Opposition && f.ToStatus == STATUS.Judgement &&  p.DataStatus == DATASTATUS.Opposition && p.ApplicationStatus == STATUS.Judgement
+                          select f).Count(); ;
+                ApplicationCount.TrademarkOppositionJudgementCount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.TrademarkOppositionJudgementCount = 0;
+            }
+
+            return ApplicationCount;
+
+
+        }
+
         public async Task<Int32> ApplicationUserCount(int  ApplicationId,int  userid)
         {
 

@@ -39,5 +39,8 @@ namespace IPORevamp.Repository.FileNewApplication
         Task<AddressOfService> SaveAddressOfService(AddressOfService addressOfService);
         Task<String> updatePatentTransactionById(string transactionid, string paymentid);
         Task<PatentAssignment> UpdatePatentAssignment(int id, PatentAssignment patentassignment);
+        Task<DashBoardCount> AllSearchApplicationCount();
+        Task<DashBoardPatentCount> AllSearchPatentCount();
+        Task<DashBoardDesignCount> AllSearchDesignCount();
     }
 }

@@ -17,12 +17,32 @@ export class DashboardComponent implements OnInit {
   patentregistrarole =""
   designregistrarole =""
  corporateusersrole =""
+ trademarksearch =""
+ trademarkexaminer =""
+ trademarkpublication =""
+ trademarkcertificate =""
+ patentcertificate =""
+ trademarkrecordal =""
+ trademarkopposition =""
  individualusersrole =""
+ patentsearch =""
+ patentexaminer =""
+ designsearch =""
+ designexaminer =""
+ designpublication =""
+ designcertificate =""
+ designrecordal =""
+ AppealOfficerTrademark=""
+ AppealOfficerPatent=""
+ AppealOfficerDesign =""
+ SuperAdmin= ""
+ Admin =""
  randnumber
   loginrole =""
   profilepic;
   filepath:string =""
-  constructor(private registerapi :ApiClientService ,private router: Router) {
+  recordcount:any ;
+  constructor(public registerapi :ApiClientService ,private router: Router) {
 
   }
 
@@ -70,9 +90,33 @@ export class DashboardComponent implements OnInit {
     this.designregistrarole = Role.RegistrarDesign;
     this.corporateusersrole = Role.Corporate;
     this.individualusersrole = Role.Individual;
+    this.trademarksearch= Role.TrademarkSearch;
+    this.trademarkexaminer= Role.TrademarkExaminer;
+    this.trademarkpublication =Role.TrademarkPublicationOfficer ;
+    this.trademarkcertificate =Role.TrademarkCertificateOfficer ;
+    this.trademarkrecordal = Role.TrademarkRecordalOfficer ;
+    this.trademarkopposition =Role.TrademarkOppositionOfficer ;
+    this.patentsearch =Role.PatentSearch ;
+    this.patentexaminer = Role.PatentExaminer ;
+    this.patentcertificate = Role.PatentCertificateOfficer;
+    this.designsearch = Role.DesignSearch;
+    this.designexaminer = Role.DesignExaminer;
+    this.designpublication = Role.DesignPublicationOfficer;
+    this.designcertificate = Role.DesignCertificateOfficer;
+    this.designrecordal = Role.DesignRecordalOfficer;
+    this.AppealOfficerTrademark = Role.AppealOfficerTrademark ;
+    this.AppealOfficerPatent= Role.AppealOfficerPatent
+    this.AppealOfficerDesign= Role.AppealOfficerDesign ;
+    this.SuperAdmin = Role.SuperAdmin;
+    this.Admin= Role.Admin
         this.profilepic=  localStorage.getItem('profilepic')
         this.registerapi.setPage("Country")
         this.registerapi.VChangeEvent("Dashboard");
+
+
+
+
+
 
 
 //alert(Role.RegistrarTrademark)

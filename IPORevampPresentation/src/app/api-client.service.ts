@@ -2675,6 +2675,41 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetAllSearchDashBoardCount( ) {
+
+
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/GetAllSearchDashBoardCount')
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetAllPatentDashBoardCount( ) {
+
+
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/GetAllPatentDashBoardCount')
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    GetAllDesignDashBoardCount( ) {
+
+
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/GetAllDesignDashBoardCount')
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     GetAllApplicationCount(pp2: string  ) {
 
       var data = {

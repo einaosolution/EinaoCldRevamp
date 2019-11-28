@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule , CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -86,6 +86,7 @@ import { RenewDesignComponentComponent } from '../renew-design-component/renew-d
 import { PayRenewalDesignComponent } from '../pay-renewal-design/pay-renewal-design.component';
 import { GenRecordalRenewDesignComponentComponent } from '../gen-recordal-renew-design-component/gen-recordal-renew-design-component.component';
 import { DesignunplishedapplicationComponent } from '../designunplishedapplication/designunplishedapplication.component';
+import { DesignpreviewComponent } from '../designpreview/designpreview.component';
 
 
 
@@ -314,7 +315,8 @@ const routes: Routes = [
    RenewDesignComponentComponent,
    PayRenewalDesignComponent,
    GenRecordalRenewDesignComponentComponent,
-   DesignunplishedapplicationComponent],
+   DesignunplishedapplicationComponent,
+   DesignpreviewComponent],
   imports: [
     CommonModule ,
     SharedModule,
@@ -356,6 +358,7 @@ const routes: Routes = [
 
 
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ] ,
   providers: [],
 
 })

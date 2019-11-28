@@ -412,336 +412,203 @@
 
                   <div class="Container">
 
-                           <table  class="table-grid"     *ngIf="savemode" align="center" >
-                          <!--    <table  class="table form"   width="100%"  *ngIf="savemode3" >  -->
 
 
-                                <tr >
-                                     <td width="22%" colspan="2" class="tbbg" align="center">
-                                         <strong>DATA DETAILS FOR {{row500.patentInformation[0].titleOfInvention.toUpperCase()}}</strong></td>
-                                 </tr>
-                                  <tr>
+
+                <table  *ngIf="savemode" align="center"  class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                    <tbody>
+                       <tr>
+                          <td  style="width:250px"><strong>PATENT TYPE :&nbsp;</strong></td>
+                          <td >{{row500.patentInformation[0].patentType.description }}                                            </td>
+                          <td ><strong>TITLE OF INVENTION  :</strong></td>
+                          <td >{{row500.patentInformation[0].patentType.description}}                                             </td>
+                       </tr>
+                       <tr>
+                          <td><strong>DESCRIPTION:</strong></td>
+                          <td colspan="3">{{row500.patentInformation[0].inventionDescription }} </td>
+                       </tr>
+                       <tr>
+                         <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>PATENT INFORMATION </strong></span></td>
+                       </tr>
+                       <tr>
+                         <td   ><strong>&nbsp;ASSIGNEE NAME:</strong>&nbsp;&nbsp; </td>
+                         <td > {{row500.patentAssignment[0].assigneeName }}
+                           &nbsp; </td>
+                         <td   >&nbsp;<strong>ASSIGNEE ADDRESS :&nbsp;</strong>&nbsp; </td>
+                         <td > {{row500.patentAssignment[0].assigneeAddress }}
+                           &nbsp; </td>
+                       </tr>
+                       <tr>
+                         <td   ><strong>&nbsp;ASSIGNEE NATIONALITY :</strong>&nbsp;&nbsp; </td>
+                         <td > {{row500.patentAssignment[0].assigneeNationality.name}}
+                           &nbsp; </td>
+                         <td   ><strong>&nbsp;ASSIGNOR NAME :</strong>&nbsp;&nbsp; </td>
+                         <td > {{row500.patentAssignment[0].assignorName }}
+                           &nbsp; </td>
+                       </tr>
+                       <tr>
+                         <td   ><strong>&nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp; </strong></td>
+                         <td > {{row500.patentAssignment[0].assignorAddress}}
+                           &nbsp; </td>
+                          <td   ><strong>&nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp; </strong></td>
+                          <td > {{row500.patentAssignment[0].assignorNationality.name}}
+                            &nbsp; </td>
+                       </tr>
+                       <tr>
+                         <td colspan="4" align="center">&nbsp;</td>
+                       </tr>
+                       <tr>
+                         <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>--- INVENTOR INFORMATION  ---</strong></span></td>
+                       </tr>
+                       <tr>
+                         <td colspan="4" >
+                         <table  class="table"   width="100%">
+
+
+         <thead>
+
+
+             <tr>
+
+               <th>Name Of Invention </th>
+               <th>Address</th>
+                 <th>Phone</th>
+                 <th>Email</th>
+                 <th>Nationality</th>
+             </tr>
+           </thead>
+           <tbody>
+
+
+               <tr *ngFor="let emp of row500.patentInvention  let i = index">
+
+
+
+                    <td>{{emp.inventorName}}</td>
+                    <td>{{emp.inventorAddress}}</td>
+                   <td>  {{emp.inventorMobileNumber}}</td>
+                   <td>  {{emp.inventorEmail}}</td>
+                   <td>{{emp.country.name}}  </td>
+                   </tr>
+                 </tbody>
+     </table>													  </td>
+                       </tr>
+                       <tr>
+                         <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>--- PRIORITY INFORMATION  ---</strong></span></td>
+                       </tr>
+                       <tr>
+                         <td colspan="4">
+                         <table class="table"  width="100%"   >
+
+         <thead>
+
+
+             <tr>
+
+               <th>ApplicationNumber  </th>
+               <th>Registration Date</th>
+                 <th>Country</th>
+             </tr>
+           </thead>
+           <tbody>
+
+               <tr *ngFor="let emp of row500.patentPriorityInformation  let i = index">
+
+
+
+                    <td>{{emp.applicationNumber}}</td>
+                    <td>{{emp.registrationDate|date}}</td>
+                   <td>  {{emp.country.name }}</td>
+                   </tr>
+                 </tbody>
+     </table>													  </td>
+                       </tr>
+                       <tr *ngIf="vshow3">
+                         <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>--- ADDRESS OF SERVICES---</strong></span></td>
+                       </tr>
+                       <tr *ngIf="vshow3">
+                         <td  ><strong>&nbsp;Attorney Code:&nbsp;&nbsp; </strong></td>
+                         <td > {{row500.addressOfService[0].attorneyCode}} </td>
+                          <td  ><strong>&nbsp;Attorney Name:&nbsp;&nbsp; </strong></td>
+                          <td > {{row500.addressOfService[0].attorneyName}} </td>
+                       </tr>
+                       <tr *ngIf="vshow3">
+                         <td   ><strong>&nbsp;Email:&nbsp;&nbsp; </strong></td>
+                         <td > {{row500.addressOfService[0].email}} </td>
+                          <td   ><strong>&nbsp;Phone Number:&nbsp;&nbsp; </strong></td>
+                          <td > {{row500.addressOfService[0].phoneNumber}} </td>
+                       </tr>
+                       <tr *ngIf="vshow3">
+                         <td   ><strong>&nbsp;State:&nbsp;&nbsp; </strong></td>
+                         <td > {{row500.addressOfService[0].state.stateName}} </td>
+                         <td >&nbsp;</td>
+                         <td >&nbsp;</td>
+                       </tr>
+                       <tr>
+                         <td colspan="4" align="center">&nbsp;</td>
+                       </tr>
+
+                       <tr>
+                          <td colspan="4" align="center">
+                             <h4 class="card-title" style="color:#FF0000">UPLOADS </h4>                                                       </td>
+                       </tr>
+                      <tr  *ngIf="row500.patentInformation[0].claims">
+                                      <td align="right">
+                                          &nbsp;Claims:&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                         <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].claims}}">View Upload</a>
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+        <tr *ngIf="row500.patentInformation[0].deedOfAssignment">
+                                      <td align="right" >
+                                          &nbsp;Deed Of Assignment :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].deedOfAssignment}}">View Upload</a>
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+       <tr *ngIf="row500.patentInformation[0].letterOfAuthorization && vshow3 ">
+                                      <td align="right" >
+                                          &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
+                                      </td>
+                                      <td>
+                                          <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
+
+                                         &nbsp;
+                                      </td>
+                                  </tr>
+
+
+                                  <tr *ngIf="row500.patentInformation[0].pctDocument">
                                      <td align="right">
-                                         &nbsp;PATENT TYPE :&nbsp;&nbsp;
+                                         &nbsp;PCT Document :&nbsp;&nbsp;
                                      </td>
                                      <td>
-                                         {{row500.patentInformation[0].patentType.description                   }}
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-                                <tr>
-                                     <td  align="right">
-                                         &nbsp;TITLE OF INVENTION  :&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                         {{row500.patentInformation[0].titleOfInvention}}
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-                          <tr>
-                                     <td  align="right">
-                                         &nbsp;DESCRIPTION :&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                         {{row500.patentInformation[0].inventionDescription}}
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-                           <tr>
-                                     <td align="right">
-                                         &nbsp;ASSIGNEE NAME&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                         {{row500.patentAssignment[0].assigneeName}}
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-                         <tr>
-                                     <td align="right">
-                                         &nbsp;ASSIGNEE ADDRESS :&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                         {{row500.patentAssignment[0].assigneeAddress  }}
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-                                 <tr>
-                                  <td align="right">
-                                      &nbsp;ASSIGNEE NATIONALITY :&nbsp;&nbsp;
-                                  </td>
-                                  <td>
-                                      {{row500.patentAssignment[0].assigneeNationality.name}}
-                                     &nbsp;
-                                  </td>
-                              </tr>
-
-                              <tr>
-                                <td align="right" >
-                                    &nbsp;ASSIGNOR NAME :&nbsp;&nbsp;
-                                </td>
-                                <td>
-                                    {{row500.patentAssignment[0].assignorName         }}
-                                   &nbsp;
-                                </td>
-                            </tr>
-
-                            <tr>
-                              <td align="right">
-                                  &nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp;
-                              </td>
-                              <td>
-                                  {{row500.patentAssignment[0].assignorAddress}}
-                                 &nbsp;
-                              </td>
-                          </tr>
-
-                          <tr>
-                            <td  align="right">
-                                &nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp;
-                            </td>
-                            <td>
-                                {{row500.patentAssignment[0].assignorNationality.name}}
-                               &nbsp;
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tbbg" colspan="2" align="center">
-                                --- INVENTOR INFORMATION  ---</td>
-                        </tr>
-
-
-
-                        <tr>
-
-                          <td colspan="2" >
-
-                              <table  class="table"   width="100%">
-
-
-                                  <thead>
-
-
-                                      <tr>
-
-                                        <th>Name Of Invention </th>
-                                        <th>Address</th>
-                                          <th>Phone</th>
-                                          <th>Email</th>
-                                          <th>Nationality</th>
-
-
-
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-
-
-                                        <tr *ngFor="let emp of row500.patentInvention  let i = index">
-
-
-
-                                             <td>{{emp.inventorName}}</td>
-                                             <td>{{emp.inventorAddress}}</td>
-                                            <td>  {{emp.inventorMobileNumber}}</td>
-                                            <td>  {{emp.inventorEmail}}</td>
-                                            <td>{{emp.country.name}}  </td>
-
-
-
-
-                                            </tr>
-                                          </tbody>
-                              </table>
-
-                          </td>
-
-                      </tr>
-
-                      <tr>
-                          <td class="tbbg" colspan="2" align="center">
-                              --- PRIORITY INFORMATION  ---</td>
-                      </tr>
-
-                      <tr>
-                          <td colspan="2" >
-                              <table class="table"  width="100%"   >
-
-                                  <thead>
-
-
-                                      <tr>
-
-                                        <th>ApplicationNumber  </th>
-                                        <th>Registration Date</th>
-                                          <th>Country</th>
-
-
-
-
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <tr *ngFor="let emp of row500.patentPriorityInformation  let i = index">
-
-
-
-                                             <td>{{emp.applicationNumber}}</td>
-                                             <td>{{emp.registrationDate|date}}</td>
-                                            <td>  {{emp.country.name }}</td>
-
-
-
-                                            </tr>
-                                          </tbody>
-                              </table>
-
-                          </td>
-
-                      </tr>
-
-                      <tr *ngIf="vshow3">
-                        <td class="tbbg" colspan="2" align="center">
-                            --- ADDRESS OF SERVICE  ---</td>
-                    </tr>
-
-
-                    <tr *ngIf="vshow3"  >
-                      <td align="right">
-                          &nbsp;Attorney Code:&nbsp;&nbsp;
-                      </td>
-                      <td>
-
-                       {{row500.addressOfService[0].attorneyCode}}
-
-                      </td>
-                  </tr>
-
-                  <tr *ngIf="vshow3"  >
-                    <td align="right" >
-                        &nbsp;Attorney Name:&nbsp;&nbsp;
-                    </td>
-                    <td>
-
-                      {{row500.addressOfService[0].attorneyName}}
-
-
-                    </td>
-                </tr>
-
-                <tr  *ngIf="vshow3" >
-                  <td align="right">
-                      &nbsp;Email:&nbsp;&nbsp;
-                  </td>
-                  <td>
-
-                    {{row500.addressOfService[0].email}}
-
-
-
-                  </td>
-              </tr>
-
-              <tr  *ngIf="vshow3">
-                <td align="right" >
-                    &nbsp;Phone Number:&nbsp;&nbsp;
-                </td>
-                <td>
-
-                  {{row500.addressOfService[0].phoneNumber}}
-
-
-
-
-                </td>
-            </tr>
-
-
-            <tr *ngIf="vshow3" >
-              <td align="right" >
-                  &nbsp;State:&nbsp;&nbsp;
-              </td>
-              <td>
-
-                {{row500.addressOfService[0].state.stateName}}
-
-
-
-
-              </td>
-          </tr>
-
-
-                      <tr>
-                          <td class="tbbg" colspan="2" align="center">
-                              --- UPLOADS  ---</td>
-                      </tr>
-
-                        <tr  *ngIf="row500.patentInformation[0].claims">
-                                     <td align="right">
-                                         &nbsp;Claims:&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                        <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].claims}}">View Upload</a>
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-       <tr *ngIf="row500.patentInformation[0].deedOfAssignment">
-                                     <td align="right" >
-                                         &nbsp;Deed Of Assignment :&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                         <a  target="_blank"  href="{{filepath}}Upload/{{ row500.patentInformation[0].deedOfAssignment}}">View Upload</a>
-                                        &nbsp;
-                                     </td>
-                                 </tr>
-
-      <tr *ngIf="row500.patentInformation[0].letterOfAuthorization && vshow3 ">
-                                     <td align="right" >
-                                         &nbsp;Letter  Of Authorization :&nbsp;&nbsp;
-                                     </td>
-                                     <td>
-                                         <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].letterOfAuthorization}}">View Upload</a>   <br/>
+                                         <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].pctDocument}}">View Upload</a>   <br/>
 
                                         &nbsp;
                                      </td>
                                  </tr>
 
 
-                                 <tr *ngIf="row500.patentInformation[0].pctDocument">
-                                    <td align="right">
-                                        &nbsp;PCT Document :&nbsp;&nbsp;
-                                    </td>
-                                    <td>
-                                        <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].pctDocument}}">View Upload</a>   <br/>
 
-                                       &nbsp;
-                                    </td>
-                                </tr>
+                                 <tr *ngIf="row500.patentInformation[0].completeSpecificationForm">
+                                     <td  align="right" >
+                                         &nbsp;Complete Specification Form :&nbsp;&nbsp;
+                                     </td>
+                                     <td>
+                                         <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].completeSpecificationForm}}">View Upload</a>   <br/>
 
-
-
-                                <tr *ngIf="row500.patentInformation[0].completeSpecificationForm">
-                                    <td  align="right" >
-                                        &nbsp;Complete Specification Form :&nbsp;&nbsp;
-                                    </td>
-                                    <td>
-                                        <a  target="_blank"  href="{{filepath}}Upload/{{row500.patentInformation[0].completeSpecificationForm}}">View Upload</a>   <br/>
-
-                                       &nbsp;
-                                    </td>
-                                </tr>
-
-
-
-
-     </table>
+                                        &nbsp;
+                                     </td>
+                                 </tr>
+                    </tbody>
+                 </table>
 
     </div>
 
@@ -809,10 +676,12 @@
 
                           <tr>
                            <td *ngIf="!settingoff">
+                              <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
                               <button *ngIf="checkboxFlag"  (click) ="onSubmit3()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Payment</button>
                            </td>
 
                            <td *ngIf="settingoff">
+                              <button type="button" (click) ="onSubmit5a()"   class="btn btn-success"> Back</button> &nbsp;&nbsp;&nbsp;
                             <button *ngIf="checkboxFlag"  (click) ="onSubmit33()"   type ="submit"  class="btn btn-info"><i class="fab fa-cc-Remita"></i> Make Offline Payment</button>
                          </td>
 

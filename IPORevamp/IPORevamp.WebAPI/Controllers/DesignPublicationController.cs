@@ -193,6 +193,33 @@ namespace IPORevamp.WebAPI.Controllers
             }
         }
 
+        [HttpGet("GetDesignPublication")]
+        public async Task<IActionResult> GetDesignPublication()
+        {
+            try
+            {
+                string ip = "";
+
+              
+
+
+                var result = await _designPublicationRepository.GetDesignPublication();
+
+
+            
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Publication by Id Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
         [HttpGet("GetPubCount")]
         public async Task<IActionResult> GetPubCount()
         {

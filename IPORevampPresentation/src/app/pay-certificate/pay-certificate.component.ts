@@ -47,6 +47,8 @@ export class PayCertificateComponent implements OnInit {
 
   Description: FormControl;
   public rows = [];
+  public row6 = [];
+  public row5 = [];
   public row2
   public row3 = [];
   public row4

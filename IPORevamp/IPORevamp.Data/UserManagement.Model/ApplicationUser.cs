@@ -42,6 +42,7 @@ namespace IPORevamp.Data.UserManagement.Model
         public string CountryCode { get; set; }
         public string ProfilePicLoc { get; set; }
         public string Website { get; set; }
+        public string companyname { get; set; }
         public string MeansOfIdentification_value { get; set; }
         public string Lga_Id { get; set; }
         public string PostalCode { get; set; }

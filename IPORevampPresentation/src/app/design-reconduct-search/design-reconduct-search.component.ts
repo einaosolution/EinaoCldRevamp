@@ -43,6 +43,8 @@ export class DesignReconductSearchComponent implements OnInit {
   userform: FormGroup;
   submitted:boolean=false;
   busy: Promise<any>;
+  public coapplicant  = [];
+
   model: any = {};
   Code: FormControl;
   id:string;

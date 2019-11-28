@@ -66,30 +66,140 @@
         <!-- ============================================================== -->
         <!-- Info box -->
         <!-- ============================================================== -->
-
+<div *ngIf="registerapi">
        <div [ngSwitch]="loginrole">
           <div *ngSwitchCase="registrarole">
-              <app-defaultdashboard2></app-defaultdashboard2>
+              <app-defaultdashboard2 [registerapi2]="registerapi"></app-defaultdashboard2>
 
               </div>
               <div *ngSwitchCase="patentregistrarole">
-                <app-defaultdashboard2></app-defaultdashboard2>
+                <app-defaultdashboard2  [registerapi2]="registerapi"></app-defaultdashboard2>
 
                 </div>
 
                 <div *ngSwitchCase="corporateusersrole">
-                  <app-defaultdashboard3></app-defaultdashboard3>
+                  <app-defaultdashboard3 [registerapi2]="registerapi"  [recordcount]="recordcount"></app-defaultdashboard3>
 
                   </div>
 
-                  <div *ngSwitchCase="individualusersrole">
-                    <app-defaultdashboard3></app-defaultdashboard3>
+
+
+                  <div *ngSwitchCase="individualusersrole"  >
+                    <app-defaultdashboard3  [registerapi2]="registerapi" [recordcount]="recordcount" ></app-defaultdashboard3>
 
                     </div>
                 <div *ngSwitchCase="designregistrarole">
-                  <app-defaultdashboard2></app-defaultdashboard2>
+                  <app-defaultdashboard2  [registerapi2]="registerapi"  ></app-defaultdashboard2>
 
                   </div>
+
+                  <div *ngSwitchCase="trademarksearch">
+                    <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+
+                    </div>
+                    <div *ngSwitchCase="trademarkexaminer">
+                      <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+
+                      </div>
+
+                      <div *ngSwitchCase="trademarkpublication">
+                        <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+
+                        </div>
+
+                        <div *ngSwitchCase="trademarkcertificate">
+                          <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+
+                          </div>
+
+                          <div *ngSwitchCase="trademarkrecordal">
+                            <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+
+                            </div>
+
+                            <div *ngSwitchCase="patentsearch">
+                              <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
+
+                              </div>
+
+                              <div *ngSwitchCase="SuperAdmin">
+                                <app-defaultdashboardadmintemplate  [registerapi2]="registerapi"  ></app-defaultdashboardadmintemplate>
+
+                                </div>
+                                <div *ngSwitchCase="Admin">
+                                  <app-defaultdashboardadmintemplate  [registerapi2]="registerapi"  ></app-defaultdashboardadmintemplate>
+
+                                  </div>
+
+                              <div *ngSwitchCase="patentexaminer">
+                                <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
+
+                                </div>
+
+                                <div *ngSwitchCase="patentcertificate">
+                                  <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
+
+                                  </div>
+
+
+                                  <div *ngSwitchCase="designsearch">
+                                    <app-defaultdashboarddesigntemplate  [registerapi2]="registerapi"  ></app-defaultdashboarddesigntemplate>
+
+                                    </div>
+
+                                    <div *ngSwitchCase="designexaminer">
+                                      <app-defaultdashboarddesigntemplate  [registerapi2]="registerapi"  ></app-defaultdashboarddesigntemplate>
+
+                                      </div>
+
+                                      <div *ngSwitchCase="designpublication">
+                                        <app-defaultdashboarddesigntemplate  [registerapi2]="registerapi"  ></app-defaultdashboarddesigntemplate>
+
+                                        </div>
+
+                                        <div *ngSwitchCase="designcertificate">
+                                          <app-defaultdashboarddesigntemplate  [registerapi2]="registerapi"  ></app-defaultdashboarddesigntemplate>
+
+                                          </div>
+
+                                          <div *ngSwitchCase="designrecordal">
+                                            <app-defaultdashboarddesigntemplate  [registerapi2]="registerapi"  ></app-defaultdashboarddesigntemplate>
+
+                                            </div>
+
+
+                                            <div *ngSwitchCase="AppealOfficerTrademark">
+                                              <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
+
+                                              </div>
+
+                                              <div *ngSwitchCase="AppealOfficerPatent">
+                                                <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
+
+                                                </div>
+
+                                                <div *ngSwitchCase="AppealOfficerDesign">
+                                                  <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
+
+                                                  </div>
+
+
+
+
+
+
+                            <div *ngSwitchCase="trademarkopposition">
+                              <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+
+                              </div>
+
+
+
+
+
+
+
+
 <div *ngSwitchDefault>
         <app-default-dashboard> </app-default-dashboard>
       </div>
@@ -105,7 +215,7 @@
         <!-- Table -->
         <!-- ============================================================== -->
 
-
+ </div>
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->

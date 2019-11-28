@@ -75,6 +75,11 @@ import { DesignuserlistingComponent } from './designuserlisting/designuserlistin
 import { Defaultdashboard2Component } from './defaultdashboard2/defaultdashboard2.component';
 import { Defaultdashboard3Component } from './defaultdashboard3/defaultdashboard3.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { DefaultdashboardsearchComponent } from './defaultdashboardsearch/defaultdashboardsearch.component';
+import { DefaultdashboardtrademarktemplateComponent } from './defaultdashboardtrademarktemplate/defaultdashboardtrademarktemplate.component';
+import { DefaultdashboardpatenttemplateComponent } from './defaultdashboardpatenttemplate/defaultdashboardpatenttemplate.component';
+import { DefaultdashboarddesigntemplateComponent } from './defaultdashboarddesigntemplate/defaultdashboarddesigntemplate.component';
+import { DefaultdashboardadmintemplateComponent } from './defaultdashboardadmintemplate/defaultdashboardadmintemplate.component';
 
 
 
@@ -151,7 +156,12 @@ const routes: Routes = [
     DesignuserlistingComponent,
     Defaultdashboard2Component,
     Defaultdashboard3Component,
-    ErrorPageComponent
+    ErrorPageComponent,
+    DefaultdashboardsearchComponent,
+    DefaultdashboardtrademarktemplateComponent,
+    DefaultdashboardpatenttemplateComponent,
+    DefaultdashboarddesigntemplateComponent,
+    DefaultdashboardadmintemplateComponent
 
 
 

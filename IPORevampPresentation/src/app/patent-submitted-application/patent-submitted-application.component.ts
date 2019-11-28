@@ -51,6 +51,9 @@ export class PatentSubmittedApplicationComponent implements OnInit {
   public row3 = [];
   public row4  = [];
   public row5  = [];
+  public row6  = [];
+
+
   filepath:any ;
 
 

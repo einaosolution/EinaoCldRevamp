@@ -42,6 +42,7 @@ export class DesignRegistraCertificateComponent implements OnInit {
   dtOptions:any = {};
   modalRef: BsModalRef;
   dtTrigger: Subject<any> = new Subject();
+  public coapplicant  = [];
   public Status = Status;
   public DataStatus = DataStatus;
   dataTable: any;

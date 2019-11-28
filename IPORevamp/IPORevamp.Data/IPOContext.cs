@@ -82,6 +82,9 @@ namespace IPORevamp.Data
         
         public DbSet<ApplicationUserClaim> ApplicationUserClaims { get; set; }
         public DbSet<ApplicationUserLogin> ApplicationUserLogins { get; set; }
+        public DbSet<DesignPublication> DesignPublication { get; set; }
+
+        
         public DbSet<EmailLog> EmailLog { get; set; }
         public DbSet<EmailTemplate> EmailTemplates { get; set; }
         public DbSet<TrademarkType> TrademarkType { get; set; }

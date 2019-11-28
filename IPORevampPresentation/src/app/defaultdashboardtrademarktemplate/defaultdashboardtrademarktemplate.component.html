@@ -1,0 +1,58 @@
+<div [ngBusy]="busy"></div>
+
+
+
+
+
+<div>
+    <div class="Container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  *ngIf="ShowLabel1">
+                    <div style="background-color: #70AD47; color: #ffffff" class="grid-style" >
+                      <p class="d-flex justify-content-end">{{newapplication| number}}</p>
+                      <h6 class="d-flex justify-content-end">{{Label1}} </h6>
+
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  *ngIf="ShowLabel2">
+                    <div class="grid-style" style="background-color: #ED7D31; color: #ffffff">
+                      <p class="d-flex justify-content-end">{{treatedapplication| number}}</p>
+                      <h6 class="d-flex justify-content-end">{{Label2}}</h6>
+
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  *ngIf="ShowLabel3">
+                    <div class="grid-style" style="background-color: #5B9BD5; color: white;">
+                      <p class="d-flex justify-content-end">{{kivapplication| number}}</p>
+                      <h6 class="d-flex justify-content-end">{{Label3}}</h6>
+
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 grid-size"  *ngIf="ShowLabel4">
+                  <div class="grid-style" style="background-color: #EF4836; color: white;">
+                    <p class="d-flex justify-content-end">{{totalsearchCount| number}}</p>
+                    <h6 class="d-flex justify-content-end">{{Label4}}</h6>
+
+                  </div>
+              </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                    <div>
+                        <div id="chartdiv" style="width: 100%; height: 500px" ></div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sect-two">
+                    <div>
+                        <div id="chartdiv2" style="width: 100%; height: 500px" ></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+

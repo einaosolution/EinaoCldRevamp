@@ -41,6 +41,7 @@ export class DesignPaidCertificate2Component implements OnInit {
   savemode:boolean = true;
   updatemode:boolean = false;
   userform: FormGroup;
+  public coapplicant  = [];
   submitted:boolean=false;
   busy: Promise<any>;
   model: any = {};

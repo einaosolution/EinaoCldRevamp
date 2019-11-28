@@ -57,10 +57,11 @@ export class DesignFreshApplicationComponent implements OnInit {
   markdescription =[{ title: "Similar Marks Exist", value: "Similar Marks Exist" },
   { title: "No Similar Marks", value: "No Similar Marks" }]
   public rows = [];
-  public row2
+  public row2 = [];
   public row3 = [];
   public row4  = [];
   public row5  = [];
+  public row6  = [];
   public coapplicant  = [];
 
   public row50  = [];

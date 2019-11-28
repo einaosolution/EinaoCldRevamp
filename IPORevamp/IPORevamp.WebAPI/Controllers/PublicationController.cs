@@ -407,6 +407,34 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetPublication")]
+        public async Task<IActionResult> GetPublication()
+        {
+            try
+            {
+               
+
+
+                var result = await _publicationRepository.GetPublication();
+
+
+                // get User Information
+              //  user = await _userManager.FindByIdAsync(RequestById.ToString());
+
+                // Added A New Country 
+             
+
+                return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Select Publication  Application", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
         [HttpGet("GetPublicationByRegistrationId")]
         public async Task<IActionResult> GetPublicationByRegistrationId([FromQuery] string RequestById, [FromQuery] string Id)
         {

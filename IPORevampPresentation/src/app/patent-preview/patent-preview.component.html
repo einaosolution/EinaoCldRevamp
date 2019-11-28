@@ -1,0 +1,190 @@
+
+                <table  *ngIf="savemode" align="center"  class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+                   <tbody>
+                      <tr>
+                         <td  style="width:250px"><strong>PATENT TYPE :&nbsp;</strong></td>
+                         <td >{{row4.patentType}}                                            </td>
+                         <td ><strong>TITLE OF INVENTION  :</strong></td>
+                         <td >{{row4.titleOfInvention}}                                             </td>
+                      </tr>
+                      <tr>
+                         <td><strong>DESCRIPTION:</strong></td>
+                         <td colspan="3">{{row4.inventionDescription }} </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>PATENT INFORMATION </strong></span></td>
+                      </tr>
+                      <tr>
+                        <td   ><strong>&nbsp;ASSIGNEE NAME:</strong>&nbsp;&nbsp; </td>
+                        <td > {{row4.assigneeName }}
+                          &nbsp; </td>
+                        <td   >&nbsp;<strong>ASSIGNEE ADDRESS :&nbsp;</strong>&nbsp; </td>
+                        <td > {{row4.assigneeAddress  }}
+                          &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <td   ><strong>&nbsp;ASSIGNEE NATIONALITY :</strong>&nbsp;&nbsp; </td>
+                        <td > {{row4.assigneeCountry}}
+                          &nbsp; </td>
+                        <td   ><strong>&nbsp;ASSIGNOR NAME :</strong>&nbsp;&nbsp; </td>
+                        <td > {{row4.assignorName }}
+                          &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <td   ><strong>&nbsp;ASSIGNOR ADDRESS :&nbsp;&nbsp; </strong></td>
+                        <td > {{row4.assignorAddress}}
+                          &nbsp; </td>
+                         <td   ><strong>&nbsp;ASSIGNOR NATIONALITY :&nbsp;&nbsp; </strong></td>
+                         <td > {{row4.assignorCountry}}
+                           &nbsp; </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>--- INVENTOR INFORMATION  ---</strong></span></td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" >
+                        <table  class="table"   width="100%">
+
+
+        <thead>
+
+
+            <tr>
+
+              <th>Name Of Invention </th>
+              <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Nationality</th>
+            </tr>
+          </thead>
+          <tbody>
+
+
+              <tr *ngFor="let emp of row2  let i = index">
+
+
+
+                   <td>{{emp.inventorName}}</td>
+                   <td>{{emp.inventorAddress}}</td>
+                  <td>  {{emp.inventorMobileNumber}}</td>
+                  <td>  {{emp.inventorEmail}}</td>
+                  <td>{{emp.country.name}}  </td>
+                  </tr>
+                </tbody>
+    </table>													  </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>--- PRIORITY INFORMATION  ---</strong></span></td>
+                      </tr>
+                      <tr>
+                        <td colspan="4">
+                        <table class="table"  width="100%"   >
+
+        <thead>
+
+
+            <tr>
+
+              <th>ApplicationNumber  </th>
+              <th>Registration Date</th>
+                <th>Country</th>
+            </tr>
+          </thead>
+          <tbody>
+
+              <tr *ngFor="let emp of row3  let i = index">
+
+
+
+                   <td>{{emp.applicationNumber}}</td>
+                   <td>{{emp.registrationDate|date}}</td>
+                  <td>  {{emp.country.name }}</td>
+                  </tr>
+                </tbody>
+    </table>													  </td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>--- ADDRESS OF SERVICES---</strong></span></td>
+                      </tr>
+                      <tr>
+                        <td  ><strong>&nbsp;Attorney Code:&nbsp;&nbsp; </strong></td>
+                        <td > {{row5[0].attorneyCode}} </td>
+                         <td  ><strong>&nbsp;Attorney Name:&nbsp;&nbsp; </strong></td>
+                         <td > {{row5[0].attorneyName}} </td>
+                      </tr>
+                      <tr>
+                        <td   ><strong>&nbsp;Email:&nbsp;&nbsp; </strong></td>
+                        <td > {{row5[0].email}} </td>
+                         <td   ><strong>&nbsp;Phone Number:&nbsp;&nbsp; </strong></td>
+                         <td > {{row5[0].phoneNumber}} </td>
+                      </tr>
+                      <tr>
+                        <td   ><strong>&nbsp;State:&nbsp;&nbsp; </strong></td>
+                        <td > {{row5[0].state.stateName}} </td>
+                        <td >&nbsp;</td>
+                        <td >&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td colspan="4" align="center"><span class="card-title" style="color:#FF0000"><strong>PREVIOUS COMMENT </strong></span></td>
+                      </tr>
+                      <tr>
+                         <td colspan="4">
+                            <table  class="table"   width="100%">
+<tr>
+<th>Treated By</th>
+<th>Comment</th>
+<th>Upload</th>
+<th>Role</th>
+</tr>
+
+
+                  <tr *ngFor="let val of row6 " >
+
+
+
+
+                    <td> {{val.users}}</td>
+
+                    <td> {{val.comments}}</td>
+
+
+                    <td>  <a *ngIf="val.uploadPath" target="_blank" href="{{filepath}}Upload/{{val.uploadPath}}">View</a></td>
+
+
+                    <td>{{val.role}} </td>
+                  </tr>
+                </table>                                                  </td>
+                      </tr>
+                      <tr>
+                         <td colspan="4" align="center">
+                            <h4 class="card-title" style="color:#FF0000">UPLOADS </h4>                                                       </td>
+                      </tr>
+                      <tr *ngIf="vshow">
+                        <td   ><strong>&nbsp;Claims:&nbsp;&nbsp; </strong></td>
+                        <td ><a  target="_blank"  href="{{filepath}}Upload/{{ row4.claims}}">View Upload</a> &nbsp; </td>
+                         <td   ><strong>&nbsp;Deed Of Assignment :&nbsp;&nbsp; </strong></td>
+                         <td ><a  target="_blank"  href="{{filepath}}Upload/{{ row4.deedOfAssignment}}">View Upload</a> &nbsp; </td>
+                      </tr>
+                     <tr *ngIf="vshow">
+                       <td   ><strong>&nbsp;Letter  Of Authorization :&nbsp;&nbsp; </strong></td>
+                       <td ><a  target="_blank"  href="{{filepath}}Upload/{{row4.letterOfAuthorization}}">View Upload</a>
+&nbsp; </td>
+                         <td  ><strong>&nbsp;PCT Document :&nbsp;&nbsp; </strong></td>
+                       <td ><a  target="_blank"  href="{{filepath}}Upload/{{row4.pctDocument}}">View Upload</a> </td>
+                     </tr>
+                     <tr *ngIf="vshow">
+                       <td  ><strong>&nbsp;Complete Specification Form :&nbsp;&nbsp; </strong></td>
+                       <td ><a  target="_blank"  href="{{filepath}}Upload/{{row4.completeSpecificationForm}}">View Upload</a> <br/>
+&nbsp; </td>
+                       <td>&nbsp;</td>
+                       <td>&nbsp;</td>
+                     </tr>
+                   </tbody>
+                </table>

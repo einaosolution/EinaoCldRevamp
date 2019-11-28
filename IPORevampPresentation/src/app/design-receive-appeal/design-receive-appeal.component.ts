@@ -60,6 +60,8 @@ export class DesignReceiveAppealComponent implements OnInit {
   public row6  = [];
   filepath:any ;
 
+  public coapplicant  = [];
+
   public appcomment =""
   appcomment3="";
   appcomment2="" ;

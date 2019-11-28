@@ -1293,6 +1293,28 @@ namespace IPORevamp.Data.Migrations
                     b.ToTable("DesignDataResult");
                 });
 
+            modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication", b =>
+                {
+                    b.Property<string>("sn")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<int>("ClassDescriptions");
+
+                    b.Property<DateTime>("FilingDate");
+
+                    b.Property<string>("Product_Title");
+
+                    b.Property<string>("acceptance_date");
+
+                    b.Property<string>("logo");
+
+                    b.HasKey("sn");
+
+                    b.ToTable("DesignPublication");
+                });
+
             modelBuilder.Entity("IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory.DesignApplicationHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -3339,6 +3361,8 @@ namespace IPORevamp.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Website");
+
+                    b.Property<string>("companyname");
 
                     b.Property<string>("department");
 

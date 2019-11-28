@@ -374,9 +374,25 @@ valuechange(een ) {
             'success'
           )
        //  this.router.navigate(['/Emailverification']);
-       table.destroy();
-       this.getCountry();
-       this.userform2.reset();
+       console.log("update profile information")
+       console.log(response)
+
+       let  loggedinuser = response.firstName + " " + response.lastName;
+       localStorage.setItem('loggeduser', loggedinuser);
+       if (response.profilePicLoc==null) {
+
+       }
+
+       else {
+       localStorage.setItem('profilepic', response.profilePicLoc);
+
+       }
+
+       this.router.navigateByUrl('/redirect');
+
+       //table.destroy();
+       //this.getCountry();
+       //this.userform2.reset();
 
 
         })

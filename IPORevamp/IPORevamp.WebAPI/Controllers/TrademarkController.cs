@@ -964,6 +964,8 @@ namespace IPORevamp.WebAPI.Controllers
         [HttpGet("GetAllApplicationUserCount")]
         public async Task<IActionResult> GetAllApplicationUserCount( [FromQuery] string userid)
         {
+
+        
             try
             {
                 // check for user information before processing the request
@@ -973,6 +975,93 @@ namespace IPORevamp.WebAPI.Controllers
                   result = _newApplicationRepository.AllApplicationUserCount(userid);
                 }
                 catch(Exception ee )
+                {
+
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Occured", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetAllSearchDashBoardCount")]
+        public async Task<IActionResult> GetAllSearchDashBoardCount([FromQuery] string userid)
+        {
+
+
+            try
+            {
+                // check for user information before processing the request
+                Task<DashBoardCount> result = null;
+                try
+                {
+                    result = _newApplicationRepository.AllSearchApplicationCount();
+                }
+                catch (Exception ee)
+                {
+
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Occured", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetAllPatentDashBoardCount")]
+        public async Task<IActionResult> GetAllPatentDashBoardCount([FromQuery] string userid)
+        {
+
+
+            try
+            {
+                // check for user information before processing the request
+                Task<DashBoardPatentCount> result = null;
+                try
+                {
+                    result =  _newApplicationRepository.AllSearchPatentCount();
+                }
+                catch (Exception ee)
+                {
+
+                }
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Occured", "");
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+        }
+
+
+        [HttpGet("GetAllDesignDashBoardCount")]
+        public async Task<IActionResult> GetAllDesignDashBoardCount([FromQuery] string userid)
+        {
+
+
+            try
+            {
+                // check for user information before processing the request
+                Task<DashBoardDesignCount> result = null;
+                try
+                {
+                    result = _newApplicationRepository.AllSearchDesignCount();
+                }
+                catch (Exception ee)
                 {
 
                 }

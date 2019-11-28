@@ -59,6 +59,7 @@ export class PatentfreshapplictionComponent implements OnInit {
   public row3 = [];
   public row4  = [];
   public row5  = [];
+  public row6  = [];
   public row50  = [];
   uploads
   dataid

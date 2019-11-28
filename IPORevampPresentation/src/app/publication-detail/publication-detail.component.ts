@@ -183,6 +183,9 @@ doc.save ('Visiometria_'+this.id+ '_'+date.getTime()+'.pdf')
     var width = doc.internal.pageSize.width;
     var height = doc.internal.pageSize.height;
 
+    doc.addFont('verdana', 'verdana', 'normal');
+    doc.setFont('verdana', 'normal')
+    doc.setFontSize(12)
 
 
    // doc.addImage(img, 'JPEG', 0, 0, width, height);

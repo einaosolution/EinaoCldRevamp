@@ -242,6 +242,34 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetAgent")]
+        public async Task<IActionResult> GetAgent()
+        {
+            string[] AgentCodesArray = new string[1] { "2"}; ;
+            List<AgentUsers> UserList = new List<AgentUsers>();
+
+
+            var user = _userManager.Users.Where(x => AgentCodesArray.Contains(x.CategoryId.ToString()) && x.IsDeleted != true  ).ToList();
+
+            foreach(var IndUser in user)
+            {
+                AgentUsers agentuser = new AgentUsers();
+                agentuser.Company_Address = IndUser.Street;
+                agentuser.Company_Name = IndUser.companyname;
+                agentuser.Agent_Code = IndUser.migratedagentcode;
+                agentuser.Email = IndUser.Email;
+                agentuser.Phone_Number = IndUser.MobileNumber;
+                agentuser.Image = IndUser.ProfilePicLoc;
+                UserList.Add(agentuser);
+
+            }
+
+            return Ok(UserList);
+
+
+        }
+
+
         [HttpGet("GetTrademarkUser")]
         public List<UserView> GetTrademarkUser()
         {
@@ -884,8 +912,8 @@ namespace IPORevamp.WebAPI.Controllers
                 RecordBefore = json,
                 RecordAfter = json2
             });
-
-            return PrepareResponse(HttpStatusCode.OK, "Update Successful", false);
+            return Ok(user3);
+           // return PrepareResponse(HttpStatusCode.OK, user3, false);
 
         }
 
@@ -1057,7 +1085,7 @@ namespace IPORevamp.WebAPI.Controllers
             [FromForm] string LastName, [FromForm] string Email, [FromForm] string Gender, 
             [FromForm] string DateofBirth, [FromForm] string Identification, [FromForm] string MobileNumber,
             [FromForm] string Street, [FromForm] string City, [FromForm] string State, [FromForm] string PostCode,
-            [FromForm] string Country, [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite, [FromForm] string meanofidentification_value, [FromForm] string lgaid)
+            [FromForm] string Country, [FromForm] string CompanyRegistration, [FromForm] string companytelephone, [FromForm] string companyemail, [FromForm] string companywebsite, [FromForm] string companyname, [FromForm] string meanofidentification_value, [FromForm] string lgaid)
         {
             string ip = "";
 
@@ -1127,6 +1155,7 @@ namespace IPORevamp.WebAPI.Controllers
                     user.PostalCode = PostCode;
                     user.CountryCode = Country;
                     user.Street = Street;
+                    user.companyname = companyname;
                     if (user.CategoryId ==1)
                     {
                         user.RolesId = Convert.ToInt32(IPORoles.Individual);

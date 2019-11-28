@@ -14,6 +14,7 @@ namespace IPORevamp.Repository.DesignPublication
         Task<List<Int32>> GetDesignApplicationBatch();
         Task<List<DesignDataResult>> GetPublicationById(String id);
         Task<List<DesignDataResult>> GetDesignUnplishedApplication();
+        Task<List<IPORevamp.Data.Entity.Interface.Entities.DesignApplication.DesignPublication>> GetDesignPublication();
 
     }
 }

@@ -7,10 +7,10 @@ import {ApiClientService} from '../api-client.service';
   styleUrls: ['./design-certificate.component.css']
 })
 export class DesignCertificateComponent implements OnInit {
-  row2:any;
-  row3:any;
+  row2:any=[];
+  row3:any=[];;
   row4:any;
-  row5:any;
+  row5:any=[];
 
   elementType = 'url';
   value = 'Federal Ministry Of Trade Nigeria';

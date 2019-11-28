@@ -50,6 +50,7 @@ export class SearchFreshAppComponent implements OnInit {
   public rows = [];
   public row2
   public row3 = [];
+  public row4 = [];
   vshow :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 

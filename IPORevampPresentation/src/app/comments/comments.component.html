@@ -1,39 +1,26 @@
 
 
 <span  *ngIf="vrow2">
-    <table>
-    <tr>
-        <th>Treated By</th>
-        <th>Comment</th>
-        <th>Upload</th>
-        <th>Role</th>
-      </tr>
+    <table  class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe">
+      <tbody>
+        <tr  *ngFor="let commendata of vrow2 ">
+           <td width="269" style="width:250px"><strong>TREATED  BY :&nbsp;</strong></td>
+           <td width="217"> {{commendata.users}}</td>
+           <td width="241"><span style="width:250px"><strong>Comment : </strong></span></td>
+           <td width="260"> {{commendata.comments}}</td>
+
+           <td *ngIf="emp.uploadPath"  width="241"><span style="width:250px"><strong>Upload : </strong></span></td>
+           <td *ngIf="emp.uploadPath"  width="260"> <a *ngIf="emp.uploadPath" target="_blank" href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{commendata.uploadPath}}">View</a></td>
+           <td width="241"><span style="width:250px"><strong>Role : </strong></span></td>
+           <td width="260"> {{commendata.emp.role}}</td>
+
+          </tr>
 
 
-                              <tr *ngFor="let emp of vrow2 " >
-
-
-
-
-                                <td> {{emp.users}}</td>
-
-                                <td> {{emp.comments}}</td>
-
-
-                                <td>  <a *ngIf="emp.uploadPath" target="_blank" href="http://5.77.54.44/EinaoCldRevamp2/Upload/{{emp.uploadPath}}">View</a></td>
-
-
-                                <td>{{emp.role}} </td>
+        </tbody>
 
 
 
-
-
-
-
-
-
-                              </tr>
                             </table>
 
                             </span>

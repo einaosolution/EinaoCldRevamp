@@ -35,4 +35,18 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplication
         public string AssignorAddress { get; set; }
         public string AssignorCountry { get; set; }
     }
+
+
+    public class DesignPublication
+    {
+        [Key]
+        public string sn { get; set; }
+        public DateTime FilingDate { get; set; }
+        public string logo { get; set; }
+        public string Product_Title { get; set; }
+        public int  ClassDescriptions { get; set; }
+        public int ApplicationId { get; set; }
+        public String acceptance_date { get; set; }
+
+    }
 }
