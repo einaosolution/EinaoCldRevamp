@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<!-------head-section--------->
+
+<head>
+<title>Home Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0">
+<link rel="icon" href="images/favicon.png" type="images/x-icon">
+
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+<link rel="stylesheet" href="css/aos.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/intlTelInput.css" type="text/css">
+<script src="http://www.w3schools.com/lib/w3data.js"></script>
+</head>
+
+<!-------head-section-ends-------->
+<body>
+	
+	
+
+<!------------------------------Login-Register-Modal-------------------------------->
+<div id="login-modal" class="modal fade cd-user-modal" tabindex="-1" role="dialog">
+  	<div class="modal-dialog modal-sm">
+	
+    	<!-- login modal content -->
+        <div class="modal-content" id="login-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+			  <h2>Hello. Welcome back</h2>
+			  <form id="Login-Form" role="form">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Email or Mobile Number" value="">
+						<label class="float__label">Email or Mobile Number</label>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" value="">
+						<label class="float__label">Password</label>							
+					</div>
+					<div class="form-group checkbox">
+						<label class="filled-in">Remember Me
+						  <input type="checkbox">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				  <button type="submit" class="btn btn-default">Login</button>
+			  </form>
+			</div>
+			<div class="modal-footer text-center">
+			  <div>
+			  <a id="FPModal" href="javascript:void(0);">Forgot Password?</a>
+			  <p>New to Iponigeria?</p>
+			  <a id="signupModal" href="javascript:void(0);"> Sign Up here</a>
+			  </div>
+			</div>
+		
+       </div>
+        <!-- login modal content -->
+        
+        <!-- signup modal content -->
+        <div class="modal-content" id="signup-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+		   <div class="modal-body">
+			  <h2>Welcome to Iponigeria <span>Sign up and start making payments</span></h2>
+			  <br>
+			  <form id="Signin-Form" role="form">
+				<div class="form-group">
+				   <div class="row">
+						<div class="col-6">	 
+							<input type="text" class="form-control" placeholder="First Name">
+						   <label class="float__label">First Name</label>
+						</div>									
+						<div class="col-6">	 
+							<input type="text" class="form-control" placeholder="Last Name">
+							<label class="float__label">Last Name</label>
+						</div>	
+				   </div>	
+				</div>							
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Email">
+					<label class="float__label">Email</label>						
+				</div>
+				<div class="form-group">
+					<input type="number" class="form-control" placeholder="Mobile Number" id="phone">
+					<label class="float__label">Mobile Number</label>
+				</div>						
+				<div class="form-group">						
+					<input type="password" class="form-control" placeholder="Password">
+					<label class="float__label">Password</label>
+				</div>							
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Referred By (Email or Mobile Number)">
+					<label class="float__label">Referred By (Email or Mobile Number)</label>
+				</div>
+				
+				  <button type="submit" class="btn btn-default">Continue</button>
+			  </form>
+			</div>
+			<div class="modal-footer">
+			  <p class="w-100">Already have an account? <a id="loginModal" href="javascript:void(0);"> Login</a></p>
+			</div>
+      </div>
+        <!-- signup modal content -->
+        
+        <!-- forgot password content -->
+         <div class="modal-content" id="forgot-password-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+			  <h2>Reset Your Password</h2>
+			  <form id="Forgot-Password-Form" role="form">
+			  
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Email">
+					<label class="float__label">Email</label>							
+				</div>
+							
+				<button type="submit" class="btn btn-default">Continue</button>
+			  </form>
+			</div>
+			<div class="modal-footer">
+			  <p class="w-100">I remember now? <a id="loginModal1" href="javascript:void(0);"> Login</a></p>
+			</div>
+      </div>        
+        <!-- forgot password content -->
+
+    	<!-- /.modal-content -->
+  	</div><!-- /.modal-dialog -->
+</div>
+<!------------------------Login-Register-Modal-ends------------------------------------>
+
+<!----------------------------header-section-ends----------------------------------------> 
+s
+<link rel="import" href="menu.html">
+	
+<!--#include virtual="_header.html" -->
+
+<!----------------------------banner-section--------------------------------------------->
+<div class="banner-section">
+    <figure><img src="images/banner.jpg" alt=""></figure>
+	<div class="banner-content wow fadeInDown">
+	  <div class="container">
+        <h1>Trademarks, Patents <span>and Designs Electronically</span></h1>
+	  </div>
+	</div>	   
+</div>
+<!----------------------------banner-section-ends---------------------------------------->
+
+<!----------------------------content-section------------------------------------------->
+<div class="content-section text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 text" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500">
+        <div class="text-content">
+          <h5><a href="#">Trademarks, Patents and Designs</a></h5>
+          <p>A trademark is a symbol or a sign which differentiates the goods and services of one business from another one<a href="#">...Read More</a></p>
+        </div>
+      </div>
+      <div class="col-4 text" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500">
+        <div class="text-content">
+          <h5><a href="#">Accredited Agents</a></h5>
+          <p>Accreditation is a mandatory process for law firms, stakeholders and potential registrants that wish to act as agents<a href="#">...Read More</a></p>
+        </div>
+      </div>
+      <div class="col-4 text" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500">
+        <div class="text-content">
+          <h5><a href="#">Preliminary Advice/ Availablity</a></h5>
+          <p>You can now register your Trademark, Patents and Designs Online through our certified agents around the country<a href="#">...Read More</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!----------------------------content-section-ends--------------------------------------->
+
+<!----------------------------------welcome-section-------------------------------------->
+<div class="welcome-section">
+    <div class="row">
+	    <div class="col-6 left-content wow fadeInLeft">
+	        <figure><img src="images/welcome.jpg" alt=""></figure>
+	    </div>
+	    <div class="col-6 ryt-content wow fadeInRight">
+		  <div class="container">
+            <h2><span>Welcome</span> TO IPO Nigeria website</h2>
+			<p>Welcome To The Official Website Of The Trademarks, Patents And Designs Registry, Commercial Law Department, Federal Ministry Of Industry, Trade And Investment. The Commercial Law Department administers protection of trademarks, patents and designs in Nigeria and Is Committed To Providing Prompt And Excellent Service Delivery Consistent With Modern Innovation And Technology As Well As Raising The Profile Of Nigeria In The Area Of Intellectual Property Protection, In A Way Consistent</p>
+			<a href="#" class="btn btn-success" data-text="Read More"><span>Read More</span></a>
+        </div>		
+	</div>
+  </div>
+</div>
+<!----------------------------------welcome-section-ends----------------------------------->
+
+<!--------------------------------quote-section-------------------------------------------->
+<div class="quote-section">
+  <div class="container">
+    <div class="row">
+	    <div class="col-8 quote-left wow fadeInLeft">
+            <ul>
+                <li><a href="#">Electronic Payment</a></li>
+                <li><a href="#">Fraud Fee</a></li>
+                <li><a href="#">Online Documents</a></li>
+                <li><a href="#">Status Check</a></li>
+                <li><a href="#">Professionalism</a></li>
+                <li><a href="#">Electronic Certificates</a></li>
+            </ul>
+			<div class="quote-btn"><a href="#" class="btn btn-default" data-text="Request A Quote"><span>Request A Quote</span></a></div>
+	    </div>
+	    <div class="col-4 quote-ryt wow fadeInRight">
+            <figure class="pull-right"><img src="images/quote-ryt.png" alt=""></figure>
+        </div>		
+	</div>
+  </div>
+</div>
+<!-------------------------------quote-section-ends---------------------------------------> 
+
+<!--------------------------------services-section--------------------------------------->
+<div class="services-section text-center">
+  <div class="container">
+       <h2><span>Our</span> Services</h2>
+		<div class="row">
+		  <div class="col-sm-3 text wow zoomIn">
+			<div class="service-content">
+			  <figure><img src="images/service1.png" alt="trademark"></figure>
+			  <h3><a href="#">Trademark</a></h3>
+			  <p>A trademark is a symbol or a sign which differentiates the goods and services of one business from
+              another one</p>
+			</div>
+		  </div>
+		  <div class="col-sm-3 text wow zoomIn">
+			<div class="service-content">
+			  <figure><img src="images/service2.png" alt="patents"></figure>
+			  <h3><a href="#">Patents</a></h3>
+			  <p>A patent protects new inventions and covers how things work, what they do, how they do it, what they are made of and how they</p>
+			</div>
+		  </div>
+		  <div class="col-sm-3 text wow zoomIn">
+			<div class="service-content">
+			  <figure><img src="images/service3.png" alt="Preliminary Advice"></figure>
+			  <h3><a href="#">Preliminary Advice</a></h3>
+			  <p>Before you register your trademark, it is advisable that you ensure that your trademark is not infringing on any existing trademark.</p>
+			</div>
+		  </div>
+		  <div class="col-sm-3 text wow zoomIn">
+			<div class="service-content">
+			  <figure><img src="images/service4.png" alt="Design"></figure>
+			  <h3><a href="#">Design</a></h3>
+			  <p>An Industrial Design is the ornamental or aesthetic aspect of an article. The design may consist of three-dimensional features</p>
+			</div>
+		  </div>	  
+		</div>
+    </div>
+</div>
+<!--------------------------------services-section-ends---------------------------------->
+
+<!-----------------------------------news-section---------------------------------------->
+<div class="news-section">
+  <div class="container">
+    <h2 class="text-center"><span>Latest</span> News</h2>
+    <div class="row">
+	    <div class="col-6 wow fadeInLeft">
+		   <div class="news-box">
+	        <figure><img src="images/news1.jpg" alt=""></figure>
+			<div class="row news-content">
+			    <div class="col-3 date">
+				    <p><strong>9</strong> <span>July, 2012</span></p>
+				</div>
+			    <div class="col-9 heading">
+				    <h4>Online Registration of Trademark, Patent and Designs</h4>
+				</div>			
+			</div>
+		  </div>	
+	    </div>
+	    <div class="col-6 wow fadeInRight">
+		   <div class="news-box">
+	        <figure><img src="images/news2.jpg" alt=""></figure>
+			<div class="row news-content">
+			    <div class="col-3 date">
+				    <p><strong>5</strong> <span>May, 2012</span></p>
+				</div>
+			    <div class="col-9 heading">
+				    <h4>&nbsp; Nigeria celebrates wipo day</h4>
+				</div>			
+			</div>
+		  </div>	
+	    </div>	
+	</div>
+  </div>
+</div>
+<!----------------------------------news-section-ends------------------------------------>
+
+<!---------------------------newsletter-section------------------------------------------>
+<div class="newsletter-section text-center">
+  <div class="container">
+      <div class="newsletter-lft wow fadeInLeft">
+        <h3>Sign Up for our Newsletter</h3>
+        <p>Lorem Ipsum is simply dummy text of the printbeen the industry's standard dummy text ever a galley of type and scrambled it to make a type specimen book.</p>
+      </div>
+      <div class="newsletter-ryt wow fadeInRight">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter your email">
+          </div>
+          <input type="submit" class="btn btn-success" value="Subscribe">
+        </form>
+      </div>
+  </div>
+</div>
+<!---------------------newsletter-section-ends--------------------------------------------> 
+
+<!---------------------------------footer-section----------------------------------------->
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 footer-contact wow fadeInLeft">
+	    <h3>Contact Us</h3>
+        <ul class="contact-list">
+		    <li>
+			    <ul>
+			        <li>Commercial Law Department</li> 
+					<li>Trademarks, Patents and Designs</li> 
+					<li>Ministry Of Trade and Investment</li> 
+					<li>Block D, Old secretariat, Area 1, Garki Abuja</li>
+				</ul>
+			</li>
+		    <li><a href="mailto:info@iponigeria.com">info@iponigeria.com</a></li>
+		    <li><a href="tel:08092194426">08092194426, 08092194416, 08092194404</a></li>			
+		</ul>
+      </div>
+      <div class="col-2 footer-links wow fadeInLeft">
+          <h3>Quick Links</h3>
+          <ul class="links-list">
+              <li><a href="index-2.html">Home</a></li>			  
+              <li><a href="services.html">Services</a></li>			  
+              <li><a href="contact.html">Contact</a></li>			  
+              <li><a href="template.html">Template Page</a></li>			  
+          </ul>
+      </div>
+      <div class="col-3 footer-icons wow fadeInRight">
+          <h3>Social Links</h3>
+		  <ul class="social-icons">
+			<li><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+			<li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+			<li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+		  </ul>
+      </div>
+      <div class="col-3 footer-payment wow fadeInRight">
+        <h3>Payments Powered by</h3>
+        <ul class="payment-list">
+          <li><img src="images/footer1.png" alt=""></li>
+          <li><img src="images/footer2.png" alt=""></li>
+          <li><img src="images/footer3.png" alt=""></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-----------------------------footer-section-ends--------------------------------------> 
+
+<!---------------------------------copyright-section------------------------------------>
+<div class="copyright-section text-center">
+  <div class="container">
+        <p class="m-0">&copy; Copyright All Right Reserved2019.iponigeria</p>
+  </div>
+</div>
+<!-------------------------------copyright-section-ends--------------------------------->
+
+<!------------------------------Scroll-Top---------------------------------------------->
+<a id="mkd-back-to-top" href="#">
+	<span class="mkd-icon-stack">
+        <i class="fa fa-angle-up"></i>
+    </span>
+	<span class="mkd-back-to-top-inner">
+		<span class="mkd-back-to-top-text">Top</span>
+	</span>
+</a>
+
+<!-------------------------------Scripts-section---------------------------------------->
+
+<!------------------------------Animation--------------------------> 
+<script src="js/wow.min.js"></script> 
+<script>
+new WOW().init();
+</script> 
+
+<script src="js/aos.js"></script> 
+<script>
+  AOS.init();
+</script> 
+
+<!------------------------------Dropdown-menu--------------------------> 
+<script>
+		if ($(window).width() < 768) {
+		$('.dropdown').hover(function(e){ 
+			$(this).children('.dropdown-menu').slideToggle('slow');
+			e.stopPropagation();
+		});
+		$('.dropdown-menu').each(function() {
+			$height = $(this).height('auto');
+			$(this).css('height', $height);
+			$(this).hide();
+		});
+		$('.dropdown .dropdown-menu').on('click', function(event){
+			event.stopPropagation();
+		});
+	}
+	
+	if ($(window).width() > 768) {
+	  $('.dropdown').hover(function() {
+			$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+		}, function() {
+			$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+		});
+	}
+</script>
+<!-----------------------Affix-header------------------------------> 
+<script>
+$(document).ready(function() {
+ $(window).scroll(function(){
+    
+    if($(this).scrollTop()>100){
+        
+        $("#header").addClass("affix");
+     
+    }
+    else{
+        
+      $("#header").removeClass("affix");  
+     
+    }
+});
+
+});
+</script>
+
+<!-----------------------Scroll-Top----------------------------->
+<script> 
+$(document).ready(function() {
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 50) {
+			$('#mkd-back-to-top').fadeIn(1200);
+		} else {
+			$('#mkd-back-to-top').fadeOut(1200);
+		}
+	});
+	
+	$('#mkd-back-to-top').click(function(event) {
+		event.preventDefault();
+		
+		$('html, body').animate({scrollTop: 0}, 1200);
+	})
+});
+</script> 
+
+<!----------------------Login/Register----------------------------> 
+<script>
+$(document).ready(function(){
+		
+  $('#Login-Form').parsley();
+  $('#Signin-Form').parsley();
+  $('#Forgot-Password-Form').parsley();
+
+  $('.login').click(function(){	
+	$('#login-modal-content').css("display", "block");
+	$('#signup-modal-content').css("display", "none");
+	$('#forgot-password-modal-content').css("display", "none");  
+  });
+
+  $('.register').click(function(){	
+    $('#login-modal-content').css("display", "none");
+	$('#signup-modal-content').css("display", "block");
+	$('#forgot-password-modal-content').css("display", "none");  
+  });	  
+  
+  $('#loginModal').click(function(){			    			
+	$('#signup-modal-content').fadeOut('fast', function(){
+	   $('#login-modal-content').fadeIn('fast');
+	});
+  });  
+  
+  $('#signupModal').click(function(){			    		
+	$('#login-modal-content').fadeOut('fast', function(){
+	   $('#signup-modal-content').fadeIn('fast');  
+	});
+  });
+			
+  $('#FPModal').click(function(){			   			
+	$('#login-modal-content').fadeOut('fast', function(){
+	   $('#forgot-password-modal-content').fadeIn('fast');
+	});
+  });
+			
+  $('#loginModal1').click(function(){			    			
+	$('#forgot-password-modal-content').fadeOut('fast', function(){
+	   $('#login-modal-content').fadeIn('fast');
+	});
+  });
+
+});
+</script>
+<script src="../../../../cdnjs.cloudflare.com/ajax/libs/parsley.js/2.4.4/parsley.min.js"></script>
+
+<!----------------------Country-icon----------------------------> 
+<script src="js/intlTelInput.js"></script>
+<script>
+var input = document.querySelector("#phone");
+window.intlTelInput(input, {
+  utilsScript: "js/utils.js",
+});
+</script>
+
+<!-----------------------------script-section-ends------------------------------------------->
+
+
+<script>
+	includeHTML();
+	</script>
+
+</body>
+
+<!-- Mirrored from tbsdevdemo.com/design/iponigeria/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 26 Oct 2019 08:28:58 GMT -->
+</html>

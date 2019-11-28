@@ -1,0 +1,210 @@
+﻿@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html>
+<!-------head-section--------->
+
+<head>
+    <title>Services</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.png" type="images/x-icon">
+    <script src="Scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
+    <link rel="stylesheet" href="Content/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="Content/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="Content/animate.min.css" type="text/css">
+    <link rel="stylesheet" href="Content/aos.css" type="text/css">
+    <link rel="stylesheet" href="Content/style.css" type="text/css">
+    <link rel="stylesheet" href="Content/intlTelInput.css" type="text/css">
+</head>
+<!-------head-section-ends-------->
+<body>
+    <!------------------------------Login-Register-Modal-------------------------------->
+    <div id="login-modal" class="modal fade cd-user-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            @Html.Partial("~/Views/Shared/_LoginModal.cshtml")
+            <!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!------------------------Login-Register-Modal-ends------------------------------------>
+    <!----------------------------header-section------------------------------------------->
+    @Html.Partial("~/Views/Shared/_Header.cshtml")
+    <br /><br />
+    <div  style="padding-left:600px">
+         
+            
+            <div>
+
+               
+
+
+                    <!-- HOME -->
+                
+                      
+
+                                        <h1 style="font-size: 78px;"></h1>
+                                        <h3 class="text-uppercase text-danger">
+
+                                            Sorry, something went wrong on our end.<br /> <br />We are currently trying to fix the problem.
+                                        </h3><br /><br />
+                                        <p class="text-muted"><a href="#" class="text-primary"> In the meantime, you can         refresh the page or contact   support at support@@iponigeria.com</a></p>
+                                        <br />
+                                       <div  style="padding-left:200px"> <a class="btn btn-success waves-effect waves-light m-t-20" href="@Url.Action("Index","Home")"> Return To Home  Page</a></div>
+                                    </div>
+        <br /><br />
+                         
+         </div>           <!-- END HOME -->
+
+
+
+
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+    <!-----------------------------footer-section-ends-------------------------------------->
+    <!---------------------------------copyright-section------------------------------------>
+    @Html.Partial("~/Views/Shared/_CopyRight.cshtml")
+    <!-------------------------------copyright-section-ends--------------------------------->
+    <!------------------------------Scroll-Top---------------------------------------------->
+    <a id="mkd-back-to-top" href="#">
+        <span class="mkd-icon-stack">
+            <i class="fa fa-angle-up"></i>
+        </span>
+        <span class="mkd-back-to-top-inner">
+            <span class="mkd-back-to-top-text">Top</span>
+        </span>
+    </a>
+    <!-------------------------------Scripts-section---------------------------------------->
+    <!------------------------------Animation-------------------------->
+    <script src="Scripts/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script src="Scripts/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <!------------------------------Dropdown-menu-------------------------->
+    <script>
+        if ($(window).width() < 768) {
+            $('.dropdown').hover(function (e) {
+                $(this).children('.dropdown-menu').slideToggle('slow');
+                e.stopPropagation();
+            });
+            $('.dropdown-menu').each(function () {
+                $height = $(this).height('auto');
+                $(this).css('height', $height);
+                $(this).hide();
+            });
+            $('.dropdown .dropdown-menu').on('click', function (event) {
+                event.stopPropagation();
+            });
+        }
+        if ($(window).width() > 768) {
+            $('li.dropdown').hover(function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+            }, function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+            });
+        }
+    </script>
+    <!-----------------------Affix-header------------------------------>
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+
+                if ($(this).scrollTop() > 100) {
+
+                    $("#header").addClass("affix");
+
+                }
+                else {
+
+                    $("#header").removeClass("affix");
+
+                }
+            });
+
+        });
+    </script>
+    <!-----------------------Scroll-Top----------------------------->
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#mkd-back-to-top').fadeIn(1200);
+                } else {
+                    $('#mkd-back-to-top').fadeOut(1200);
+                }
+            });
+
+            $('#mkd-back-to-top').click(function (event) {
+                event.preventDefault();
+
+                $('html, body').animate({ scrollTop: 0 }, 1200);
+            })
+        });
+    </script>
+    <!----------------------Login/Register---------------------------->
+    <script>
+        $(document).ready(function () {
+
+            $('#Login-Form').parsley();
+            $('#Signin-Form').parsley();
+            $('#Forgot-Password-Form').parsley();
+
+            $('.login').click(function () {
+                $('#login-modal-content').css("display", "block");
+                $('#signup-modal-content').css("display", "none");
+                $('#forgot-password-modal-content').css("display", "none");
+            });
+
+            $('.register').click(function () {
+                $('#login-modal-content').css("display", "none");
+                $('#signup-modal-content').css("display", "block");
+                $('#forgot-password-modal-content').css("display", "none");
+            });
+
+            $('#loginModal').click(function () {
+                $('#signup-modal-content').fadeOut('fast', function () {
+                    $('#login-modal-content').fadeIn('fast');
+                });
+            });
+
+            $('#signupModal').click(function () {
+                $('#login-modal-content').fadeOut('fast', function () {
+                    $('#signup-modal-content').fadeIn('fast');
+                });
+            });
+
+            $('#FPModal').click(function () {
+                $('#login-modal-content').fadeOut('fast', function () {
+                    $('#forgot-password-modal-content').fadeIn('fast');
+                });
+            });
+
+            $('#loginModal1').click(function () {
+                $('#forgot-password-modal-content').fadeOut('fast', function () {
+                    $('#login-modal-content').fadeIn('fast');
+                });
+            });
+
+        });
+    </script>
+    <script src="Scripts/parsley.min.js"></script>
+    <!----------------------Country-icon---------------------------->
+    <script src="Scripts/intlTelInput.js"></script>
+    <script>
+        var input = document.querySelector("#phone");
+        window.intlTelInput(input, {
+            utilsScript: "Scripts/utils.js",
+        });
+    </script>
+    <!-----------------------------script-section-ends------------------------------------------->
+    <script src="Scripts/reader.js"></script>
+</body>
+</html>

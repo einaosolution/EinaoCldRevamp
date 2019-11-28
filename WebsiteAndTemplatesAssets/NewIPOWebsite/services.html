@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<!-------head-section--------->
+
+<!-- Mirrored from tbsdevdemo.com/design/iponigeria/html/services.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 26 Oct 2019 08:29:32 GMT -->
+<head>
+<title>Services</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=0, initial-scale=1.0">
+<link rel="icon" href="images/favicon.png" type="images/x-icon">
+
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,700">
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+<link rel="stylesheet" href="css/aos.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/intlTelInput.css" type="text/css">
+</head>
+<!-------head-section-ends-------->
+<body>
+
+<!------------------------------Login-Register-Modal-------------------------------->
+<div id="login-modal" class="modal fade cd-user-modal" tabindex="-1" role="dialog">
+  	<div class="modal-dialog modal-sm">
+	
+    	<!-- login modal content -->
+        <div class="modal-content" id="login-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+			  <h2>Hello. Welcome back</h2>
+			  <form id="Login-Form" role="form">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Email or Mobile Number" value="">
+						<label class="float__label">Email or Mobile Number</label>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" value="">
+						<label class="float__label">Password</label>							
+					</div>
+					<div class="form-group checkbox">
+						<label class="filled-in">Remember Me
+						  <input type="checkbox">
+						  <span class="checkmark"></span>
+						</label>
+					</div>
+				  <button type="submit" class="btn btn-default">Login</button>
+			  </form>
+			</div>
+			<div class="modal-footer text-center">
+			  <div>
+			  <a id="FPModal" href="javascript:void(0);">Forgot Password?</a>
+			  <p>New to Iponigeria?</p>
+			  <a id="signupModal" href="javascript:void(0);"> Sign Up here</a>
+			  </div>
+			</div>
+		
+       </div>
+        <!-- login modal content -->
+        
+        <!-- signup modal content -->
+        <div class="modal-content" id="signup-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+		   <div class="modal-body">
+			  <h2>Welcome to Iponigeria <span>Sign up and start making payments</span></h2>
+			  <br>
+			  <form id="Signin-Form" role="form">
+				<div class="form-group">
+				   <div class="row">
+						<div class="col-6">	 
+							<input type="text" class="form-control" placeholder="First Name">
+						   <label class="float__label">First Name</label>
+						</div>									
+						<div class="col-6">	 
+							<input type="text" class="form-control" placeholder="Last Name">
+							<label class="float__label">Last Name</label>
+						</div>	
+				   </div>	
+				</div>							
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Email">
+					<label class="float__label">Email</label>						
+				</div>
+				<div class="form-group">
+					<input type="number" class="form-control" placeholder="Mobile Number" id="phone">
+					<label class="float__label">Mobile Number</label>
+				</div>						
+				<div class="form-group">						
+					<input type="password" class="form-control" placeholder="Password">
+					<label class="float__label">Password</label>
+				</div>							
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Referred By (Email or Mobile Number)">
+					<label class="float__label">Referred By (Email or Mobile Number)</label>
+				</div>
+				
+				  <button type="submit" class="btn btn-default">Continue</button>
+			  </form>
+			</div>
+			<div class="modal-footer">
+			  <p class="w-100">Already have an account? <a id="loginModal" href="javascript:void(0);"> Login</a></p>
+			</div>
+      </div>
+        <!-- signup modal content -->
+        
+        <!-- forgot password content -->
+         <div class="modal-content" id="forgot-password-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+			  <h2>Reset Your Password</h2>
+			  <form id="Forgot-Password-Form" role="form">
+			  
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Email">
+					<label class="float__label">Email</label>							
+				</div>
+							
+				<button type="submit" class="btn btn-default">Continue</button>
+			  </form>
+			</div>
+			<div class="modal-footer">
+			  <p class="w-100">I remember now? <a id="loginModal1" href="javascript:void(0);"> Login</a></p>
+			</div>
+      </div>        
+        <!-- forgot password content -->
+
+    	<!-- /.modal-content -->
+  	</div><!-- /.modal-dialog -->
+</div>
+<!------------------------Login-Register-Modal-ends------------------------------------>
+
+<!----------------------------header-section------------------------------------------->
+<header id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 header-lft wow fadeInLeft">
+        <div class="logo"><a href="index-2.html"><img src="images/logo.png" alt="logo"></a></div>
+      </div>
+      <div class="col-8 header-mid wow fadeInRight">
+        <nav class="navbar navbar-expand-md p-0 pull-right">
+		    <div class="navbar-brand">
+			   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar"><span class="fa fa-bars"></span>
+			   </button>
+		    </div> 
+          <div id="myNavbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="nav-item"><a href="index-2.html" class="nav-link">Home</a></li>
+              <li class="nav-item dropdown active"><a href="services.html" class="nav-link dropdown-toggle">Services</a>
+			    <ul class="dropdown-menu">
+				  <li><a href="#">Trademark</a></li>			  
+				  <li><a href="#">Patents</a></li>			  
+				  <li><a href="#">Preliminary Advice</a></li>					 
+				  <li><a href="#">Design</a></li>			  
+			    </ul>			  
+			  </li>			  
+              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>			  
+              <li class="nav-item dropdown"><a href="template.html" class="nav-link dropdown-toggle">Template Page</a>
+			    <ul class="dropdown-menu">
+				  <li><a href="#">Lorem Ipsum</a></li>			  
+				  <li class="dropdown"><a href="#" class="dropdown-toggle">Lorem Ipsum</a>
+						<ul class="dropdown-menu">
+						  <li><a href="#">Lorem Ipsum</a></li>
+						  <li><a href="#">Lorem Ipsum</a></li>						  
+						  <li><a href="#">Lorem Ipsum</a></li>
+						  <li><a href="#">Lorem Ipsum</a></li>
+						</ul>				  
+				  </li>			  
+				  <li><a href="#">Lorem Ipsum</a></li>					 
+				  <li><a href="#">Lorem Ipsum</a></li>			  
+			    </ul>				  
+			  </li>
+              <li><a href="javascript:void(0);" class="btn btn-default login" data-toggle="modal" data-target="#login-modal" data-text="Login"><span>Login</span></a></li>
+              <li><a href="javascript:void(0);" class="btn btn-primary register" data-toggle="modal" data-target="#login-modal" data-text="Register"><span>Register</span></a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<!----------------------------header-section-ends----------------------------------------> 
+
+<!----------------------------banner-section--------------------------------------------->
+<div class="banner-section inner">
+    <figure><img src="images/services-banner.jpg" alt=""></figure>
+    <ul class="breadcrumb">
+	  <div class="container">
+		<li><a href="index-2.html">Home</a></li>
+		<li class="active"><a href="#">Services</a></li>
+	  </div>
+	</ul>   
+</div>
+<!----------------------------banner-section-ends---------------------------------------->
+
+<!------------------------------inner-section-------------------------------------------->
+<div class="inner-section">
+  <div class="container">
+ <div class="service-section">
+   <div class="row">
+		<div class="col-3 wow fadeInLeft">
+			<div class="inner-ul">
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item form-control"><a class="nav-link active" href="#on1" data-toggle="tab">Trademark</a></li>
+					<li class="nav-item form-control"><a class="nav-link" href="#on2" data-toggle="tab">Patents</a></li>
+					<li class="nav-item form-control"><a class="nav-link" href="#on3" data-toggle="tab">Preliminary Advice</a></li>
+					<li class="nav-item form-control"><a class="nav-link" href="#on4" data-toggle="tab">Design</a></li>
+				</ul>
+			</div>					
+		</div>
+		<div class="col-9 wow fadeInRight">
+			<div class="tab-content">
+				<div id="on1" class="tab-pane fade in active show">
+	                <div class="service-content">
+					    <p>A trademark is a symbol or a sign which differentiates the goods and services of one business from another one. You can register your trademark - a name, logo, slogan, domain name, shape, colour or sound with the Commercial Law department, Ministry of Trade and Investment in Nigeria. This can legally protect your trademark from use by a competitor. The trademark must be distinctive for the goods and services that you provide, not be deceptive, illegal or immoral and not be similar to existing trademarks.</p>
+					    <p>A trademark provides protection to the owner of the mark by ensuring the exclusive right to use it to identify goods or services, or to authorize another to use it in return for payment. The period of protection varies, but a trademark can be renewed indefinitely beyond the time limit on payment of additional fees. Trademark protection is enforced by the courts, which in most systems have the authority to block trademark infringement.</p>
+					    <p>In a larger sense, trademarks promote initiative and enterprise worldwide by rewarding the owners of trademarks with recognition and financial profit. Trademark protection also hinders the efforts of unfair competitors, such as counterfeiters, to use similar distinctive signs to market inferior or different products or services. The system enables people with skill and enterprise to produce and market goods and services in the fairest possible conditions, thereby facilitating international trade.</p>
+						<h4><strong>REQUIREMENTS FOR FILING NIGERIAN TRADE MARK APPLICATIONS</strong></h4>
+
+						<p><strong>Applicant's details</strong></p>
+
+						<p>The full name(s), nationality and physical address of the applicant (to be advised to local Agent/Attorney).</p>
+
+						<p><strong>The trademark Information</strong></p>
+
+						<p>The Representation must be clear and distinct. If to be filed online, soft copies are to be provided in jpeg format at a minimum of 1200 dpi.</p>
+
+						<p>A representation is preferred to have the following dimensions: 120px by 100px (length by breath)</p>
+
+						<p><strong>Goods</strong></p>
+
+						<p>The full range of goods covered or proposed to be covered by the trade mark. Nigeria presently follows the International Classification of Goods. A separate application is filed for each classification of goods for which the trade mark is to be registered.</p>
+
+						<p><strong>Power of Attorney/Authorization of Agent</strong></p>
+
+						<p>A Power of Attorney simply signed, with full particulars of name(s), address (es) and nationality of the applicant(s). Full name(s) and capacity of the signatory when applicant is a firm/company.</p>
+
+						<h4><strong>PROCEDURE FOR REGISTRATION OF TRADE MARKS</strong></h4>
+
+						<p>The usual market practice is to instruct a local Attorney/Agent in Nigeria, who would file and process applications at the Nigerian Registry of Trade Marks, Patents, Designs and Copyright. A Power of Attorney/Authorization of Agent Form would be completed in favor of such local Agent, as the enabling instrument to act for the principal/ Applicant.  Thereafter, all official documents and forms would be submitted by the local Agent/Attorney. Until replaced or substituted by another local Agent, the local Agent remains responsible for processing registrations of the marks, defending Oppositions (if any), provides address for local service of documents, and maintains renewals of the marks. A local Agent/Attorney may be replaced or substituted by executing another Power of Attorney/Authorization of Agent Form in favor of the succeeding Agent.  NO formal notices are necessary and the Agent with the more recent Authorization is deemed to be the one with powers to act thenceforth.</p>
+
+						<p>After filing the application for trade mark registration, the Registrar issues an official acknowledgement reflecting the official number and filing date of the application. A preliminary search is conducted as to distinctiveness from existing and pending registrations.  The Registrar examines the application for registrability taking into consideration possible conflicts with prior registered or pending marks and or inherent registrability of the mark. If the Registrar finds the trademark acceptable for registration, the applicant will be furnished with a letter/notice of acceptance.</p>
+
+						<p>Every trade mark application must be advertised in the Nigerian Trademark Journal, and is open to opposition for a period of two (2) months from the date of advertisement.</p>
+
+						<p>If no objections are received within the specified period or no objections are sustained, the Registrar will issue the applicant with a certificate of registration.</p> 
+
+						<p>When issued, the Registration Certificate will reflect the date of initial filing as date of registration (i.e. date of filing acknowledgement).</p>
+
+						<p>Nigerian trade mark registrations have an initial validity of seven (7) years, and are thereafter indefinitely renewable for periods of fourteen (14) years.  An application for renewal should be made not less than three (3) months from the due date.</p>
+
+						<p>A trademark may be registered either plainly (black and white) or in colour.  However, where a trademark is registered in colour, the protection afforded the Mark is limited to the colour(s) registered.  On the other hand, a plain (viz. black and white) registration affords protection to all colours of presentation of the trade mark.</p>
+
+						<p>Occasionally, the Registrar may request that for distinctiveness and acceptability for registration, word marks that are Common English words be registered in combination with devices or logos.</p>
+
+						<h4><strong>ELECTRONIC FILING IN NIGERIA</strong></h4>
+
+						<p>Trademarks can now be filed in Nigeria electronically through Local IP Agents. The Electronic filing was introduced to reduce the Hassles that come with Manual Processing of Applications.</p>
+
+						<p>The Electronic Filing Method is Convenient as you can file from the comfort of your location. Applicants will automatically get their Electronic acknowledgement notice on the same day of payment. Payments can now be made via Quickteller.com using Debit cards or at any Skye Bank Plc. in Nigeria. Applicants however must obtain Pre-generated Invoices obtainable through a Platform created for Local Agents in Nigeria.</p>
+
+						<p>One of the Benefits of Electronic filing is the Check Status module. You can track your applications online using your online application ID provided on your Acknowledgment letter.</p>
+
+						<p>Electronic Filing is encouraged as it is in line with Best practices around the world.</p>						
+					</div>
+				</div>
+				<div id="on2" class="tab-pane fade">
+	                <div class="service-content">
+					    <p>A patent protects new inventions and covers how things work, what they do, how they do it, what they are made of and how they are made. It gives the owner the right to prevent others from making, using, importing or selling the invention without permission. Your invention must be new, have an inventive step that is not obvious to someone with knowledge and experience in the subject, be capable of being made or used in some kind of industry and not be, a scientific or mathematical discovery, theory or method, a literary, dramatic, musical or artistic work, a way of performing a mental act, playing a game or doing business, the presentation of information, or some computer programs, an animal or plant variety, a method of medical treatment or diagnosis,  against public policy or morality.</p>
+					    <p>The Patents and Designs Act of 1971 Cap. 344 is the substantive law governing affairs of patents in Nigeria, while the Patent, while the Patents Rules regulates the procedures adopted at the Patent Registry. Under section 26 Patent and Designs Act, the Jurisdiction to hear and dispose of legal proceedings under the PDA is vested in the Federal High Court and the section also provides that the provisions of the Trade Marks Act applicable to legal proceedings under the Act shall apply with necessary modifications to legal proceedings under the PDA.</p>
+					    <p><strong>Requirement for registration:</strong></p>
+						<p>Every patent application made in Nigeria shall contain a petition or request for a patent signed by the applicant or his agent and containing the applicant’s full name and address; a specification, including a claim or claims in duplicate; plans and drawings, if any, in duplicate; where appropriate, a declaration signed by the true inventor requesting that he be mentioned as such in the patent and giving his name and address; a signed power of attorney or authorization of agent if the application is made by an agent; an address for service in Nigeria if the applicant’s address is outside Nigeria; and The prescribed fee. </p>
+						<p><strong>Foreign Priority: </strong></p>
+						<p>Where the applicant seeks to avail himself of a foreign priority in respect of an earlier application made in a country outside Nigeria, he shall append to his application a written declaration showing the date and number of the earlier application, the country in which the earlier application was made, and the name of the applicant who made the earlier application. The applicant will be expected to furnish the Registrar, not more than three months after the making of the application in the initial country with a copy of the earlier application certified correct by the Industrial Property Office (or its equivalent) in the country where the earlier application was made. The principle of Restitution in interregnum does not apply with respect to priority term in the case of a convention application.</p>
+						<p><strong>Claims and examination:</strong></p>
+						<p>A patent application shall relate to only one invention, but may include in connection with that invention, claims for any number of products or for any number of manufacturing processes for those products, and for any number of applications of those products. It may also include claims for any number of processes, and for the means of working those processes, for the resulting product or products and for the application of those products. <span>Under the provisions of the PDA, the Registrar is only permitted to examine every patent application as to its conformity with certain sections of the Act, such examination being in essence formal in nature. There is no provision in the Act on the substantive examination of a patent application.</span></p>
+						<p><strong>Duration and lapse of patent:</strong></p>
+						<p>Every patent in Nigeria shall lapse at the end of the twentieth year from the date of the filing of the relevant patent application. A patent shall also lapse if the prescribed annual fees are not duly paid in respect of it, provided that a grace period of six (6) months shall be allowed for the payment of the fees; and if the fees and the prescribed surcharge are paid within that period, the patent shall continue as if the fees had been duly paid.</p>
+					</div>   
+				</div>
+				<div id="on3" class="tab-pane fade">
+	                <div class="service-content">
+					    <p>Before you register your trademark, it is advisable that you ensure that your trademark is not infringing on any existing trademark.</p>
+					    <p>Preliminary search/ availability search is a process of searching the existing database to clarify the status of your existing trademark. if the mark is available and registrable, you can go ahead and apply to register the trademark within a speculated period.</p>
+					    <p>To conduct a search, you must be an accredited agent of the registry.</p>
+					</div>		
+				</div>
+				<div id="on4" class="tab-pane fade">
+	                <div class="service-content">
+					    <p>An Industrial Design is the ornamental or aesthetic aspect of an article. The design may consist of three-dimensional features, such as the shape of an article, or two-dimensional features, such as patterns, lines or colour. Industrial Designs are applied to a wide variety of products of industry and handicrafts such as technical and medical instruments, watches, jewellery, house-ware, electrical appliances, vehicles, architectural structures, textile designs, leisure goods and other luxury items. Industrial Designs make an article attractive and appealing, thereby adding to its commercial value and increasing its marketability. To be protected in Nigeria, an Industrial Design must appeal to the eye. This means that an Industrial Design is primarily of an aesthetic nature, and does not protect any technical features of the article to which it is applied.</p>
+					    <p><strong>PROTECTION OF INDUSTRIAL DESIGN:</strong></p>
+					    <p>In most countries, an Industrial Design must be registered in order to be protected under Industrial Design law. As a general rule, to be registrable, the design must be “new” or “original”. Different countries have varying definitions of such terms, as well as variations in the registration process itself. Generally, “new” means that no identical or very similar design is known to have existed before. Once a design is registered, a registration certificate is issued. Depending on the particular national law and the kind of design, an Industrial Design may also be protected as a work of art under copyright law. In which case registration is not required. In some countries, Industrial Design and copyright protection can exist concurrently. In other countries, they are mutually exclusive: once the owner chooses one kind of protection, he can no longer invoke the other. In certain countries, an Industrial Design may also be protected against imitation under unfair competition law.  The owner of a protected Industrial Design is granted the right to prevent unauthorized copying or imitation of the design by others. This includes the right of making, offering, importing, exporting or selling any product in which the design is incorporated or to which it is applied.  He may also license or authorize others to use the design on mutually agreed terms. The owner may also sell the right to the Industrial Design to someone else. The term of protection under Industrial Design laws is generally five years, with the possibility of further periods of renewal up to, in most cases, 15 years. Generally, Industrial Design protection is limited to the country in which protection is granted.</p>
+						<p><strong>PROTECTION OF INDUSTRIAL DESIGN:</strong></p>
+                        <p>In most countries, an Industrial Design must be registered in order to be protected under Industrial Design law. As a general rule, to be registrable, the design must be “new” or “original”. Different countries have varying definitions of such terms, as well as variations in the registration process itself. Generally, “new” means that no identical or very similar design is known to have existed before. Once a design is registered, a registration certificate is issued. Depending on the particular national law and the kind of design, an Industrial Design may also be protected as a work of art under copyright law. In which case registration is not required. In some countries, Industrial Design and copyright protection can exist concurrently. In other countries, they are mutually exclusive: once the owner chooses one kind of protection, he can no longer invoke the other. In certain countries, an Industrial Design may also be protected against imitation under unfair competition law.  The owner of a protected Industrial Design is granted the right to prevent unauthorized copying or imitation of the design by others. This includes the right of making, offering, importing, exporting or selling any product in which the design is incorporated or to which it is applied.  He may also license or authorize others to use the design on mutually agreed terms. The owner may also sell the right to the Industrial Design to someone else. The term of protection under Industrial Design laws is generally five years, with the possibility of further periods of renewal up to, in most cases, 15 years. Generally, Industrial Design protection is limited to the country in which protection is granted.</p>
+                        <p><strong>PROTECTING AN INDUSTRIAL DESIGN:</strong></p>
+                        <p>Helps to ensure a fair return on investment; Improves the competitiveness of a business against copying and imitating the design by competitors; Helps to increase the commercial value of a company, as successful Industrial Designs constitute business assets;  Encourages creativity in the industrial and manufacturing sectors, as well as in traditional arts and crafts.</p>
+                        <p><strong>REQUIREMENTS FOR REGISTRATION OF DESINGS IN NIGERIA</strong></p>
+						<p>Conduct availability search for design; Obtain application forms 1&2(textiles) 3&4(non- textiles).  Include a statement of novelty specifying features of the design for which novelty is claimed; Submit specimen or representation including the graphic or photographic representation of design.  Submit a power of attorney /authorization of agent: Certificate of design is issued after the application has been processed; Registration of industrial designs lasts for 15 years subject to renewal after every 5 years.</p>
+					</div>		
+				</div>				
+				
+			</div>					
+		</div>
+   </div> 
+ </div> 
+  </div>
+</div>
+<!-----------------------------inner-section-ends---------------------------------------->
+
+<!---------------------------newsletter-section------------------------------------------>
+<div class="newsletter-section text-center">
+  <div class="container">
+      <div class="newsletter-lft wow fadeInLeft">
+        <h3>Sign Up for our Newsletter</h3>
+        <p>Lorem Ipsum is simply dummy text of the printbeen the industry's standard dummy text ever a galley of type and scrambled it to make a type specimen book.</p>
+      </div>
+      <div class="newsletter-ryt wow fadeInRight">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter your email">
+          </div>
+          <input type="submit" class="btn btn-success" value="Subscribe">
+        </form>
+      </div>
+  </div>
+</div>
+<!---------------------newsletter-section-ends--------------------------------------------> 
+
+<!---------------------------------footer-section----------------------------------------->
+<footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-4 footer-contact wow fadeInLeft">
+	    <h3>Contact Us</h3>
+        <ul class="contact-list">
+		    <li>
+			    <ul>
+			        <li>Commercial Law Department</li> 
+					<li>Trademarks, Patents and Designs</li> 
+					<li>Ministry Of Trade and Investment</li> 
+					<li>Block D, Old secretariat, Area 1, Garki Abuja</li>
+				</ul>
+			</li>
+		    <li><a href="mailto:info@iponigeria.com">info@iponigeria.com</a></li>
+		    <li><a href="tel:08092194426">08092194426, 08092194416, 08092194404</a></li>			
+		</ul>
+      </div>
+      <div class="col-2 footer-links wow fadeInLeft">
+          <h3>Quick Links</h3>
+          <ul class="links-list">
+              <li><a href="index-2.html">Home</a></li>			  
+              <li><a href="services.html">Services</a></li>			  
+              <li><a href="contact.html">Contact</a></li>			  
+              <li><a href="template.html">Template Page</a></li>			  
+          </ul>
+      </div>
+      <div class="col-3 footer-icons wow fadeInRight">
+          <h3>Social Links</h3>
+		  <ul class="social-icons">
+			<li><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+			<li><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+			<li><a href="#"><i class="fa fa-instagram"></i>Instagram</a></li>
+		  </ul>
+      </div>
+      <div class="col-3 footer-payment wow fadeInRight">
+        <h3>Payments Powered by</h3>
+        <ul class="payment-list">
+          <li><img src="images/footer1.png" alt=""></li>
+          <li><img src="images/footer2.png" alt=""></li>
+          <li><img src="images/footer3.png" alt=""></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-----------------------------footer-section-ends--------------------------------------> 
+
+<!---------------------------------copyright-section------------------------------------>
+<div class="copyright-section text-center">
+  <div class="container">
+        <p class="m-0">&copy; Copyright All Right Reserved2019.iponigeria</p>
+  </div>
+</div>
+<!-------------------------------copyright-section-ends--------------------------------->
+
+<!------------------------------Scroll-Top---------------------------------------------->
+<a id="mkd-back-to-top" href="#">
+	<span class="mkd-icon-stack">
+        <i class="fa fa-angle-up"></i>
+    </span>
+	<span class="mkd-back-to-top-inner">
+		<span class="mkd-back-to-top-text">Top</span>
+	</span>
+</a>
+
+<!-------------------------------Scripts-section---------------------------------------->
+
+<!------------------------------Animation--------------------------> 
+<script src="js/wow.min.js"></script> 
+<script>
+new WOW().init();
+</script> 
+
+<script src="js/aos.js"></script> 
+<script>
+  AOS.init();
+</script> 
+
+<!------------------------------Dropdown-menu--------------------------> 
+<script>
+		if ($(window).width() < 768) {
+		$('.dropdown').hover(function(e){ 
+			$(this).children('.dropdown-menu').slideToggle('slow');
+			e.stopPropagation();
+		});
+		$('.dropdown-menu').each(function() {
+			$height = $(this).height('auto');
+			$(this).css('height', $height);
+			$(this).hide();
+		});
+		$('.dropdown .dropdown-menu').on('click', function(event){
+			event.stopPropagation();
+		});
+	}
+	if ($(window).width() > 768) {
+	  $('li.dropdown').hover(function() {
+			$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+		}, function() {
+			$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+		});
+	}
+</script>
+
+<!-----------------------Affix-header------------------------------> 
+<script>
+$(document).ready(function() {
+ $(window).scroll(function(){
+    
+    if($(this).scrollTop()>100){
+        
+        $("#header").addClass("affix");
+     
+    }
+    else{
+        
+      $("#header").removeClass("affix");  
+     
+    }
+});
+
+});
+</script>
+
+<!-----------------------Scroll-Top----------------------------->
+<script> 
+$(document).ready(function() {
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 50) {
+			$('#mkd-back-to-top').fadeIn(1200);
+		} else {
+			$('#mkd-back-to-top').fadeOut(1200);
+		}
+	});
+	
+	$('#mkd-back-to-top').click(function(event) {
+		event.preventDefault();
+		
+		$('html, body').animate({scrollTop: 0}, 1200);
+	})
+});
+</script> 
+
+<!----------------------Login/Register----------------------------> 
+<script>
+$(document).ready(function(){
+		
+  $('#Login-Form').parsley();
+  $('#Signin-Form').parsley();
+  $('#Forgot-Password-Form').parsley();
+
+  $('.login').click(function(){	
+	$('#login-modal-content').css("display", "block");
+	$('#signup-modal-content').css("display", "none");
+	$('#forgot-password-modal-content').css("display", "none");  
+  });
+
+  $('.register').click(function(){	
+    $('#login-modal-content').css("display", "none");
+	$('#signup-modal-content').css("display", "block");
+	$('#forgot-password-modal-content').css("display", "none");  
+  });	  
+  
+  $('#loginModal').click(function(){			    			
+	$('#signup-modal-content').fadeOut('fast', function(){
+	   $('#login-modal-content').fadeIn('fast');
+	});
+  });  
+  
+  $('#signupModal').click(function(){			    		
+	$('#login-modal-content').fadeOut('fast', function(){
+	   $('#signup-modal-content').fadeIn('fast');  
+	});
+  });
+			
+  $('#FPModal').click(function(){			   			
+	$('#login-modal-content').fadeOut('fast', function(){
+	   $('#forgot-password-modal-content').fadeIn('fast');
+	});
+  });
+			
+  $('#loginModal1').click(function(){			    			
+	$('#forgot-password-modal-content').fadeOut('fast', function(){
+	   $('#login-modal-content').fadeIn('fast');
+	});
+  });
+
+});
+</script>
+<script src="../../../../cdnjs.cloudflare.com/ajax/libs/parsley.js/2.4.4/parsley.min.js"></script>
+
+<!----------------------Country-icon----------------------------> 
+<script src="js/intlTelInput.js"></script>
+<script>
+var input = document.querySelector("#phone");
+window.intlTelInput(input, {
+  utilsScript: "js/utils.js",
+});
+</script>
+
+<!-----------------------------script-section-ends------------------------------------------->
+
+</body>
+
+<!-- Mirrored from tbsdevdemo.com/design/iponigeria/html/services.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 26 Oct 2019 08:29:41 GMT -->
+</html>
