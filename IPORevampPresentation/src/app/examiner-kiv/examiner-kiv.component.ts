@@ -304,7 +304,7 @@ this.pwalletid = kk.pwalletid
 
   ngOnInit() {
 
-    if (this.registerapi.checkAccess("#/Patent/PatentKiv"))  {
+    if (this.registerapi.checkAccess("#/Dashboard/ExaminerKiv"))  {
 
     }
 

@@ -28,6 +28,7 @@ export class ApiClientService {
  //serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
+liveurl ="http://5.77.54.44/EinaoTestEnvironment.IpoNigeria"
 // serviceBase2 = 'http://localhost:4200/#/';
   navchange: EventEmitter<string> = new EventEmitter();
   invention :Invention[]=[]
@@ -294,6 +295,14 @@ public GetRandomNumber ( ) {
 
       //  alert("new value =" + this.status)
     }
+
+
+    RedirectWebsite() {
+     window.location.href = this.liveurl;;
+
+    //  alert("new value =" + this.status)
+  }
+
 
 
 

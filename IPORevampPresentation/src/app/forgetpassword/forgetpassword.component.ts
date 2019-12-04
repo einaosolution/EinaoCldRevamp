@@ -47,6 +47,10 @@ export class ForgetpasswordComponent implements OnInit {
 
 
    }
+
+   redirect() {
+    this.registerapi. RedirectWebsite()
+   }
   onSubmit(f) {
 
     this.submitted= true;

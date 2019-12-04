@@ -28,8 +28,9 @@ export class LogoutComponent implements OnInit {
 
 
 
-  //  this.router.navigateByUrl('/login');
-   window.location.href = 'http://5.77.54.44/EinaoTestEnvironment.IpoNigeria';
+
+   this.registerapi.RedirectWebsite()
+
   }
 
 }

@@ -59,7 +59,7 @@ this.getData()
        //this.randnumber  =this.registerapi3.GetRandomNumber()
 
 
-         this.trademarkkivcount = response.content
+        // this.trademarkkivcount = response.content
 
 
        })
