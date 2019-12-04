@@ -18,11 +18,17 @@ C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\EmailEngine.de
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\EmailEngine.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\EmailEngine.pdb
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\IPORevamp.Core.dll
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Http.Features.dll
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Hosting.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Stores.dll
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\IPORevamp.Core.pdb
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.xml
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Http.Features.xml
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Hosting.xml
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Stores.xml
+C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.csprojAssemblyReference.cache
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.csproj.CoreCompileInputs.cache
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.AssemblyInfoInputs.cache
@@ -30,9 +36,3 @@ C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.As
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.csproj.CopyComplete
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.dll
 C:\EinaoCldRevamp\IPORevamp\EmailEngine\obj\Release\netcoreapp2.1\EmailEngine.pdb
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.dll
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Identity.Core.xml
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.dll
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.AspNetCore.Hosting.Abstractions.xml
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Hosting.dll
-C:\EinaoCldRevamp\IPORevamp\EmailEngine\bin\Release\netcoreapp2.1\Microsoft.Extensions.Hosting.xml

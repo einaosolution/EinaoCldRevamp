@@ -326,6 +326,11 @@ namespace IPORevamp.WebAPI.Controllers
                     LastName = users.Surname,
                     MobileNumber = users.Phonenumber,
                     Street = users.Address,
+                    CategoryId = 2 ,
+                    EmailConfirmed = true,
+                    ChangePassword = true,
+                    ChangePasswordFirstLogin = true,
+                    LastPasswordChangDate = DateTime.Now,
                     RolesId = Convert.ToInt32(IPORoles.CorporateAgent_Trade_Mark),
                     migratedagentcode = users.migratedagentcode,
                     migrateduserid = Convert.ToString(users.migrateduserid)
@@ -438,6 +443,10 @@ namespace IPORevamp.WebAPI.Controllers
                         MobileNumber = users.Phonenumber,
                         Street = users.Address,
                         RolesId = assignedrole,
+                        EmailConfirmed = true,
+                        ChangePassword = true,
+                        ChangePasswordFirstLogin = true,
+                        LastPasswordChangDate = DateTime.Now,
                         migratedagentcode = users.migratedagentcode,
                         migrateduserid = Convert.ToString(users.migrateduserid),
                         department = DEPARTMENT.Trademark
@@ -485,79 +494,89 @@ namespace IPORevamp.WebAPI.Controllers
             foreach (var users in userlist)
             {
                 int assignedrole = 0;
-
-
-
-                switch (users.roles)
+                try
                 {
-                    case "1":
-                        assignedrole = Convert.ToInt32(IPORoles.Administrator);
-                        break;
-
-                    case "2":
-
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Patent);
-                        break;
-
-                    case "3":
-
-                        assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Patent);
-                        break;
 
 
+                    switch (users.roles)
+                    {
+                        case "1":
+                            assignedrole = Convert.ToInt32(IPORoles.Administrator);
+                            break;
 
-                    case "4":
-                        assignedrole = Convert.ToInt32(IPORoles.Patent_Examiner);
-                        break;
+                        case "2":
 
-                    case "8":
-                        assignedrole = Convert.ToInt32(IPORoles.Patent_Examiner);
-                        break;
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Patent);
+                            break;
 
-                    case "5":
-                        assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Patent);
-                        break;
+                        case "3":
 
-                    case "6":
-                        assignedrole = Convert.ToInt32(IPORoles.RegistrarPatent);
-                        break;
-
-                 
-
-                  
+                            assignedrole = Convert.ToInt32(IPORoles.Search_Officer_Patent);
+                            break;
 
 
-                   
-                  
+
+                        case "4":
+                            assignedrole = Convert.ToInt32(IPORoles.Patent_Examiner);
+                            break;
+
+                        case "8":
+                            assignedrole = Convert.ToInt32(IPORoles.Patent_Examiner);
+                            break;
+
+                        case "5":
+                            assignedrole = Convert.ToInt32(IPORoles.Certificate_Officer_Patent);
+                            break;
+
+                        case "6":
+                            assignedrole = Convert.ToInt32(IPORoles.RegistrarPatent);
+                            break;
+
+
+
+
+
+
+
+
+                    }
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = users.Email,
+                        Email = users.Email,
+                        FirstName = users.Firstname,
+                        LastName = users.Surname,
+                        MobileNumber = users.Phonenumber,
+                        Street = users.Address,
+                        EmailConfirmed = true,
+                        ChangePassword = true,
+                        ChangePasswordFirstLogin = true,
+                        LastPasswordChangDate = DateTime.Now,
+                        RolesId = assignedrole,
+                        migratedagentcode = users.migratedagentcode,
+                        migrateduserid = Convert.ToString(users.migrateduserid),
+                        department = DEPARTMENT.Trademark
+
+                    };
+
+                    var userCreated = await _userManager.CreateAsync(user, "password100");
+
+                    List<IdentityError> errors = userCreated.Errors.ToList();
+
+                    foreach (var verror in errors)
+                    {
+                        var description = verror.Description;
+                    }
+
+
                 }
 
-                var user = new ApplicationUser
+                catch(Exception ee)
                 {
-                    UserName = users.Email,
-                    Email = users.Email,
-                    FirstName = users.Firstname,
-                    LastName = users.Surname,
-                    MobileNumber = users.Phonenumber,
-                    Street = users.Address,
-                    RolesId = assignedrole,
-                    migratedagentcode = users.migratedagentcode,
-                    migrateduserid = Convert.ToString(users.migrateduserid),
-                    department = DEPARTMENT.Trademark
 
-                };
-
-                var userCreated = await _userManager.CreateAsync(user, "password100");
-
-                List<IdentityError> errors = userCreated.Errors.ToList();
-
-                foreach (var verror in errors)
-                {
-                    var description = verror.Description;
                 }
-
-
-            }
-
+}
 
 
             return Ok(userlist);
@@ -632,6 +651,10 @@ namespace IPORevamp.WebAPI.Controllers
                         LastName = users.Surname,
                         MobileNumber = users.Phonenumber,
                         Street = users.Address,
+                        EmailConfirmed = true,
+                        ChangePassword = true,
+                        ChangePasswordFirstLogin = true,
+                        LastPasswordChangDate = DateTime.Now,
                         RolesId = assignedrole,
                         migratedagentcode = users.migratedagentcode,
                         migrateduserid = Convert.ToString(users.migrateduserid),

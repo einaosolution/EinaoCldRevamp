@@ -52,7 +52,7 @@ using IPORevamp.Repository.Publication;
 namespace IPORevamp.WebAPI
 {
 
-   
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -73,7 +73,7 @@ namespace IPORevamp.WebAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
+
 
             services.AddDbContext<IPOContext>(options =>
                 options.UseSqlServer(
@@ -87,18 +87,18 @@ namespace IPORevamp.WebAPI
                 .AddUserStore<ApplicationUserStore>()
                 .AddDefaultTokenProviders();
             services.AddScoped<ApplicationUserStore>();
-            
+
 
             services.Configure<IdentityOptions>(options =>
             {
 
-               // options.Password.RequireUppercase = true;
+                // options.Password.RequireUppercase = true;
                 options.Password.RequireUppercase = false;
-              //  options.Password.RequiredUniqueChars = 1;
+                //  options.Password.RequiredUniqueChars = 1;
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireNonAlphanumeric = false;
                 options.SignIn.RequireConfirmedEmail = true;
-                options.User.AllowedUserNameCharacters ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
                 options.User.RequireUniqueEmail = true;
             });
 
@@ -107,7 +107,7 @@ namespace IPORevamp.WebAPI
                 options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
             });
 
-        
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddAuthentication(options =>
             {
@@ -116,49 +116,49 @@ namespace IPORevamp.WebAPI
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(cfg =>
-             {
+            {
 
-                 cfg.RequireHttpsMetadata = false;
-                 cfg.SaveToken = true;
-                 cfg.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuer = true,
-                     ValidIssuer = Configuration["JwtIssuer"],
-                     ValidateAudience = true,
-                     ValidAudience = Configuration["JwtIssuer"],
-                     ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                     
-                   
-                     ValidateLifetime = false,
-                     ClockSkew = TimeSpan.Zero,
-                     // remove delay of token when expire,
-
-                 };
-                 cfg.Events = new JwtBearerEvents
-                 {
-                     OnAuthenticationFailed = context =>
-                     {
-                         //context. = new ObjectResult(new ApiResponse("Autorization has failed", (HttpStatusCode)context.Response.StatusCode, null, true));
-                         var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));                         
-                         logger.LogError("Authentication failed.", context.Exception);                         
-                         return Task.CompletedTask;
-                     },
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["JwtIssuer"],
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JwtIssuer"],
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
 
 
-                     OnMessageReceived = context =>
-                     {
-                         return Task.CompletedTask;
-                     },
-                     OnChallenge = context =>
-                     {
-                         var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
-                         logger.LogError("OnChallenge error", context.Error, context.ErrorDescription);
-                         return Task.CompletedTask;
-                     },
-                 };
+                    ValidateLifetime = false,
+                    ClockSkew = TimeSpan.Zero,
+                    // remove delay of token when expire,
 
-             });
+                };
+                cfg.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        //context. = new ObjectResult(new ApiResponse("Autorization has failed", (HttpStatusCode)context.Response.StatusCode, null, true));
+                        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
+                        logger.LogError("Authentication failed.", context.Exception);
+                        return Task.CompletedTask;
+                    },
+
+
+                    OnMessageReceived = context =>
+                    {
+                        return Task.CompletedTask;
+                    },
+                    OnChallenge = context =>
+                    {
+                        var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger(nameof(JwtBearerEvents));
+                        logger.LogError("OnChallenge error", context.Error, context.ErrorDescription);
+                        return Task.CompletedTask;
+                    },
+                };
+
+            });
 
             //services.AddScoped<IRepository<Email>>();
             services.AddTransient<IEmailManager<EmailLog, EmailTemplate>, EmailManager<EmailLog, EmailTemplate>>();
@@ -170,8 +170,8 @@ namespace IPORevamp.WebAPI
             services.AddSingleton(Configuration);
 
             services.AddScoped<IPublicationJob, PublicationJob>();
-           
-           
+
+
 
 
 
@@ -179,21 +179,21 @@ namespace IPORevamp.WebAPI
             {
                 c.SwaggerDoc("V1", new Info { Title = "IPO Nigeria WebAPI", Version = "V1" });
 
-              //  var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
-              //  var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //  var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
+                //  var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
-              
-              //  c.IncludeXmlComments(xmlPath);
+
+                //  c.IncludeXmlComments(xmlPath);
             });
 
             services.AddDataProtection();
 
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
-          
+
 
             services.Configure<ApiBehaviorOptions>(options => {
                 options.SuppressModelStateInvalidFilter = true;
-                
+
             });
 
             services.AddCors(options =>
@@ -211,14 +211,14 @@ namespace IPORevamp.WebAPI
     )
 
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-                
+
             services.AddAutoMapper();
             services.AddLogging();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule<BillRepositoryModule<BillLog, PaymentLog, ApplicationUser, int, IPOContext>>();
-            builder.RegisterModule<RepositoryModule<EmailLog, EmailTemplate,IPOContext>>();
+            builder.RegisterModule<RepositoryModule<EmailLog, EmailTemplate, IPOContext>>();
             builder.RegisterModule<GenericRepositoryModule<AuditTrail, IPOContext>>();
             builder.RegisterModule<RepositoryModule>();
 
@@ -233,7 +233,7 @@ namespace IPORevamp.WebAPI
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, IBackgroundJobClient backgroundJobs)
         {
 
-           // app.UseMiddleware<CookieChecker>();
+            // app.UseMiddleware<CookieChecker>();
 
             app.UseCors("AllowAllOrigins");
 
@@ -246,8 +246,8 @@ namespace IPORevamp.WebAPI
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
-            }            
-            
+            }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -258,13 +258,13 @@ namespace IPORevamp.WebAPI
                 c.SwaggerEndpoint(Configuration["swaggerjson"], "IPORevamp WebAPI V1");
             });
 
-         //   GlobalConfiguration.Configuration
-                        //        .UseActivator(new HangfireActivator(serviceProvider));
-       
+            //   GlobalConfiguration.Configuration
+            //        .UseActivator(new HangfireActivator(serviceProvider));
 
-          
 
-            
+
+
+
 
 
 
@@ -273,25 +273,25 @@ namespace IPORevamp.WebAPI
             app.UseAuthentication();
             app.UseHangfireDashboard();
 
-           
+
             var cronsetting = Cron.Hourly();
-           
+
             var cronsetting2 = Cron.DayInterval(27);
-           
+
 
             string cronExp = Cron.Daily();
-         
+
 
 
             app.UseHangfireDashboard();
-            app.UseHangfireServer();
+         //   app.UseHangfireServer();
 
-          
-           RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronExp);
-           RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
-            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckDesignPublicationStatus(), cronExp);
 
-            RecurringJob.AddOrUpdate<IPublicationJob>(j => j.SendMonthyUserReport(), cronsetting2);
+          //  RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPublicationStatus(), cronExp);
+          //  RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckPendingApplication(), cronExp);
+          //  RecurringJob.AddOrUpdate<IPublicationJob>(j => j.CheckDesignPublicationStatus(), cronExp);
+
+         //  RecurringJob.AddOrUpdate<IPublicationJob>(j => j.SendMonthyUserReport(), cronsetting2);
 
 
 
