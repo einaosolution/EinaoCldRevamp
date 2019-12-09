@@ -127,7 +127,7 @@ namespace IPORevamp.Repository.DesignNewpplication
 
         public async Task<DesignApplication> GetDesignApplicationByUserId(string userid)
         {
-            var designApplication = (from c in _contex.DesignApplication where c.userid == userid && c.ApplicationStatus == STATUS.Pending select c).Include("DesignAssignment.AssigneeNationality2").Include("DesignAssignment.AssignorNationality2").Include(s => s.DesignInformation).Include("DesignInformation.DesignType").Include(s => s.DesignInformation).Include("DesignInformation.NationalClass").Include(s => s.DesignInvention).Include("DesignInvention.Country").Include(s => s.DesignPriority).Include("DesignPriority.Country").Include(s => s.DesignAddressOfService).Include("DesignAddressOfService.State").Include(s => s.DesignCoApplicant).FirstOrDefault();
+            var designApplication = (from c in _contex.DesignApplication where c.userid == userid && c.ApplicationStatus == STATUS.Pending && c.DataStatus != DATASTATUS.Migration select c).Include("DesignAssignment.AssigneeNationality2").Include("DesignAssignment.AssignorNationality2").Include(s => s.DesignInformation).Include("DesignInformation.DesignType").Include(s => s.DesignInformation).Include("DesignInformation.NationalClass").Include(s => s.DesignInvention).Include("DesignInvention.Country").Include(s => s.DesignPriority).Include("DesignPriority.Country").Include(s => s.DesignAddressOfService).Include("DesignAddressOfService.State").Include(s => s.DesignCoApplicant).FirstOrDefault();
 
 
             return designApplication;
@@ -261,6 +261,25 @@ namespace IPORevamp.Repository.DesignNewpplication
 
         }
 
+        public async Task<DesignInformation> SaveDesignInformation2(DesignInformation ptinfo)
+        {
+            string registrationnumber = "";
+
+            _contex.DesignInformation.Add(ptinfo);
+            _contex.SaveChanges();
+
+
+            var retrieveApplication = (from c in _contex.DesignInformation where c.Id == ptinfo.Id select c).FirstOrDefault();
+
+            
+
+            // var saveContent = await _markinforepository.InsertAsync(markinfo);
+            // await _markinforepository.SaveChangesAsync();
+            return retrieveApplication;
+
+
+        }
+
         public async Task<DesignAddressOfService> SaveAddressOfService(DesignAddressOfService addressOfService)
         {
             try
@@ -336,6 +355,16 @@ namespace IPORevamp.Repository.DesignNewpplication
 
 
             return PatentInventionView;
+        }
+
+        public async Task<DesignApplication> UpdateDesignApplication(DesignApplication designinfo)
+        {
+
+            var retrieveApplication = (from c in _contex.DesignApplication where c.Id == designinfo.Id select c).FirstOrDefault();
+            retrieveApplication = designinfo;
+            _contex.SaveChanges();
+
+            return retrieveApplication;
         }
         public async Task<DesignApplication> SaveDesignApplication(DesignApplication application)
         {

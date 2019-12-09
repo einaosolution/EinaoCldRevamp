@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 
+
 import { map } from 'rxjs/operators';
 
 import 'datatables.net'
@@ -77,6 +78,32 @@ valuechange(een ) {
 onSubmit4() {
   $("#createmodel3").modal('show');
 }
+
+
+checkstatus(pp) {
+  if (pp.status ==Status.Refused && pp.datastatus == DataStatus.Examiner) {
+    return true
+  }
+
+  else {
+    return false
+  }
+}
+
+
+
+
+refusal() {
+
+
+localStorage.setItem('Pwallet',this.pwalletid );
+
+  $("#createmodel").modal('hide');
+
+  this.router.navigateByUrl('/Patent/RefusalReprinLetter');
+
+}
+
 
 onChange( deviceValue) {
   console.log(deviceValue);
@@ -326,6 +353,11 @@ onChange( deviceValue) {
 })
   }
 
+  acknowledment() {
+    $("#createmodel").modal('hide');
+
+    this.router.navigateByUrl('/Patent/AcknowledgementPrint');
+  }
 
 
 
@@ -334,8 +366,17 @@ onChange( deviceValue) {
     this.savemode = false;
     this.updatemode = true;
 this.row4 = kk;
-this.vshow = true;
+
 this.pwalletid = kk.applicationId
+
+console.log("show detail")
+console.log(kk)
+
+
+
+localStorage.setItem('Pwallet',this.pwalletid );
+
+
 
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );
@@ -346,29 +387,29 @@ this.pwalletid = kk.applicationId
    this.busy =   this.registerapi
    .GetExaminerPreviousComment( userid ,this.pwalletid )
    .then((response: any) => {
-   
+
      console.log("previous comment ")
      this.row6 = response.content;
      console.log(response.content)
-   
-   
-   
-   
-   
-   
-   
+
+     this.vshow = true;
+
+
+
+
+
    })
             .catch((response: any) => {
              this.spinner.hide();
               console.log(response)
-   
-   
+
+
              Swal.fire(
                response.error.message,
                '',
                'error'
              )
-   
+
    })
 
 
@@ -458,6 +499,55 @@ this.pwalletid = kk.applicationId
 
 
   }
+
+
+  Acceptstatus(pp) {
+   // alert("status =" + pp.status)
+   // alert("datastatus =" + pp.datastatus)
+
+    if ( pp.datastatus ==DataStatus.Acceptance  || pp.datastatus == DataStatus.Acceptance || pp.datastatus == DataStatus.Examiner || pp.datastatus == DataStatus.Publication  || pp.datastatus == DataStatus.Appeal || pp.datastatus == DataStatus.Recordal || pp.datastatus == DataStatus.Certificate ) {
+
+      if (pp.status== Status.Fresh && pp.datastatus ==DataStatus.Examiner) {
+        return false
+      }
+
+      if (pp.status== Status.Kiv && pp.datastatus ==DataStatus.Examiner) {
+        return false
+      }
+
+      if (pp.status== Status.ReconductSearch && pp.datastatus ==DataStatus.Examiner) {
+        return false
+      }
+
+      if (pp.status== Status.Refused && pp.datastatus ==DataStatus.Examiner) {
+        return false
+      }
+
+
+
+      return true
+    }
+
+    else {
+      return false
+    }
+  }
+
+
+  accept() {
+
+
+    localStorage.setItem('Pwallet',this.pwalletid );
+
+        $("#createmodel").modal('hide');
+
+        this.router.navigateByUrl('/Patent/AcceptanceptanceReprintLetter');
+
+      }
+
+
+
+
 
   ngOnInit() {
     this.filepath = this.registerapi.GetFilepath2();

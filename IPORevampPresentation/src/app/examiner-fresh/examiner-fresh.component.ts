@@ -10,6 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Subject } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Status} from '../Status';
+import {DataStatus} from '../DataStatus';
 
 
 import { map } from 'rxjs/operators';
@@ -56,6 +58,8 @@ export class ExaminerFreshComponent implements OnInit {
   appcomment3="";
   appcomment2="" ;
   appcomment4 ="" ;
+  public Status = Status;
+  public DataStatus = DataStatus;
 
   vshow :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
@@ -152,10 +156,10 @@ onSubmit2() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment);
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","Fresh");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","Publication");
+   formData.append("fromstatus",Status.Fresh);
+   formData.append("tostatus",Status.Fresh);
+   formData.append("fromDatastatus",DataStatus.Examiner);
+   formData.append("toDatastatus",DataStatus.Publication);
    formData.append("userid",userid);
 
 
@@ -214,10 +218,10 @@ onSubmit3() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment2);
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","Refused");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","Examiner");
+   formData.append("fromstatus",Status.Fresh);
+   formData.append("tostatus",Status.Refused);
+   formData.append("fromDatastatus",DataStatus.Examiner);
+   formData.append("toDatastatus",DataStatus.Examiner);
    formData.append("userid",userid);
 
 
@@ -278,10 +282,10 @@ onSubmit44() {
     formData.append("pwalletid",this.pwalletid);
    formData.append("comment",this.appcomment3);
    formData.append("description","");
-   formData.append("fromstatus","Fresh");
-   formData.append("tostatus","ApplicantKiv");
-   formData.append("fromDatastatus","Examiner");
-   formData.append("toDatastatus","ApplicantKiv");
+   formData.append("fromstatus",Status.Fresh);
+   formData.append("tostatus",Status.ApplicantKiv);
+   formData.append("fromDatastatus",DataStatus.Examiner);
+   formData.append("toDatastatus",DataStatus.ApplicantKiv);
    formData.append("userid",userid);
 
 

@@ -1,253 +1,211 @@
-
-
-
-
-<div id="report" class="pp" >
-
-    <table class="form">
-
-        <tr>
-            <td colspan="2" align="center" width="1100px">
-              <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
-      COMMERCIAL LAW DEPARTMENT,
-      INDUSTRIAL PROPERTY OFFICE REGISTRY
-      </strong>
-            </td>
-        </tr>
-
-
-        <tr>
-            <td width="1100px" colspan="2" align="center" bgcolor="#006600">
-                <img alt="" src="assets/coat_of_arms.png" style="width: 80px; height: 80px" /></td>
-        </tr>
-    </table>
-
-    <h4>Order Status Notification</h4>
-
-    <p>
-        <br />
-        Your {{row.description}} ₦{{row.amount| number:'.2-2'}} order  was successful.
-        <br />
-        Your transaction id is {{row.transactionid}}. The details of the order are shown below:
-        <br />
-        <br />
-    </p>
-
-    <table border="0" cellpadding="0"  class="form">
-        <tbody>
-          <tr>
-            <td>
-                <p>
-                    <strong>Order :</strong>
-                </p>
-            </td>
-            <td>
-                <p>
-                    {{row.description}}
-                </p>
-            </td>
-        </tr>
-
-
-            <tr>
-                <td>
-                    <p>
-                        <strong>Order Date:</strong>
-                    </p>
-                </td>
-                <td>
-                    <p>
-                        {{vdate| date}}
-                    </p>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>
-                    <p>
-                        <strong>Payment Ref:</strong>
-                    </p>
-                </td>
-                <td>
-                    <p>
-                        {{row.paymentref}}
-                    </p>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>
-                    <p>
-                        <strong>RRR Number:</strong>
-                    </p>
-                </td>
-                <td>
-                    <p>
-                        {{rrr}}
-                    </p>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>
-                    <p>
-                        <strong>Transaction Amount:</strong>
-                    </p>
-                </td>
-                <td>
-                    <p>
-                        {{row.amount| number:'.2-2'}}
-                    </p>
-                </td>
-            </tr>
-
-
-
-
-
-
-
-        </tbody>
-    </table>
-
-<table   class="form" *ngIf="vshow" >
-
-
-
-    <tr>
-      <td colspan="2">&nbsp;</td>
+<table  *ngIf="vshow"  class="form" >
+  <tr>
+      <td colspan="2" align="center" width="1100px">
+        <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT<br />
+COMMERCIAL LAW DEPARTMENT,
+INDUSTRIAL PROPERTY OFFICE REGISTRY
+</strong>
+      </td>
   </tr>
 
 
   <tr>
-    <td width="50%" align="right">
-        &nbsp;FILLING/APPLICATION DATE :             </td>
-    <td width="50%">
-
-       {{row2.application.dateCreated|date}}</td>
-</tr>
-
-<tr>
-  <td align="center">
-     REGISTRATION NUMBER : </td>
-  <td align="center">
-    ONLINE APPLICATION ID :</td>
-</tr>
-
-<tr>
-  <td align="center">
-     {{row2.markinfo.registrationNumber}}</td>
-  <td align="center">
-    {{row2.application.transactionID}}</td>
-</tr>
-
-<tr>
-  <td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-  <td style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;"
-      colspan="2">
-      --- AGENT/APPLICANT INFORMATION ---</td>
-</tr>
+      <td width="1100px" colspan="2" align="center" >
+          <span style="vertical-align: top; padding-bottom:30px;"  align="center"><img alt=""  src="assets/images/Imagelogo.png"  width="130" height="130"  /></span></td>
+  </tr>
 
 
-<tr>
-  <td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-  <td align="center" colspan="2">
-      APPLICANT NAME:</td>
-</tr>
-
-<tr>
-  <td align="center" colspan="2">
-    {{row2.applicationUser.firstName  }} - {{row2.applicationUser.lastName  }}</td>
-</tr>
-
-<tr>
-  <td align="center" colspan="2">
-      &nbsp;</td>
-</tr>
-<tr>
-  <td align="center" colspan="2">
-      ADDRESS :</td>
-</tr>
-
-<tr>
-  <td align="center" colspan="2">
-    {{row2.applicationUser.residentialAddress  }} </td>
-</tr>
-
-
-<tr>
-  <td align="center">
-      PHONE NUMBER :
-  </td>
-      <td align="center">
-      E-MAILS :
-         </td>
-</tr>
-
-<tr>
-  <td align="center">
-    {{row2.applicationUser.mobileNumber  }}</td>
-      <td align="center">
-        {{row2.applicationUser.userName  }}</td>
-</tr>
-<tr>
-  <td align="center" colspan="2">
-      &nbsp;</td>
-</tr>
-
-<tr>
-  <td colspan="2"
-      style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;">
-      --- TRADEMARK INFORMATION --- </td>
-</tr>
  <tr>
-  <td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-  <td align="center" colspan="2">
-      &nbsp;&nbsp;TRADEMARK :</td>
-</tr>
-
-<tr>
-  <td align="center" colspan="2">
-    {{row2.markinfo.productTitle}}</td>
-</tr>
-<tr>
-  <td align="center" colspan="2">
-      &nbsp;</td>
-</tr>
-
-<tr>
-  <td align="center" colspan="2">
-      &nbsp;</td>
-</tr>
-<tr>
-  <td align="center" colspan="2">
-                      &nbsp; SPECIFICATION OF GOODS/SERVICES DESCRIPTION : </td>
-
-</tr>
-<tr>
-  <td align="center" colspan="2">
-    {{row2.markinfo.logo_descriptionID}}
-                      </td>
-</tr>
+      <td width="1100px" colspan="2" align="center">
+         <strong>TRADEMARK REGISTRATION ACKNOWLEDGEMENT FORM</strong> </td>
+  </tr>
 
 
+  <tr>
+      <td width="50%" align="right">
+          &nbsp;FILLING/APPLICATION DATE :             </td>
+      <td width="50%">
+        {{row2.application.dateCreated|date}}
+         </td>
+  </tr>
+     <tr>
+      <td align="center">
+         REGISTRATION NUMBER : </td>
+      <td align="center">
+        ONLINE APPLICATION ID :</td>
+  </tr>
 
+     <tr>
+      <td align="center">
+        {{row2.markinfo.registrationNumber}}</td>
+      <td align="center">
+        {{row2.application.transactionID}}</td>
+  </tr>
+  <tr>
+      <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+      <td style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;"
+          colspan="2">
+          --- APPLICANT INFORMATION ---</td>
+  </tr>
+      <tr>
+      <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+          APPLICANT NAME:</td>
+  </tr>
+
+  <tr>
+      <td align="center" colspan="2">
+        {{row2.applicationUser.firstName}} &nbsp; {{row2.applicationUser.lastName}}</td>
+  </tr>
+   <tr>
+      <td align="center" colspan="2">
+          &nbsp;</td>
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+          ADDRESS :</td>
+  </tr>
+
+  <tr>
+      <td align="center" colspan="2">
+        {{row2.applicationUser.street}}</td>
+  </tr>
+   <tr>
+      <td align="center" colspan="2">
+          &nbsp;</td>
+  </tr>
+  <tr>
+      <td align="center">
+          PHONE NUMBER :
+      </td>
+          <td align="center">
+          E-MAILS :
+             </td>
+ </tr>
+
+  <tr>
+      <td align="center">
+        {{row2.applicationUser.mobileNumber}}</td>
+          <td align="center">
+            {{row2.applicationUser.email}}</td>
+ </tr>
+    <tr>
+      <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+      <td colspan="2"
+          style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;">
+          --- TRADEMARK INFORMATION --- </td>
+  </tr>
+     <tr>
+      <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+          &nbsp;&nbsp;TRADEMARK :</td>
+  </tr>
+
+  <tr>
+      <td align="center" colspan="2">
+        {{row2.markinfo.productTitle}}</td>
+  </tr>
+   <tr>
+      <td align="center" colspan="2">
+          &nbsp;</td>
+  </tr>
+  <tr>
+      <td align="right">
+          &nbsp;SPECIFICATION
+          OF GOODS/SERVICES :
+      </td>
+      <td>
+          {{row2.markinfo.nationClassID}}
+        </td>
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+          &nbsp;</td>
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+                          &nbsp; SPECIFICATION OF GOODS/SERVICES DESCRIPTION : </td>
+
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+          {{row2.markinfo.niceClassDescription}}
+
+                          </td>
+  </tr>
+
+  <tr>
+      <td align="center" colspan="2">
+                          <strong>DISCLAIMER</strong></td>
+  </tr>
+  <tr>
+      <td align="center" colspan="2">
+                        </td>
+  </tr>
+     <tr>
+      <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+      <td style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;"
+          colspan="2">
+          --- TRADEMARK REPRESENTATION --- </td>
+  </tr>
+  <tr  *ngIf="row2.markinfo.approvalDocument">
+      <td  align="right">
+          &nbsp;POWER OF ATTORNEY :&nbsp;&nbsp;
+      </td>
+      <td>
+         <a  target="_blank"  href="{{filepath}}Upload/{{ row2.markinfo.approvalDocument}}">View Upload</a>
+         &nbsp;
+      </td>
+  </tr>
+
+<tr *ngIf="row2.markinfo.logoPicture">
+      <td align="right"  >
+          &nbsp;REPRESENTATION OR MARK :&nbsp;&nbsp;
+      </td>
+      <td>
+          <a  target="_blank"  href="{{filepath}}Upload/{{ row2.markinfo.logoPicture}}">View Upload</a>
+         &nbsp;
+      </td>
+  </tr>
+
+<tr >
+      <td align="right" >
+          &nbsp;SUPPORTING DOCUMENT(S) [IF ANY]  :&nbsp;&nbsp;
+      </td>
+      <td>
+          <a *ngIf="row2.markinfo.supportDocument1" target="_blank"  href="{{filepath}}Upload/{{ row2.markinfo.supportDocument1}}">View Upload</a>   <br/>
+          <a *ngIf="row2.markinfo.supportDocument2" target="_blank"  href="{{filepath}}Upload/{{ row2.markinfo.supportDocument2}}">View Upload</a>
+         &nbsp;
+      </td>
+  </tr>
 
      <tr>
       <td colspan="2">&nbsp;</td>
   </tr>
+   <tr>
+      <td align="center">
+          TRANSACTION ID : </td>
+      <td align="center">
 
+         </td>
+  </tr>
 
-
+   <tr>
+      <td align="center">
+          {{row2.application.transactionID}}</td>
+      <td align="center">
+          </td>
+  </tr>
 
   <tr>
       <td style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;"
@@ -260,317 +218,19 @@
          <br />
        <strong>Your application has been received and is receiving due attention</strong><br />
        <strong>REGISTRAR
-          (COMMERCIAL LAW DEPARTMENT NIGERIA)</strong> <br />
-          <ngx-qrcode
-          [qrc-element-type]="elementType"
-          [qrc-value] = "value"
-          qrc-class = "aclass"
-          qrc-errorCorrectionLevel = "L">
-    </ngx-qrcode>
-        </td>
+          (COMMERCIAL LAW DEPARTMENT NIGERIA)</strong> <br /></td>
   </tr>
 
 
 
 </table>
 
+<br/>
+
+
+<div *ngIf="vshow" class="row align-items-center justify-content-center">
+    <button id="print" class="btn btn-default btn-outline no-print" type="submit" (click) ="print2()"   > <span><i class="fa fa-print"></i> Print</span> </button>&nbsp;
 </div>
 
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<div id="report2" class="pp" >
 
-  <table class="form">
-
-      <tr>
-          <td colspan="2" align="center" width="1100px">
-            <strong> FEDERAL MINISTRY OF TRADE AND INVESTMENT2<br />
-    COMMERCIAL LAW DEPARTMENT,
-    INDUSTRIAL PROPERTY OFFICE REGISTRY
-    </strong>
-          </td>
-      </tr>
-
-
-      <tr>
-          <td width="1100px" colspan="2" align="center" bgcolor="#006600">
-              <img alt="" src="assets/coat_of_arms.png" style="width: 80px; height: 80px" /></td>
-      </tr>
-  </table>
-
-  <h4>Order Status Notification</h4>
-
-  <p>
-      <br />
-      Your {{row.description}} ₦{{row.amount| number:'.2-2'}} order  was successful.
-      <br />
-      Your transaction id is {{row.transactionid}}. The details of the order are shown below:
-      <br />
-      <br />
-  </p>
-
-  <table border="0" cellpadding="0"  class="form">
-      <tbody>
-        <tr>
-          <td>
-              <p>
-                  <strong>Order :</strong>
-              </p>
-          </td>
-          <td>
-              <p>
-                  {{row.description}}
-              </p>
-          </td>
-      </tr>
-
-
-          <tr>
-              <td>
-                  <p>
-                      <strong>Order Date:</strong>
-                  </p>
-              </td>
-              <td>
-                  <p>
-                      {{vdate| date}}
-                  </p>
-              </td>
-          </tr>
-
-
-          <tr>
-              <td>
-                  <p>
-                      <strong>Payment Ref:</strong>
-                  </p>
-              </td>
-              <td>
-                  <p>
-                      {{row.paymentref}}
-                  </p>
-              </td>
-          </tr>
-
-
-          <tr>
-              <td>
-                  <p>
-                      <strong>RRR Number:</strong>
-                  </p>
-              </td>
-              <td>
-                  <p>
-                      {{rrr}}
-                  </p>
-              </td>
-          </tr>
-
-
-          <tr>
-              <td>
-                  <p>
-                      <strong>Transaction Amount:</strong>
-                  </p>
-              </td>
-              <td>
-                  <p>
-                      {{row.amount| number:'.2-2'}}
-                  </p>
-              </td>
-          </tr>
-
-
-
-
-
-
-
-      </tbody>
-  </table>
-
-<table   class="form" *ngIf="vshow" >
-
-
-
-  <tr>
-    <td colspan="2">&nbsp;</td>
-</tr>
-
-
-<tr>
-  <td width="50%" align="right">
-      &nbsp;FILLING/APPLICATION DATE :             </td>
-  <td width="50%">
-
-     {{row2.application.dateCreated|date}}</td>
-</tr>
-
-<tr>
-<td align="center">
-   REGISTRATION NUMBER : </td>
-<td align="center">
-  ONLINE APPLICATION ID :</td>
-</tr>
-
-<tr>
-<td align="center">
-   {{row2.markinfo.registrationNumber}}</td>
-<td align="center">
-  {{row2.application.transactionID}}</td>
-</tr>
-
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;"
-    colspan="2">
-    --- AGENT/APPLICANT INFORMATION ---</td>
-</tr>
-
-
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-    APPLICANT NAME:</td>
-</tr>
-
-<tr>
-<td align="center" colspan="2">
-  {{row2.applicationUser.firstName  }} - {{row2.applicationUser.lastName  }}</td>
-</tr>
-
-<tr>
-<td align="center" colspan="2">
-    &nbsp;</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-    ADDRESS :</td>
-</tr>
-
-<tr>
-<td align="center" colspan="2">
-  {{row2.applicationUser.residentialAddress  }} </td>
-</tr>
-
-
-<tr>
-<td align="center">
-    PHONE NUMBER :
-</td>
-    <td align="center">
-    E-MAILS :
-       </td>
-</tr>
-
-<tr>
-<td align="center">
-  {{row2.applicationUser.mobileNumber  }}</td>
-    <td align="center">
-      {{row2.applicationUser.userName  }}</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-    &nbsp;</td>
-</tr>
-
-<tr>
-<td colspan="2"
-    style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;">
-    --- TRADEMARK INFORMATION --- </td>
-</tr>
-<tr>
-<td colspan="2">&nbsp;</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-    &nbsp;&nbsp;TRADEMARK :</td>
-</tr>
-
-<tr>
-<td align="center" colspan="2">
-  {{row2.markinfo.productTitle}}</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-    &nbsp;</td>
-</tr>
-
-<tr>
-<td align="center" colspan="2">
-    &nbsp;</td>
-</tr>
-<tr>
-<td align="center" colspan="2">
-                    &nbsp; SPECIFICATION OF GOODS/SERVICES DESCRIPTION : </td>
-
-</tr>
-<tr>
-<td align="center" colspan="2">
-  {{row2.markinfo.logo_descriptionID}}
-                    </td>
-</tr>
-
-
-
-
-   <tr>
-    <td colspan="2">&nbsp;</td>
-</tr>
-
-
-
-
-<tr>
-    <td style="background-color:#1C5E55; color:#ffffff; text-align:center; font-weight:bold;"
-        colspan="2"  >
-
-        &nbsp;</td>
-</tr>
-<tr>
-    <td  align="center" colspan="2">
-       <br />
-     <strong>Your application has been received and is receiving due attention</strong><br />
-     <strong>REGISTRAR
-        (COMMERCIAL LAW DEPARTMENT NIGERIA)</strong> <br />
-        <ngx-qrcode
-        [qrc-element-type]="elementType"
-        [qrc-value] = "value"
-        qrc-class = "aclass"
-        qrc-errorCorrectionLevel = "L">
-  </ngx-qrcode>
-      </td>
-</tr>
-
-
-
-</table>
-
-</div>

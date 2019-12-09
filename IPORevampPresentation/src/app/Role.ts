@@ -24,6 +24,7 @@ export enum Role {
   AppealOfficerDesign ="31",
   SuperAdmin ="1",
  Admin ="2",
+ DataMigration ="36",
 
 
 

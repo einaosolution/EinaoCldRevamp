@@ -184,7 +184,7 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
         [HttpGet("GetApplicationByUserid")]
-        public async Task<IActionResult> GetApplicationByUserid([FromQuery] string RequestById)
+        public async Task<IActionResult> GetApplicationByUserid([FromQuery] string RequestById, [FromQuery] string startdate, [FromQuery] string enddate)
         {
             try
             {
@@ -192,30 +192,18 @@ namespace IPORevamp.WebAPI.Controllers
 
                 ip = Request.Headers["ip"];
 
-                var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
-                if (user == null)
-                {
-                    return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
-                }
+               // var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+               // if (user == null)
+               // {
+                  //  return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+              //  }
 
 
-                var result = await _examinerRepository.GetApplicationByUserid(RequestById);
+                var result = await _examinerRepository.GetApplicationByUserid(RequestById,startdate,enddate);
 
 
                 // get User Information
-                user = await _userManager.FindByIdAsync(RequestById.ToString());
-
-                // Added A New Country 
-                await _auditTrailManager.AddAuditTrail(new AuditTrail
-                {
-                    ActionTaken = AuditAction.Create,
-                    DateCreated = DateTime.Now,
-                    Description = $"User {user.FirstName + ' ' + user.LastName}  requested for all  Application By Userid   successfully",
-                    Entity = "GetAppliction",
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    IpAddress = ip
-                });
+            
 
                 return PrepareResponse(HttpStatusCode.OK, "Query Returned Successfully", false, result);
 

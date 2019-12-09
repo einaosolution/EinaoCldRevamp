@@ -39,7 +39,11 @@ namespace IPORevamp.Repository.FileNewApplication
         Task<AddressOfService> SaveAddressOfService(AddressOfService addressOfService);
         Task<String> updatePatentTransactionById(string transactionid, string paymentid);
         Task<PatentAssignment> UpdatePatentAssignment(int id, PatentAssignment patentassignment);
+        Task<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application> UpdateApplication2(IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application application);
+        Task<IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application> SaveApplication2(IPORevamp.Data.Entity.Interface.Entities.Pwallet.Application application);
         Task<DashBoardCount> AllSearchApplicationCount();
+        Task<PatentInformation> SavePatentInformation2(PatentInformation ptinfo);
+        Task<PatentApplication> UpdatePatentApplication(PatentApplication patentinfo);
         Task<DashBoardPatentCount> AllSearchPatentCount();
         Task<DashBoardDesignCount> AllSearchDesignCount();
     }

@@ -22,6 +22,7 @@ export class RefusalLetterComponent implements OnInit {
   busy: Promise<any>;
   appuser:any
   vimage
+  public filepath
   constructor(private registerapi :ApiClientService) { }
 
 
@@ -127,6 +128,7 @@ export class RefusalLetterComponent implements OnInit {
 
     var pwallet =   localStorage.getItem('Pwallet');
     var userid = localStorage.getItem('UserId');
+    this.filepath = this.registerapi.GetFilepath2();
 
     this.registerapi
     .GetAknwoledgment(pwallet)
@@ -138,7 +140,8 @@ export class RefusalLetterComponent implements OnInit {
       this.appuser =response.content.applicationUser.id
 
       this.vshow = true;
-      this.vimage  ="http://5.77.54.44/EinaoCldRevamp2/Upload/" +this.row2.markinfo.logoPicture
+
+      this.vimage  =this.filepath + "Upload/" +this.row2.markinfo.logoPicture
 
       console.log("ack")
 

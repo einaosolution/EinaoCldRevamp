@@ -82,6 +82,11 @@ import { Invoice3Component } from '../invoice3/invoice3.component';
 import { PatentRegistraCertificateComponent } from '../patent-registra-certificate/patent-registra-certificate.component';
 import { Patentregistracertificate2Component } from '../patentregistracertificate2/patentregistracertificate2.component';
 import { PatentPreviewComponent } from '../patent-preview/patent-preview.component';
+import { AcknowledgementPatentComponent } from '../acknowledgement-patent/acknowledgement-patent.component';
+import { RefusalPatentReprintComponent } from '../refusal-patent-reprint/refusal-patent-reprint.component';
+import { AcceptancepatentreprintLetterComponent } from '../acceptancepatentreprint-letter/acceptancepatentreprint-letter.component';
+import { NewpatentmigrationComponent } from '../newpatentmigration/newpatentmigration.component';
+import { PatentmigrationapplictionComponent } from '../patentmigrationappliction/patentmigrationappliction.component';
 
 
 
@@ -120,10 +125,32 @@ const routes: Routes = [
           }
 
           ,
+        {
+          path:  'AcceptanceptanceReprintLetter',
+          component:  AcceptancepatentreprintLetterComponent
+          }
+
+          ,
           {
             path:  'RefusalPatentLetter',
             component:  RefusalPatentLetterComponent
             }
+
+
+            ,
+            {
+              path:  'Newpatentmigration',
+              component:  NewpatentmigrationComponent
+              }
+
+
+
+            ,
+            {
+              path:  'RefusalReprinLetter',
+              component:  RefusalPatentReprintComponent
+              }
+
 
 
             ,
@@ -139,6 +166,23 @@ const routes: Routes = [
                 }
 
                 ,
+                {
+                  path:  'PatentTreatMigratedApp',
+                  component:  PatentmigrationapplictionComponent
+                  }
+
+
+                ,
+                {
+                  path:  'AcknowledgementPrint',
+                  component:    AcknowledgementPatentComponent
+                  }
+
+
+                ,
+
+
+
               {
                 path:  'PatentAppealRefusal',
                 component:  PatentAppealRefusalComponent
@@ -286,7 +330,12 @@ const routes: Routes = [
     Invoice3Component,
     PatentRegistraCertificateComponent,
     Patentregistracertificate2Component,
-    PatentPreviewComponent
+    PatentPreviewComponent,
+    AcknowledgementPatentComponent,
+    RefusalPatentReprintComponent,
+    AcceptancepatentreprintLetterComponent,
+    NewpatentmigrationComponent,
+    PatentmigrationapplictionComponent
 
 
 

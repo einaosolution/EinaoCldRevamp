@@ -87,6 +87,11 @@ import { PayRenewalDesignComponent } from '../pay-renewal-design/pay-renewal-des
 import { GenRecordalRenewDesignComponentComponent } from '../gen-recordal-renew-design-component/gen-recordal-renew-design-component.component';
 import { DesignunplishedapplicationComponent } from '../designunplishedapplication/designunplishedapplication.component';
 import { DesignpreviewComponent } from '../designpreview/designpreview.component';
+import { AcknowledgementDesignComponent } from '../acknowledgement-design/acknowledgement-design.component';
+import { AcceptancedesignReprintletterComponent } from '../acceptancedesign-reprintletter/acceptancedesign-reprintletter.component';
+import { RefusaldesignreprintletterComponent } from '../refusaldesignreprintletter/refusaldesignreprintletter.component';
+import { NewdesignmigrationComponent } from '../newdesignmigration/newdesignmigration.component';
+import { DesignmigrateapplicationComponent } from '../designmigrateapplication/designmigrateapplication.component';
 
 
 
@@ -113,19 +118,47 @@ const routes: Routes = [
         component:   ExaminerDesignFreshComponent
         }
 
+
+        ,
+      {
+        path:  'Newdesignmigration',
+        component:   NewdesignmigrationComponent
+        }
+
+
+
         ,
         {
           path:  'AcceptanceptanceLetter',
           component:  AcceptancedesignLetterComponent
           }
 
-          ,
+
+                  ,
+
+                  {
+                    path:  'AcceptancedesignReprintletter',
+                    component:  AcceptancedesignReprintletterComponent
+                    }
+
+
+                            ,
+
+
           {
             path:  'RefusalDesignLetter',
             component:  RefusalDesignLetterComponentComponent
             }
 
             ,
+            {
+              path:  'RefusalDesignPrintLetter',
+              component:  RefusaldesignreprintletterComponent
+              }
+
+              ,
+
+
           {
             path:  'DesignCertificatePayment',
             component:  DesignRegistraCertificateComponent
@@ -138,6 +171,13 @@ const routes: Routes = [
               }
 
               ,
+              {
+                path:  'DesignTreatMigratedApp',
+                component:  DesignmigrateapplicationComponent
+                }
+
+
+                 ,
               {
                 path:  'PayDesignCertificate',
                 component:  PayDesignCertificateComponent
@@ -232,6 +272,15 @@ const routes: Routes = [
                                   component:   DesignReceiveAppealComponent
                                   }
 
+                                  ,
+                                {
+                                  path:  'AcknowledgementDesign',
+                                  component:   AcknowledgementDesignComponent
+                                  }
+
+
+
+
 
                                   ,
                                   {
@@ -316,7 +365,12 @@ const routes: Routes = [
    PayRenewalDesignComponent,
    GenRecordalRenewDesignComponentComponent,
    DesignunplishedapplicationComponent,
-   DesignpreviewComponent],
+   DesignpreviewComponent,
+   AcknowledgementDesignComponent,
+   AcceptancedesignReprintletterComponent,
+   RefusaldesignreprintletterComponent,
+   NewdesignmigrationComponent,
+   DesignmigrateapplicationComponent],
   imports: [
     CommonModule ,
     SharedModule,

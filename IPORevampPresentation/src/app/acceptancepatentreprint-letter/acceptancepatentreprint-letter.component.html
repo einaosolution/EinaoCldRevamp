@@ -1,0 +1,489 @@
+
+<div [ngBusy]="busy"></div>
+<div id="report" class="pp" >
+
+
+    <table align="center"  style="width:100%;" class="form" >
+        <tr id="xdets">
+        <td>
+        <table align="center" width="1000px" class="form" >
+    <tr>
+        <td colspan="2" align="center" >
+          <span style="vertical-align: top; padding-bottom:30px;"  align="center"><img alt=""  src="assets/images/Imagelogo.png"  width="130" height="130"  /></span><br />
+          FEDERAL REPUBLIC OF NIGERIA<br />
+                FEDERAL MINISTRY OF INDUSTRY, TRADE AND INVESTMENT<br />
+                COMMERCIAL LAW DEPARTMENT<br />
+                TRADEMARKS, PATENTS AND DESIGNS REGISTRY<br />
+                PATENTS AND DESIGNS DECREE NO 60 OF 1970<br />
+               <div style="font-size:22px;"><strong>ACCEPTANCE LETTER</strong></div>
+        </td>
+    </tr>
+
+    <tr>
+        <td width="100%" align="right" colspan="2" class="sub_header">
+            </td>
+    </tr>
+
+    <tr>
+        <td width="50%" align="right">
+            &nbsp;FILING/APPLICATION DATE :             </td>
+        <td>
+{{row2.dateCreated|date}}
+           </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            REGISTRATION NUMBER :
+        </td>
+            <td>
+              {{row2.patentInformation[0].registrationNumber}}
+                </td>
+    </tr>
+     <tr>
+        <td align="right">
+                            &nbsp;
+                            ONLINE APPLICATION ID : </td>
+        <td>
+          {{row2.transactionID}}
+            </td>
+    </tr>
+
+
+    <tr>
+      <td align="right">
+                          &nbsp;
+                          TRANSACTION AMOUNT : </td>
+      <td>
+        {{row4}}
+          </td>
+  </tr>
+     <tr>
+        <td colspan="2" class="tbbg">
+            ---
+            PATENT INFORMATION --- </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            &nbsp;PATENT TYPE :</td>
+            <td>
+              {{row2.patentInformation[0].patentType.description }}
+              </td>
+    </tr>
+    <tr>
+        <td align="right">
+            &nbsp;TITLE OF INVENTION :
+        </td>
+        <td>
+            {{row2.patentInformation[0].titleOfInvention }}
+           </td>
+    </tr>
+    <tr>
+        <td align="right">
+            TRANSACTION ID :
+            </td>
+        <td>
+            {{row2.transactionID}}
+           </td>
+    </tr>
+
+
+
+    <tr>
+        <td class="tbbg" colspan="2">
+            --- APPLICANT INFORMATION ---</td>
+    </tr>
+
+    <tr>
+        <td align="left" colspan="2" style="background-color:#999999;">
+            <strong>APPLICANT </strong></td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            NAME :</td>
+            <td>
+            {{row3.firstName + " " + row3.lastName}}
+               </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            ADDRESS :</td>
+            <td>
+                {{row3.street }}
+
+
+               </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            PHONE NUMBER :
+        </td>
+            <td>
+                {{row3.mobileNumber }}
+               </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            E-MAILS :</td>
+            <td>
+                {{row3.email }}
+              </td>
+    </tr>
+
+
+
+    <tr>
+        <td class="tbbg" colspan="2">
+            --- TRUE INVENTOR INFORMATION ---</td>
+    </tr>
+
+    <tr>
+        <td align="left" colspan="2" style="background-color:#999999;">
+            <strong>INVENTOR </strong></td>
+    </tr>
+
+    <ng-container *ngFor="let invention of row2.patentInvention">
+
+    <tr>
+        <td align="right">
+            NAME :</td>
+            <td>
+              {{invention.inventorName}}
+               </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            ADDRESS :</td>
+            <td>
+
+                {{invention.inventorAddress}}
+              </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            PHONE NUMBER :
+        </td>
+            <td>
+
+                {{invention.inventorMobileNumber}}
+              </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            E-MAILS :</td>
+            <td>
+                {{invention.inventorEmail}}
+              </td>
+    </tr>
+    <tr>
+        <td align="right">
+            NATIONALITY :</td>
+            <td>
+                {{invention.country.name}}
+              </td>
+    </tr>
+
+  </ng-container>
+
+    <tr>
+        <td class="tbbg" colspan="2">
+            --- ASSIGNMENT INFORMATION ---</td>
+    </tr>
+     <tr>
+        <td align="right">
+            DATE OF ASSIGNMENT :</td>
+            <td>
+
+              {{row2.patentAssignment[0].dateOfAssignment |date}}
+               </td>
+    </tr>
+    <tr>
+        <td align="left" colspan="2" style="background-color:#999999;">
+            <strong>ASSIGNEE >></strong></td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            NAME :</td>
+            <td>
+                {{row2.patentAssignment[0].assigneeName }}
+              </td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            ADDRESS :</td>
+            <td>
+                {{row2.patentAssignment[0].assigneeAddress }}
+               </td>
+    </tr>
+    <tr>
+        <td align="right">
+            NATIONALITY :</td>
+            <td>
+                {{row2.patentAssignment[0].assigneeNationality.name}}
+              </td>
+    </tr>
+   <tr>
+        <td align="left" colspan="2" style="background-color:#999999;">
+            <strong>ASSIGNOR >></strong></td>
+    </tr>
+
+    <tr>
+        <td align="right">
+            NAME :</td>
+            <td>
+                {{row2.patentAssignment[0].assignorName}}
+               </td>
+    </tr>
+
+
+
+    <tr>
+        <td align="right">
+            ADDRESS&nbsp; :</td>
+            <td>
+                {{row2.patentAssignment[0].assignorAddress}}
+                </td>
+    </tr>
+      <tr>
+        <td align="right">
+            NATIONALITY :</td>
+            <td>
+                {{row2.patentAssignment[0].assignorNationality.name}}
+              </td>
+    </tr>
+
+    <tr>
+        <td colspan="2" class="tbbg">
+            --- PRIORITY INFORMATION ---</td>
+    </tr>
+    <tr>
+        <td colspan="2" style="border:0px outset silver; padding: 0px;">
+            <table width="100%">
+            <tr style="background-color:#999999;">
+            <td style="width:10%;">
+                <strong>S/N</strong></td>
+            <td style="width:30%;">
+                <strong>COUNTRY</strong></td>
+            <td style="width:30%;">
+                <strong>APPLICATION NUMBER</strong></td>
+            <td style="width:30%;">
+                <strong>DATE</strong></td>
+            </tr>
+
+
+            <tr  *ngFor="let priority of row2.patentPriorityInformation let i = index" >
+            <td>
+                {{i + 1}}
+            </td>
+            <td>
+              {{priority.country.name}}
+               </td>
+            <td>
+                {{priority.applicationNumber}}
+               </td>
+            <td>
+                {{priority.dateCreated|date  }}
+              </td>
+            </tr>
+
+            </table></td>
+    </tr>
+
+    <tr>
+        <td colspan="2" class="tbbg">
+            --- ADDRESS OF SERVICE IN NIGERIA ---
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+                            ATTORNEY CODE :
+            </td>
+        <td>
+{{ row2.addressOfService[0].attorneyCode}}
+                 </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+                            ATTORNEY NAME :</td>
+        <td>
+            {{ row2.addressOfService[0].attorneyName }}
+           </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+            NATIONALITY :</td>
+        <td>
+            {{ row2.addressOfService[0].state.country.name }}
+           </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+            COUNTRY :</td>
+        <td>
+            {{ row2.addressOfService[0].state.country.name }}
+          </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+            STATE :</td>
+        <td>
+            {{ row2.addressOfService[0].state.stateName}}
+         </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+            &nbsp;ADDRESS :
+            </td>
+        <td>
+
+
+            {{row2.addressOfService[0].address}}
+
+           </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+            PHONE NUMBER : </td>
+        <td>
+            {{row2.addressOfService[0].phoneNumber}}
+
+           </td>
+    </tr>
+
+
+    <tr>
+        <td align="right">
+            E-MAIL : </td>
+        <td>
+          {{row2.addressOfService[0].email}}         </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="tbbg">
+            --- DOCUMENTS ATTACHED DURING APPLICATION FILING---
+        </td>
+    </tr>
+    <tr *ngIf="row2.patentInformation[0].claims">
+        <td align="right">
+            Claims
+        </td>
+        <td >
+          ATTACHED
+      </td>
+    </tr>
+
+    <tr *ngIf="row2.patentInformation[0].deedOfAssignment">
+        <td align="right">
+            Deed Of Assignment
+        </td>
+        <td >
+
+          ATTACHED
+           </td>
+    </tr>
+
+    <tr *ngIf="row2.patentInformation[0].letterOfAuthorization">
+        <td align="right">
+            Letter  Of Authorization
+        </td>
+        <td >
+          ATTACHED
+             </td>
+    </tr>
+
+    <tr  *ngIf="row2.patentInformation[0].pctDocument">
+        <td align="right">
+            PCT Document
+        </td>
+        <td >
+
+          ATTACHED
+              </td>
+    </tr>
+
+
+    <tr  *ngIf="row2.patentInformation[0].completeSpecificationForm">
+      <td align="right">
+        Complete Specification Form
+      </td>
+      <td >
+
+        ATTACHED
+            </td>
+  </tr>
+
+    <tr>
+      <td class="tbbg" colspan="2" style="color: #fff; background-color: #006600; text-align: center; font-weight: bold;">
+
+          &nbsp;</td>
+  </tr>
+
+    <tr>
+      <td align="center" colspan="4"><strong>Your application has been accepted and is being processed for grant of a patent</strong><br />
+
+          <br />
+            <img alt="Nkiru" src="assets/Nkiru.jpg" style=" width: 100px;height: 50px;" />
+          <br />
+          <br />
+          <strong>   Ogunbanjo A. Temitope (FOR THE REGISTRAR)</strong></td>
+
+  </tr>
+
+    <tr >
+        <td colspan="2">
+            &nbsp;</td>
+    </tr>
+
+    <tr>
+        <td align="center" colspan="2">
+
+            <br />
+
+            <ngx-qrcode
+          [qrc-element-type]="elementType"
+          [qrc-value] = "value"
+          qrc-class = "aclass"
+          qrc-errorCorrectionLevel = "L">
+    </ngx-qrcode>
+
+
+
+        </td>
+    </tr>
+
+
+</table>
+        </td>
+        </tr>
+
+        </table>
+
+
+        <div  class="row align-items-center justify-content-center">
+          <button id="print" class="btn btn-default btn-outline no-print" type="submit" (click) ="print2()"   > <span><i class="fa fa-print"></i> Print</span> </button>&nbsp;
+      </div>
+
+</div>
+
+

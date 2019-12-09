@@ -117,6 +117,12 @@ onChange( deviceValue) {
   this.appdescription = deviceValue
 }
 
+
+acknowledment() {
+  $("#createmodel").modal('hide');
+
+  this.router.navigateByUrl('/Design/AcknowledgementDesign');
+}
 onSubmit22(data) {
 
 
@@ -559,6 +565,70 @@ this. getallApplication2()
   }
 
 
+  checkstatus(pp) {
+    if (pp.status ==Status.Refused && pp.datastatus == DataStatus.Examiner) {
+      return true
+    }
+
+    else {
+      return false
+    }
+  }
+
+  refusal() {
+
+
+  localStorage.setItem('Pwallet',this.pwalletid );
+
+    $("#createmodel").modal('hide');
+
+    this.router.navigateByUrl('/Design/RefusalDesignPrintLetter');
+
+  }
+
+  Acceptstatus(pp) {
+    // alert("status =" + pp.status)
+    // alert("datastatus =" + pp.datastatus)
+
+     if ( pp.datastatus ==DataStatus.Acceptance  || pp.datastatus == DataStatus.Acceptance || pp.datastatus == DataStatus.Examiner || pp.datastatus == DataStatus.Publication  || pp.datastatus == DataStatus.Appeal || pp.datastatus == DataStatus.Recordal || pp.datastatus == DataStatus.Certificate ) {
+
+       if (pp.status== Status.Fresh && pp.datastatus ==DataStatus.Examiner) {
+         return false
+       }
+
+       if (pp.status== Status.Kiv && pp.datastatus ==DataStatus.Examiner) {
+         return false
+       }
+
+       if (pp.status== Status.ReconductSearch && pp.datastatus ==DataStatus.Examiner) {
+         return false
+       }
+
+       if (pp.status== Status.Refused && pp.datastatus ==DataStatus.Examiner) {
+         return false
+       }
+
+
+
+       return true
+     }
+
+     else {
+       return false
+     }
+   }
+
+
+   accept() {
+
+
+     localStorage.setItem('Pwallet',this.pwalletid );
+
+         $("#createmodel").modal('hide');
+
+         this.router.navigateByUrl('/Design/AcceptancedesignReprintletter');
+
+       }
 
 
   showdetail(kk) {
@@ -575,6 +645,7 @@ this.pwalletid = kk.applicationId
    // this.modalRef = this.modalService.show(ref );
 
    var userid = localStorage.getItem('UserId');
+   localStorage.setItem('Pwallet',this.pwalletid );
 
 
 

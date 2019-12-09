@@ -9,6 +9,9 @@ namespace IPORevamp.Data.Entity.Interface.Entities.DesignApplicationHistory
         public int trademarkcount { get; set; }
         public int patentcount { get; set; }
         public int designcount { get; set; }
+        public int trademarkmigrationcount { get; set; }
+        public int patentmigrationcount { get; set; }
+        public int designmigrationcount { get; set; }
     }
 
 

@@ -17,6 +17,7 @@ export class AcknowledgementComponent implements OnInit {
   row2:any;
   row:any;
   rrr:any
+  public filepath
   vdate:any;
   elementType = 'url';
   value = 'Federal Ministry Of Trade Nigeria';
@@ -32,12 +33,6 @@ this.registerapi.SendAttachment(dd)
 
     alert("success")
 
-
-  //   this.msgs = [];
-  //  this.msgs2 = [];
-  //    this.msgs2.push({severity:'success', summary:'Success', detail:'Registered  Successfully,Confirmation email sent to you email '});
-
-     // this.router.navigateByUrl('/');
   })
            .catch((response: any) => {
   console.log(response)
@@ -51,7 +46,7 @@ this.registerapi.SendAttachment(dd)
 
 
   onSubmit9(){
-    alert("Return")
+
     html2canvas(document.getElementById('report2')).then(function(canvas) {
       // alert(self)
 
@@ -189,9 +184,35 @@ this.registerapi.SendAttachment(dd)
   onSubmit4 () {
     this. generatePdf()
   }
-  ngOnInit() {
 
-    this.onSubmit9() ;
+  print2() {
+
+    window.print();
+  }
+  ngOnInit() {
+let pwalletid = localStorage.getItem('pwalletid');
+  //  this.onSubmit9() ;
+  this.filepath = this.registerapi.GetFilepath2();
+
+  this.registerapi.GetAknwoledgment(pwalletid)
+  .then((response: any) => {
+
+  console.log("trademark data")
+  this.row2 = response.content
+  this.vshow = true
+  console.log(this.row2)
+
+    //  alert("success")
+
+  })
+           .catch((response: any) => {
+  console.log(response)
+  var  ppr = response.json() ;
+
+  $(document).scrollTop(0);
+  //  alert("error")
+   }
+   );
 
 
 

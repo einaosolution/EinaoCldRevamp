@@ -52,7 +52,7 @@
                                         <label for="wfirstName2"> Design   Type : <span class="danger">*</span> </label>
 
 
-                                        <select (change)="onChange2($event.target.value)"     formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class="custom-select form-control-lg "    id="Month">
+                                        <select (change)="onChange2($event.target.value)"     formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class=" form-control "    id="Month">
                                           <option  value= "">
                                             --Select Design  Type--
                                             </option>
@@ -76,6 +76,8 @@
 
                                     </div>
                             </div>
+
+
 
 
                             <div class="row">
@@ -110,7 +112,7 @@
 
 
 
-                              <select   name="AssigneeNationality"  formControlName="AssigneeNationality"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeNationality'].hasError('required') }"        class="custom-select form-control-lg "    id="Month">
+                              <select   name="AssigneeNationality"  formControlName="AssigneeNationality"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeNationality'].hasError('required') }"        class=" form-control "    id="Month">
                                 <option  value= "">
                                   --Select Country--
                                   </option>
@@ -142,7 +144,7 @@
                             <div class="form-group">
                               <label for="wlocation2">Assignor Nationality  : <span class="danger">*</span> </label> <br/>
 
-                              <select   name="AssignorNationality"  formControlName="AssignorNationality" [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorNationality'].hasError('required') }"        class="custom-select form-control-lg "    id="Month2">
+                              <select   name="AssignorNationality"  formControlName="AssignorNationality" [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorNationality'].hasError('required') }"        class=" form-control "    id="Month2">
                                 <option  value= "">
                                   --Select Country--
                                   </option>
@@ -158,7 +160,7 @@
                                 <label for="wphoneNumber2">Class Of Design :</label>
 
 
-                                <select    required  formControlName="DesignClass"  (change)="onChange($event)"    id="wphoneNumber2" name="wphoneNumber11"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['DesignClass'].hasError('required') }"     class="custom-select form-control-lg "    >
+                                <select    required  formControlName="DesignClass"  (change)="onChange($event)"    id="wphoneNumber2" name="wphoneNumber11"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['DesignClass'].hasError('required') }"     class="form-control "    >
                                   <option  value= "">
                                     --Class Of Design--
                                     </option>

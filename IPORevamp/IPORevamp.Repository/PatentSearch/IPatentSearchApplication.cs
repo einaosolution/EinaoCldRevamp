@@ -29,6 +29,7 @@ namespace IPORevamp.Repository.PatentSearch
         Task<List<PatentDataResult>> GetPatentApplicationByUserid(string userid);
         Task<List<PatentApplicationHistory>> GetSearchState(int id, int userid);
         void SendEmailForCerticate(int appid, string comment);
+        Task<List<PatentDataResult>> GetPatentMigrateApplication();
         void SaveApplicationStateHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid, string filepath);
    void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid,string filepath);
 

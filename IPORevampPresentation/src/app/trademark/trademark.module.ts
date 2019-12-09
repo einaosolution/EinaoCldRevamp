@@ -132,6 +132,10 @@ import { AlertModule } from 'ngx-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { BackEndUserProfileComponent } from '../back-end-user-profile/back-end-user-profile.component';
 import { TrademarkPreviewComponent } from '../trademark-preview/trademark-preview.component';
+import { RefuseApplicationReprintComponent } from '../refuse-application-reprint/refuse-application-reprint.component';
+import { AcceptanceLetterReprintComponent } from '../acceptance-letter-reprint/acceptance-letter-reprint.component';
+import { NewapplicationmigrationComponent } from '../newapplicationmigration/newapplicationmigration.component';
+import { SearchmigrateappComponent } from '../searchmigrateapp/searchmigrateapp.component';
 
 
 
@@ -146,6 +150,9 @@ const routes: Routes = [
         path:  'AcceptanceLetter',
         component:  AcceptanceLetterComponent
         } ,{
+          path:  'AcceptanceLetterReprint',
+          component:  AcceptanceLetterReprintComponent
+          } ,{
           path:  'TrademarkApplication',
           component:  TrademarkApplicationComponent
           } ,{
@@ -171,6 +178,12 @@ const routes: Routes = [
               path:  'Invoice2',
               component:  Invoice2Component
               }
+
+              ,
+              {
+                path:  'TreatMigratedApp',
+                component:  SearchmigrateappComponent
+                }
 
 
               ,
@@ -262,6 +275,9 @@ const routes: Routes = [
           path:  'RefusalLetter',
           component:  RefusalLetterComponent
           } ,{
+            path:  'RefusalLetterReprint',
+            component:  RefuseApplicationReprintComponent
+            } ,{
             path:  'ExaminerKiv',
             component:  ExaminerKivComponent
             } ,{
@@ -292,6 +308,12 @@ const routes: Routes = [
         ,{
           path:  'NewApplication',
           component:  NewApplicationComponent
+          }
+
+
+          ,{
+          path:  'NewApplicationMigration',
+          component:  NewapplicationmigrationComponent
           }
 
         ,{
@@ -456,7 +478,11 @@ const routes: Routes = [
     TrademarkApplicationComponent,
     ViewPreliminarySearchComponent,
     BackEndUserProfileComponent,
-    TrademarkPreviewComponent
+    TrademarkPreviewComponent,
+    RefuseApplicationReprintComponent,
+    AcceptanceLetterReprintComponent,
+    NewapplicationmigrationComponent,
+    SearchmigrateappComponent
 
 
 

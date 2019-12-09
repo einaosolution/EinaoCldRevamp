@@ -123,6 +123,44 @@ namespace IPORevamp.Repository.FileNewApplication
                 ApplicationCount.designcount = 0;
             }
 
+
+            try
+            {
+                result = (from c in _contex.Application where c.ApplicationStatus == STATUS.Pending && c.DataStatus == DATASTATUS.Migration select c).Count();
+                ApplicationCount.trademarkmigrationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.trademarkmigrationcount = 0;
+            }
+
+            try
+            {
+                result = (from c in _contex.PatentApplication where c.ApplicationStatus == STATUS.Pending && c.DataStatus == DATASTATUS.Migration select c).Count();
+                ApplicationCount.patentmigrationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.patentmigrationcount = 0;
+            }
+
+
+            try
+            {
+                result = (from c in _contex.DesignApplication where c.ApplicationStatus == STATUS.Pending && c.DataStatus == DATASTATUS.Migration select c).Count();
+                ApplicationCount.designmigrationcount = result;
+
+            }
+
+            catch (Exception ee)
+            {
+                ApplicationCount.designmigrationcount = 0;
+            }
+
             return ApplicationCount;
 
 
@@ -745,6 +783,7 @@ namespace IPORevamp.Repository.FileNewApplication
 
         }
 
+        
 
         public async Task<MarkInformation> GetMarkInfo(int id)
         {
@@ -918,7 +957,7 @@ namespace IPORevamp.Repository.FileNewApplication
 
         public async Task<PatentApplication> GetPatentApplicationByUserId(string  userid)
         {
-            var patentApplication = (from c in _contex.PatentApplication where c.userid == userid && c.ApplicationStatus ==STATUS.Pending select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").Include(s => s.AddressOfService).Include("AddressOfService.State").FirstOrDefault();
+            var patentApplication = (from c in _contex.PatentApplication where c.userid == userid && c.ApplicationStatus ==STATUS.Pending && c.DataStatus != DATASTATUS.Migration select c).Include(s => s.PatentAssignment).Include("PatentAssignment.AssigneeNationality").Include("PatentAssignment.AssignorNationality").Include(s => s.PatentInformation).Include("PatentInformation.PatentType").Include(s => s.PatentInvention).Include("PatentInvention.Country").Include(s => s.PatentPriorityInformation).Include("PatentPriorityInformation.Country").Include(s => s.AddressOfService).Include("AddressOfService.State").FirstOrDefault();
 
 
             return patentApplication;
@@ -976,6 +1015,37 @@ namespace IPORevamp.Repository.FileNewApplication
 
 
         }
+
+
+        public async Task<PatentInformation> SavePatentInformation2(PatentInformation ptinfo)
+        {
+            string registrationnumber = "";
+
+            _contex.PatentInformation.Add(ptinfo);
+            _contex.SaveChanges();
+
+
+            var retrieveApplication = (from c in _contex.PatentInformation where c.Id == ptinfo.Id select c).FirstOrDefault();
+
+           
+
+
+            // var saveContent = await _markinforepository.InsertAsync(markinfo);
+            // await _markinforepository.SaveChangesAsync();
+            return retrieveApplication;
+
+
+        }
+
+        public async Task<PatentApplication> UpdatePatentApplication(PatentApplication patentinfo)
+        {
+
+            var retrieveApplication = (from c in _contex.PatentApplication where c.Id == patentinfo.Id select c).FirstOrDefault();
+            retrieveApplication = patentinfo;
+            _contex.SaveChanges();
+
+            return retrieveApplication;
+        }
         public async Task<PatentInformation> UpdatePatentInformation(PatentInformation patentinfo)
         {
 
@@ -991,6 +1061,16 @@ namespace IPORevamp.Repository.FileNewApplication
             await  _Applicationrepository.SaveChangesAsync();
 
             return saveContent.Entity;
+        }
+
+        public async Task<Application> SaveApplication2(Application application)
+        {
+            _contex.Application.Add(application);
+            _contex.SaveChanges();
+
+          
+
+            return application;
         }
 
         public async Task<Application> GetApplication(int id)
@@ -1010,6 +1090,15 @@ namespace IPORevamp.Repository.FileNewApplication
             await _Applicationrepository.SaveChangesAsync();
 
             return saveContent.Entity;
+        }
+
+        public async Task<Application> UpdateApplication2(Application application)
+        {
+
+            var saveContent = (from c in _contex.Application where c.Id == application.Id select c).FirstOrDefault();
+            saveContent.DateCreated = application.DateCreated;
+            _contex.SaveChanges();
+            return application;
         }
 
         public async Task<MarkInformation> UpdateMarkInfo(MarkInformation markinfo)

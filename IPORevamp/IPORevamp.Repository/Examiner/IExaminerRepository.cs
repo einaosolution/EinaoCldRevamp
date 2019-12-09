@@ -15,6 +15,6 @@ namespace IPORevamp.Repository.Examiner
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetExaminerReconductSearch();
         Task<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> GetApplicationHistoryById(int id);
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.PreviousComments>> GetPreviousComment(int id);
-        Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByUserid(string userid);
+        Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByUserid(string userid, string start_date, string end_date);
     }
 }

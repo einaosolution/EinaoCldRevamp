@@ -113,7 +113,7 @@
                           </div>
 
 
-                          <div class="Container">
+                          <div class="Container"  *ngIf="vshow">
                               <app-patent-preview        [row2]=row2  [row3]=row3  [row5]=row5 [row6]=row6  [vshow] =vshow   [row4]=row4 [savemode] =savemode >     </app-patent-preview>
 
 
@@ -125,7 +125,10 @@
   <form>
 
 
-    <div class="modal-footer">
+    <div class="modal-footer"  *ngIf="vshow">
+      <button type="submit"  (click) ="acknowledment()"  class="btn btn-success"> Reprint Acknowledgement</button>
+      <button type="submit"  *ngIf="checkstatus(row4)"  (click) ="refusal()"  class="btn btn-success"> Reprint Refusal Letter</button>
+      <button type="submit"  *ngIf="Acceptstatus(row4)"  (click) ="accept()"  class="btn btn-success"> Reprint Acceptance Letter</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                <div [ngBusy]="busy"></div>

@@ -1525,6 +1525,22 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+    GetPatentMigrateApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/PatentSearch/GetPatentMigrateApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
     GetDesignFreshapplication(pp2: string  ) {
       var data = {
 
@@ -1534,6 +1550,69 @@ RejectUser(pp: string,pp2: string ) {
 
       return this.http
         .get(this.serviceBase + 'api/DesignSearch/GetDesignFreshApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetDesignMigrateApplication(pp2: string  ) {
+      var data = {
+
+        RequestById: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/DesignSearch/GetDesignMigrateApplication', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    TrademarkcountByRegistration(pp2: string  ) {
+      var data = {
+
+        reg_number: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/CountByRegistration', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+    PatentcountByRegistration(pp2: string  ) {
+      var data = {
+
+        reg_number: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/CountByRegistration2', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    DesigncountByRegistration(pp2: string  ) {
+      var data = {
+
+        reg_number: pp2
+
+      };
+
+      return this.http
+        .get(this.serviceBase + 'api/Trademark/CountByRegistration3', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2882,6 +2961,16 @@ RejectUser(pp: string,pp2: string ) {
 
   }
 
+  SavePwalletMigration(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Trademark/SaveMigrationApplication', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
 
   SavePatent(formData) {
 
@@ -2893,10 +2982,31 @@ RejectUser(pp: string,pp2: string ) {
 
   }
 
+  SavePatentMigration(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Patent/SaveApplicationMigration', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
    SaveDesign(formData) {
 
 
     return this.http.post( this.serviceBase + 'api/Design/SaveApplication', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+  SaveApplicationMigration(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Design/SaveApplicationMigration', formData)
                 .toPromise()
 
                 .then(data => {  return data; });
@@ -3560,6 +3670,22 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Search/GetFreshApplication', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetFreshMigratedApplication(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Search/GetFreshMigratedApplication', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -4482,13 +4608,15 @@ GetReceiveAppealCount(pp2:string) {
   }
 
 
-  GetApplicationByUserid(pp2:string) {
+  GetApplicationByUserid(pp2:string,pp3:string,pp4:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
      const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
 		var data = {
 
-      RequestById:pp2
+      RequestById:pp2 ,
+      startdate:pp3 ,
+      enddate :pp4
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Examiner/GetApplicationByUserid', { params: data,headers })

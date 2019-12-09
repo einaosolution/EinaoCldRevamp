@@ -43,6 +43,16 @@ namespace IPORevamp.Repository.Search_Unit
            // return null;
         }
 
+
+        public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetFreshMigratedApplication()
+        {
+            var details = _contex.DataResult
+                 .FromSql($"GetFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Migration, STATUS.Pending })
+                .ToList();
+
+            return details;
+            // return null;
+        }
         public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetKivApplication()
         {
 

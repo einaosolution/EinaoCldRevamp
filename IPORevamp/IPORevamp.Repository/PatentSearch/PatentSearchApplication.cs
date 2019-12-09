@@ -344,6 +344,20 @@ namespace IPORevamp.Repository.PatentSearch
             return details;
         }
 
+        public async Task<List<PatentDataResult>> GetPatentMigrateApplication()
+        {
+
+
+
+            var details = _contex.PatentDataResult
+            .FromSql($"PatentFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Migration, STATUS.Pending })
+           .ToList();
+
+
+
+            return details;
+        }
+
 
         public async Task<List<PatentDataResult>> GetPatentApplicationByUserid(string userid)
         {

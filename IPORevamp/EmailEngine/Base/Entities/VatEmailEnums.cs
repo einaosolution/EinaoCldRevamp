@@ -97,6 +97,7 @@ namespace EmailEngine.Base.Entities
         public const string ApplicantKiv = "ApplicantKiv";
         public const string Recordal = "Recordal";
         public const string Appeal = "Appeal";
+        public const string Migration = "Migration";
 
 
 

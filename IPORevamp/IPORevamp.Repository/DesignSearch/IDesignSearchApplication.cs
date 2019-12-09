@@ -35,6 +35,7 @@ namespace IPORevamp.Repository.DesignSearch
         void SaveApplicationHistory(int id, string userrole, HttpRequest request, string tostatus, string toDatastatus, string fromDatastatus, string fromstatus, string comment, string description, string userid, string filepath);
         void SendExaminerEmail();
         Task<List<DesignDataResult>> GetDesignReconductSearch();
+        Task<List<DesignDataResult>> GetDesignMigrateApplication();
         Task<List<DesignDataResult>> GetDesignKivSearch();
         Task<List<DesignDataResult>> GetDesignListing(string userid);
         Task<List<DesignDataResult>> GetDesignKivExaminer();

@@ -31,6 +31,7 @@ namespace IPORevamp.Repository.DesignNewpplication
         Task<DesignApplication> GetDesignApplicationById(int id);
 
         Task<DesignApplication> GetDesignApplicationByUserId(string userid);
+        Task<DesignApplication> UpdateDesignApplication(DesignApplication designinfo);
 
         Task<String> updateDesignTransactionById(string transactionid, string paymentid);
         void GetCancelApplicationById(int id);
@@ -38,6 +39,7 @@ namespace IPORevamp.Repository.DesignNewpplication
 
 
         Task<DesignInformation> SaveDesignInformation(DesignInformation ptinfo);
+        Task<DesignInformation> SaveDesignInformation2(DesignInformation ptinfo);
         Task<PatentPriorityInformationView[]> SavePriorityInformation(PatentPriorityInformationView[] PatentPriorityInformationView, int ApplicationId);
         Task<DesignAssignment> SaveDesignAssignment(DesignAssignment designAssignment);
        

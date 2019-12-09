@@ -35,6 +35,9 @@ export class DashboardComponent implements OnInit {
  AppealOfficerTrademark=""
  AppealOfficerPatent=""
  AppealOfficerDesign =""
+ trademarkmigration=""
+ patentmigration=""
+ designmigration=""
  SuperAdmin= ""
  Admin =""
  randnumber
@@ -109,6 +112,9 @@ export class DashboardComponent implements OnInit {
     this.AppealOfficerDesign= Role.AppealOfficerDesign ;
     this.SuperAdmin = Role.SuperAdmin;
     this.Admin= Role.Admin
+    this.trademarkmigration = Role.DataMigration
+    this.patentmigration = Role.DataMigration
+    this.designmigration = Role.DataMigration
         this.profilepic=  localStorage.getItem('profilepic')
         this.registerapi.setPage("Country")
         this.registerapi.VChangeEvent("Dashboard");

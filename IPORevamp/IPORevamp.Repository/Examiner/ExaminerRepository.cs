@@ -75,10 +75,10 @@ namespace IPORevamp.Repository.Examiner
             // return null;
         }
 
-        public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByUserid(string userid)
+        public async Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByUserid(string userid,string start_date ,string end_date)
         {
             var details = _contex.DataResult
-           .FromSql($"GetApplicationByUserid   @p0", parameters: new[] { userid })
+           .FromSql($"GetApplicationByUserid   @p0,@p1,@p2", parameters: new[] { userid , start_date, end_date })
           .ToList();
 
 

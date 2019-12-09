@@ -178,6 +178,12 @@
 
                                                 </div>
 
+                                                <div *ngSwitchCase="trademarkmigration"  >
+                                                  <app-defaultdashboard4  [registerapi2]="registerapi" [recordcount]="recordcount" ></app-defaultdashboard4>
+
+                                                  </div>
+
+
                                                 <div *ngSwitchCase="AppealOfficerDesign">
                                                   <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
 

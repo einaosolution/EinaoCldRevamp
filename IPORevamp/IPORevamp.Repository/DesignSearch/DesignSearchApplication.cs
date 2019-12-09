@@ -278,6 +278,21 @@ namespace IPORevamp.Repository.DesignSearch
         }
 
 
+        public async Task<List<DesignDataResult>> GetDesignMigrateApplication()
+        {
+
+
+
+            var details = _contex.DesignDataResult
+            .FromSql($"DesignFreshApplication   @p0, @p1", parameters: new[] { DATASTATUS.Migration, STATUS.Pending })
+           .ToList();
+
+
+
+            return details;
+        }
+
+
         public async Task<List<DesignDataResult>> GetDesignReconductSearch()
         {
 

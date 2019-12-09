@@ -52,7 +52,7 @@
                                       <label for="wfirstName2"> Patent  Type : <span class="danger">*</span> </label>
 
 
-                                      <select (change)="onChange2($event.target.value)"     formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class="custom-select form-control-lg "    id="Month">
+                                      <select (change)="onChange2($event.target.value)"     formControlName="patenttype"   [ngClass]="{ 'is-invalid': submitted2 && userform.controls['patenttype'].hasError('required') }"       id="wfirstName22"   name="firstName"      class="form-control"    id="Month">
                                         <option  value= "">
                                           --Select Patent Type--
                                           </option>
@@ -110,7 +110,7 @@
 
 
 
-                            <select   name="AssigneeNationality"  formControlName="AssigneeNationality"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeNationality'].hasError('required') }"        class="custom-select form-control-lg "    id="Month">
+                            <select   name="AssigneeNationality"  formControlName="AssigneeNationality"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssigneeNationality'].hasError('required') }"        class="form-control "    id="Month">
                               <option  value= "">
                                 --Select Country--
                                 </option>
@@ -142,7 +142,7 @@
                           <div class="form-group">
                             <label for="wlocation2">Assignor Nationality  : <span class="danger">*</span> </label> <br/>
 
-                            <select   name="AssignorNationality"  formControlName="AssignorNationality" [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorNationality'].hasError('required') }"        class="custom-select form-control-lg "    id="Month2">
+                            <select   name="AssignorNationality"  formControlName="AssignorNationality" [ngClass]="{ 'is-invalid': submitted2 && userform.controls['AssignorNationality'].hasError('required') }"        class="form-control"    id="Month2">
                               <option  value= "">
                                 --Select Country--
                                 </option>
@@ -423,6 +423,8 @@
                           <td ><strong>TITLE OF INVENTION  :</strong></td>
                           <td >{{row500.patentInformation[0].patentType.description}}                                             </td>
                        </tr>
+
+                      
                        <tr>
                           <td><strong>DESCRIPTION:</strong></td>
                           <td colspan="3">{{row500.patentInformation[0].inventionDescription }} </td>

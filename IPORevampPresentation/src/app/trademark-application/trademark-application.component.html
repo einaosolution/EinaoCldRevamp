@@ -43,6 +43,51 @@
                       <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
 
                   </div>
+
+                  <div class="row d-flex align-items-center"  >
+
+                    <table  class="col table" style="text-align: center; width: 50% !important;">
+                      <tr>
+
+
+                       <td colspan="2">
+                          <input type="text" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"  [(ngModel)]="start_date"   id="startdate"  placeholder="Start Date">
+
+                       </td>
+
+                      </tr>
+
+
+
+                      <tr>
+
+
+                          <td colspan="2">
+                              <input type="text"  bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="end_date" id="enddate" placeholder="End Date">
+
+                          </td>
+
+                         </tr>
+
+
+
+
+                         <tr>
+                            <td colspan="2">
+                                 <button type="button"  (click) ="search()"   class="btn btn-success">Search </button>
+
+                                </td>
+
+
+                                </tr>
+
+
+
+                    </table>
+
+                    <br/>
+
+                  </div>
 <br/>
 
 
@@ -117,11 +162,11 @@
                                    <div class="col-12">
                                       <!-- Column -->
                                       <!-- Column -->
-                                      <div class="card">
+                                      <div class="card"  *ngIf="row2">
                                          <div class="card-body">
                                             <h4 class="card-title">DATA PREVIEW
                                                <br /><br />
-                                               <strong>DATA DETAILS FOR {{row2.productTitle}}</strong>
+
                                             </h4>
 
                                             <app-trademark-preview [row2]=row2 [vshow] =vshow   [row4]=row4></app-trademark-preview>
@@ -136,7 +181,10 @@
           <form>
 
 
-              <div class="modal-footer">
+              <div class="modal-footer"  *ngIf="row2">
+                  <button type="submit"  (click) ="acknowledment()"  class="btn btn-success"> Reprint Acknowledgement</button>
+                  <button type="submit"  *ngIf="checkstatus(row2)"  (click) ="refusal()"  class="btn btn-success"> Reprint Refusal Letter</button>
+                  <button type="submit"  *ngIf="Acceptstatus(row2)"  (click) ="accept()"  class="btn btn-success"> Reprint Acceptance Letter</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                          <div [ngBusy]="busy"></div>

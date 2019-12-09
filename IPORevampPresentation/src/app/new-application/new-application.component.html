@@ -52,7 +52,7 @@
                                       <label for="wfirstName2"> Trademark Type : <span class="danger">*</span> </label>
 
 
-                                      <select    required  [(ngModel)]="account.trademarktype"  id="wfirstName2"   name="firstName"      class="custom-select form-control-lg "    id="Month">
+                                      <select    required  [(ngModel)]="account.trademarktype"  id="wfirstName2"   name="firstName"      class="form-control "    id="Month">
                                         <option  value= "">
                                           --Select Trademark Type--
                                           </option>
@@ -67,7 +67,7 @@
                                       <label for="wlastName2"> Logo Description  : <span class="danger">*</span> </label>
 
 
-                                      <select    required  [(ngModel)]="account.trademarklogo"  (change)="onChange2($event.target.value)"   id="wlastName21" name="lastName10"      class="custom-select form-control-lg "    >
+                                      <select    required  [(ngModel)]="account.trademarklogo"  (change)="onChange2($event.target.value)"   id="wlastName21" name="lastName10"      class="form-control "    >
                                         <option  value= "">
                                           --Select Logo Description--
                                           </option>
@@ -94,7 +94,7 @@
                                       <label for="wphoneNumber2">GENERAL GOODS/SERVICES IN THE CLASS :</label>
 
 
-                                      <select    required (change)="onChange($event)"   [(ngModel)]="account.trademarkclass"    id="wphoneNumber2" name="wphoneNumber"      class="custom-select form-control-lg "    >
+                                      <select    required (change)="onChange($event)"   [(ngModel)]="account.trademarkclass"    id="wphoneNumber2" name="wphoneNumber"      class="form-control "    >
                                         <option  value= "">
                                           --Class Of Goods--
                                           </option>
@@ -249,7 +249,7 @@
                                      </td>
                                  </tr>
 
-      <tr *ngIf="image1">
+      <tr *ngIf="image3 || image4 ">
                                      <td >
                                          &nbsp;SUPPORTING DOCUMENT(S) [IF ANY]  :&nbsp;&nbsp;
                                      </td>

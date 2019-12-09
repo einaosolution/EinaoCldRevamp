@@ -666,6 +666,359 @@ namespace IPORevamp.WebAPI.Controllers
 
         }
 
+        [HttpPost("SaveApplicationMigration")]
+        public async Task<IActionResult> SaveApplicationMigration([FromForm] string userId,
+             [FromForm] string patenttype, [FromForm] string titleofinvention, [FromForm] string description, [FromForm] string AssigneeName, [FromForm] string AssigneeAddress, [FromForm] string AssigneeNationality, [FromForm] string AssignorName, [FromForm] string AssignorAddress, [FromForm] string AssignorNationality, [FromForm] string ApplicationId, [FromForm] string AttorneyCode, [FromForm] string AttorneyName, [FromForm] string Address, [FromForm] string PhoneNumber, [FromForm] string Email, [FromForm] string State, [FromForm] string registration_number, [FromForm] string filingdate)
+        {
+            Boolean FileUpload = false;
+            Boolean FileUpload1 = false;
+            Boolean FileUpload2 = false;
+            Boolean FileUpload3 = false;
+            Boolean FileUpload4 = false;
+            Boolean FileUpload5 = false;
+
+            string ip = "";
+            ip = Request.Headers["ip"];
+            AddressOfService addressOfService = new AddressOfService();
+            addressOfService.Address = Address;
+            addressOfService.AttorneyCode = AttorneyCode;
+            addressOfService.AttorneyName = AttorneyName;
+            addressOfService.DateCreated =Convert.ToDateTime(filingdate);
+            addressOfService.IsActive = true;
+            addressOfService.IsDeleted = false;
+
+            addressOfService.PhoneNumber = PhoneNumber;
+            addressOfService.Email = Email;
+            try
+            {
+                addressOfService.StateID = Convert.ToInt32(State);
+
+            }
+
+            catch (Exception ee)
+            {
+
+            }
+
+            PatentInformation patentInformation = new PatentInformation();
+
+            patentInformation.InventionDescription = description;
+            patentInformation.PatentTypeID = Convert.ToInt32(patenttype);
+
+            patentInformation.TitleOfInvention = titleofinvention;
+            patentInformation.RegistrationNumber = registration_number;
+
+            patentInformation.IsDeleted = false;
+            patentInformation.IsActive = true;
+
+
+            patentInformation.DateCreated = Convert.ToDateTime(filingdate);
+
+            PatentAssignment patentAssignment = new PatentAssignment();
+
+            patentAssignment.AssigneeName = AssigneeName;
+            patentAssignment.AssigneeAddress = AssigneeAddress;
+            patentAssignment.AssigneeNationalityId = Convert.ToInt32(AssigneeNationality);
+            patentAssignment.AssignorAddress = AssignorAddress;
+            patentAssignment.AssignorName = AssignorName;
+            patentAssignment.AssignorNationalityId = Convert.ToInt32(AssignorNationality);
+            patentAssignment.DateOfAssignment = Convert.ToDateTime(filingdate);
+
+            patentAssignment.IsDeleted = false;
+            patentAssignment.IsActive = true;
+
+            patentAssignment.DateCreated = Convert.ToDateTime(filingdate);
+
+
+
+
+
+
+
+            if (Request.Form.Files.Count > 0)
+            {
+                foreach (var file in Request.Form.Files)
+                {
+
+                    var files = new List<string>();
+                    if (file.Name == "FileUpload")
+                    {
+                        FileUpload = true;
+                        var postedFile = Request.Form.Files["FileUpload"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            patentInformation.PctDocument = msg;
+                            //  markinfoview.logo_pic = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+                    if (file.Name == "FileUpload2")
+                    {
+                        FileUpload1 = true;
+
+                        var postedFile = Request.Form.Files["FileUpload2"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload2"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            patentInformation.LetterOfAuthorization = msg;
+                            // markinfoview.auth_doc = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload3")
+                    {
+                        FileUpload2 = true;
+                        var postedFile = Request.Form.Files["FileUpload3"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload3"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            patentInformation.CompleteSpecificationForm = msg;
+                            //   markinfoview.sup_doc1 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload4")
+                    {
+                        FileUpload3 = true;
+                        var postedFile = Request.Form.Files["FileUpload4"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload4"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            patentInformation.Claims = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+                    if (file.Name == "FileUpload5")
+                    {
+                        FileUpload4 = true;
+                        var postedFile = Request.Form.Files["FileUpload5"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload5"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            patentInformation.DeedOfAssignment = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+                }
+
+            }
+
+
+
+
+
+
+            var user = await _userManager.FindByIdAsync(userId); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+            string json2 = "";
+            int ApplicationId2 = Convert.ToInt32(ApplicationId);
+
+
+            PatentApplication content = new PatentApplication();
+
+            content.DateCreated = Convert.ToDateTime(filingdate);
+            content.ApplicationStatus = STATUS.Pending;
+            content.DataStatus = DATASTATUS.Migration;
+            content.userid = userId;
+            //  content.transactionid = transactionid;
+
+            content.IsActive = true;
+
+            content.IsDeleted = false;
+
+            if (ApplicationId == null)
+            {
+
+                var save = await _newApplicationRepository.SavePatentApplication(content);
+                ApplicationId2 = save.Id;
+
+                var patentApplication = await _newApplicationRepository.GetPatentApplicationById(Convert.ToInt32(ApplicationId2));
+                patentApplication.DateCreated = Convert.ToDateTime(filingdate);
+                await _newApplicationRepository.UpdatePatentApplication(patentApplication);
+
+                patentAssignment.PatentApplicationID = ApplicationId2;
+
+                patentInformation.PatentApplicationID = ApplicationId2;
+
+                addressOfService.PatentApplicationID = ApplicationId2;
+                if (patentInformation.LetterOfAuthorization != null)
+                {
+                    await _newApplicationRepository.SaveAddressOfService(addressOfService);
+
+                }
+
+                var result = await _newApplicationRepository.SavePatentInformation2(patentInformation);
+                await _newApplicationRepository.SavePatentAssignment(patentAssignment);
+
+            }
+
+            else
+            {
+                var patentApplication = await _newApplicationRepository.GetPatentApplicationById(Convert.ToInt32(ApplicationId));
+                patentApplication.DateCreated = Convert.ToDateTime(filingdate);
+                await _newApplicationRepository.UpdatePatentApplication(patentApplication);
+
+                var patentAllinformation = await _newApplicationRepository.GetPatentApplication(Convert.ToInt32(ApplicationId));
+
+                patentAllinformation.DateCreated = Convert.ToDateTime(filingdate);
+
+                patentAllinformation.InventionDescription = description;
+                patentAllinformation.PatentTypeID = Convert.ToInt32(patenttype);
+
+                patentAllinformation.TitleOfInvention = titleofinvention;
+
+                if (FileUpload)
+                {
+                    patentAllinformation.PctDocument = patentInformation.PctDocument;
+                }
+
+                if (FileUpload1)
+                {
+                    patentAllinformation.LetterOfAuthorization = patentInformation.LetterOfAuthorization;
+                }
+
+                if (FileUpload2)
+                {
+                    patentAllinformation.CompleteSpecificationForm = patentInformation.CompleteSpecificationForm;
+                }
+
+                if (FileUpload3)
+                {
+                    patentAllinformation.Claims = patentInformation.Claims;
+                }
+
+                if (FileUpload4)
+                {
+                    patentAllinformation.DeedOfAssignment = patentInformation.DeedOfAssignment;
+                }
+                patentAllinformation.RegistrationNumber = registration_number;
+                await _newApplicationRepository.UpdatePatentInformation(patentAllinformation);
+
+                addressOfService.PatentApplicationID = Convert.ToInt32(ApplicationId);
+                if (patentInformation.LetterOfAuthorization != null)
+                {
+                    _newApplicationRepository.SaveAddressOfService(addressOfService);
+
+                }
+
+                await _newApplicationRepository.UpdatePatentAssignment(Convert.ToInt32(ApplicationId), patentAssignment);
+
+            }
+
+
+
+            // Added A New Country 
+          
+
+            return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, ApplicationId2);
+
+
+        }
+
+
         [HttpGet("GetAllPatentType")]
         public async Task<IActionResult> GetAllPatentType([FromQuery] string RequestById)
         {

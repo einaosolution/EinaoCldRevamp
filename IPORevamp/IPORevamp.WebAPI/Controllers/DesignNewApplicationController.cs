@@ -783,5 +783,483 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+
+        [HttpPost("SaveApplicationMigration")]
+        public async Task<IActionResult> SaveApplicationMigration([FromForm] string userId,
+    [FromForm] string patenttype, [FromForm] string titleofinvention, [FromForm] string description, [FromForm] string AssigneeName, [FromForm] string AssigneeAddress, [FromForm] string AssigneeNationality, [FromForm] string AssignorName, [FromForm] string AssignorAddress, [FromForm] string AssignorNationality, [FromForm] string ApplicationId, [FromForm] string AttorneyCode, [FromForm] string AttorneyName, [FromForm] string Address, [FromForm] string PhoneNumber, [FromForm] string Email, [FromForm] string State, [FromForm] string DesignClass, [FromForm] string registration_number, [FromForm] string filingdate)
+        {
+            Boolean FileUpload = false;
+            Boolean FileUpload1 = false;
+            Boolean FileUpload2 = false;
+            Boolean FileUpload3 = false;
+            Boolean FileUpload4 = false;
+            Boolean FileUpload5 = false;
+            Boolean FileUpload6 = false;
+            Boolean FileUpload7 = false;
+            Boolean FileUpload8 = false;
+            Boolean FileUpload9 = false;
+
+            string ip = "";
+            ip = Request.Headers["ip"];
+            DesignAddressOfService addressOfService = new DesignAddressOfService();
+            addressOfService.Address = Address;
+            addressOfService.AttorneyCode = AttorneyCode;
+            addressOfService.AttorneyName = AttorneyName;
+            addressOfService.DateCreated = DateTime.Now;
+            addressOfService.IsActive = true;
+            addressOfService.IsDeleted = false;
+
+            addressOfService.PhoneNumber = PhoneNumber;
+            addressOfService.Email = Email;
+            try
+            {
+                addressOfService.StateID = Convert.ToInt32(State);
+
+            }
+
+            catch (Exception ee)
+            {
+
+            }
+
+            DesignInformation designInformation = new DesignInformation();
+
+            designInformation.DesignDescription = description;
+            designInformation.NationClassID = Convert.ToInt32(DesignClass);
+            designInformation.RegistrationNumber = registration_number;
+
+
+            designInformation.DesignTypeID = Convert.ToInt32(patenttype);
+
+            designInformation.TitleOfDesign = titleofinvention;
+
+            designInformation.IsDeleted = false;
+            designInformation.IsActive = true;
+
+
+            designInformation.DateCreated = DateTime.Now;
+
+            DesignAssignment designAssignment = new DesignAssignment();
+
+            designAssignment.AssigneeName = AssigneeName;
+            designAssignment.AssigneeAddress = AssigneeAddress;
+            designAssignment.AssigneeNationalityId = Convert.ToInt32(AssigneeNationality);
+            designAssignment.AssignorAddress = AssignorAddress;
+            designAssignment.AssignorName = AssignorName;
+            designAssignment.AssignorNationalityId = Convert.ToInt32(AssignorNationality);
+            designAssignment.DateOfAssignment = DateTime.Now;
+
+            designAssignment.IsDeleted = false;
+            designAssignment.IsActive = true;
+
+            designAssignment.DateCreated = DateTime.Now;
+
+
+
+
+
+
+
+            if (Request.Form.Files.Count > 0)
+            {
+                foreach (var file in Request.Form.Files)
+                {
+
+                    var files = new List<string>();
+                    if (file.Name == "FileUpload")
+                    {
+                        FileUpload = true;
+                        var postedFile = Request.Form.Files["FileUpload"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.NoveltyStatement = msg;
+                            //  markinfoview.logo_pic = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+                    if (file.Name == "FileUpload2")
+                    {
+                        FileUpload1 = true;
+
+                        var postedFile = Request.Form.Files["FileUpload2"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload2"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.LetterOfAuthorization = msg;
+                            // markinfoview.auth_doc = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload3")
+                    {
+                        FileUpload2 = true;
+                        var postedFile = Request.Form.Files["FileUpload3"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload3"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.DeedOfAssignment = msg;
+                            //   markinfoview.sup_doc1 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload4")
+                    {
+                        FileUpload3 = true;
+                        var postedFile = Request.Form.Files["FileUpload4"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload4"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.PriorityDocument = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+                    if (file.Name == "FileUpload5")
+                    {
+                        FileUpload4 = true;
+                        var postedFile = Request.Form.Files["FileUpload5"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload5"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.RepresentationOfDesign1 = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload6")
+                    {
+                        FileUpload5 = true;
+                        var postedFile = Request.Form.Files["FileUpload6"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload6"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.RepresentationOfDesign2 = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload7")
+                    {
+                        FileUpload6 = true;
+                        var postedFile = Request.Form.Files["FileUpload7"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload7"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.RepresentationOfDesign3 = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+
+
+                    if (file.Name == "FileUpload8")
+                    {
+                        FileUpload7 = true;
+                        var postedFile = Request.Form.Files["FileUpload8"];
+
+                        string msg = "";
+                        try
+                        {
+                            String[] oneMegaByte = _configuration["_oneMegaByte"].Split('*');
+                            String[] fileMaxSize = _configuration["_fileMaxSize"].Split('*');
+                            int result1 = Convert.ToInt32(oneMegaByte[0]);
+                            int result2 = Convert.ToInt32(fileMaxSize[0]);
+
+                            msg = await _fileUploadRespository.UploadFile(Request.Form.Files["FileUpload8"], _configuration["MemberPassportFolder"], _configuration["AllExtensionsImage"], result1,
+                              result2);
+                            designInformation.RepresentationOfDesign4 = msg;
+                            //  markinfoview.sup_doc2 = msg;
+
+                        }
+
+                        catch (Exception ee)
+                        {
+                            var kk = ee.Message;
+                        }
+
+
+
+
+
+                    }
+                }
+
+            }
+
+
+
+
+
+
+            var user = await _userManager.FindByIdAsync(userId); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+            string json2 = "";
+            int ApplicationId2 = Convert.ToInt32(ApplicationId);
+
+
+            DesignApplication content = new DesignApplication();
+
+            content.DateCreated = Convert.ToDateTime(filingdate);
+            content.ApplicationStatus = STATUS.Pending;
+            content.DataStatus = DATASTATUS.Migration;
+            content.userid = userId;
+            //  content.transactionid = transactionid;
+
+            content.IsActive = true;
+
+            content.IsDeleted = false;
+
+            if (ApplicationId == null)
+            {
+
+                var save = await _designRepository.SaveDesignApplication(content);
+                ApplicationId2 = save.Id;
+                save.DateCreated = Convert.ToDateTime(filingdate);
+                await _designRepository.UpdateDesignApplication(save);
+
+                designAssignment.DesignApplicationID = ApplicationId2;
+
+                designInformation.DesignApplicationID = ApplicationId2;
+
+                addressOfService.DesignApplicationID = ApplicationId2;
+                if (designInformation.LetterOfAuthorization != null)
+                {
+                    await _designRepository.SaveAddressOfService(addressOfService);
+
+                }
+
+                var result = await _designRepository.SaveDesignInformation2(designInformation);
+                await _designRepository.SaveDesignAssignment(designAssignment);
+
+            }
+
+            else
+            {
+                var designapplication = await _designRepository.GetDesignApplicationById(Convert.ToInt32(ApplicationId));
+                designapplication.DateCreated = Convert.ToDateTime(filingdate);
+                await _designRepository.UpdateDesignApplication(designapplication);
+                var designAllinformation = await _designRepository.GetDesignApplication(Convert.ToInt32(ApplicationId));
+
+
+
+                designAllinformation.DesignDescription = description;
+                designAllinformation.RegistrationNumber = registration_number;
+                designAllinformation.DesignTypeID = Convert.ToInt32(patenttype);
+
+                designAllinformation.NationClassID = Convert.ToInt32(DesignClass);
+
+                designAllinformation.TitleOfDesign = titleofinvention;
+
+                if (FileUpload)
+                {
+                    designAllinformation.NoveltyStatement = designInformation.PriorityDocument;
+                }
+
+                if (FileUpload1)
+                {
+                    designAllinformation.LetterOfAuthorization = designInformation.LetterOfAuthorization;
+                }
+
+                if (FileUpload2)
+                {
+                    designAllinformation.DeedOfAssignment = designInformation.DeedOfAssignment;
+                }
+
+                if (FileUpload3)
+                {
+                    designAllinformation.PriorityDocument = designInformation.PriorityDocument;
+                }
+
+                if (FileUpload4)
+                {
+                    designAllinformation.RepresentationOfDesign1 = designInformation.RepresentationOfDesign1;
+                }
+
+                if (FileUpload5)
+                {
+                    designAllinformation.RepresentationOfDesign2 = designInformation.RepresentationOfDesign2;
+                }
+
+                if (FileUpload6)
+                {
+                    designAllinformation.RepresentationOfDesign3 = designInformation.RepresentationOfDesign3;
+                }
+
+                if (FileUpload7)
+                {
+                    designAllinformation.RepresentationOfDesign4 = designInformation.RepresentationOfDesign4;
+                }
+                await _designRepository.UpdatedesignInformation(designAllinformation);
+
+                addressOfService.DesignApplicationID = Convert.ToInt32(ApplicationId);
+                if (designInformation.LetterOfAuthorization != null)
+                {
+                    _designRepository.SaveAddressOfService(addressOfService);
+
+                }
+
+                await _designRepository.UpdateDesignAssignment(Convert.ToInt32(ApplicationId), designAssignment);
+
+            }
+
+
+
+            // Added A New Country 
+            await _auditTrailManager.AddAuditTrail(new AuditTrail
+            {
+                ActionTaken = AuditAction.Create,
+                DateCreated = DateTime.Now,
+                Description = $"User {user.FirstName + ' ' + user.LastName}  requested to add New Design Application   successfully",
+                Entity = "Add New Design",
+                UserId = user.Id,
+                UserName = user.UserName,
+                IpAddress = ip
+            });
+
+            return PrepareResponse(HttpStatusCode.OK, WebApiMessage.SaveRequest, false, ApplicationId2);
+
+
+        }
     }
 }
