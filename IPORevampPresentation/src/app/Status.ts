@@ -27,6 +27,7 @@ export enum Status {
    Registra = "Registra" ,
   Appeal = "Appeal" ,
    Approved = "Approved" ,
+   Rejected= "Rejected" ,
    Merger = "Merger" ,
    Renewal = "Renewal"
 

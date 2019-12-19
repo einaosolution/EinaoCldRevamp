@@ -1,7 +1,7 @@
 <div class="page-breadcrumb">
   <div class="row">
       <div class="col-5 align-self-center">
-          <h4 class="page-title">Certificate Renewal</h4>
+          <h4 class="page-title">Design Renewal</h4>
           <div class="d-flex align-items-center">
 
           </div>
@@ -13,7 +13,7 @@
                       <li class="breadcrumb-item">
                           <a href="#">Home</a>
                       </li>
-                      <li class="breadcrumb-item active" aria-current="page">Pay Certificate Renewal</li>
+                      <li class="breadcrumb-item active" aria-current="page">Pay Design Renewal</li>
                   </ol>
               </nav>
           </div>
@@ -68,7 +68,7 @@
                           <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="wfirstName2"> Trademark Title: <span class="danger">*</span> </label>
+                                    <label for="wfirstName2">  Title: <span class="danger">*</span> </label>
                                     <input type="text" disabled required  [(ngModel)]="account.trademarktitle" class="form-control" id="wemailAddress2" name="emailAddress4">
 
                             </div>
@@ -120,7 +120,7 @@
                               <div class="col-md-6"  >
 
                                   <div class="form-group">
-                                      <label for="wlocation2"> Certificate Of Trademark  :  </label>
+                                      <label for="wlocation2"> Certificate Of Design  :  </label>
                                       <input type="file" (change)="chng2()"  #fileInput2 class="form-control " id="uploadAddress22" name="uploadAddresss">
                                       <a *ngIf="image1" target="_blank"  href="{{filepath}}Upload/{{ image1}}">View Upload</a>
                                     </div>
@@ -160,7 +160,8 @@
                          <!-- Step 2 -->
                          <h6>Step 2</h6>
                          <section>
-                          <table  class="table form"   width="100%" >
+                          <table  align="center"  class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe" >
+                            <tbody>
 
 
                             <tr *ngIf="savemode">
@@ -179,7 +180,7 @@
 
                             <tr>
                                  <td >
-                                     &nbsp;Trademark Title  :&nbsp;&nbsp;
+                                     &nbsp; Title  :&nbsp;&nbsp;
                                  </td>
                                  <td>
                                      {{account.trademarktitle}}
@@ -244,7 +245,7 @@
                               </td>
                           </tr>
 
-
+                          <tbody>
 
  </table>
 

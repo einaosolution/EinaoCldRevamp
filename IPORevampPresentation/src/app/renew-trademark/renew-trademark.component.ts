@@ -62,10 +62,52 @@ export class RenewTrademarkComponent implements OnInit {
   vshow :boolean = false;
   constructor(private fb: FormBuilder,private registerapi :ApiClientService ,private router: Router,private route: ActivatedRoute,private spinner: NgxSpinnerService ,private modalService: BsModalService) { }
 
+addrecord() {
+  let self = this ;
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false,
+  })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Record Not Found  , Proceed  To Add New Record   ',
+        text: "",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Proceed!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+
+          this.router.navigateByUrl('/Dashboard/NewApplicationMigration');
+
+
+    } else if (
+          // Read more about handling dismissals
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+
+        //  self.cancelapplication(response.content.id) ;
+        }
+      })
+}
 
   onSubmit9() {
 
+if (this.regnumber == "") {
+  Swal.fire(
+    "Enter Registration Number ",
+     '',
+     'error'
+   )
 
+   return;
+
+}
 
 let userid = localStorage.getItem('UserId');
 
@@ -88,7 +130,16 @@ let userid = localStorage.getItem('UserId');
       this.dtTrigger.next();
 
       if (this.rows.length == 0) {
-        alert("No Record Found")
+     //   alert("No Record Found")
+
+     Swal.fire(
+      "You can only renew application that certificate has been issued ",
+       '',
+       'error'
+     )
+
+     return;
+   //  this.addrecord()
       }
 
 
@@ -597,9 +648,9 @@ this.busy =   this.registerapi
       return ;
     }
 
-    this.registerapi.setPage("trademark")
+    this.registerapi.setPage("Recordal")
 
-    this.registerapi.VChangeEvent("trademark");
+    this.registerapi.VChangeEvent("Recordal");
 
   this.dtOptions = {
     pagingType: 'full_numbers',

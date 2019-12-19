@@ -324,6 +324,91 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("GetPatentApplicationById")]
+        public async Task<IActionResult> GetPatentApplicationById([FromQuery] string RequestById, [FromQuery] string ApplicationID)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designCertificateRepository.GetPatentApplicationByRegistrationId(ApplicationID);
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Design By Id Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+
+        [HttpGet("GetPatentApplicationById2")]
+        public async Task<IActionResult> GetPatentApplicationById2([FromQuery] string RequestById, [FromQuery] string ApplicationID)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+            var user = await _userManager.FindByIdAsync(RequestById.ToString()); ;
+            if (user == null)
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.MissingUserInformation, true, null); ;
+            }
+
+
+
+            var details = _designCertificateRepository.GetPatentApplicationById(Convert.ToInt32(ApplicationID));
+
+
+
+            if (details != null)
+            {
+
+                // get User Information
+
+
+                return PrepareResponse(HttpStatusCode.OK, "Design By Id Returned Successfully", false, details.Result);
+
+            }
+            else
+            {
+                return PrepareResponse(HttpStatusCode.BadRequest, WebApiMessage.RecordNotFound);
+            }
+
+
+
+
+
+
+
+
+
+        }
+
         [HttpGet("GetApplicationByAppid")]
         public async Task<IActionResult> GetApplicationByAppid([FromQuery] string RequestById, [FromQuery] string ApplicationID)
         {
@@ -418,7 +503,7 @@ namespace IPORevamp.WebAPI.Controllers
             ip = Request.Headers["ip"];
 
             //var result = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(ApplicationId) select p).FirstOrDefault();
-            var result2 = (from p in _contex.DesignApplication join c in _contex.DesignInformation on p.Id equals c.DesignApplicationID join d in _contex.DesignApplicationHistory on p.Id equals d.DesignApplicationID where c.RegistrationNumber == ApplicationId && d.ToStatus == STATUS.Confirm && d.ToDataStatus == DATASTATUS.Certificate select p).Count();
+            var result2 = (from p in _contex.DesignApplication join c in _contex.DesignInformation on p.Id equals c.DesignApplicationID join d in _contex.DesignApplicationHistory on p.Id equals d.DesignApplicationID where c.RegistrationNumber == ApplicationId && d.ToStatus == STATUS.Paid && d.ToDataStatus == DATASTATUS.Certificate select p).Count();
            
 
 

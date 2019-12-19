@@ -97,7 +97,8 @@ namespace IPORevamp.WebAPI.Controllers
         /// <param name="RequestById"></param>
         /// <returns></returns>
        
-        [HttpPost("GetFeeListById/{FeeListId}")]
+       
+        [HttpGet("GetFeeListById")]
         public async Task<IActionResult> GetSingleFeeListById(int FeeListId, string RequestById)
         {
             try

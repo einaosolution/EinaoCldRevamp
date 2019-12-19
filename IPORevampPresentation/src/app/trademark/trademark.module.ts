@@ -136,7 +136,22 @@ import { RefuseApplicationReprintComponent } from '../refuse-application-reprint
 import { AcceptanceLetterReprintComponent } from '../acceptance-letter-reprint/acceptance-letter-reprint.component';
 import { NewapplicationmigrationComponent } from '../newapplicationmigration/newapplicationmigration.component';
 import { SearchmigrateappComponent } from '../searchmigrateapp/searchmigrateapp.component';
+import { ChangeofnametrademarkComponent } from '../changeofnametrademark/changeofnametrademark.component';
+import { NoticeofchangeofnameComponent } from '../noticeofchangeofname/noticeofchangeofname.component';
+import { ViewChangeOfNameComponent } from '../view-change-of-name/view-change-of-name.component';
+import { GenRecordalChangeOfNameComponent } from '../gen-recordal-change-of-name/gen-recordal-change-of-name.component';
+import { GenRecordalChangeOfName2Component } from '../gen-recordal-change-of-name2/gen-recordal-change-of-name2.component';
+import { ChangeofnamecertificateComponent } from '../changeofnamecertificate/changeofnamecertificate.component';
+import { ChangeofaddresstrademarkComponent } from '../changeofaddresstrademark/changeofaddresstrademark.component';
+import { NoticeofchangeofaddressComponent } from '../noticeofchangeofaddress/noticeofchangeofaddress.component';
 
+import { GenRecordalChangeOfAddressComponent } from '../gen-recordal-change-of-address/gen-recordal-change-of-address.component';
+import { Genrecordalchangeofaddress2Component } from '../genrecordalchangeofaddress2/genrecordalchangeofaddress2.component';
+import { ChangeofaddresscertificateComponent } from '../changeofaddresscertificate/changeofaddresscertificate.component';
+import { GenRecordalMergerAndAssignmentComponent } from '../gen-recordal-merger-and-assignment/gen-recordal-merger-and-assignment.component';
+import { GenRecordalMergerAndAssignment2Component } from '../gen-recordal-merger-and-assignment2/gen-recordal-merger-and-assignment2.component';
+import { ChangeofassignmentcertificateComponent } from '../changeofassignmentcertificate/changeofassignmentcertificate.component';
+import { GenRecordalRenew2Component } from '../gen-recordal-renew2/gen-recordal-renew2.component';
 
 
 const routes: Routes = [
@@ -188,6 +203,29 @@ const routes: Routes = [
 
               ,
 
+
+
+              {
+                path:  'Noticeofchangeofname',
+                component:  NoticeofchangeofnameComponent
+                }
+
+
+              ,
+
+
+              {
+                path:  'Noticeofchangeofaddress',
+                component:  NoticeofchangeofaddressComponent
+
+                }
+
+
+              ,
+
+
+
+
               {
                 path:  'home2',
                 component:  Home2Component
@@ -202,10 +240,34 @@ const routes: Routes = [
             {
               path:  'GenRecordalRenew',
               component:  GenRecordalRenewComponent
-              } ,{
+              } , {
+                path:  'TreatedRenewal',
+                component:  GenRecordalRenew2Component
+                } ,{
             path:  'AssignAppeal2',
             component:  AssignAppeal2Component
-            },{
+            },
+
+            {
+              path:  'ChangeOfName',
+              component:   ChangeofnametrademarkComponent
+              },
+
+
+
+
+
+            {
+              path:  'ChangeOfAddress',
+              component:    ChangeofaddresstrademarkComponent
+              },
+
+
+
+
+
+
+            {
           path:  'ExaminerTreated',
           component:  ExaminerTreatedComponent
           } ,{
@@ -223,7 +285,46 @@ const routes: Routes = [
               },{
             path:  'PublicationNew',
             component:  PublicationNewComponent
-            },{
+            },
+
+            {
+              path:  'ChangeOfNameBackend',
+              component:  GenRecordalChangeOfNameComponent
+              },
+
+              {
+                path:  'ChangeOfAddressBackend',
+                component:  GenRecordalChangeOfAddressComponent
+                },
+
+
+
+
+              {
+                path:  'MergerAssignmentBackend',
+                component:  GenRecordalMergerAndAssignmentComponent
+                },
+
+              {
+                path:  'TreatedChangeOfName',
+                component:  GenRecordalChangeOfName2Component
+                },
+
+                {
+                  path:  'TreatedChangeOfAddress',
+                  component:  Genrecordalchangeofaddress2Component
+                  },
+
+                  {
+                    path:  'TreatedAssignment',
+                    component:  GenRecordalMergerAndAssignment2Component
+                    },
+
+
+
+
+
+            {
               path:  'RenewTrademark',
               component:  RenewTrademarkComponent
               },{
@@ -309,6 +410,28 @@ const routes: Routes = [
           path:  'NewApplication',
           component:  NewApplicationComponent
           }
+
+          ,{
+            path:  'Changeofnamecertificate',
+            component:  ChangeofnamecertificateComponent
+            }
+
+            ,{
+              path:  'Changeofaddresscertificate',
+              component:  ChangeofaddresscertificateComponent
+              }
+
+
+              ,{
+                path:  'Changeofassignmentcertificate',
+                component:  ChangeofassignmentcertificateComponent
+                }
+
+
+
+
+
+
 
 
           ,{
@@ -482,7 +605,23 @@ const routes: Routes = [
     RefuseApplicationReprintComponent,
     AcceptanceLetterReprintComponent,
     NewapplicationmigrationComponent,
-    SearchmigrateappComponent
+    SearchmigrateappComponent,
+    ChangeofnametrademarkComponent,
+    NoticeofchangeofnameComponent,
+    ViewChangeOfNameComponent,
+    GenRecordalChangeOfNameComponent,
+    GenRecordalChangeOfName2Component,
+    ChangeofnamecertificateComponent,
+    ChangeofaddresstrademarkComponent,
+    NoticeofchangeofaddressComponent,
+
+    GenRecordalChangeOfAddressComponent ,
+    Genrecordalchangeofaddress2Component,
+    ChangeofaddresscertificateComponent,
+    GenRecordalMergerAndAssignmentComponent,
+    GenRecordalMergerAndAssignment2Component,
+    ChangeofassignmentcertificateComponent,
+    GenRecordalRenew2Component
 
 
 

@@ -913,7 +913,7 @@ var userid = localStorage.getItem('UserId');
 
 
   this.busy =   this.registerapi
-.GetFeeListByName("(A)CTC OF PATENT CERTIFICATE" ,userid)
+.GetFeeListById(Fee2.CTCOFPATENTCERTIFICATE ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")

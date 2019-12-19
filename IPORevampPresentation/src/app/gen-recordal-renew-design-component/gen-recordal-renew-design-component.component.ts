@@ -66,10 +66,10 @@ export class GenRecordalRenewDesignComponentComponent implements OnInit {
 
   onSubmit() {
   //  $("#createmodel2").modal('show');
-  $("#createmodel").modal('hide');
+
   //this.router.navigateByUrl("/Dashboard/Certificate")
   var userid = localStorage.getItem('UserId');
-  this.busy =   this.registerapi.UpdateRenewalFormStatus(this.pwalletid2,userid)
+  this.busy =   this.registerapi.UpdateRenewalDesignFormStatus(this.pwalletid2,userid)
 .then((response: any) => {
 
   var table = $('#myTable').DataTable();
@@ -92,30 +92,14 @@ export class GenRecordalRenewDesignComponentComponent implements OnInit {
 
 
 onSubmit2() {
-  $("#createmodel2").modal('show');
-  $("#createmodel").modal('hide');
+
+  $("#createmode2").modal('hide');
+
   var userid = localStorage.getItem('UserId');
 
-  this.busy =   this.registerapi
-.GetRecordalUpdateRenewalDesign(userid,this.pwalletid)
-.then((response: any) => {
-
-  var table = $('#myTable').DataTable();
-  table.destroy();
-
-  $("#createmodel2").modal('hide');
-  $("#createmodel").modal('hide');
-
-  this.getallApplication()
+  this.onSubmit()
 
 
-})
-         .catch((response: any) => {
-
-           console.log(response)
-
-
-         })
  // this.router.navigateByUrl("/Dashboard/Certificate")
 
 
@@ -457,6 +441,7 @@ showcountry2() {
   showdetail(kk) {
 
  this.pwalletid = kk.pwalletid
+ this.pwalletid2= kk.renewalid
 
     $("#createmodel2").modal('show');
     //document.getElementById("openModalButton").click();
@@ -466,8 +451,9 @@ showcountry2() {
   showdetail2(kk) {
 
     this.pwalletid = kk.pwalletid
+    this.pwalletid2= kk.renewalid
 
-       $("#createmodel3").modal('show');
+    //   $("#createmodel3").modal('show');
        //document.getElementById("openModalButton").click();
       // this.modalRef = this.modalService.show(ref );
      }

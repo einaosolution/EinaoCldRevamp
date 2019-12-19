@@ -821,7 +821,7 @@ else {
       })
 
   this.busy =   this.registerapi
-.GetFeeListByName("Counter-Statement" ,userid)
+.GetFeeListById(Fee2.CounterStatement ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")

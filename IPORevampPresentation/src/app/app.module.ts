@@ -81,6 +81,8 @@ import { DefaultdashboardpatenttemplateComponent } from './defaultdashboardpaten
 import { DefaultdashboarddesigntemplateComponent } from './defaultdashboarddesigntemplate/defaultdashboarddesigntemplate.component';
 import { DefaultdashboardadmintemplateComponent } from './defaultdashboardadmintemplate/defaultdashboardadmintemplate.component';
 import { Defaultdashboard4Component } from './defaultdashboard4/defaultdashboard4.component';
+import { Defaultdashboard5Component } from './defaultdashboard5/defaultdashboard5.component';
+
 
 
 
@@ -163,7 +165,9 @@ const routes: Routes = [
     DefaultdashboardpatenttemplateComponent,
     DefaultdashboarddesigntemplateComponent,
     DefaultdashboardadmintemplateComponent,
-    Defaultdashboard4Component
+    Defaultdashboard4Component,
+    Defaultdashboard5Component
+
 
 
 

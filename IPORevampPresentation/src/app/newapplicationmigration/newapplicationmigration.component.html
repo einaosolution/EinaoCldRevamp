@@ -148,7 +148,7 @@
 
                                     <div class="form-group">
                                         <label for="wlocation2"> Filing Date : <span class="danger">*</span> </label>
-                                        <input type="text" required  [(ngModel)]="account.filingdate" class="form-control " id="filingdate" name="filingdate2" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                                        <input [maxDate]="maxDate" type="text" required  [(ngModel)]="account.filingdate" class="form-control " id="filingdate" name="filingdate2" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
 
 
                                       </div>
@@ -349,7 +349,7 @@
 
                       <h6>Step 3</h6>
                       <section>
-                     <p>Thank You </p>
+                     <p> Your  Application will be  reviewed by our backoffice staff .Thank You </p>
 
                       </section>
 

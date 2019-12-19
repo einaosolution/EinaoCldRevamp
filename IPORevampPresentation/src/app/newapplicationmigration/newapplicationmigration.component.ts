@@ -107,6 +107,7 @@ export class NewapplicationmigrationComponent implements OnInit {
   public image4
   public filepath
   public trademarklogo
+   maxDate: Date;
 
 
   row:any[] =[]
@@ -136,7 +137,9 @@ export class NewapplicationmigrationComponent implements OnInit {
 
 varray4 = [{ YearName: 'Local', YearCode: 'Local' }, { YearName: 'Foreign', YearCode: 'Foreign' } ]
 varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK', YearCode: 'WORD MARK' } , { YearName: 'WORD AND DEVICE', YearCode: 'WORD AND DEVICE' } ]
-  constructor(private registerapi :ApiClientService ,private router: Router ,private route: ActivatedRoute) { }
+  constructor(private registerapi :ApiClientService ,private router: Router ,private route: ActivatedRoute) {
+ this.maxDate =new Date();
+  }
 
   getlogo(vid) {
     return this.trademarklogo

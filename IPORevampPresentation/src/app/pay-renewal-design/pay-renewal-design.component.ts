@@ -773,73 +773,7 @@ else {
 
     if (firstParam) {
 
-    this.tot =  localStorage.getItem('tot');
 
-      var kk2 = {
-        RRR:firstParam
-
-
-
-      }
-
-      this.registerapi
-      . RemitaTransactionRequeryPayment(kk2)
-      .then((response: any) => {
-
-        console.log("RemittaResponse")
-      //  this.rows = response.content;
-        console.log(response)
-
-      //  this.row2 =response.content
-
-        var result =response.content
-
-        if (result.message ="Approved")
-
-        {
-
-
-          var Payment= {
-
-            description: vdesc ,
-            quatity: "1",
-            amount: this.tot ,
-            paymentref:firstParam ,
-            transactionid:secondparam
-
-
-
-        };
-
-        localStorage.setItem('Payment',JSON.stringify( Payment));
-
-        this.generateInvoice()
-
-        }
-
-        else {
-          alert("Payment Not Successful")
-        }
-
-        this.vshow = true;
-
-    //    alert("success")
-
-
-
-      })
-               .catch((response: any) => {
-
-                 console.log(response)
-
-
-                Swal.fire(
-                  response.error.message,
-                  '',
-                  'error'
-                )
-
-   })
 
     }
 
@@ -847,7 +781,7 @@ else {
 
 
       this.busy =   this.registerapi
-      .GetApplicationByAppid(userid,this.pwalletid)
+      .GetRenewalDesignApplicationById(userid,this.pwalletid)
       .then((response: any) => {
 
         this.row10 = response.content;

@@ -828,7 +828,7 @@ else {
 
 
   this.busy =   this.registerapi
-.GetFeeListByName("NOTICE OF OPPOSITION" ,userid)
+.GetFeeListById(Fee2.NOTICEOFOPPOSITION ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")

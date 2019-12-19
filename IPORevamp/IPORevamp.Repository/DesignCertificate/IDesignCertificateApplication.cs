@@ -12,6 +12,8 @@ namespace IPORevamp.Repository.DesignCertificate
         Task<List<DesignDataResult>> GetDesignFreshApplication();
         Task<List<DesignDataResult>> GetDesignConfirmCertificate();
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByRegistrationId(String id);
+        Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPatentApplicationByRegistrationId(String id);
+        Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPatentApplicationById(int id);
         Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByAppId(String id);
     }
 }

@@ -210,7 +210,7 @@ let userid = localStorage.getItem('UserId');
    // $("#createmodel2").modal('show');
     $("#createmodel").modal('hide');
 
-  this.router.navigateByUrl('/Dashboard/PayRenewal');
+  this.router.navigateByUrl('/Design/PayRenewal');
 
 
 
@@ -667,9 +667,9 @@ this.router.navigateByUrl('/Design/PayRenewal');
 
 
 
-    this.registerapi.setPage("design")
+    this.registerapi.setPage("Recordal")
 
-    this.registerapi.VChangeEvent("design");
+    this.registerapi.VChangeEvent("Recordal");
 
   this.dtOptions = {
     pagingType: 'full_numbers',

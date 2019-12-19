@@ -113,9 +113,22 @@
                           </div>
 
                           <div *ngSwitchCase="trademarkrecordal">
-                            <app-defaultdashboardsearch  [registerapi2]="registerapi"  ></app-defaultdashboardsearch>
+                            <app-defaultdashboard5  [registerapi2]="registerapi"  ></app-defaultdashboard5>
 
                             </div>
+
+                            <div *ngSwitchCase="designrecordal">
+                              <app-defaultdashboard5  [registerapi2]="registerapi"  ></app-defaultdashboard5>
+
+                              </div>
+
+                              <div *ngSwitchCase="patentrecordal">
+                                <app-defaultdashboard5  [registerapi2]="registerapi"  ></app-defaultdashboard5>
+
+                                </div>
+
+
+
 
                             <div *ngSwitchCase="patentsearch">
                               <app-defaultdashboardpatenttemplate  [registerapi2]="registerapi"  ></app-defaultdashboardpatenttemplate>
@@ -162,10 +175,7 @@
 
                                           </div>
 
-                                          <div *ngSwitchCase="designrecordal">
-                                            <app-defaultdashboarddesigntemplate  [registerapi2]="registerapi"  ></app-defaultdashboarddesigntemplate>
 
-                                            </div>
 
 
                                             <div *ngSwitchCase="AppealOfficerTrademark">

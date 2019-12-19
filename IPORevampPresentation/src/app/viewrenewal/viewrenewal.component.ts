@@ -9,11 +9,13 @@ import {ApiClientService} from '../api-client.service';
 export class ViewrenewalComponent implements OnInit {
   busy: Promise<any>;
   row2:any;
+  filepath:any ;
   @Input()
 public   pwallet: any ="";
   constructor(private registerapi :ApiClientService) { }
 
   ngOnInit() {
+    this.filepath = this.registerapi.GetFilepath2();
     var userid = localStorage.getItem('UserId');
 
     this.busy =   this.registerapi

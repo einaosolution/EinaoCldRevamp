@@ -840,7 +840,7 @@ var userid = localStorage.getItem('UserId');
 
 
   this.busy =   this.registerapi
-.GetFeeListByName("APPLICATION FOR ISSUANCE OF CERTIFICATE FOR TRADE/SERVICE MARKS" ,userid)
+.GetFeeListById(Fee2.APPLICATIONFORISSUANCEOFCERTIFICATEFORTRADESERVICE,userid)
 .then((response: any) => {
 
   console.log("fee  Response")

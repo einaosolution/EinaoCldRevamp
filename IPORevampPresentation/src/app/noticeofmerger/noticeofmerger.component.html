@@ -184,15 +184,15 @@
                          <!-- Step 2 -->
                          <h6>Step 2</h6>
                          <section>
-                          <table  class="table form"   width="100%" >
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">DATA PREVIEW</h4>
+                          <table  class="tablesaw table-bordered table-hover table" data-tablesaw-mode="swipe"    >
+                              <tbody>
 
 
-                            <tr *ngIf="savemode">
-                                 <td width="22%" colspan="2" class="tbbg" align="center">
-                                     <strong>DATA PREVIEW</strong></td>
-                             </tr>
                               <tr>
-                                 <td >
+                                 <td width="25%" >
                                      &nbsp;Assignor Name  :&nbsp;&nbsp;
                                  </td>
                                  <td>
@@ -202,7 +202,7 @@
                              </tr>
 
                             <tr>
-                                 <td >
+                                 <td width="25%">
                                      &nbsp;Assignor  Address  :&nbsp;&nbsp;
                                  </td>
                                  <td>
@@ -212,7 +212,7 @@
                              </tr>
 
                              <tr>
-                              <td >
+                              <td width="25%" >
                                   &nbsp;Assignee Name :&nbsp;&nbsp;
                               </td>
                               <td>
@@ -222,7 +222,7 @@
                           </tr>
 
                           <tr>
-                            <td >
+                            <td width="25%" >
                                 &nbsp;Assignee Address :&nbsp;&nbsp;
                             </td>
                             <td>
@@ -233,7 +233,7 @@
 
 
                         <tr>
-                          <td >
+                          <td width="25%">
                               &nbsp;Date Of  Assignment :&nbsp;&nbsp;
                           </td>
                           <td>
@@ -244,7 +244,7 @@
 
 
                       <tr>
-                        <td >
+                        <td  width="25%">
                             &nbsp;Country :&nbsp;&nbsp;
                         </td>
                         <td>
@@ -254,7 +254,7 @@
                     </tr>
 
                       <tr>
-                                 <td >
+                                 <td  width="25%">
                                      &nbsp;Detail Of Request :&nbsp;&nbsp;
                                  </td>
                                  <td>
@@ -269,7 +269,7 @@
 
 
    <tr *ngIf="image1">
-                                 <td >
+                                 <td width="25%" >
                                      &nbsp;POWER OF ATTORNEY :&nbsp;&nbsp;
                                  </td>
                                  <td>
@@ -279,7 +279,7 @@
                              </tr>
 
                              <tr *ngIf="image2">
-                              <td >
+                              <td  width="25%">
                                   &nbsp;DEED OF ASSIGNMENT :&nbsp;&nbsp;
                               </td>
                               <td>
@@ -290,7 +290,7 @@
 
 
                           <tr *ngIf="image3">
-                            <td >
+                            <td width="25%" >
                                 &nbsp;CERTIFICATE :&nbsp;&nbsp;
                             </td>
                             <td>
@@ -300,8 +300,11 @@
                         </tr>
 
 
-
+                      </tbody>
  </table>
+
+ </div>
+                            </div>
 
 
 

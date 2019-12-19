@@ -30,6 +30,8 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Recordal
         public string PaymentReference { get; set; }
         public string PreviousApplicationStatus { get; set; }
         public string PreviousDataStatus { get; set; }
+        public string ApprovedBy { get; set; }
+        public DateTime?  ApprovalDate { get; set; }
 
 
 

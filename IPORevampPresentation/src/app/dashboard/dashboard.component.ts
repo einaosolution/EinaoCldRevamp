@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
  trademarkcertificate =""
  patentcertificate =""
  trademarkrecordal =""
+
  trademarkopposition =""
  individualusersrole =""
  patentsearch =""
@@ -32,6 +33,7 @@ export class DashboardComponent implements OnInit {
  designpublication =""
  designcertificate =""
  designrecordal =""
+ patentrecordal =""
  AppealOfficerTrademark=""
  AppealOfficerPatent=""
  AppealOfficerDesign =""
@@ -107,6 +109,7 @@ export class DashboardComponent implements OnInit {
     this.designpublication = Role.DesignPublicationOfficer;
     this.designcertificate = Role.DesignCertificateOfficer;
     this.designrecordal = Role.DesignRecordalOfficer;
+    this.patentrecordal = Role.PatentRecordalOfficer;
     this.AppealOfficerTrademark = Role.AppealOfficerTrademark ;
     this.AppealOfficerPatent= Role.AppealOfficerPatent
     this.AppealOfficerDesign= Role.AppealOfficerDesign ;

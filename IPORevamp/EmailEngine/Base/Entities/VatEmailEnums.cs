@@ -115,8 +115,10 @@ namespace EmailEngine.Base.Entities
         public const string SaveMode = "SaveMode";
         public const string RecordalComment = "Recordal Merger";
         public const string NotPublished = "NotPublished";
+        public const string ChangeOfName = "ChangeOfName";
+        public const string ChangeOfAddress = "ChangeOfAddress";
 
-        
+
 
 
         public const string Paid = "Paid";

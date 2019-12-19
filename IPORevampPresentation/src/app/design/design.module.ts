@@ -92,6 +92,7 @@ import { AcceptancedesignReprintletterComponent } from '../acceptancedesign-repr
 import { RefusaldesignreprintletterComponent } from '../refusaldesignreprintletter/refusaldesignreprintletter.component';
 import { NewdesignmigrationComponent } from '../newdesignmigration/newdesignmigration.component';
 import { DesignmigrateapplicationComponent } from '../designmigrateapplication/designmigrateapplication.component';
+import { GgenRecordalRenewDesign2Component } from '../ggen-recordal-renew-design2/ggen-recordal-renew-design2.component';
 
 
 
@@ -308,6 +309,12 @@ const routes: Routes = [
                                         }
 
                                         ,
+                                        {
+                                          path:  'TreatedRenewal',
+                                          component:   GgenRecordalRenewDesign2Component
+                                          }
+
+                                        ,
                                       {
                                         path:  'GenRecordalRenewDesign',
                                         component:   GenRecordalRenewDesignComponentComponent
@@ -370,7 +377,8 @@ const routes: Routes = [
    AcceptancedesignReprintletterComponent,
    RefusaldesignreprintletterComponent,
    NewdesignmigrationComponent,
-   DesignmigrateapplicationComponent],
+   DesignmigrateapplicationComponent,
+   GgenRecordalRenewDesign2Component],
   imports: [
     CommonModule ,
     SharedModule,

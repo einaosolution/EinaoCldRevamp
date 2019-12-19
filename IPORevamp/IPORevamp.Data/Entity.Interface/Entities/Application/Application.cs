@@ -36,6 +36,9 @@ namespace IPORevamp.Data.Entity.Interface.Entities.Pwallet
         public List<IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalRenewal> RecordalRenewal { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.Recordal.RecordalMerger> RecordalMerger { get; set; }
 
+        public List<IPORevamp.Data.Entity.Interface.Entities.Recordal.ChangeOfName> Change_Of_Name { get; set; }
+
+        public List<IPORevamp.Data.Entity.Interface.Entities.Recordal.ChangeOfAddress> ChangeOfAddress { get; set; }
         public List<IPORevamp.Data.Entity.Interface.Entities.ApplicationHistory.TrademarkApplicationHistory> TrademarkApplicationHistory { get; set; }
     }
 }

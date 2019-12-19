@@ -35,7 +35,7 @@ export class PayRenewalComponent implements OnInit {
   modalRef: BsModalRef;
   dtTrigger: Subject<any> = new Subject();
   dataTable: any;
-  savemode:boolean = true;
+  savemode:boolean = false;
   updatemode:boolean = false;
   userform: FormGroup;
   userform2: FormGroup;
@@ -478,10 +478,10 @@ if (f) {
 
 
   this.busy = this.registerapi
-  . SaveRenewalForm(formData)
+  .SaveRenewalForm(formData)
   .then((response: any) => {
 
-    this.savemode = false;
+    this.savemode = true;
     console.log("response")
     console.log(response)
 

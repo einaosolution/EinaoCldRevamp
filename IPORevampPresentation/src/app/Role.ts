@@ -19,6 +19,7 @@ export enum Role {
   DesignPublicationOfficer ="30" ,
   DesignCertificateOfficer ="33" ,
   DesignRecordalOfficer ="34" ,
+  PatentRecordalOfficer ="27" ,
   AppealOfficerTrademark ="10",
   AppealOfficerPatent ="26",
   AppealOfficerDesign ="31",

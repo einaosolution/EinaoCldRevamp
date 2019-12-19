@@ -1,0 +1,393 @@
+<div class="page-breadcrumb">
+  <div class="row">
+      <div class="col-5 align-self-center">
+          <h4 class="page-title">User Recordal</h4>
+          <div class="d-flex align-items-center">
+          </div>
+      </div>
+      <div class="col-7 align-self-center">
+          <div class="d-flex no-block justify-content-end align-items-center">
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a href="#">Home</a>
+                      </li>
+                      <li class="breadcrumb-item active" aria-current="page">Change Of Name </li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- ============================================================== -->
+  <!-- Start Page Content -->
+  <!-- ============================================================== -->
+  <div class="row">
+
+
+      <!-- Column -->
+      <div class="col-lg-12 col-xl-12 col-md-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex no-block align-items-center m-b-30">
+                      <h4 class="card-title">Recordal Application</h4>
+                      <div [ngBusy]="busy"></div>
+
+                      <ngx-spinner> <p style="font-size: 20px; color: white">Please Wait...</p></ngx-spinner>
+
+                  </div>
+<br/>
+
+<div class="align-items-center justify-content-center row" >
+    <table>
+      <tr>
+        <td>       <input type="text" name="name" [(ngModel)]="regnumber"     class="form-control" id="name"
+          placeholder="Enter Registration Number " required autofocus> </td>
+
+          <td>
+              <button type="submit"  (click) ="onSubmit9()"    class="btn btn-success">Search </button>
+          </td>
+      </tr>
+    </table>
+
+
+
+  </div>
+
+  <br/>
+
+                  <div class="table-responsive">
+                      <table id="myTable" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered nowrap display">
+                          <thead>
+                              <tr>
+                                  <th></th>
+                                <th>SN</th>
+                                <th>OAI NO</th>
+                                  <th>FILING DATE</th>
+                                  <th>FILE NO.</th>
+                                 <th>APPLICANT NAME </th>
+                                 <th>PRODUCT TITLE </th>
+                                 <th>CLASS </th>
+                                 <th>STATUS </th>
+                                 <th> </th>
+
+
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let emp of rows  let i = index">
+                                    <td> <input type="checkbox"   ng-true-value=true ng-false-value=false   [(ngModel)]="emp.sn" name="vcheckbox"     /></td>
+                                  <td>{{i + 1}}</td>
+                                  <td>{{emp.transactionid}}</td>
+                                     <td>{{emp.filingDate|date}}</td>
+                                      <td>{{emp.filenumber}}</td>
+                                      <td>{{emp.applicantName}}</td>
+                                      <td>{{emp.productTitle}}</td>
+                                      <td>{{emp.applicationclass}}</td>
+                                      <td>{{emp.status}}</td>
+
+                                      <td>
+                                        <button type="button" id="openModalButton" (click) ="detail(emp)"  class="btn btn-success ">Details </button>
+
+
+
+                                   </td>
+
+
+
+                                    </tr>
+                                  </tbody>
+                      </table>
+
+
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column -->
+
+  </div>
+
+
+
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createmodel" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-xl" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i> Data Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+                          <app-trademark-preview [row2]=row2 [vshow] =vshow   [row4]=row4></app-trademark-preview>
+
+
+
+  </div>
+  <form>
+
+
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit"  (click) ="onSubmit()"  class="btn btn-success"> Proceed</button>
+
+                 <div [ngBusy]="busy"></div>
+                </div>
+  </form>
+      </div>
+  </div>
+</div>
+
+
+<!-- Create Modal 2 -->
+<div class="modal fade" id="createmodel2" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+                 <div class="card-body wizard-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>Accept </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form name="form"  #f="ngForm" novalidate>
+
+                            <table class="table text-center">
+                                <tr>
+                               <td>
+                               Comments
+                               </td>
+
+                               <td>
+
+
+                                  <textarea rows="4" class="form-control" required [(ngModel)]="appcomment"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                    </textarea>
+
+
+
+                                 </td>
+
+                                </tr>
+
+
+                               </table>
+
+
+                              </form>
+    </div>
+
+
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit"  (click) ="onSubmit2()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+
+
+<!-- Create Modal 3 -->
+<div class="modal fade" id="createmodel3" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+                 <div class="card-body wizard-content">
+                        <div class="modal-header">
+                                <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>Refusal </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form name="form"  #f="ngForm" novalidate>
+
+                            <table class="table text-center">
+                                <tr>
+                               <td>
+                               Comments
+                               </td>
+
+                               <td>
+
+
+                                  <textarea rows="4" class="form-control" required [(ngModel)]="appcomment2"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                    </textarea>
+
+
+
+                                 </td>
+
+                                </tr>
+
+
+                               </table>
+
+
+                              </form>
+    </div>
+
+
+            <form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit"  (click) ="onSubmit3()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- Create Modal 4 -->
+<div class="modal fade" id="createmodel4" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-full" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>Kiv </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+                          <form name="form"  #f="ngForm" novalidate>
+
+                          <table class="table text-center">
+                              <tr>
+                             <td>
+                             Comments
+                             </td>
+
+                             <td>
+
+
+                                <textarea rows="4" class="form-control" required [(ngModel)]="appcomment3"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                  </textarea>
+
+
+
+                               </td>
+
+                              </tr>
+
+
+                             </table>
+
+
+                            </form>
+  </div>
+
+
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  (click) ="onSubmit44()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+
+<!-- Create Modal 5 -->
+<div class="modal fade" id="createmodel5" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-full" role="document">
+      <div class="modal-content">
+               <div class="card-body wizard-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="createModalLabel"><i class="ti-marker-alt m-r-10"></i>ReConduct Search </h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+
+                          <form name="form"  #f="ngForm" novalidate>
+
+                          <table class="table text-center">
+                              <tr>
+                             <td>
+                             Comments
+                             </td>
+
+                             <td>
+
+
+                                <textarea rows="4" class="form-control" required [(ngModel)]="appcomment4"  name="classdescription2"      cols="30" placeholder="Comment">
+
+                                  </textarea>
+
+
+
+                               </td>
+
+                              </tr>
+
+
+                             </table>
+
+
+                            </form>
+  </div>
+
+
+          <form>
+
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit"  (click) ="onSubmit55()"  class="btn btn-success"><i class="ti-save"></i> Save</button>
+
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

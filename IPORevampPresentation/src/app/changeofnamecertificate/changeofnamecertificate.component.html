@@ -1,0 +1,100 @@
+<form class="form-login" role="form">
+
+
+  <div [ngBusy]="busy"></div>
+    <div  style="width:98%; margin:auto; ;   border: 6px solid #1861a4;">
+      <div class="form-group" style="text-align: center; margin-top: 5px">
+          <img src="assets/images/coat_of_arms.png" />
+         <br>
+          <span>NIGERIA</span>
+      </div>
+      <div class="form-group" style="text-align: center; font-size: 10.5px">
+      Federal Ministry of Industry, Trade and Investment<br>
+Commercial Law Department,<br>
+TRADEMARKS, PATENTS AND DESIGNS REGISTRY
+          </div>
+      <div id ="dd2" class="image-box" >
+          <div style="width: 100%; text-align: left;">
+              <br/>
+          <b>Date:{{row5.approvalDate|date}} </b><br/>
+              <br/>
+           Dear Sir(s),<br/>
+              <br/>
+              <br/>
+          </div>
+
+      <div class="form-group">
+        <div class="align-items-center justify-content-center row" >
+          <h1 style="font-size:large;">CHANGE OF NAME</h1>
+        </div>
+
+          With reference to your FORM 22 Application dated  {{row5.dateCreated|date}}   has been effected.
+      </div>
+      <div class="form-group" style="text-align: left">
+          <br/>
+         <b>RECORDAL INFORMATION: </b><br/>
+          <br/>
+          FROM : {{row5.oldApplicantFirstName}} &nbsp;   {{row5.oldApplicantSurname}}  <br/>
+          <br/>
+          TO : {{row5.newApplicantFirstname}} &nbsp;   {{row5.newApplicantSurname}} <br/>
+          <br/>
+
+          <b>AGENT INFORMATION: </b><br/>
+          {{row5.newApplicantFirstname}}   {{row5.newApplicantSurname}} <br/>
+
+          {{row6.street}} <br/>
+
+          <br/>
+           <br/>
+           <br/>
+          Yours Faithfully,<br/>
+
+          <img src="assets/Nkiru.jpg" width="100px" />
+         <br/>
+
+
+
+          <br/>
+          FOR: Registrar,Trade Marks<br/>
+
+          <br/>
+
+          <br/>
+
+
+      </div>
+
+
+      <br/>
+      <br/>
+      <br/>
+
+
+      <br/>
+      <br/>
+      <br/>
+
+      <br/>
+      <br/>
+      <br/>
+
+      <br/>
+      <br/>
+      <br/>
+
+
+  </div>
+  </div>
+
+  <div class="align-items-center justify-content-center row" >
+
+
+
+
+    <button id="print" class="btn btn-default btn-outline no-print" type="button" (click) ="print2()"   > <span><i class="fa fa-print"></i> Print</span> </button>
+
+
+
+  </div>
+
+</form>

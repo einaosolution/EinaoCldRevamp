@@ -191,7 +191,7 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
   //  alert("called")
     let  userid = localStorage.getItem('UserId');
     this.registerapi
-.GetFeeListByName(description ,userid)
+.GetFeeListById(description ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")
@@ -229,13 +229,13 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
     if (deviceValue =="2") {
     // alert("2")
       this.vshow = false;
-this.feelist(Fee.REGISTRATIONOFPATENTNONCONVENTIONAL)
+this.feelist(Fee2.REGISTRATIONOFPATENTNONCONVENTIONAL)
     }
 
     else {
     //  alert("1")
       this.vshow = true;
-      this.feelist(Fee.REGISTRATIONOFPATENTCONVENTIONAL)
+      this.feelist(Fee2.REGISTRATIONOFPATENTCONVENTIONAL)
     }
   }
 

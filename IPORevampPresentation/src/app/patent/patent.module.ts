@@ -87,6 +87,10 @@ import { RefusalPatentReprintComponent } from '../refusal-patent-reprint/refusal
 import { AcceptancepatentreprintLetterComponent } from '../acceptancepatentreprint-letter/acceptancepatentreprint-letter.component';
 import { NewpatentmigrationComponent } from '../newpatentmigration/newpatentmigration.component';
 import { PatentmigrationapplictionComponent } from '../patentmigrationappliction/patentmigrationappliction.component';
+import { RenewPatentComponent } from '../renew-patent/renew-patent.component';
+import { PayRenewalPatentComponent } from '../pay-renewal-patent/pay-renewal-patent.component';
+import { GenRecordalRenewPatentComponentComponent } from '../gen-recordal-renew-patent-component/gen-recordal-renew-patent-component.component';
+import { GenRecordalRenewPatent2ComponentComponent } from '../gen-recordal-renew-patent2-component/gen-recordal-renew-patent2-component.component';
 
 
 
@@ -171,6 +175,12 @@ const routes: Routes = [
                   component:  PatentmigrationapplictionComponent
                   }
 
+,
+                  {
+                    path:  'PayRenewal',
+                    component:   PayRenewalPatentComponent
+                    }
+
 
                 ,
                 {
@@ -216,6 +226,11 @@ const routes: Routes = [
 
                       ,
                       {
+                      path:  'RenewPatent',
+                      component:    RenewPatentComponent
+                      }
+                    ,
+                      {
                         path:  'NoticePatentCertificatePayment',
                         component:   NoticePatentCertificatePaymentComponent
                         }
@@ -253,6 +268,21 @@ const routes: Routes = [
                                 path:  'PatentUserApplication',
                                 component:    PatentUserApplicationComponent
                                 }
+
+
+                                ,
+                              {
+                                path:  'GenRecordalRenewPatent',
+                                component:    GenRecordalRenewPatentComponentComponent
+                                }
+
+
+                                ,
+                                {
+                                  path:  'TreatedRenewal',
+                                  component:    GenRecordalRenewPatent2ComponentComponent
+                                  }
+
 
                                 ,
                                 {
@@ -335,7 +365,11 @@ const routes: Routes = [
     RefusalPatentReprintComponent,
     AcceptancepatentreprintLetterComponent,
     NewpatentmigrationComponent,
-    PatentmigrationapplictionComponent
+    PatentmigrationapplictionComponent,
+    RenewPatentComponent,
+    PayRenewalPatentComponent,
+    GenRecordalRenewPatentComponentComponent,
+    GenRecordalRenewPatent2ComponentComponent
 
 
 

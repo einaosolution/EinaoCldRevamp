@@ -86,6 +86,8 @@ namespace IPORevamp.Data
 
         
         public DbSet<EmailLog> EmailLog { get; set; }
+        public DbSet<ChangeOfName> ChangeOfName { get; set; }
+        public DbSet<ChangeOfAddress> ChangeOfAddress { get; set; }
         public DbSet<EmailTemplate> EmailTemplates { get; set; }
         public DbSet<TrademarkType> TrademarkType { get; set; }
 
@@ -94,6 +96,7 @@ namespace IPORevamp.Data
         
 
         public DbSet<AuditTrail> AuditTrails { get; set; }
+        public DbSet<RecordalPatentRenewal> RecordalPatentRenewal { get; set; }
         public DbSet<CounterOpposition> CounterOpposition { get; set; }
         public DbSet<BillLog> BillLogs { get; set; }
         public DbSet<PaymentLog> PaymentLogs { get; set; }

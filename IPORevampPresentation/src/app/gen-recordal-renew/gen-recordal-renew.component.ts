@@ -52,10 +52,12 @@ export class GenRecordalRenewComponent implements OnInit {
   public row2
   public row3 = [];
   public row4
+  public row7:any;
   public appcomment =""
   appcomment3="";
   appcomment2="" ;
   appcomment4 ="" ;
+  filepath:any ;
 
   public row10 = [];
   vbatch=1;
@@ -533,13 +535,32 @@ this.busy =   this.registerapi
           )
 
 })
+
+
+this.busy =   this.registerapi
+// .GetApplicationByDocumentId("7",userid)
+ .GetApplicationByDocumentId(this.pwalletid2,userid)
+ .then((response: any) => {
+console.log("view response")
+
+console.log(response)
+this.row7 = response.content
+
+
+ })
+          .catch((response: any) => {
+
+            console.log(response)
+
+
+          })
     $("#createmodel").modal('show');
     //document.getElementById("openModalButton").click();
    // this.modalRef = this.modalService.show(ref );
   }
 
   ngOnInit() {
-
+    this.filepath = this.registerapi.GetFilepath2();
     if (this.registerapi.checkAccess("#/Dashboard/GenRecordalRenew"))  {
 
     }
@@ -628,6 +649,12 @@ this.busy =   this.registerapi
               )
 
 })
+
+
+
+
+
+
 
 
   }

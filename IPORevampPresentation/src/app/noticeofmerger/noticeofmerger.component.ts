@@ -1053,7 +1053,7 @@ else {
     })
 
   this.busy =   this.registerapi
-.GetFeeListByName("REGISTRATION OF ASSIGNMENT/MERGER WITHIN THE PRESCRIBED PERIOD" ,userid)
+.GetFeeListById(Fee2.REGISTRATIONOFASSIGNMENTMERGER ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")

@@ -1160,7 +1160,7 @@ else {
 
 
 this.busy =   this.registerapi
-.GetFeeListByName("APPLICATION FOR REGISTRATION OF TRADE/SERVICE MARK" ,userid)
+.GetFeeListById(Fee2.APPLICATIONFORREGISTRATIONOFTRADESERVICE ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")

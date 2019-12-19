@@ -1,0 +1,26 @@
+#dd2 {
+
+    margin:auto;
+
+    top: 0;
+     width: 96%;
+      height:  auto;
+
+
+ /*margin-top:-25px;*/
+ /*margin-left:-25px;*/
+
+
+ }
+
+
+ .image-box {
+
+  /* Here's the trick */
+  font-family:  'Trebuchet MS';
+  background-image: url('../../assets/images/Coat_of_Arms_of_Nigeria.png');
+  /* Basic background styles */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}

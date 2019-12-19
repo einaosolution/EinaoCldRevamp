@@ -94,7 +94,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                   <label for="wemailAddress2"> Filing Date  : <span class="danger">*</span> </label>
-                                  <input type="text"    formControlName="filingdate"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['filingdate'].hasError('required') }"  class="form-control " id="filingdate2" name="filingdate2"  bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                                  <input type="text" [maxDate]="maxDate"      formControlName="filingdate"  [ngClass]="{ 'is-invalid': submitted2 && userform.controls['filingdate'].hasError('required') }"  class="form-control " id="filingdate2" name="filingdate2"  bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
 
 
                                   </div>
@@ -821,9 +821,9 @@
 
 
 
-                      <h6>Step 4</h6>
+                      <h6>Step 3</h6>
                       <section>
-                     <p>Thank You </p>
+                     <p>Your  Application will be  reviewed by our backoffice staff .Thank You </p>
 
                       </section>
 

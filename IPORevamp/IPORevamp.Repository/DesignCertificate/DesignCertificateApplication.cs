@@ -79,6 +79,7 @@ namespace IPORevamp.Repository.DesignCertificate
                                      FilingDate = p.DateCreated,
                                      Filenumber = c.RegistrationNumber,
                                      ApplicantName = d.FirstName + " " + d.LastName,
+                                     ApplicantAddress = d.Street,
                                      ProductTitle = c.TitleOfDesign,
                                      Applicationclass = Convert.ToString(c.NationClassID),
                                      status = p.ApplicationStatus,
@@ -88,10 +89,10 @@ namespace IPORevamp.Repository.DesignCertificate
                                      phonenumber = d.MobileNumber,
                                      email = d.UserName,
                                      userid = p.userid,
-                                     logo_pic = "",
-                                     auth_doc = "",
-                                     sup_doc1 = "",
-                                     sup_doc2 = "",
+                                     logo_pic = c.PriorityDocument,
+                                     auth_doc = c.LetterOfAuthorization,
+                                     sup_doc1 = c.RepresentationOfDesign1,
+                                     sup_doc2 = c.RepresentationOfDesign2,
 
 
                                      pwalletid = p.Id
@@ -101,6 +102,97 @@ namespace IPORevamp.Repository.DesignCertificate
             // return null;
         }
 
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPatentApplicationByRegistrationId(String id)
+        {
+
+            var details = await (from p in _contex.PatentApplication
+                                 join c in _contex.PatentInformation
+                                  on p.Id equals c.PatentApplicationID
+                                 join d in _contex.ApplicationUsers
+                                  on Convert.ToInt32(p.userid) equals d.Id
+
+                                 join e in _contex.PatentType
+                                 on c.PatentTypeID equals e.Id
+
+
+
+
+
+                                 where c.RegistrationNumber == id
+
+                                 select new DataResult
+                                 {
+                                     FilingDate = p.DateCreated,
+                                     Filenumber = c.RegistrationNumber,
+                                     ApplicantName = d.FirstName + " " + d.LastName,
+                                     ProductTitle = c.TitleOfInvention,
+                                     Applicationclass = "",
+                                     status = p.ApplicationStatus,
+                                     Transactionid = p.TransactionID,
+                                     trademarktype = e.Description,
+                                     classdescription = "",
+                                     phonenumber = d.MobileNumber,
+                                     email = d.UserName,
+                                     userid = p.userid,
+                                     logo_pic = c.PctDocument ,
+                                     auth_doc = c.LetterOfAuthorization,
+                                     sup_doc1 = c.DeedOfAssignment,
+                                     sup_doc2 = c.CompleteSpecificationForm,
+
+
+                                     pwalletid = p.Id
+
+                                 }).ToListAsync();
+            return details;
+            // return null;
+        }
+
+        public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetPatentApplicationById(int  id)
+        {
+
+            var details = await (from p in _contex.PatentApplication
+                                 join c in _contex.PatentInformation
+                                  on p.Id equals c.PatentApplicationID
+                                 join d in _contex.ApplicationUsers
+                                  on Convert.ToInt32(p.userid) equals d.Id
+
+                                 join e in _contex.PatentType
+                                 on c.PatentTypeID equals e.Id
+
+
+
+
+
+                                 where c.PatentApplicationID == id
+
+                                 select new DataResult
+                                 {
+                                     FilingDate = p.DateCreated,
+                                     Filenumber = c.RegistrationNumber,
+                                     ApplicantName = d.FirstName + " " + d.LastName,
+                                     ApplicantAddress = d.Street,
+                                     ProductTitle = c.TitleOfInvention,
+                                     Applicationclass = "",
+                                     status = p.ApplicationStatus,
+                                     Transactionid = p.TransactionID,
+                                     trademarktype = e.Description,
+                                     classdescription = "",
+                                     phonenumber = d.MobileNumber,
+                                     email = d.UserName,
+                                     userid = p.userid,
+                                     logo_pic = c.PctDocument,
+                                     auth_doc = c.LetterOfAuthorization,
+                                     sup_doc1 = c.DeedOfAssignment,
+                                     sup_doc2 = c.CompleteSpecificationForm,
+
+
+                                     pwalletid = p.Id
+
+                                 }).ToListAsync();
+            return details;
+            // return null;
+        }
         public async System.Threading.Tasks.Task<List<IPORevamp.Data.Entity.Interface.Entities.Search.DataResult>> GetApplicationByAppId(String id)
         {
 

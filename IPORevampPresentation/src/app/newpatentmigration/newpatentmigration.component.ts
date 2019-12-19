@@ -66,6 +66,7 @@ export class NewpatentmigrationComponent implements OnInit {
   userform3: FormGroup;
   Inventor: FormArray;
   Priority2: FormArray;
+  maxDate: Date;
   public Fee = Fee;
 
 
@@ -182,7 +183,9 @@ export class NewpatentmigrationComponent implements OnInit {
 
 varray4 = [{ YearName: 'Local', YearCode: 'Local' }, { YearName: 'Foreign', YearCode: 'Foreign' } ]
 varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK', YearCode: 'WORD MARK' } , { YearName: 'WORD AND DEVICE', YearCode: 'WORD AND DEVICE' } ]
-  constructor(private registerapi :ApiClientService ,private router: Router ,private route: ActivatedRoute ,private formBuilder: FormBuilder) { }
+  constructor(private registerapi :ApiClientService ,private router: Router ,private route: ActivatedRoute ,private formBuilder: FormBuilder) {
+    this.maxDate = new Date();
+   }
 
   getlogo(vid) {
     return this.trademarklogo

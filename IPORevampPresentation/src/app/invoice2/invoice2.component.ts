@@ -115,6 +115,42 @@ public DataStatus = DataStatus;
    })
      }
 
+
+
+     generateInvoice15() {
+      let  pwallet =  localStorage.getItem('NoticeAppID');
+      let  pwallet2 =  localStorage.getItem('Pwallet');
+
+
+      let  userid = localStorage.getItem('UserId');
+         this.registerapi
+         .UpdateRenewalPatentById( pwallet ,userid ,this.transactionid)
+         .then((response: any) => {
+
+           console.log("response after payment")
+           console.log(response.content)
+
+           this.router.navigateByUrl('/Dashboard/Invoice');
+
+
+
+
+
+         })
+                  .catch((response: any) => {
+
+                    console.log(response)
+
+
+                   Swal.fire(
+                     response.error.message,
+                     '',
+                     'error'
+                   )
+
+     })
+       }
+
   generateInvoice11() {
     let  pwallet =  localStorage.getItem('NoticeAppID');
     let  pwallet2 =  localStorage.getItem('Pwallet');
@@ -349,6 +385,77 @@ let count = i + 1;
 
    })
      }
+
+
+     generateInvoice13() {
+      let  pwallet =  localStorage.getItem('NoticeAppID');
+      let  pwallet2 =  localStorage.getItem('Pwallet');
+
+
+      let  userid = localStorage.getItem('UserId');
+         this.registerapi
+         .UpdateChangeOfNameById( pwallet ,userid ,this.transactionid)
+         .then((response: any) => {
+
+           console.log("response after payment")
+           console.log(response.content)
+
+           this.router.navigateByUrl('/Dashboard/Invoice');
+
+
+
+
+
+         })
+                  .catch((response: any) => {
+
+                    console.log(response)
+
+
+                   Swal.fire(
+                     response.error.message,
+                     '',
+                     'error'
+                   )
+
+     })
+       }
+
+
+
+       generateInvoice14() {
+        let  pwallet =  localStorage.getItem('NoticeAppID');
+        let  pwallet2 =  localStorage.getItem('Pwallet');
+
+
+        let  userid = localStorage.getItem('UserId');
+           this.registerapi
+           .UpdateChangeOfAddressById( pwallet ,userid ,this.transactionid)
+           .then((response: any) => {
+
+             console.log("response after payment")
+             console.log(response.content)
+
+             this.router.navigateByUrl('/Dashboard/Invoice');
+
+
+
+
+
+           })
+                    .catch((response: any) => {
+
+                      console.log(response)
+
+
+                     Swal.fire(
+                       response.error.message,
+                       '',
+                       'error'
+                     )
+
+       })
+         }
 
   generateInvoice6() {
 
@@ -850,6 +957,19 @@ let count = i + 1;
           this.generateInvoice12()
         }
 
+        if (paytype =="changeofname") {
+          this.generateInvoice13()
+        }
+
+
+        if (paytype =="changeofaddress") {
+          this.generateInvoice14()
+        }
+
+
+        if (paytype =="PayPatentRenewal") {
+          this.generateInvoice15()
+        }
 
 
 
@@ -1049,6 +1169,21 @@ $( document ).ready(function() {
 
         if (paytype =="PayDesignRenewal") {
           this.generateInvoice12()
+        }
+
+
+        if (paytype =="changeofname") {
+          this.generateInvoice13()
+        }
+
+
+        if (paytype =="changeofaddress") {
+          this.generateInvoice14()
+        }
+
+
+        if (paytype =="PayPatentRenewal") {
+          this.generateInvoice15()
         }
 
 

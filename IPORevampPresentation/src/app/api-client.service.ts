@@ -25,7 +25,7 @@ declare var $ :any;
 export class ApiClientService {
   public vpage :string =""
   public changepassword :boolean=false;
- //serviceBase = 'http://localhost:5000/';
+// serviceBase = 'http://localhost:5000/';
 serviceBase = 'http://5.77.54.44/EinaoCldRevamp2/';
 serviceBase2 = 'http://5.77.54.44/EinaoCldRevamp/#/';
 liveurl ="http://5.77.54.44/EinaoTestEnvironment.IpoNigeria"
@@ -2596,6 +2596,38 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    GetRenewalDesignApplicationById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/GetRenewalDesignApplicationById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetRenewalPatentApplicationById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/GetRenewalPatentApplicationById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     GetMergerApplicationById(pp: string,pp2: string ) {
 
       var data = {
@@ -2611,6 +2643,40 @@ RejectUser(pp: string,pp2: string ) {
         });
     }
 
+
+
+    GetChangeOfNameApplicationById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/GetChangeOfNameApplicationById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetChangeOfAddressApplicationById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/GetChangeOfAddressApplicationById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
 //
     GetMergerApplicationByAppId(pp: string,pp2: string ) {
 
@@ -2621,6 +2687,22 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/Recordal/GetMergerApplicationByAppId', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    GetMergerById(pp: string,pp2: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/GetMergerById', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -2729,6 +2811,23 @@ RejectUser(pp: string,pp2: string ) {
     }
 
 
+    UpdateRenewalPatentById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateRenewalPatentById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
     UpdateMergerFormById(pp: string,pp2: string ,pp3: string ) {
 
       var data = {
@@ -2744,6 +2843,42 @@ RejectUser(pp: string,pp2: string ) {
           return data;
         });
     }
+
+
+
+    UpdateChangeOfNameById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateChangeOfNameById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    UpdateChangeOfAddressById(pp: string,pp2: string ,pp3: string ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        TransactionId: pp3
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateChangeOfAddressById', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
 
 
     GetApplicationCount(pp: string,pp2: string  ) {
@@ -2857,6 +2992,95 @@ RejectUser(pp: string,pp2: string ) {
       };
       return this.http
         .get(this.serviceBase + 'api/Recordal/UpdateRenewalFormStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    UpdateRenewalDesignFormStatus(pp: string,pp2: string  ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateRenewalDesignFormStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    UpdateRenewalPatentFormStatus(pp: string,pp2: string  ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateRenewalPatentFormStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    UpdateChangeOfNameStatus(pp: string,pp2: string ,pp3: string  ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        Status :pp3
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateChangeOfNameStatus', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+    UpdateMergerAssignment(pp: string,pp2: string ,pp3: string  ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        Status :pp3
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateMergerAssignment', { params: data })
+        .toPromise()
+        .then((data) => {
+          return data;
+        });
+    }
+
+
+
+    UpdateChangeOfAddressStatus(pp: string,pp2: string ,pp3: string  ) {
+
+      var data = {
+        ApplicationId: pp ,
+        RequestById: pp2 ,
+        Status :pp3
+
+
+      };
+      return this.http
+        .get(this.serviceBase + 'api/Recordal/UpdateChangeOfAddressStatus', { params: data })
         .toPromise()
         .then((data) => {
           return data;
@@ -3113,6 +3337,17 @@ RejectUser(pp: string,pp2: string ) {
   }
 
 
+  SaveRenewalPatentForm(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Recordal/SaveRenewalPatentForm', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
   SaveMergerForm(formData) {
 
 
@@ -3122,6 +3357,29 @@ RejectUser(pp: string,pp2: string ) {
                 .then(data => {  return data; });
 
   }
+
+  SaveChangeOfName(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Recordal/SaveChangeOfName', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
+  SaveChangeOfAddress(formData) {
+
+
+    return this.http.post( this.serviceBase + 'api/Recordal/SaveChangeOfAddress', formData)
+                .toPromise()
+
+                .then(data => {  return data; });
+
+  }
+
+
 
   SaveCertificatePayment(formData) {
 
@@ -3810,6 +4068,43 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+  GetPatentApplicationById3(pp2:string,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignCertificate/GetPatentApplicationById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetPatentApplicationById4(pp2:string,pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/DesignCertificate/GetPatentApplicationById2', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+
   GetApplicationByAppid(pp2:string,pp:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3839,6 +4134,24 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/DesignCertificate/ApplicationCount', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetPatentApplicationByIdCount(pp:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+
+      ApplicationId:pp
+		};
+		return this.http
+			.get(this.serviceBase + 'api/PatentCertificate/ApplicationCount', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -3929,6 +4242,80 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
   }
 
 
+  GetRecordalRenewalCertificate2(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalCertificate2', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+
+  GetRecordalChangeOfName(pp2:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      status:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalChangeOfName', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+
+  GetRecordalMerger(pp2:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      status:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalMerger', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+
+  GetRecordalChangeOfAddress(pp2:string,pp3:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2 ,
+      status:pp3
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalChangeOfAddress', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
   GetRecordalRenewalDesignCertificate(pp2:string) {
     var token = localStorage.getItem('access_tokenexpire');
 
@@ -3939,6 +4326,57 @@ UpDatePatentTransactionById(pp: string ,pp2: string) {
 		};
 		return this.http
 			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalDesignCertificate', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+  GetRecordalRenewalPatentCertificate(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalPatentCertificate', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+
+
+  GetRecordalRenewalPatentCertificate2(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalPatentCertificate2', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
+  GetRecordalRenewalDesignCertificate2(pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/Recordal/GetRecordalRenewalDesignCertificate2', { params: data,headers })
 			.toPromise()
 			.then((data) => {
 				return data;
@@ -4830,6 +5268,25 @@ GetTradeMarkType(pp2:string) {
 				return data;
 			});
   }
+
+
+
+  GetFeeListById(pp : string,pp2:string) {
+    var token = localStorage.getItem('access_tokenexpire');
+
+     const  headers = new  HttpHeaders().set("Authorization", 'Bearer ' + token);
+		var data = {
+      FeeListId:pp,
+      RequestById:pp2
+		};
+		return this.http
+			.get(this.serviceBase + 'api/FeeList/GetFeeListById', { params: data,headers })
+			.toPromise()
+			.then((data) => {
+				return data;
+			});
+  }
+
 
 
   GetStateByCountry(pp : string) {

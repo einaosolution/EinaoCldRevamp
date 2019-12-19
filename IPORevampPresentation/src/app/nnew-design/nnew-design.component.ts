@@ -214,7 +214,7 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
   //  alert("called")
     let  userid = localStorage.getItem('UserId');
     this.registerapi
-.GetFeeListByName(description ,userid)
+.GetFeeListById(description ,userid)
 .then((response: any) => {
 
   console.log("fee  Response")
@@ -253,13 +253,13 @@ varray5 = [{ YearName: 'DEVICES', YearCode: 'DEVICES' }, { YearName: 'WORD MARK'
     // alert("2")
       this.vshow = false;
 
-this.feelist(Fee.REGISTRATIONOFDESIGNSTEXTILE)
+this.feelist(Fee2.REGISTRATIONOFDESIGNSTEXTILE)
     }
 
     else {
     //  alert("1")
       this.vshow = true;
-      this.feelist(Fee.REGISTRATIONOFDESIGNSNONTEXTILE)
+      this.feelist(Fee2.REGISTRATIONOFDESIGNSNONTEXTILE)
     }
   }
 
@@ -2239,11 +2239,11 @@ loaddata() {
 
 
                  if (ptifo[0].designTypeID =="1") {
-                   this.feelist("REGISTRATION OF DESIGNS (TEXTILE)")
+                   this.feelist(Fee2.REGISTRATIONOFDESIGNSTEXTILE)
                  }
 
                  if (ptifo[0].patentTypeID =="2") {
-                     this.feelist("REGISTRATION OF DESIGNS (NON- TEXTILES)")
+                     this.feelist(Fee2.REGISTRATIONOFDESIGNSNONTEXTILE)
                  }
 
 

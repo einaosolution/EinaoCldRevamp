@@ -1,0 +1,108 @@
+<form class="form-login" role="form">
+
+
+  <div [ngBusy]="busy"></div>
+  <div style="width:98%; margin:auto; ;   border: 6px solid #1861a4;">
+      <div class="form-group" style="text-align: center; margin-top: 5px">
+          <img src="assets/images/coat_of_arms.png" />
+          <br>
+          <span>NIGERIA</span>
+      </div>
+      <div class="form-group" style="text-align: center; font-size: 10.5px">
+          Federal Ministry of Industry, Trade and Investment<br>
+          Commercial Law Department,<br>
+          TRADEMARKS, PATENTS AND DESIGNS REGISTRY
+      </div>
+      <div id="dd2" class="image-box">
+          <div class="form-group" style="text-align: center; font-size: 36px; font-family: 'Calibri'; font-weight: bold; color: #000; text-transform:uppercase">
+              Certificate of Assignment
+          </div>
+          <div class="form-group" style="text-align: center; font-size: 18px; font-family: Calibri; font-weight: bold">
+              Trade Marks Act <br />
+              <div class="form-group" style="text-align: center;">
+                  CAP 436 Laws of the Federation of Nigeria 1990; Section 22 (3) Regulation 65
+                  <br />
+              </div>
+              <br />
+              <div  class="align-items-center justify-content-center row"  *ngIf="row7.logo_pic">
+                <img [src]="logopath"  class="img-thumbnail">
+
+              </div>
+
+
+              <div *ngIf="!row7.logo_pic">
+                  NO DEVICE!!
+
+              </div>
+
+
+
+
+
+
+              <div class="form-group">
+
+
+                  I hereby certify that your name has been entered on the Register as Proprietor(s) of the trademark <b>  {{row7.productTitle}} </b>  with File Number <b>  {{row7.filenumber}} </b>   shown above in the name of  <b> {{row5.assigneeName }}  </b> of <b>  {{row5.assigneeAddress}} </b> in class <b>  {{row7.applicationclass}} </b>  in respect of <b>   {{row7.classdescription}} </b> pursuant to the deed of Assignment dated  <b>   {{row5.dateCreated|date}} </b> .
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <b>Sealed at my direction</b>  {{row5.approvalDate|date}}
+                  <br />
+                  <br />
+                  <br />
+                  <b>Trademarks Registry</b> <br />
+                  <b>Federal Ministry of Industry, Trade and Investment</b> <br />
+                  <b>Federal Capital Territory Abuja, Nigeria.</b> <br />
+
+              </div>
+              <div class="form-group" style="text-align: right">
+                  <br />
+                  <br /><br />
+                  <br />
+                  <br/>
+                  <br/>
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;   <img src="assets/Nkiru.jpg" width="100px" /> </b> <br />
+                  <b>&nbsp;&nbsp;&nbsp;&nbsp;  FOR: REGISTRAR,TRADE MARKS</b> <br />
+
+                  <br />
+              </div>
+          </div>
+      </div>
+
+
+      <br/>
+      <br/>
+      <br/>
+
+
+      <br/>
+      <br/>
+      <br/>
+
+      <br/>
+      <br/>
+      <br/>
+
+
+      <br/>
+
+      <div class="align-items-center justify-content-center row">
+
+
+
+
+          <button id="print" class="btn btn-default btn-outline no-print" type="button" (click)="print2()"> <span><i class="fa fa-print"></i> Print</span> </button>
+
+
+
+      </div>
+
+  </div>
+
+
+
+
+
+      </form>

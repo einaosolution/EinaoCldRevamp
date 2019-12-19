@@ -366,6 +366,37 @@ namespace IPORevamp.WebAPI.Controllers
         }
 
 
+        [HttpGet("ApplicationCount")]
+        public async Task<IActionResult> ApplicationCount([FromQuery] string ApplicationId)
+        {
+            string ip = "";
+
+            ip = Request.Headers["ip"];
+
+            //var result = (from p in _contex.DesignApplication where p.Id == Convert.ToInt32(ApplicationId) select p).FirstOrDefault();
+            var result2 = (from p in _contex.PatentApplication join c in _contex.PatentInformation on p.Id equals c.PatentApplicationID join d in _contex.PatentApplicationHistory on p.Id equals d.PatentApplicationID where c.RegistrationNumber == ApplicationId && d.ToStatus == STATUS.Paid && d.ToDataStatus == DATASTATUS.Certificate select p).Count();
+
+
+
+
+
+            // Added A New Country 
+
+
+            return PrepareResponse(HttpStatusCode.OK, "Confirm  Returned Successfully", false, result2);
+
+
+
+
+
+
+
+
+
+
+
+        }
+
         [HttpGet("GetUserByApplication")]
         public async Task<IActionResult> GetPatentPaidCertificate([FromQuery] string RequestById, [FromQuery] string ApplicationId)
         {
